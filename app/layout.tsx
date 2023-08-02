@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <body>
-        <main className='min-h-screen bg-background flex flex-col items-center'>
+        <main className='min-h-screen bg-background flex flex-col items-center bg-white dark:bg-slate-800'>
           <StyledComponentsRegistry>
             <DarkModeProvider>{children}</DarkModeProvider>
           </StyledComponentsRegistry>
