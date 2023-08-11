@@ -5,7 +5,7 @@ import DarkModeToggle from './DarkModeToggle';
 import LogoutButton from './LogoutButton';
 import { type User } from '@supabase/supabase-js';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { IconBell, IconMenu, IconX } from '@tabler/icons-react';
+import { IconBell, IconMenu2, IconSearch, IconX } from '@tabler/icons-react';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -58,14 +58,21 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </div>
               <div className='hidden md:block'>
                 <div className='ml-4 flex items-center md:ml-6'>
-                  <button
+                  <IconSearch className='mr-3 h-6 w-6 text-gray-400' aria-hidden='true' />
+                  <input
+                    type='search'
+                    name='search-main'
+                    id='search-main'
+                    className='hidden lg:block bg-gray-700 rounded h-8 focus:bg-slate-100 focus:outline-none'
+                  />
+                  {/* <button
                     type='button'
                     className='relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                     <span className='absolute -inset-1.5' />
                     <span className='sr-only'>View notifications</span>
                     <IconBell className='h-6 w-6' aria-hidden='true' />
-                  </button>
-                  <DarkModeToggle />
+                  </button> */}
+                  <DarkModeToggle className='ml-3' />
 
                   {/* Profile dropdown */}
                   <Menu as='div' className='relative ml-3'>
@@ -104,7 +111,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
-                  {open ? <IconX className='block h-6 w-6' aria-hidden='true' /> : <IconMenu className='block h-6 w-6' aria-hidden='true' />}
+                  {open ? <IconX className='block h-6 w-6' aria-hidden='true' /> : <IconMenu2 className='block h-6 w-6' aria-hidden='true' />}
                 </Disclosure.Button>
               </div>
             </div>
