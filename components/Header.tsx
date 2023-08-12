@@ -20,6 +20,7 @@ import {
 } from '@nextui-org/react';
 import Logo from './Logo';
 import { useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -28,6 +29,7 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const activeSegment = useSelectedLayoutSegment();
+  const router = useRouter();
 
   const navLinks = [
     { href: '/movies', label: 'Movies', targetSegment: 'movies' },
@@ -92,16 +94,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
         </Dropdown>
 
         <DarkModeToggle />
-        {/* <NavbarItem className='hidden lg:flex'>
-          <Button as={Link} color='primary' href='#' variant='flat'>
-            Login
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color='primary' href='#' variant='flat'>
-            Sign Up
-          </Button>
-        </NavbarItem> */}
+
         <Dropdown placement='bottom-end'>
           <DropdownTrigger>
             <Avatar
@@ -114,17 +107,27 @@ const Header: FC<HeaderProps> = ({ user }) => {
               src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
             />
           </DropdownTrigger>
-          <DropdownMenu aria-label='Profile Actions' variant='flat'>
-            <DropdownItem key='profile' className='h-14 gap-2'>
-              <p className='font-semibold'>Signed in as</p>
-              <p className='font-semibold'>zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem key='help'>Help</DropdownItem>
-            <DropdownItem key='about'>About</DropdownItem>
-            <DropdownItem key='logout' color='danger'>
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
+          {!user?.id ? (
+            <DropdownMenu aria-label='Profile Actions' variant='flat'>
+              <DropdownItem key='login' onClick={() => router.push('/login')}>
+                Login
+              </DropdownItem>
+              <DropdownItem key='help'>Help</DropdownItem>
+              <DropdownItem key='about'>About</DropdownItem>
+            </DropdownMenu>
+          ) : (
+            <DropdownMenu aria-label='Profile Actions' variant='flat'>
+              <DropdownItem key='profile' className='h-14 gap-2'>
+                <p className='font-semibold'>Signed in as</p>
+                <p className='font-semibold'>{user.email}</p>
+              </DropdownItem>
+              <DropdownItem key='help'>Help</DropdownItem>
+              <DropdownItem key='about'>About</DropdownItem>
+              <DropdownItem key='logout' color='danger'>
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          )}
         </Dropdown>
       </NavbarContent>
 

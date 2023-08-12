@@ -14,24 +14,24 @@ export default function Login() {
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
-    });
+    // await supabase.auth.signUp({
+    //   email,
+    //   password,
+    //   options: {
+    //     emailRedirectTo: `${location.origin}/auth/callback`,
+    //   },
+    // });
     setView('check-email');
   };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    router.push('/');
-    router.refresh();
+    // await supabase.auth.signInWithPassword({
+    //   email,
+    //   password,
+    // });
+    // router.push('/');
+    // router.refresh();
   };
 
   return (
@@ -42,8 +42,11 @@ export default function Login() {
         </p>
       ) : (
         <form
+          action='/auth/login'
+          method='post'
           className='flex-1 flex flex-col w-full justify-center gap-2 text-foreground'
-          onSubmit={view === 'sign-in' ? handleSignIn : handleSignUp}>
+          // onSubmit={view === 'sign-in' ? handleSignIn : handleSignUp}
+        >
           <label className='text-md' htmlFor='email'>
             Email
           </label>
@@ -70,7 +73,7 @@ export default function Login() {
               <button className='bg-green-700 rounded px-4 py-2 text-white mb-6'>Sign In</button>
               <p className='text-sm text-center'>
                 Don&apos;t have an account?
-                <button className='ml-1 underline' onClick={() => setView('sign-up')}>
+                <button formAction='/auth/sign-up' className='ml-1 underline' onClick={() => setView('sign-up')}>
                   Sign Up Now
                 </button>
               </p>
