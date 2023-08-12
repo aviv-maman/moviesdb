@@ -5,7 +5,6 @@ import { type User } from '@supabase/supabase-js';
 import { IconMenu2, IconSearch, IconX } from '@tabler/icons-react';
 import {
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   Link,
@@ -15,13 +14,12 @@ import {
   Dropdown,
   DropdownMenu,
   Avatar,
-  Button,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
 } from '@nextui-org/react';
 import Logo from './Logo';
-import LogoutButton from './LogoutButton';
+import { useSelectedLayoutSegment } from 'next/navigation';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -29,42 +27,30 @@ type HeaderProps = {
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const activeSegment = useSelectedLayoutSegment();
 
-  const menuItems = [
-    'Profile',
-    'Dashboard',
-    'Activity',
-    'Analytics',
-    'System',
-    'Deployments',
-    'My Settings',
-    'Team Settings',
-    'Help & Feedback',
-    'Log Out',
+  const navLinks = [
+    { href: '/movies', label: 'Movies', targetSegment: 'movies' },
+    { href: '/series', label: 'Series', targetSegment: 'series' },
+    // { href: '/watch-list', label: 'Watch List', targetSegment: 'watch-list' },
   ];
+
+  const headerItems = navLinks.map((link) => (
+    <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
+      <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
+        {link.label}
+      </Link>
+    </NavbarItem>
+  ));
+
+  const menuItems = ['Profile', 'Help', 'About', 'Log Out'];
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
         <Logo />
-        <NavbarContent className='hidden sm:flex gap-3'>
-          <NavbarItem>
-            <Link color='foreground' href='#'>
-              Movies
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link href='#' aria-current='page' color='secondary'>
-              Series
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color='foreground' href='#'>
-              Help
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
+        <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent>
       </NavbarContent>
 
       <NavbarContent className='items-center' justify='end'>
@@ -79,9 +65,32 @@ const Header: FC<HeaderProps> = ({ user }) => {
           startContent={<IconSearch size={18} />}
           type='search'
         />
-        <Button type='button' isIconOnly className='md:hidden' variant='faded'>
+
+        {/* <Button type='button' isIconOnly className='md:hidden' variant='faded'>
           <IconSearch size={18} />
-        </Button>
+        </Button> */}
+
+        <Dropdown placement='bottom-end' className='md:hidden'>
+          <DropdownTrigger className='md:hidden'>
+            <IconSearch size={18} />
+          </DropdownTrigger>
+          <DropdownMenu aria-label='Search' variant='flat'>
+            <DropdownItem key='search-dropdown' isReadOnly>
+              <Input
+                classNames={{
+                  base: 'max-w-full',
+                  input: 'text-small',
+                  inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+                }}
+                placeholder='Type to search...'
+                size='sm'
+                startContent={<IconSearch size={18} />}
+                type='search'
+              />
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
         <DarkModeToggle />
         {/* <NavbarItem className='hidden lg:flex'>
           <Button as={Link} color='primary' href='#' variant='flat'>
@@ -99,7 +108,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
               isBordered
               as='button'
               className='transition-transform'
-              color='secondary'
+              color='default'
               name='Jason Hughes'
               size='sm'
               src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
@@ -110,12 +119,8 @@ const Header: FC<HeaderProps> = ({ user }) => {
               <p className='font-semibold'>Signed in as</p>
               <p className='font-semibold'>zoey@example.com</p>
             </DropdownItem>
-            <DropdownItem key='settings'>My Settings</DropdownItem>
-            <DropdownItem key='team_settings'>Team Settings</DropdownItem>
-            <DropdownItem key='analytics'>Analytics</DropdownItem>
-            <DropdownItem key='system'>System</DropdownItem>
-            <DropdownItem key='configurations'>Configurations</DropdownItem>
-            <DropdownItem key='help_and_feedback'>Help & Feedback</DropdownItem>
+            <DropdownItem key='help'>Help</DropdownItem>
+            <DropdownItem key='about'>About</DropdownItem>
             <DropdownItem key='logout' color='danger'>
               Log Out
             </DropdownItem>
