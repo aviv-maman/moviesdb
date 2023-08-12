@@ -1,177 +1,138 @@
 'use client';
-import { type FC, Fragment } from 'react';
-import Link from 'next/link';
+import { useState, type FC } from 'react';
 import DarkModeToggle from './DarkModeToggle';
-import LogoutButton from './LogoutButton';
 import { type User } from '@supabase/supabase-js';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { IconBell, IconMenu2, IconSearch, IconX } from '@tabler/icons-react';
-
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
+import { IconMenu2, IconSearch, IconX } from '@tabler/icons-react';
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Input,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
+  Button,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from '@nextui-org/react';
+import Logo from './Logo';
+import LogoutButton from './LogoutButton';
 
 type HeaderProps = {
   user?: User | null | undefined;
 };
 
 const Header: FC<HeaderProps> = ({ user }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuItems = [
+    'Profile',
+    'Dashboard',
+    'Activity',
+    'Analytics',
+    'System',
+    'Deployments',
+    'My Settings',
+    'Team Settings',
+    'Help & Feedback',
+    'Log Out',
+  ];
+
   return (
-    <Disclosure as='nav' className='bg-gray-800'>
-      {({ open }) => (
-        <>
-          <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-            <div className='flex h-16 items-center justify-between'>
-              <div className='flex items-center'>
-                <div className='flex-shrink-0'>
-                  <img className='h-8 w-8' src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500' alt='Your Company' />
-                </div>
-                <div className='hidden md:block'>
-                  <div className='ml-10 flex items-baseline space-x-4'>
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}>
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className='hidden md:block'>
-                <div className='ml-4 flex items-center md:ml-6'>
-                  <IconSearch className='mr-3 h-6 w-6 text-gray-400' aria-hidden='true' />
-                  <input
-                    type='search'
-                    name='search-main'
-                    id='search-main'
-                    className='hidden lg:block bg-gray-700 rounded h-8 focus:bg-slate-100 focus:outline-none'
-                  />
-                  {/* <button
-                    type='button'
-                    className='relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-                    <span className='absolute -inset-1.5' />
-                    <span className='sr-only'>View notifications</span>
-                    <IconBell className='h-6 w-6' aria-hidden='true' />
-                  </button> */}
-                  <DarkModeToggle className='ml-3' />
+    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+      <NavbarContent justify='start'>
+        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
+        <Logo />
+        <NavbarContent className='hidden sm:flex gap-3'>
+          <NavbarItem>
+            <Link color='foreground' href='#'>
+              Movies
+            </Link>
+          </NavbarItem>
+          <NavbarItem isActive>
+            <Link href='#' aria-current='page' color='secondary'>
+              Series
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color='foreground' href='#'>
+              Help
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+      </NavbarContent>
 
-                  {/* Profile dropdown */}
-                  <Menu as='div' className='relative ml-3'>
-                    <div>
-                      <Menu.Button className='relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-                        <span className='absolute -inset-1.5' />
-                        <span className='sr-only'>Open user menu</span>
-                        <img className='h-8 w-8 rounded-full' src={'user?.avatar_url'} alt='' />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter='transition ease-out duration-100'
-                      enterFrom='transform opacity-0 scale-95'
-                      enterTo='transform opacity-100 scale-100'
-                      leave='transition ease-in duration-75'
-                      leaveFrom='transform opacity-100 scale-100'
-                      leaveTo='transform opacity-0 scale-95'>
-                      <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                        {userNavigation.map((item) => (
-                          <Menu.Item key={item.name}>
-                            {({ active }) => (
-                              <a href={item.href} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                                {item.name}
-                              </a>
-                            )}
-                          </Menu.Item>
-                        ))}
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
-              </div>
-              <div className='-mr-2 flex md:hidden'>
-                {/* Mobile menu button */}
-                <Disclosure.Button className='relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-                  <span className='absolute -inset-0.5' />
-                  <span className='sr-only'>Open main menu</span>
-                  {open ? <IconX className='block h-6 w-6' aria-hidden='true' /> : <IconMenu2 className='block h-6 w-6' aria-hidden='true' />}
-                </Disclosure.Button>
-              </div>
-            </div>
-          </div>
+      <NavbarContent className='items-center' justify='end'>
+        <Input
+          classNames={{
+            base: 'max-w-full sm:max-w-[20rem] h-max hidden md:block',
+            input: 'text-small',
+            inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+          }}
+          placeholder='Type to search...'
+          size='sm'
+          startContent={<IconSearch size={18} />}
+          type='search'
+        />
+        <Button type='button' isIconOnly className='md:hidden' variant='faded'>
+          <IconSearch size={18} />
+        </Button>
+        <DarkModeToggle />
+        {/* <NavbarItem className='hidden lg:flex'>
+          <Button as={Link} color='primary' href='#' variant='flat'>
+            Login
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button as={Link} color='primary' href='#' variant='flat'>
+            Sign Up
+          </Button>
+        </NavbarItem> */}
+        <Dropdown placement='bottom-end'>
+          <DropdownTrigger>
+            <Avatar
+              isBordered
+              as='button'
+              className='transition-transform'
+              color='secondary'
+              name='Jason Hughes'
+              size='sm'
+              src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label='Profile Actions' variant='flat'>
+            <DropdownItem key='profile' className='h-14 gap-2'>
+              <p className='font-semibold'>Signed in as</p>
+              <p className='font-semibold'>zoey@example.com</p>
+            </DropdownItem>
+            <DropdownItem key='settings'>My Settings</DropdownItem>
+            <DropdownItem key='team_settings'>Team Settings</DropdownItem>
+            <DropdownItem key='analytics'>Analytics</DropdownItem>
+            <DropdownItem key='system'>System</DropdownItem>
+            <DropdownItem key='configurations'>Configurations</DropdownItem>
+            <DropdownItem key='help_and_feedback'>Help & Feedback</DropdownItem>
+            <DropdownItem key='logout' color='danger'>
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
 
-          <Disclosure.Panel className='md:hidden'>
-            <div className='space-y-1 px-2 pb-3 pt-2 sm:px-3'>
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as='a'
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}>
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-            <div className='border-t border-gray-700 pb-3 pt-4'>
-              <div className='flex items-center px-5'>
-                <div className='flex-shrink-0'>
-                  <img className='h-10 w-10 rounded-full' src={'user?.imageUrl'} alt='' />
-                </div>
-                <div className='ml-3'>
-                  <div className='text-base font-medium leading-none text-white'>{'user.name'}</div>
-                  <div className='text-sm font-medium leading-none text-gray-400'>{user?.email}</div>
-                </div>
-                <button
-                  type='button'
-                  className='relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-                  <span className='absolute -inset-1.5' />
-                  <span className='sr-only'>View notifications</span>
-                  <IconBell className='h-6 w-6' aria-hidden='true' />
-                </button>
-                <DarkModeToggle />
-              </div>
-              <div className='mt-3 space-y-1 px-2'>
-                {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as='a'
-                    href={item.href}
-                    className='block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white'>
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-            </div>
-          </Disclosure.Panel>
-          <header className='bg-slate-400 dark:bg-slate-300 shadow'>
-            <div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
-              <h1 className='text-3xl font-bold tracking-tight text-gray-900'>Dashboard</h1>
-            </div>
-          </header>
-        </>
-      )}
-    </Disclosure>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link color={index === 2 ? 'primary' : index === menuItems.length - 1 ? 'danger' : 'foreground'} className='w-full' href='#' size='lg'>
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </Navbar>
   );
 };
 

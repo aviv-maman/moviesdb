@@ -1,14 +1,21 @@
 'use client';
+import { Button } from '@nextui-org/react';
 import { useDarkMode } from '../context/DarkModeContext';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 
-function DarkModeToggle({ color = 'rgb(156 163 175 / var(--tw-bg-opacity))', size = '1.5rem', className = '' }) {
+type DarkModeToggleProps = {
+  color?: string;
+  size?: string | number;
+  className?: string;
+};
+
+function DarkModeToggle({ color, size = '1.5rem', className }: DarkModeToggleProps) {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
-    <button type='button' onClick={toggleDarkMode} className={`${className} relative rounded-full bg-gray-800 p-1 text-gray-400`}>
+    <Button type='button' isIconOnly onClick={toggleDarkMode} className={`${className}`} variant='faded'>
       {isDarkMode ? <IconSun color={color} size={size} /> : <IconMoon color={color} size={size} />}
-    </button>
+    </Button>
   );
 }
 
