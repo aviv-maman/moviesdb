@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@nextui-org/react';
 import { useDarkMode } from '../context/DarkModeContext';
 import { IconMoon, IconSun } from '@tabler/icons-react';

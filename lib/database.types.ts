@@ -3,24 +3,30 @@ export type Json = string | number | boolean | null | { [key: string]: Json } | 
 export interface Database {
   public: {
     Tables: {
-      posts: {
+      profiles: {
         Row: {
-          content: string;
-          created_at: string;
-          id: number;
-          user_id: string | null;
+          id: string;
+          updated_at: string | null;
+          username: string | null;
+          full_name: string | null;
+          avatar_url: string | null;
+          website: string | null;
         };
         Insert: {
-          content: string;
-          created_at?: string;
-          id?: number;
-          user_id?: string | null;
+          id: string;
+          updated_at?: string | null;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+          website?: string | null;
         };
         Update: {
-          content?: string;
-          created_at?: string;
-          id?: number;
-          user_id?: string | null;
+          id?: string;
+          updated_at?: string | null;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+          website?: string | null;
         };
       };
     };
@@ -33,8 +39,7 @@ export interface Database {
     Enums: {
       [_ in never]: never;
     };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
   };
 }
+
+export type Profile = Database['public']['Tables']['profiles']['Row'];

@@ -1,4 +1,5 @@
 'use client';
+
 import { IconChevronRight, IconChevronLeft, IconPoint, IconPointFilled } from '@tabler/icons-react';
 import { useState, type FC } from 'react';
 

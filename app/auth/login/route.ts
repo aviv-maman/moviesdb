@@ -13,12 +13,20 @@ export async function POST(request: Request) {
   const password = String(formData.get('password'));
   const supabase = createRouteHandlerClient<Database>({ cookies });
 
-  await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
+  if (error) {
+    return NextResponse.redirect(`${requestUrl.origin}/login?error=Could not authenticate user`, {
+      // a 301 status is required to redirect from a POST to a GET route
+      status: 301,
+    });
+  }
+
   return NextResponse.redirect(requestUrl.origin, {
+    // a 301 status is required to redirect from a POST to a GET route
     status: 301,
   });
 }

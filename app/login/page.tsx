@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/lib/database.types';
+import type { Database } from '@/lib/database.types';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { useDarkMode } from '@/context/DarkModeContext';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,6 +14,7 @@ export default function Login() {
   const [view, setView] = useState('sign-in');
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
+  const { isDarkMode } = useDarkMode();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -92,6 +96,16 @@ export default function Login() {
           )}
         </form>
       )}
+
+      <Auth
+        supabaseClient={supabase}
+        view='sign_in'
+        appearance={{ theme: ThemeSupa }}
+        theme={isDarkMode ? 'dark' : 'light'}
+        showLinks={false}
+        providers={[]}
+        redirectTo={`${location.origin}/auth/callback`}
+      />
     </div>
   );
 }

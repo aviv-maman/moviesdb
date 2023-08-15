@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, type FC } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import { type User } from '@supabase/supabase-js';
@@ -21,15 +22,20 @@ import {
 import Logo from './Logo';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import type { Profile, Database } from '@/lib/database.types';
 
 type HeaderProps = {
   user?: User | null | undefined;
+  profile?: Profile | null | undefined;
 };
 
-const Header: FC<HeaderProps> = ({ user }) => {
+const Header: FC<HeaderProps> = ({ user, profile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const activeSegment = useSelectedLayoutSegment();
   const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const navLinks = [
     { href: '/movies', label: 'Movies', targetSegment: 'movies' },
@@ -47,11 +53,24 @@ const Header: FC<HeaderProps> = ({ user }) => {
 
   const menuItems = ['Profile', 'Help', 'About', 'Log Out'];
 
+  const handleSignOut = async () => {
+    setIsLoading(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) console.log('Error logging out:', error.message);
+    setIsLoading(false);
+    router.refresh();
+  };
+
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
-        <Logo />
+        <NavbarContent justify='start'>
+          <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-3'>
+            <Logo />
+            <span className='hidden md:inline-block'>RottenPopcorn</span>
+          </div>
+        </NavbarContent>
         <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent>
       </NavbarContent>
 
@@ -102,9 +121,9 @@ const Header: FC<HeaderProps> = ({ user }) => {
               as='button'
               className='transition-transform'
               color='default'
-              name='Jason Hughes'
+              name={profile?.full_name || undefined}
               size='sm'
-              src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
+              src={profile?.avatar_url || undefined}
             />
           </DropdownTrigger>
           {!user?.id ? (
@@ -116,14 +135,14 @@ const Header: FC<HeaderProps> = ({ user }) => {
               <DropdownItem key='about'>About</DropdownItem>
             </DropdownMenu>
           ) : (
-            <DropdownMenu aria-label='Profile Actions' variant='flat'>
+            <DropdownMenu aria-label='Profile Actions' variant='flat' disabledKeys={[isLoading ? 'logout' : '']}>
               <DropdownItem key='profile' className='h-14 gap-2'>
                 <p className='font-semibold'>Signed in as</p>
                 <p className='font-semibold'>{user.email}</p>
               </DropdownItem>
               <DropdownItem key='help'>Help</DropdownItem>
               <DropdownItem key='about'>About</DropdownItem>
-              <DropdownItem key='logout' color='danger'>
+              <DropdownItem key='logout' color='danger' onClick={handleSignOut}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
 import '../styles/globals.css';
 import Header from '@/components/Header';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 import { type Metadata } from 'next';
+import { getProfile } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Rotten Popcorn',
@@ -26,12 +27,16 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { profile, error: profileError } = await getProfile();
+
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
       <body className={`${inter.className} h-full text-foreground bg-background antialiased`}>
         <Providers>
-          <Header user={user} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Header user={user} profile={profile} />
+          </Suspense>
           <main className='py-6 sm:px-6 lg:px-8'>{children}</main>
           <Footer />
         </Providers>
