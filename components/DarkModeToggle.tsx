@@ -14,7 +14,13 @@ function DarkModeToggle({ color, size = '1.5rem', className }: DarkModeTogglePro
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
-    <Button type='button' isIconOnly onClick={toggleDarkMode} className={`${className}`} variant='faded'>
+    <Button
+      type='button'
+      isIconOnly
+      onClick={toggleDarkMode}
+      className={`${className} border border-neutral-300 dark:border-neutral-800`}
+      aria-label='Toggle dark mode'
+      variant='light'>
       {isDarkMode ? <IconSun color={color} size={size} /> : <IconMoon color={color} size={size} />}
     </Button>
   );

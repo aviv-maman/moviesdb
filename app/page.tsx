@@ -64,7 +64,7 @@ export default async function Index() {
             {resources.map(({ title, subtitle, url, icon }) => (
               <a
                 key={title}
-                className='relative flex flex-col group rounded-lg border p-6 hover:border-foreground'
+                className='relative flex flex-col group rounded-lg border p-6 hover:border-sky-400'
                 href={url}
                 target='_blank'
                 rel='noreferrer'>
