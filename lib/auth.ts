@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 
 import type { Profile, Database } from './database.types';
-import { PostgrestError } from '@supabase/supabase-js';
+import type { PostgrestError } from '@supabase/supabase-js';
 
 export const createServerSupabaseClient = cache(() => createServerComponentClient<Database>({ cookies }));
 
@@ -15,7 +15,7 @@ export async function getSession() {
     } = await supabase.auth.getSession();
     return session;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('getSession Error:', error);
     return null;
   }
 }
@@ -27,7 +27,7 @@ export async function getUserDetails() {
     const { data: userDetails } = await supabase.from('users').select('*').single();
     return userDetails as Profile | null;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('getUserDetails Error:', error);
     return null;
   }
 }
@@ -38,7 +38,7 @@ export async function signOut() {
     const authError = await supabase.auth.signOut();
     return authError.error;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('signOut Error:', error);
   }
 }
 
@@ -52,7 +52,7 @@ export async function getProfile() {
     }
     return { profile, error } as { profile: Profile | null; error: PostgrestError | null };
   } catch (error) {
-    console.error('Error:', error);
+    console.error('getProfile Error:', error);
     return { profile: null, error };
   }
 }

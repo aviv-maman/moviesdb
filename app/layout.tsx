@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { profile, error: profileError } = await getProfile();
+  // const { profile, error: profileError } = await getProfile();
 
   return (
     <html lang='en' suppressHydrationWarning>
@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body className={`${inter.className} h-full text-foreground bg-background antialiased`}>
         <Providers>
           <Suspense fallback={<div>Loading...</div>}>
-            <Header user={user} profile={profile} />
+            <Header user={user} />
           </Suspense>
           <main className='py-6 sm:px-6 lg:px-8'>{children}</main>
           <Footer />
