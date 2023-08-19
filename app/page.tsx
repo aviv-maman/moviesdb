@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import SupabaseLogo from '../components/SupabaseLogo';
-import NextJsLogo from '../components/NextJsLogo';
 import Carousel from '@/components/Carousel';
 
 import trendingMedia from '@/lib/dummy-data/trending-all.json';
 import popularMovies from '@/lib/dummy-data/popular-movies.json';
 import topMovies from '@/lib/dummy-data/top_rated-movies.json';
-import type { ListResponse } from '@/lib/api.types';
+import upcomingMovies from '@/lib/dummy-data/upcoming-movies.json';
+import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,24 +34,24 @@ export default async function Index() {
   const trendingData = trendingMedia as ListResponse;
   const popularMoviesData = popularMovies as ListResponse;
   const topMoviesData = topMovies as ListResponse;
+  const upcomingMoviesData = upcomingMovies as UpcomingListResponse;
+
+  const backgroundLoader = (width: 'w300' | 'w780' | 'w1280' | 'original', index?: number) => {
+    const chosenNumber = index || Math.floor(Math.random() * 10);
+    return `https://image.tmdb.org/t/p/${width}${popularMoviesData.results[chosenNumber].backdrop_path}`;
+  };
 
   return (
     <div className='w-full flex flex-col items-center'>
-      <div className='animate-in flex flex-col gap-14 max-w-4xl px-3 py-16 lg:py-24'>
-        <div className='flex flex-col items-center mb-4 lg:mb-12'>
-          <div className='flex gap-8 justify-center items-center'>
-            <Link href='https://supabase.com/' target='_blank'>
-              <SupabaseLogo />
-            </Link>
-            <span className='border-l rotate-45 h-6' />
-            <NextJsLogo />
-          </div>
-          <h1 className='sr-only'>Supabase and Next.js Starter Template</h1>
-          <p className='text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12'>
-            The fastest way to start building apps with <strong>Supabase</strong> and <strong>Next.js</strong>
-          </p>
-          <div className='py-3 px-6 rounded-lg font-mono text-sm'>
-            Get started by editing <strong>app/page.tsx</strong>
+      <div className='animate-in flex flex-col gap-14 max-w-4xl'>
+        <div
+          className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96 bg-[url('https://image.tmdb.org/t/p/w1280/gMJngTNfaqCSCqGD4y8lVMZXKDn.jpg')]`}>
+          <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-gradient-to-b from-[#00000099]'>
+            <div className='flex h-full items-center justify-center'>
+              <p className='text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12 text-white'>
+                The easiest way to discover <strong>movies</strong> and <strong>series</strong>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -104,14 +103,15 @@ export default async function Index() {
 
         <div className='flex justify-center text-center text-xs text-slate-900 dark:text-white'>
           <p>
-            Powered by{' '}
-            <Link href='https://supabase.com/' target='_blank' className='font-bold'>
-              Supabase
+            Created by{' '}
+            <Link href='https://www.linkedin.com/in/aviv-maman-914a95223' target='_blank' className='font-bold'>
+              Aviv Maman
             </Link>
           </p>
         </div>
         <Carousel tabs={['Trending']} data={[trendingData]} />
         <Carousel tabs={['Popular', 'Top Rated']} data={[popularMoviesData, topMoviesData]} />
+        <Carousel tabs={['Upcoming Movies']} data={[upcomingMoviesData]} />
       </div>
     </div>
   );

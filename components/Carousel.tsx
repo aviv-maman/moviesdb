@@ -4,11 +4,11 @@ import { type FC } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
-import type { ListResponse } from '@/lib/api.types';
+import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
 interface CarouselProps {
   descriptions?: string[];
   tabs?: string[];
-  data: ListResponse[];
+  data: ListResponse[] | UpcomingListResponse[];
 }
 
 const Carousel: FC<CarouselProps> = ({ descriptions, tabs, data }) => {
@@ -18,13 +18,13 @@ const Carousel: FC<CarouselProps> = ({ descriptions, tabs, data }) => {
     <div className='max-w-[1400px] w-full m-auto'>
       <Card className='max-w-full'>
         <CardBody className='overflow-hidden'>
-          <Tabs size='md' aria-label='Tabs form'>
+          <Tabs size='md' aria-label='Tabs section'>
             {resultsArray.map((results, resultsIndex) => (
               <Tab key={`tab-${resultsIndex}`} title={tabs ? tabs[resultsIndex] : undefined}>
                 <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 3 }}>
                   {results.map((slide, slideIndex) => (
                     <SplideSlide key={slideIndex}>
-                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Picture of the author' width={400} height={500} />
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
                     </SplideSlide>
                   ))}
                 </Splide>
