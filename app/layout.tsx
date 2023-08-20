@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <Suspense fallback={<div>Loading...</div>}>
             <Header user={user} />
           </Suspense>
-          <main className='py-6 sm:px-6 lg:px-8'>{children}</main>
+          <main className='pb-6 sm:px-6 lg:px-8'>{children}</main>
           <Footer />
         </Providers>
       </body>

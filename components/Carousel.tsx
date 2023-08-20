@@ -21,7 +21,31 @@ const Carousel: FC<CarouselProps> = ({ descriptions, tabs, data }) => {
           <Tabs size='md' aria-label='Tabs section'>
             {resultsArray.map((results, resultsIndex) => (
               <Tab key={`tab-${resultsIndex}`} title={tabs ? tabs[resultsIndex] : undefined}>
-                <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 3 }}>
+                <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 2 }} className='block sm:hidden'>
+                  {results.map((slide, slideIndex) => (
+                    <SplideSlide key={slideIndex}>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+
+                <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 3 }} className='hidden sm:max-md:block'>
+                  {results.map((slide, slideIndex) => (
+                    <SplideSlide key={slideIndex}>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+
+                <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 4 }} className='hidden md:max-lg:block'>
+                  {results.map((slide, slideIndex) => (
+                    <SplideSlide key={slideIndex}>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    </SplideSlide>
+                  ))}
+                </Splide>
+
+                <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 6 }} className='hidden lg:block'>
                   {results.map((slide, slideIndex) => (
                     <SplideSlide key={slideIndex}>
                       <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
