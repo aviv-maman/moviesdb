@@ -45,7 +45,8 @@ export default async function Index() {
     <div className='w-full flex flex-col items-center'>
       <div className='animate-in flex flex-col gap-14 max-w-4xl'>
         <div
-          className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96 bg-[url('https://image.tmdb.org/t/p/w1280/gMJngTNfaqCSCqGD4y8lVMZXKDn.jpg')]`}>
+          style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
+          className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}>
           <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-gradient-to-b from-[#00000099]'>
             <div className='flex h-full items-center justify-center'>
               <p className='text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12 text-white'>
