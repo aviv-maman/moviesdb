@@ -37,7 +37,7 @@ export default async function Index() {
   const upcomingMoviesData = upcomingMovies as UpcomingListResponse;
 
   const backgroundLoader = (width: 'w300' | 'w780' | 'w1280' | 'original', index?: number) => {
-    const chosenNumber = index || Math.floor(Math.random() * 10);
+    const chosenNumber = index || Math.floor(Math.random() * 19);
     return `https://image.tmdb.org/t/p/${width}${popularMoviesData.results[chosenNumber].backdrop_path}`;
   };
 
@@ -110,9 +110,17 @@ export default async function Index() {
             </Link>
           </p>
         </div>
-        <Carousel tabs={['Trending']} data={[trendingData]} />
-        <Carousel tabs={['Popular', 'Top Rated']} data={[popularMoviesData, topMoviesData]} />
-        <Carousel tabs={['Upcoming Movies']} data={[upcomingMoviesData]} />
+        <h4 className='font-bold text-large'>Trending</h4>
+        <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
+        <h4 className='font-bold text-large'>Popular</h4>
+        <Carousel
+          tabs={['All', 'Streaming', 'On TV', 'For Rent', 'In Theaters']}
+          data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData, popularMoviesData]}
+        />
+        <h4 className='font-bold text-large'>Top Rated</h4>
+        <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
+        <h4 className='font-bold text-large'>Upcoming</h4>
+        <Carousel data={[upcomingMoviesData]} />
       </div>
     </div>
   );
