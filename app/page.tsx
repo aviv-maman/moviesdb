@@ -113,10 +113,7 @@ export default async function Index() {
         <h4 className='font-bold text-large'>Trending</h4>
         <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
         <h4 className='font-bold text-large'>Popular</h4>
-        <Carousel
-          tabs={['All', 'Streaming', 'On TV', 'For Rent', 'In Theaters']}
-          data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData, popularMoviesData]}
-        />
+        <Carousel tabs={['All', 'Streaming', 'On TV', 'In Theaters']} data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]} />
         <h4 className='font-bold text-large'>Top Rated</h4>
         <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
         <h4 className='font-bold text-large'>Upcoming</h4>
