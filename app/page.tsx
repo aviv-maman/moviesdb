@@ -43,7 +43,7 @@ export default async function Index() {
 
   return (
     <div className='w-full flex flex-col items-center'>
-      <div className='animate-in flex flex-col gap-14 max-w-7xl'>
+      <div className='animate-in flex flex-col gap-7 max-w-7xl'>
         <div
           style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
           className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}>
@@ -110,13 +110,13 @@ export default async function Index() {
             </Link>
           </p>
         </div>
-        <h4 className='font-bold text-large'>Trending</h4>
+        <h1 className='font-bold text-2xl'>Trending</h1>
         <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
-        <h4 className='font-bold text-large'>Popular</h4>
+        <h1 className='font-bold text-2xl'>Popular</h1>
         <Carousel tabs={['All', 'Streaming', 'On TV', 'In Theaters']} data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]} />
-        <h4 className='font-bold text-large'>Top Rated</h4>
+        <h1 className='font-bold text-2xl'>Top Rated</h1>
         <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
-        <h4 className='font-bold text-large'>Upcoming</h4>
+        <h1 className='font-bold text-2xl'>Upcoming</h1>
         <Carousel data={[upcomingMoviesData]} />
       </div>
     </div>
