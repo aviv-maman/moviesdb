@@ -5,6 +5,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
 import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
+import CarouselDropdown from './CarouselDropdown';
 interface CarouselProps {
   tabs?: string[];
   data: ListResponse[] | UpcomingListResponse[];
@@ -24,7 +25,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
               <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 2 }} className='block sm:hidden'>
                 {resultsArray[0].map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
-                    <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    <div className='relative'>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                      <CarouselDropdown />
+                    </div>
                   </SplideSlide>
                 ))}
               </Splide>
@@ -32,7 +36,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
               <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 3 }} className='hidden sm:max-md:block'>
                 {resultsArray[0].map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
-                    <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    <div className='relative'>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                      <CarouselDropdown />
+                    </div>
                   </SplideSlide>
                 ))}
               </Splide>
@@ -40,7 +47,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
               <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 4 }} className='hidden md:max-lg:block'>
                 {resultsArray[0].map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
-                    <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    <div className='relative'>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                      <CarouselDropdown />
+                    </div>
                   </SplideSlide>
                 ))}
               </Splide>
@@ -48,7 +58,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
               <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 6 }} className='hidden lg:block'>
                 {resultsArray[0].map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
-                    <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                    <div className='relative'>
+                      <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                      <CarouselDropdown />
+                    </div>
                   </SplideSlide>
                 ))}
               </Splide>
@@ -61,7 +74,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                   <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 2 }} className='block sm:hidden'>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                        <div className='relative'>
+                          <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                          <CarouselDropdown />
+                        </div>
                       </SplideSlide>
                     ))}
                   </Splide>
@@ -69,7 +85,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                   <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 3 }} className='hidden sm:max-md:block'>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                        <div className='relative'>
+                          <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                          <CarouselDropdown />
+                        </div>
                       </SplideSlide>
                     ))}
                   </Splide>
@@ -77,7 +96,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                   <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 4 }} className='hidden md:max-lg:block'>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                        <div className='relative'>
+                          <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                          <CarouselDropdown />
+                        </div>
                       </SplideSlide>
                     ))}
                   </Splide>
@@ -85,7 +107,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                   <Splide tag='section' aria-label='Movies Carousel' options={{ gap: '1rem', perPage: 6 }} className='hidden lg:block'>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                        <div className='relative'>
+                          <Image src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`} alt='Poster' width={400} height={500} />
+                          <CarouselDropdown />
+                        </div>
                       </SplideSlide>
                     ))}
                   </Splide>
