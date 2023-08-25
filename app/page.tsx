@@ -102,7 +102,7 @@ export default async function Index() {
           </div>
         </div>
 
-        <div className='justify-center flex flex-col gap-7 text-xs px-6 sm:px-0'>
+        <div className='justify-center flex flex-col gap-7 text-xs sm:px-0'>
           <h1 className='font-bold text-2xl'>Trending</h1>
           <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
           <h1 className='font-bold text-2xl'>Popular</h1>
