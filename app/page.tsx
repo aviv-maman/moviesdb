@@ -58,7 +58,7 @@ export default async function Index() {
 
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
-        <div className='flex flex-col gap-8 text-foreground'>
+        <div className='flex flex-col gap-8 text-foreground px-6 sm:px-0'>
           <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
             {resources.map(({ title, subtitle, url, icon }) => (
@@ -102,22 +102,22 @@ export default async function Index() {
           </div>
         </div>
 
-        <div className='flex justify-center text-center text-xs text-slate-900 dark:text-white'>
-          <p>
+        <div className='justify-center flex flex-col gap-7 text-xs px-6 sm:px-0'>
+          <h1 className='font-bold text-2xl'>Trending</h1>
+          <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
+          <h1 className='font-bold text-2xl'>Popular</h1>
+          <Carousel tabs={['All', 'Streaming', 'On TV', 'In Theaters']} data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]} />
+          <h1 className='font-bold text-2xl'>Top Rated</h1>
+          <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
+          <h1 className='font-bold text-2xl'>Upcoming</h1>
+          <Carousel data={[upcomingMoviesData]} />
+          <p className='text-center'>
             Created by{' '}
             <Link href='https://www.linkedin.com/in/aviv-maman-914a95223' target='_blank' className='font-bold'>
               Aviv Maman
             </Link>
           </p>
         </div>
-        <h1 className='font-bold text-2xl'>Trending</h1>
-        <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
-        <h1 className='font-bold text-2xl'>Popular</h1>
-        <Carousel tabs={['All', 'Streaming', 'On TV', 'In Theaters']} data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]} />
-        <h1 className='font-bold text-2xl'>Top Rated</h1>
-        <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
-        <h1 className='font-bold text-2xl'>Upcoming</h1>
-        <Carousel data={[upcomingMoviesData]} />
       </div>
     </div>
   );
