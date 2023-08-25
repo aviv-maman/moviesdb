@@ -69,8 +69,8 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                     <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent'></div>
                     <div className='absolute bottom-0 left-0 text-left w-full p-2'>
                       <h1 className='text-small font-semibold text-white'>{slide.title || 'Not available'}</h1>
-                      <div className='flex justify-between'>
-                        <span className='mt-2 text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
+                      <div className='flex justify-between mt-1 items-center'>
+                        <span className='text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
                         <CircularProgress
                           aria-label='Vote average'
                           size='sm'
@@ -105,8 +105,8 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                           <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent'></div>
                           <div className='absolute bottom-0 left-0 text-left w-full p-2'>
                             <h1 className='text-small font-semibold text-white'>{slide.title || 'Not available'}</h1>
-                            <div className='flex justify-between'>
-                              <span className='mt-2 text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
+                            <div className='flex justify-between mt-1 items-center'>
+                              <span className='text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
                               <CircularProgress
                                 aria-label='Vote average'
                                 size='sm'
