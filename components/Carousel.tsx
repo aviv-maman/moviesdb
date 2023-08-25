@@ -3,9 +3,10 @@
 import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
+import { Card, CardBody, CircularProgress, Image, Tab, Tabs } from '@nextui-org/react';
 import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
 import CarouselDropdown from './CarouselDropdown';
+
 interface CarouselProps {
   tabs?: string[];
   data: ListResponse[] | UpcomingListResponse[];
@@ -28,6 +29,23 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
         perPage: 4,
       },
     },
+  };
+  const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' } = {
+    0: 'danger',
+    1: 'danger',
+    2: 'danger',
+    3: 'danger',
+    4: 'danger',
+    5: 'warning',
+    6: 'warning',
+    7: 'warning',
+    8: 'success',
+    9: 'success',
+    10: 'success',
+  };
+
+  const loadRatingColor = (rating: number) => {
+    return ratingColors[Math.floor(rating)];
   };
 
   return (
@@ -52,7 +70,13 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                     <div className='absolute bottom-4 left-4 text-left'>
                       <h1 className='text-small font-semibold text-white'>{slide.title}</h1>
                       <p className='mt-2 text-tiny text-gray-300'>{slide.release_date}</p>
-                      <button className='mt-2 inline-flex cursor-pointer items-center text-tiny font-semibold text-white'>Show More &rarr;</button>
+                      <CircularProgress
+                        aria-label='Vote average'
+                        size='sm'
+                        value={slide.vote_average * 10}
+                        color={loadRatingColor(slide.vote_average)}
+                        showValueLabel={true}
+                      />
                     </div>
                   </div>
                 </SplideSlide>
@@ -79,9 +103,13 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                           <div className='absolute bottom-4 left-4 text-left'>
                             <h1 className='text-small font-semibold text-white'>{slide.title}</h1>
                             <p className='mt-2 text-tiny text-gray-300'>{slide.release_date}</p>
-                            <button className='mt-2 inline-flex cursor-pointer items-center text-tiny font-semibold text-white'>
-                              Show More &rarr;
-                            </button>
+                            <CircularProgress
+                              aria-label='Vote average'
+                              size='sm'
+                              value={slide.vote_average * 10}
+                              color={loadRatingColor(slide.vote_average)}
+                              showValueLabel={true}
+                            />
                           </div>
                         </div>
                       </SplideSlide>
