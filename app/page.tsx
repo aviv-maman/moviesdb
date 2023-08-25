@@ -102,14 +102,14 @@ export default async function Index() {
           </div>
         </div>
 
-        <div className='justify-center flex flex-col gap-7 text-xs sm:px-0'>
-          <h1 className='font-bold text-2xl'>Trending</h1>
+        <div className='justify-center flex flex-col gap-7 text-xs'>
+          <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
           <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
-          <h1 className='font-bold text-2xl'>Popular</h1>
+          <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
           <Carousel tabs={['All', 'Streaming', 'On TV', 'In Theaters']} data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]} />
-          <h1 className='font-bold text-2xl'>Top Rated</h1>
+          <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
           <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
-          <h1 className='font-bold text-2xl'>Upcoming</h1>
+          <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
           <Carousel data={[upcomingMoviesData]} />
           <p className='text-center'>
             Created by{' '}
