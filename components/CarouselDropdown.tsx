@@ -14,7 +14,7 @@ const CarouselDropdown: FC<CarouselDropdownProps> = ({ className }) => {
   return (
     <Dropdown className={className}>
       <DropdownTrigger className='absolute top-1 left-1'>
-        <button className='rounded-full bg-default-300 hover:bg-current'>
+        <button className='rounded-lg bg-default-300 hover:bg-current'>
           <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
         </button>
       </DropdownTrigger>
