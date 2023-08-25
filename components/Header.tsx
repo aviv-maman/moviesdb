@@ -64,12 +64,12 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
-        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
         <NavbarContent justify='start'>
           <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-3'>
             <Logo />
             <span className='hidden md:inline-block'>RottenPopcorn</span>
           </div>
+          <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
         </NavbarContent>
         <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent>
       </NavbarContent>
@@ -77,7 +77,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
       <NavbarContent className='items-center' justify='end'>
         <Input
           classNames={{
-            base: 'max-w-full sm:max-w-[20rem] h-max hidden md:block',
+            base: 'max-w-full sm:max-w-[15rem] h-max hidden md:block',
             input: 'text-small',
             inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
           }}
