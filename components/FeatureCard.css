@@ -1,27 +1,41 @@
-.shiny {
-    color: white;
-    position: relative;
-    border: none;
-    padding: 10px 15px;
-    background: #3984ff;
+:root {
+    --bg-color: rgb(20, 20, 20);
+    --card-color: rgb(23, 23, 23);
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    font-weight: bold;
-    overflow: hidden;
+    position: relative;
 }
 
-.shiny::after {
+.card:hover::before {
+    opacity: 1;
+}
+
+.card::before,
+.card::after {
+    border-radius: inherit;
     content: "";
-    position: absolute;
-    top: calc(var(--y, 0) * 1px - 50px);
-    left: calc(var(--x, 0) * 1px - 50px);
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(white, #3984ff00 80%);
-
+    height: 100%;
+    left: 0px;
     opacity: 0;
-    transition: opacity 0.2s;
+    position: absolute;
+    top: 0px;
+    transition: opacity 500ms;
+    width: 100%;
 }
 
-.shiny:hover::after {
-    opacity: 0.4;
+.card::before {
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.06),
+            transparent 40%);
+    z-index: 3;
+}
+
+.card::after {
+    background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.4),
+            transparent 40%);
+    z-index: 1;
 }

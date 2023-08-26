@@ -11,9 +11,9 @@ const FeatureCard: FC<FeatureCardProps> = ({}) => {
   function mouseMoveEvent(e: MouseEvent) {
     const { current } = containerRef;
     if (!current) return;
-    const { x, y } = current.getBoundingClientRect();
-    current.style.setProperty('--x', String(e.clientX - x));
-    current.style.setProperty('--y', String(e.clientY - y));
+    const { left, top } = current.getBoundingClientRect();
+    current.style.setProperty('--mouse-x', `${e.clientX - left}px`);
+    current.style.setProperty('--mouse-y', `${e.clientY - top}px`);
   }
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const FeatureCard: FC<FeatureCardProps> = ({}) => {
   return (
     <div
       ref={containerRef}
-      className='shiny flex flex-col relative overflow-hidden height-auto text-foreground box-border outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none border-transparent bg-white/5 dark:bg-default-400/10 backdrop-blur-lg backdrop-saturate-[1.8]'
+      className='card flex flex-col relative overflow-hidden height-auto text-foreground box-border outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none border-transparent bg-white/5 dark:bg-default-400/10 backdrop-blur-lg backdrop-saturate-[1.8]'
       tabIndex={-1}>
       <div className='flex p-3 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large gap-2 pb-0'>
         <div className='flex justify-center p-2 rounded-full items-center bg-secondary-100/80 text-pink-500'>SVG</div>
