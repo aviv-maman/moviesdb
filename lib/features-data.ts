@@ -24,6 +24,7 @@ export const features = [
     title: 'Add to watch lists',
     subtitle: 'Add movies to your watch list and keep track of what you want to watch next.',
     icon: ['M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z', 'M9 7l6 0', 'M9 11l6 0', 'M9 15l4 0'],
+    isLinkingRequired: true,
   },
   {
     title: 'Get recommendations',
@@ -33,11 +34,13 @@ export const features = [
       'M6.2 19.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z',
       'M12 9.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z',
     ],
+    isLinkingRequired: true,
   },
   {
     title: 'Rate movies',
     subtitle: 'Keep track of what you thought of a movie by rating it on a scale of 1 to 5 stars.',
     icon: ['M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z'],
+    isLinkingRequired: true,
   },
   {
     title: 'Search for movies',

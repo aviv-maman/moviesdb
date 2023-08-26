@@ -83,9 +83,9 @@ export default async function Index() {
           </div>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-          {features.map(({ title, subtitle, icon }) => (
-            <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} />
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground px-6 sm:px-0'>
+          {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
+            <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
           ))}
         </div>
 
