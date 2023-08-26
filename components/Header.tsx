@@ -43,6 +43,13 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
     // { href: '/watch-list', label: 'Watch List', targetSegment: 'watch-list' },
   ];
 
+  const movieLinks = [
+    { href: '/movies/now-playing', label: 'Now Playing', targetSegment: 'movies' },
+    { href: '/movies/top-rated', label: 'Top Rated', targetSegment: 'movies' },
+    { href: '/movies/popular', label: 'Popular', targetSegment: 'movies' },
+    { href: '/movies/upcoming', label: 'Upcoming', targetSegment: 'movies' },
+  ];
+
   const headerItems = navLinks.map((link) => (
     <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
       <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
@@ -64,13 +71,13 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
-        <NavbarContent justify='start'>
-          <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-3'>
-            <Logo />
-            <span className='hidden md:inline-block'>RottenPopcorn</span>
-          </div>
-          <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
-        </NavbarContent>
+        <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-3'>
+          <Logo />
+          <span className='hidden md:inline-block'>RottenPopcorn</span>
+        </div>
+
+        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
+
         <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent>
       </NavbarContent>
 
@@ -86,10 +93,6 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
           startContent={<IconSearch size={18} />}
           type='search'
         />
-
-        {/* <Button type='button' isIconOnly className='md:hidden' variant='faded'>
-          <IconSearch size={18} />
-        </Button> */}
 
         <Dropdown placement='bottom-end' className='md:hidden'>
           <DropdownTrigger className='md:hidden'>
