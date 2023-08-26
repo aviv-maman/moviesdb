@@ -49,7 +49,7 @@ const FeatureCard: FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingReq
         </div>
         <p className='text-base font-semibold'>{title}</p>
       </div>
-      <div className='relative flex w-full p-5 flex-auto flex-col place-content-inherit align-items-inherit h-auto break-words text-left overflow-y-auto subpixel-antialiased'>
+      <div className='relative flex w-full p-5 flex-auto flex-col place-content-inherit align-items-inherit h-auto break-words text-left overflow-y-auto subpixel-antialiased justify-between'>
         <p className='text-slate-500 dark:text-slate-400 text-sm opacity-70'>{subtitle}</p>
         {isLinkingRequired && (
           <span className='text-slate-500 dark:text-slate-400 text-tiny pt-3'>*Linking your account to TMDB service is required.</span>

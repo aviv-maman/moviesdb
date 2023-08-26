@@ -41,7 +41,7 @@ export default async function Index() {
 
         <div className='flex flex-col gap-8 text-foreground px-6 sm:px-0'>
           <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
+          {/* <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
             {resources.map(({ title, subtitle, url, icon }) => (
               <a
                 key={title}
@@ -80,7 +80,7 @@ export default async function Index() {
                 </div>
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground px-6 sm:px-0'>
@@ -97,7 +97,7 @@ export default async function Index() {
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
           <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
-          <Carousel data={[upcomingMoviesData]} />
+          <Carousel tabs={['Up to 7 days', 'This Month', 'This Year']} data={[upcomingMoviesData, upcomingMoviesData, upcomingMoviesData]} />
           <p className='text-center'>
             Created by{' '}
             <Link href='https://www.linkedin.com/in/aviv-maman-914a95223' target='_blank' className='font-bold'>
