@@ -6,6 +6,7 @@ import popularMovies from '@/lib/dummy-data/popular-movies.json';
 import topMovies from '@/lib/dummy-data/top_rated-movies.json';
 import upcomingMovies from '@/lib/dummy-data/upcoming-movies.json';
 import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
+import FeatureCard from '@/components/FeatureCard';
 
 export const dynamic = 'force-dynamic';
 
@@ -100,6 +101,13 @@ export default async function Index() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+          <FeatureCard />
+          <FeatureCard />
+          <FeatureCard />
+          <FeatureCard />
         </div>
 
         <div className='justify-center flex flex-col gap-7 text-xs'>
