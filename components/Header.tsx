@@ -3,7 +3,18 @@
 import { useState, type FC } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import { type User } from '@supabase/supabase-js';
-import { IconMenu2, IconSearch, IconX } from '@tabler/icons-react';
+import {
+  IconChevronDown,
+  IconClockDown,
+  IconDeviceTv,
+  IconMenu2,
+  IconMeteor,
+  IconPlayerPlay,
+  IconSearch,
+  IconStarFilled,
+  IconStarsFilled,
+  IconX,
+} from '@tabler/icons-react';
 import {
   Navbar,
   NavbarContent,
@@ -37,26 +48,72 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   const supabase = createClientComponentClient<Database>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const navLinks = [
-    { href: '/movies', label: 'Movies', targetSegment: 'movies' },
-    { href: '/series', label: 'Series', targetSegment: 'series' },
-    // { href: '/watch-list', label: 'Watch List', targetSegment: 'watch-list' },
-  ];
+  // const navLinks = [
+  //   { href: '/movies', label: 'Movies', targetSegment: 'movies' },
+  //   { href: '/series', label: 'Series', targetSegment: 'series' },
+  // ];
 
-  const movieLinks = [
-    { href: '/movies/now-playing', label: 'Now Playing', targetSegment: 'movies' },
-    { href: '/movies/top-rated', label: 'Top Rated', targetSegment: 'movies' },
-    { href: '/movies/popular', label: 'Popular', targetSegment: 'movies' },
-    { href: '/movies/upcoming', label: 'Upcoming', targetSegment: 'movies' },
-  ];
+  const movieLinks = {
+    popular: {
+      href: '/movies/popular',
+      label: 'Popular',
+      description: 'The most popular movies.',
+      icon: <IconStarsFilled size={24} className='text-warning' />,
+    },
+    nowPlaying: {
+      href: '/movies/now-playing',
+      label: 'Now Playing',
+      description: 'Movies currently in cinemas and on streaming services.',
+      icon: <IconPlayerPlay size={24} className='text-primary' />,
+    },
+    topRated: {
+      href: '/movies/top-rated',
+      label: 'Top Rated',
+      description: 'Movies with the highest score by users.',
+      icon: <IconStarFilled size={24} className='text-danger' />,
+    },
+    upcoming: {
+      href: '/movies/upcoming',
+      label: 'Upcoming',
+      description: 'Movies which will be released.',
+      icon: <IconMeteor size={24} className='text-success' />,
+    },
+  };
 
-  const headerItems = navLinks.map((link) => (
-    <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
-      <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
-        {link.label}
-      </Link>
-    </NavbarItem>
-  ));
+  const seriesLinks = {
+    popular: {
+      href: '/series/popular',
+      label: 'Popular',
+      description: 'The most popular series.',
+      icon: <IconStarsFilled size={24} className='text-warning' />,
+    },
+    onTheAir: {
+      href: '/series/on-the-air',
+      label: 'On the Air',
+      description: 'Series currently airing on TV and streaming services.',
+      icon: <IconDeviceTv size={24} className='text-secondary' />,
+    },
+    topRated: {
+      href: '/series/top-rated',
+      label: 'Top Rated',
+      description: 'Series with the highest score by users.',
+      icon: <IconStarFilled size={24} className='text-danger' />,
+    },
+    airingToday: {
+      href: '/series/airing-today',
+      label: 'Airing Today',
+      description: 'Series which will be aired today.',
+      icon: <IconClockDown size={24} className='text-orange-600' />,
+    },
+  };
+
+  // const headerItems = navLinks.map((link) => (
+  //   <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
+  //     <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
+  //       {link.label}
+  //     </Link>
+  //   </NavbarItem>
+  // ));
 
   const menuItems = ['Profile', 'Help', 'About', 'Log Out'];
 
@@ -78,7 +135,91 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
 
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
 
-        <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent>
+        <NavbarContent className='hidden sm:flex gap-3'>
+          <Dropdown>
+            <NavbarItem isActive={activeSegment === 'movies'}>
+              <DropdownTrigger>
+                <Link
+                  color={activeSegment === 'movies' ? 'primary' : 'foreground'}
+                  className='p-0 bg-transparent data-[hover=true]:bg-transparent cursor-pointer'>
+                  Movies {<IconChevronDown size={18} />}
+                </Link>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label='Movies Menu'
+              className='w-[340px]'
+              itemClasses={{
+                base: 'gap-4',
+              }}>
+              <DropdownItem
+                key={movieLinks.popular.href}
+                description={movieLinks.popular.description}
+                startContent={movieLinks.popular.icon}
+                className={activeSegment === 'movies' ? 'bg-primary-500/10' : ''}
+                onClick={() => router.push(movieLinks.popular.href)}>
+                {movieLinks.popular.label}
+              </DropdownItem>
+              <DropdownItem
+                key={movieLinks.nowPlaying.href}
+                description={movieLinks.nowPlaying.description}
+                startContent={movieLinks.nowPlaying.icon}
+                onClick={() => router.push(movieLinks.nowPlaying.href)}>
+                {movieLinks.nowPlaying.label}
+              </DropdownItem>
+              <DropdownItem
+                key={movieLinks.topRated.href}
+                description={movieLinks.topRated.description}
+                startContent={movieLinks.topRated.icon}
+                onClick={() => router.push(movieLinks.topRated.href)}>
+                {movieLinks.topRated.label}
+              </DropdownItem>
+              <DropdownItem
+                key={movieLinks.upcoming.href}
+                description={movieLinks.upcoming.description}
+                startContent={movieLinks.upcoming.icon}
+                onClick={() => router.push(movieLinks.upcoming.href)}>
+                {movieLinks.upcoming.label}
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
+          <Dropdown>
+            <NavbarItem isActive={activeSegment === 'series'}>
+              <DropdownTrigger>
+                <Link
+                  color={activeSegment === 'series' ? 'primary' : 'foreground'}
+                  className='p-0 bg-transparent data-[hover=true]:bg-transparent cursor-pointer'>
+                  Series {<IconChevronDown size={18} />}
+                </Link>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label='Series Menu'
+              className='w-[340px]'
+              itemClasses={{
+                base: 'gap-4',
+              }}>
+              <DropdownItem key={seriesLinks.popular.href} description={seriesLinks.popular.description} startContent={seriesLinks.popular.icon}>
+                {seriesLinks.popular.label}
+              </DropdownItem>
+              <DropdownItem key={seriesLinks.onTheAir.href} description={seriesLinks.onTheAir.description} startContent={seriesLinks.onTheAir.icon}>
+                {seriesLinks.onTheAir.label}
+              </DropdownItem>
+              <DropdownItem key={seriesLinks.topRated.href} description={seriesLinks.topRated.description} startContent={seriesLinks.topRated.icon}>
+                {seriesLinks.topRated.label}
+              </DropdownItem>
+              <DropdownItem
+                key={seriesLinks.airingToday.href}
+                description={seriesLinks.airingToday.description}
+                startContent={seriesLinks.airingToday.icon}>
+                {seriesLinks.airingToday.label}
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+
+        {/* <NavbarContent className='hidden sm:flex gap-3'>{headerItems}</NavbarContent> */}
       </NavbarContent>
 
       <NavbarContent className='items-center' justify='end'>
