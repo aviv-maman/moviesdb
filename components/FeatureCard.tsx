@@ -1,7 +1,7 @@
 'use client';
 
 import { type FC, useEffect, useRef } from 'react';
-import './FeatureCard.css';
+import '@/styles/feature-card.css';
 
 interface FeatureCardProps {
   title: string;

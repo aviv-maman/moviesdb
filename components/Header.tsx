@@ -3,7 +3,7 @@
 import { useState, type FC } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import { type User } from '@supabase/supabase-js';
-import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconSearch, IconStarFilled, IconStarsFilled } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import {
   Navbar,
   NavbarContent,
@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import type { Profile, Database } from '@/lib/database.types';
 import HeaderDropdown from './HeaderDropdown';
+import { mobileItems, movieLinks, seriesLinks } from '@/lib/header-links';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -34,75 +35,6 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
   const [isLoading, setIsLoading] = useState(false);
-
-  // const navLinks = [
-  //   { href: '/movies', label: 'Movies', targetSegment: 'movies' },
-  //   { href: '/series', label: 'Series', targetSegment: 'series' },
-  // ];
-
-  const movieLinks = [
-    {
-      href: '/movies/popular',
-      label: 'Popular',
-      description: 'The most popular movies.',
-      icon: <IconStarsFilled size={24} className='text-warning' />,
-    },
-    {
-      href: '/movies/now-playing',
-      label: 'Now Playing',
-      description: 'Movies currently in cinemas and on streaming services.',
-      icon: <IconPlayerPlay size={24} className='text-primary' />,
-    },
-    {
-      href: '/movies/top-rated',
-      label: 'Top Rated',
-      description: 'Movies with the highest score by users.',
-      icon: <IconStarFilled size={24} className='text-danger' />,
-    },
-    {
-      href: '/movies/upcoming',
-      label: 'Upcoming',
-      description: 'Movies which will be released.',
-      icon: <IconMeteor size={24} className='text-success' />,
-    },
-  ];
-
-  const seriesLinks = [
-    {
-      href: '/series/popular',
-      label: 'Popular',
-      description: 'The most popular series.',
-      icon: <IconStarsFilled size={24} className='text-warning' />,
-    },
-    {
-      href: '/series/on-the-air',
-      label: 'On the Air',
-      description: 'Series currently airing on TV and streaming services.',
-      icon: <IconDeviceTv size={24} className='text-secondary' />,
-    },
-    {
-      href: '/series/top-rated',
-      label: 'Top Rated',
-      description: 'Series with the highest score by users.',
-      icon: <IconStarFilled size={24} className='text-danger' />,
-    },
-    {
-      href: '/series/airing-today',
-      label: 'Airing Today',
-      description: 'Series which will be aired today.',
-      icon: <IconClockDown size={24} className='text-orange-600' />,
-    },
-  ];
-
-  // const headerItems = navLinks.map((link) => (
-  //   <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
-  //     <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
-  //       {link.label}
-  //     </Link>
-  //   </NavbarItem>
-  // ));
-
-  const menuItems = ['Profile', 'Help', 'About', 'Log Out'];
 
   const handleSignOut = async () => {
     setIsLoading(true);
@@ -125,7 +57,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
         <NavbarContent className='hidden sm:flex gap-3'>
           <HeaderDropdown targetSegment='movies' links={movieLinks} />
           <HeaderDropdown targetSegment='series' links={seriesLinks} />
-          {/* {headerItems} */}
+          {/* {navItems} */}
         </NavbarContent>
       </NavbarContent>
 
@@ -202,9 +134,9 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {mobileItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link color={index === 2 ? 'primary' : index === menuItems.length - 1 ? 'danger' : 'foreground'} className='w-full' href='#' size='lg'>
+            <Link color={index === 2 ? 'primary' : index === mobileItems.length - 1 ? 'danger' : 'foreground'} className='w-full' href='#' size='lg'>
               {item}
             </Link>
           </NavbarMenuItem>
