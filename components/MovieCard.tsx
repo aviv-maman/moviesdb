@@ -29,7 +29,7 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
   };
 
   return (
-    <div className='relative w-auto rounded-md'>
+    <div className='relative w-auto rounded-md' style={{ maxWidth: '12rem' }}>
       <Image
         src={`https://image.tmdb.org/t/p/w342/${data.poster_path}`}
         alt={data.original_title}
