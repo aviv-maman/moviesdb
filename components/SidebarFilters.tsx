@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, cn } from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem, cn } from '@nextui-org/react';
 import { type FC } from 'react';
 
 interface SidebarFiltersProps {}
@@ -112,7 +112,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
 
   return (
     <Accordion variant='bordered'>
-      <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filters for Results' className='flex flex-col w-full'>
+      <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filter Results' className='flex flex-col w-full'>
         <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me'>
           {showMe.map((option) => (
             <Radio key={option.value} value={option.value}>
@@ -157,6 +157,15 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             </Checkbox>
           ))}
         </CheckboxGroup>
+        <Divider orientation='horizontal' className='mt-5 mb-3' />
+        <span className='relative text-medium text-foreground-500'>Language</span>
+        <Select className='max-w-xs mt-3' defaultSelectedKeys={['en']} variant='bordered' color='success' labelPlacement='outside'>
+          {languages.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
       </AccordionItem>
     </Accordion>
   );

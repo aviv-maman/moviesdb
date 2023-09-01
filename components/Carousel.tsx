@@ -3,9 +3,9 @@
 import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { Card, CardBody, CircularProgress, Image, Tab, Tabs } from '@nextui-org/react';
+import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
 import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
-import CarouselDropdown from './CarouselDropdown';
+import MovieCard from './MovieCard';
 
 interface CarouselProps {
   tabs?: string[];
@@ -30,23 +30,6 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
       },
     },
   };
-  const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' } = {
-    0: 'danger',
-    1: 'danger',
-    2: 'danger',
-    3: 'danger',
-    4: 'danger',
-    5: 'warning',
-    6: 'warning',
-    7: 'warning',
-    8: 'success',
-    9: 'success',
-    10: 'success',
-  };
-
-  const loadRatingColor = (rating: number) => {
-    return ratingColors[Math.floor(rating)];
-  };
 
   return (
     <div className='max-w-[1400px] w-full m-auto'>
@@ -57,31 +40,7 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
             <Splide tag='section' aria-label='Movies Carousel' options={options}>
               {resultsArray[0].map((slide, slideIndex) => (
                 <SplideSlide key={slideIndex}>
-                  <div className='relative w-auto rounded-md'>
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`}
-                      alt={slide.original_title}
-                      className='z-0 h-full w-full rounded-md object-cover'
-                      width={400}
-                      height={500}
-                    />
-                    <CarouselDropdown />
-                    <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent'></div>
-                    <div className='absolute bottom-0 left-0 text-left w-full p-2'>
-                      <h1 className='text-small font-semibold text-white'>{slide.title || 'Not available'}</h1>
-                      <div className='flex justify-between mt-1 items-center'>
-                        <span className='text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
-                        <CircularProgress
-                          aria-label='Vote average'
-                          size='sm'
-                          value={slide.vote_average * 10}
-                          color={loadRatingColor(slide.vote_average)}
-                          showValueLabel={true}
-                          className='text-white'
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <MovieCard data={slide} />
                 </SplideSlide>
               ))}
             </Splide>
@@ -93,31 +52,7 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
                   <Splide tag='section' aria-label='Movies Carousel' options={options}>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <div className='relative w-auto rounded-md'>
-                          <Image
-                            src={`https://image.tmdb.org/t/p/w342/${slide.poster_path}`}
-                            alt={slide.original_title}
-                            className='z-0 h-full w-full rounded-md object-cover'
-                            width={400}
-                            height={500}
-                          />
-                          <CarouselDropdown />
-                          <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent'></div>
-                          <div className='absolute bottom-0 left-0 text-left w-full p-2'>
-                            <h1 className='text-small font-semibold text-white'>{slide.title || 'Not available'}</h1>
-                            <div className='flex justify-between mt-1 items-center'>
-                              <span className='text-tiny text-gray-300'>{slide.release_date || '0000-00-00'}</span>
-                              <CircularProgress
-                                aria-label='Vote average'
-                                size='sm'
-                                value={slide.vote_average * 10}
-                                color={loadRatingColor(slide.vote_average)}
-                                showValueLabel={true}
-                                className='text-white'
-                              />
-                            </div>
-                          </div>
-                        </div>
+                        <MovieCard data={slide} />
                       </SplideSlide>
                     ))}
                   </Splide>

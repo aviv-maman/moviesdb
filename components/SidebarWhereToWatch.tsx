@@ -51,7 +51,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         <Checkbox defaultSelected icon={<IconVideoPlus />} color='warning' className='mb-1'>
           Select My Services
         </Checkbox>
-        <CheckboxGroup defaultValue={['netflix']} orientation='horizontal'>
+        <CheckboxGroup orientation='horizontal'>
           {whereToWatchList.map((option) => (
             <Checkbox key={option.value} value={option.value}>
               {option.label}
