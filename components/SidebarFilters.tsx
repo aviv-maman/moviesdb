@@ -158,14 +158,27 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <span className='relative text-medium text-foreground-500'>Language</span>
-        <Select className='max-w-xs mt-3' defaultSelectedKeys={['en']} variant='bordered' color='success' labelPlacement='outside'>
-          {languages.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </Select>
+        <div className='relative flex flex-col gap-2'>
+          <span className='relative text-medium text-foreground-500'>Language</span>
+          <Select className='max-w-xs' defaultSelectedKeys={['en']} variant='bordered' color='success' labelPlacement='outside'>
+            {languages.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </Select>
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <span className='relative text-medium text-foreground-500'>User Score</span>
+          <input type='range' min='1' max='100' />
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <span className='relative text-medium text-foreground-500'>Minimum User Votes</span>
+          <input type='range' min='1' max='100' />
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <span className='relative text-medium text-foreground-500'>Runtime</span>
+          <input type='range' min='1' max='100' />
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <span className='relative text-medium text-foreground-500'>Keywords</span>
+        </div>
       </AccordionItem>
     </Accordion>
   );
