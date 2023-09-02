@@ -2,7 +2,6 @@
 
 import { type FC } from 'react';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@nextui-org/react';
-import { IconVideoPlus } from '@tabler/icons-react';
 
 interface SidebarWhereToWatchProps {}
 
@@ -48,7 +47,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         title='Where to Watch'
         subtitle='Streaming Services'
         className='flex flex-col w-full'>
-        <Checkbox defaultSelected icon={<IconVideoPlus />} color='warning' className='mb-1'>
+        <Checkbox defaultSelected color='warning' className='mb-1'>
           Select My Services
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>

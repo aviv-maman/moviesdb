@@ -24,7 +24,13 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
   return (
     <Accordion defaultExpandedKeys={['sort-by']} variant='bordered'>
       <AccordionItem key='sort-by' aria-label='Accordion of sort by' title='Sort' subtitle='Sort Results By'>
-        <Select className='max-w-xs' defaultSelectedKeys={[sortBy[0].value]} variant='bordered' color='success' labelPlacement='outside'>
+        <Select
+          aria-label='sort selection'
+          className='max-w-xs'
+          defaultSelectedKeys={[sortBy[0].value]}
+          variant='bordered'
+          color='success'
+          labelPlacement='outside'>
           {sortBy.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

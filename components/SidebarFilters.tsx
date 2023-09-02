@@ -2,6 +2,7 @@
 
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem, cn } from '@nextui-org/react';
 import { type FC } from 'react';
+import MultiSelect from './MultiSelect';
 
 interface SidebarFiltersProps {}
 
@@ -160,7 +161,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         <Divider orientation='horizontal' className='mt-5 mb-3' />
         <div className='relative flex flex-col gap-2'>
           <span className='relative text-medium text-foreground-500'>Language</span>
-          <Select className='max-w-xs' defaultSelectedKeys={['en']} variant='bordered' color='success' labelPlacement='outside'>
+          <Select
+            aria-label='language selection'
+            className='max-w-xs'
+            defaultSelectedKeys={['en']}
+            variant='bordered'
+            color='success'
+            labelPlacement='outside'>
             {languages.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -171,13 +178,14 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           <span className='relative text-medium text-foreground-500'>User Score</span>
           <input type='range' min='1' max='100' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <span className='relative text-medium text-foreground-500'>Keywords</span>
+          <MultiSelect options={[]} />
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Minimum User Votes</span>
           <input type='range' min='1' max='100' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Runtime</span>
           <input type='range' min='1' max='100' />
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <span className='relative text-medium text-foreground-500'>Keywords</span>
         </div>
       </AccordionItem>
     </Accordion>
