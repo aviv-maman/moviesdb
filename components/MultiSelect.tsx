@@ -60,6 +60,10 @@ const MultiSelect: FC<MultiSelectProps> = ({ options }) => {
             borderColor: isFocused ? '2px solid #17c964' : '#71717a',
           },
         }),
+        menu: (baseStyles) => ({
+          ...baseStyles,
+          borderRadius: 10,
+        }),
       }}
     />
   );
