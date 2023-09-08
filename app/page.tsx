@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Carousel from '@/components/Carousel';
 
-import trendingMedia from '@/lib/dummy-data/trending-all.json';
-import popularMovies from '@/lib/dummy-data/popular-movies.json';
-import topMovies from '@/lib/dummy-data/top_rated-movies.json';
-import upcomingMovies from '@/lib/dummy-data/upcoming-movies.json';
+import trendingMedia from '@/lib/data/trending-all.json';
+import popularMovies from '@/lib/data/popular-movies.json';
+import topMovies from '@/lib/data/top_rated-movies.json';
+import upcomingMovies from '@/lib/data/upcoming-movies.json';
 import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
 import FeatureCard from '@/components/FeatureCard';
 import { features, resources } from '@/lib/features-data';

@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import SidebarSortBy from './SidebarSortBy';
 import SidebarWhereToWatch from './SidebarWhereToWatch';
 import SidebarFilters from './SidebarFilters';
+import SearchButton from './SearchButton';
 
 interface SidebarMenuProps {}
 
@@ -20,6 +21,9 @@ const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
             <SidebarFilters />
           </li>
         </ul>
+        <div className='w-full flex justify-center'>
+          <SearchButton />
+        </div>
       </div>
     </aside>
   );

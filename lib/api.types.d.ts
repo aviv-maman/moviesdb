@@ -126,3 +126,11 @@ export type ListParams = {
   language?: string;
   region?: string;
 };
+
+export type KeywordList = {
+  total_results: number;
+  results: {
+    id: number;
+    name: string;
+  }[];
+};

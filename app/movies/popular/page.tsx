@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import SidebarMenu from '@/components/SidebarMenu';
-import trendingMedia from '@/lib/dummy-data/trending-all.json';
+import trendingMedia from '@/lib/data/trending-all.json';
 import type { ListResponse } from '@/lib/api.types';
 import MovieCard from '@/components/MovieCard';
 

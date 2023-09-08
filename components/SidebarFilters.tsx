@@ -3,6 +3,8 @@
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem, cn } from '@nextui-org/react';
 import { type FC } from 'react';
 import MultiSelect from './MultiSelect';
+import ButtonCustom from './ButtonCustom';
+import genresRes from '@/lib/data/genres.json';
 
 interface SidebarFiltersProps {}
 
@@ -31,27 +33,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
     // { label: 'Streaming', value: 'streaming' },
   ];
 
-  const genres = [
-    { label: 'Action', value: 'action' },
-    { label: 'Adventure', value: 'adventure' },
-    { label: 'Animation', value: 'animation' },
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Crime', value: 'crime' },
-    { label: 'Documentary', value: 'documentary' },
-    { label: 'Drama', value: 'drama' },
-    { label: 'Family', value: 'family' },
-    { label: 'Fantasy', value: 'fantasy' },
-    { label: 'History', value: 'history' },
-    { label: 'Horror', value: 'horror' },
-    { label: 'Music', value: 'music' },
-    { label: 'Mystery', value: 'mystery' },
-    { label: 'Romance', value: 'romance' },
-    { label: 'Science Fiction', value: 'science-fiction' },
-    { label: 'TV Movie', value: 'tv-movie' },
-    { label: 'Thriller', value: 'thriller' },
-    { label: 'War', value: 'war' },
-    { label: 'Western', value: 'western' },
-  ];
+  const { results: genres } = genresRes;
 
   const languages = [
     { label: 'English', value: 'en' },
@@ -179,13 +161,15 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           <input type='range' min='1' max='100' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Keywords</span>
-          <MultiSelect options={[]} />
+          <MultiSelect />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Minimum User Votes</span>
           <input type='range' min='1' max='100' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Runtime</span>
           <input type='range' min='1' max='100' />
+          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <ButtonCustom label='Clear Filters' className='w-full mt-4' variant='faded' />
         </div>
       </AccordionItem>
     </Accordion>

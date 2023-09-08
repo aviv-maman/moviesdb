@@ -1,40 +1,28 @@
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import AsyncSelect from 'react-select/async';
+import keywords from '@/lib/data/keyword_ids_09_04_2023.json';
+import type { KeywordList } from '@/lib/api.types';
+import { useForm } from '@/context/FormContext';
 
 type MultiOptions = {
+  id: number;
   value: string;
   label: string;
 };
 
-interface MultiSelectProps {
-  options: MultiOptions[];
-}
+const MultiSelect: FC = () => {
+  const { results } = keywords as KeywordList;
 
-const MultiSelect: FC<MultiSelectProps> = ({ options }) => {
-  const [selected, setSelected] = useState<MultiOptions[]>([]);
-
-  const results = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'carrot', label: 'Carrot' },
-    { value: 'banana', label: 'Banana' },
-    { value: 'apple', label: 'Apple' },
-    { value: 'orange', label: 'Orange' },
-    { value: 'grape', label: 'Grape' },
-    { value: 'caramel', label: 'Caramel' },
-    { value: 'nuts', label: 'Nuts' },
-    { value: 'cookies', label: 'Cookies' },
-  ];
+  const { state, dispatch } = useForm();
 
   const filterOptions = (inputValue: string) => {
-    return results.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+    return results.filter((i) => i.name.toLowerCase().includes(inputValue.toLowerCase()));
   };
 
   const promiseOptions = (inputValue: string) =>
     new Promise<MultiOptions[]>((resolve) => {
       setTimeout(() => {
-        resolve(filterOptions(inputValue));
+        resolve(filterOptions(inputValue).map((i) => ({ id: i.id, value: i.name, label: i.name })));
       }, 1000);
     });
 
@@ -64,6 +52,14 @@ const MultiSelect: FC<MultiSelectProps> = ({ options }) => {
           ...baseStyles,
           borderRadius: 10,
         }),
+      }}
+      onChange={(newValue, actionMeta) => {
+        if (actionMeta.action === 'remove-value') dispatch({ type: 'deleted_keyword', payload: { id: actionMeta.removedValue?.id } });
+        if (actionMeta.action === 'select-option') {
+          if (state.keywords.some((option) => option.id === actionMeta.option?.id)) return;
+          if (actionMeta.option?.id && actionMeta.option?.value)
+            dispatch({ type: 'added_keyword', payload: { id: actionMeta.option?.id, value: actionMeta.option?.value } });
+        }
       }}
     />
   );

@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import { Accordion, AccordionItem, Select, SelectItem } from '@nextui-org/react';
+import { useForm } from '@/context/FormContext';
 
 interface SidebarSortByProps {}
 
@@ -21,6 +22,12 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
     { label: 'Vote Count (Lowest)', value: 'vote_count.asc' },
   ];
 
+  const { dispatch } = useForm();
+
+  const handleSortBy = (value: string) => {
+    dispatch({ type: 'sort_by', payload: { value } });
+  };
+
   return (
     <Accordion defaultExpandedKeys={['sort-by']} variant='bordered'>
       <AccordionItem key='sort-by' aria-label='Accordion of sort by' title='Sort' subtitle='Sort Results By'>
@@ -30,7 +37,8 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
           defaultSelectedKeys={[sortBy[0].value]}
           variant='bordered'
           color='success'
-          labelPlacement='outside'>
+          labelPlacement='outside'
+          onChange={(e) => handleSortBy(e.target.value)}>
           {sortBy.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}

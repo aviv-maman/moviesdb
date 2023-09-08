@@ -1,43 +1,17 @@
 'use client';
 
 import { type FC } from 'react';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup } from '@nextui-org/react';
+import { Accordion, AccordionItem, Avatar, Checkbox, CheckboxGroup, Select, SelectItem } from '@nextui-org/react';
+import movieProviders from '@/lib/data/movie_providers.json';
+import countries from '@/lib/data/countries.json';
+import { useForm } from '@/context/FormContext';
 
 interface SidebarWhereToWatchProps {}
 
 const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
-  const whereToWatchList = [
-    { label: 'Netflix', value: 'netflix' },
-    { label: 'Amazon Prime Video', value: 'amazon-prime-video' },
-    { label: 'FlixOlé', value: 'flixole' },
-    { label: 'Zee5', value: 'zee5' },
-    { label: 'Sun NXT', value: 'sun-nxt' },
-    { label: 'Mubi', value: 'mubi' },
-    { label: 'Argo', value: 'argo' },
-    { label: 'ConTV', value: 'contv' },
-    { label: 'Curiosity Stream', value: 'curiosity-stream' },
-    { label: 'Spuul', value: 'spuul' },
-    { label: 'Classix', value: 'classix' },
-    { label: 'Spamflix', value: 'spamflix' },
-    { label: 'OSN', value: 'osn' },
-    { label: 'Shahid VIP', value: 'shahid-vip' },
-    { label: 'Public Domain Movies', value: 'public-domain-movies' },
-    { label: 'Magellan TV', value: 'magellan-tv' },
-    { label: 'BroadwayHD', value: 'broadway-hd' },
-    { label: 'WOW Presents Plus', value: 'wow-presents-plus' },
-    { label: 'Dekkoo', value: 'dekkoo' },
-    { label: 'Filmzie', value: 'filmzie' },
-    { label: 'True Story', value: 'true-story' },
-    { label: 'Rakuten Viki', value: 'rakuten-viki' },
-    { label: 'Hoichoi', value: 'hoichoi' },
-    { label: 'Eventive', value: 'eventive' },
-    { label: 'Cultpix', value: 'cultpix' },
-    { label: 'iQIYI', value: 'iqiyi' },
-    { label: 'Takflix', value: 'takflix' },
-    { label: 'Apple TV', value: 'apple-tv' },
-    { label: 'Apple TV Plus', value: 'apple-tv-plus' },
-    { label: 'Crunchyroll', value: 'crunchyroll' },
-  ];
+  const { results: whereToWatchList } = movieProviders;
+  const { results: countryList } = countries;
+  const { dispatch, state } = useForm();
 
   return (
     <Accordion defaultExpandedKeys={['where-to-watch']} variant='bordered'>
@@ -47,13 +21,41 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         title='Where to Watch'
         subtitle='Streaming Services'
         className='flex flex-col w-full'>
+        <Select
+          label='Select country'
+          aria-label='country selection'
+          className='max-w-xs'
+          defaultSelectedKeys={[state.where_to_watch.country]}
+          variant='bordered'
+          color='success'
+          labelPlacement='outside'
+          startContent={
+            <Avatar
+              alt={state.where_to_watch.country}
+              className='w-6 h-6'
+              radius='sm'
+              src={`https://flagcdn.com/${state.where_to_watch.country.toLowerCase()}.svg`}
+            />
+          }
+          onChange={(e) => dispatch({ type: 'changed_country', payload: { value: e.target.value } })}>
+          {countryList.map((option) => (
+            <SelectItem
+              key={option.iso_3166_1}
+              value={option.iso_3166_1}
+              startContent={
+                <Avatar alt={option.english_name} className='w-6 h-6' src={`https://flagcdn.com/${option.iso_3166_1.toLowerCase()}.svg`} />
+              }>
+              {option.native_name}
+            </SelectItem>
+          ))}
+        </Select>
         <Checkbox defaultSelected color='warning' className='mb-1'>
           Select My Services
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>
           {whereToWatchList.map((option) => (
-            <Checkbox key={option.value} value={option.value}>
-              {option.label}
+            <Checkbox key={option.provider_id} value={option.provider_name}>
+              {option.provider_name}
             </Checkbox>
           ))}
         </CheckboxGroup>
