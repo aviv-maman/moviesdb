@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useMemo, type ReactNode, type Dispatch } from 'react';
+import { createContext, useContext, useMemo, type ReactNode, type Dispatch, useEffect } from 'react';
 import { formReducer } from './formReducer';
 import { useImmerReducer } from 'use-immer';
 
@@ -12,7 +12,7 @@ export type FormStore = {
 const initialContextState = {
   keywords: [{ id: 0, value: '' }],
   sort_by: 'popularity.desc',
-  where_to_watch: { country: 'US', providers: [{ id: 0, value: '' }] },
+  where_to_watch: { country: 'US', providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0 }] },
 };
 
 const FormContext = createContext<FormStore>({ dispatch: () => {}, state: initialContextState });
@@ -21,6 +21,10 @@ function FormProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useImmerReducer(formReducer, initialContextState);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
+  useEffect(() => {
+    dispatch({ type: 'changed_country', payload: { value: initialContextState.where_to_watch.country } });
+  }, [dispatch]);
 
   return <FormContext.Provider value={contextValue}>{children}</FormContext.Provider>;
 }
@@ -57,11 +61,11 @@ type FormPayload = {
     value: string;
   };
   added_provider: {
-    id: number;
+    provider_id: number;
     value: string;
   };
   deleted_provider: {
-    id: number;
+    provider_id: number;
   };
 };
 
