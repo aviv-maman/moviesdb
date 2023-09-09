@@ -2,14 +2,13 @@
 
 import { type FC } from 'react';
 import { Accordion, AccordionItem, Avatar, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
-import movieProviders from '@/lib/data/movie_providers.json';
 import countries from '@/lib/data/countries.json';
 import { useForm } from '@/context/FormContext';
+import CheckboxCustom from './CheckboxCustom';
 
 interface SidebarWhereToWatchProps {}
 
 const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
-  const { results: whereToWatchList } = movieProviders;
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();
 
@@ -57,14 +56,18 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         </Select>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
         <h2 className='relative text-small text-foreground-500'>Available Services</h2>
+
         <Checkbox color='warning' className='my-1'>
           Select My Services
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>
           {state.where_to_watch.providers.map((option) => (
-            <Checkbox key={option.provider_id} value={option.provider_name}>
-              {option.provider_name}
-            </Checkbox>
+            <CheckboxCustom
+              key={option.provider_id}
+              id={option.provider_id}
+              value={option.provider_name}
+              avatar={`https://image.tmdb.org/t/p/w500/${option.logo_path}`}
+            />
           ))}
         </CheckboxGroup>
       </AccordionItem>

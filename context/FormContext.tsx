@@ -12,7 +12,7 @@ export type FormStore = {
 const initialContextState = {
   keywords: [{ id: 0, value: '' }],
   sort_by: 'popularity.desc',
-  where_to_watch: { country: 'US', providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0 }] },
+  where_to_watch: { country: 'US', providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0, is_selected: false }] },
 };
 
 const FormContext = createContext<FormStore>({ dispatch: () => {}, state: initialContextState });
@@ -22,6 +22,7 @@ function FormProvider({ children }: { children: ReactNode }) {
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
+  // TODO: Set the default country to the user's country
   useEffect(() => {
     dispatch({ type: 'changed_country', payload: { value: initialContextState.where_to_watch.country } });
   }, [dispatch]);
@@ -60,11 +61,7 @@ type FormPayload = {
   changed_country: {
     value: string;
   };
-  added_provider: {
-    provider_id: number;
-    value: string;
-  };
-  deleted_provider: {
+  toggled_provider: {
     provider_id: number;
   };
 };

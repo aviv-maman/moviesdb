@@ -22,16 +22,18 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
     }
     case 'changed_country': {
       draft.where_to_watch.country = action.payload.value;
-      draft.where_to_watch.providers = services.filter((service) =>
+      const mutatedServices = services.map((provider) => ({ ...provider, is_selected: false }));
+      draft.where_to_watch.providers = mutatedServices.filter((service) =>
         Object.prototype.hasOwnProperty.call(service.display_priorities, draft.where_to_watch.country)
       );
       draft.where_to_watch.providers.sort((a, b) => a.provider_name.localeCompare(b.provider_name));
       break;
     }
-    // case 'added_provider': {
-    //   draft.where_to_watch[action.payload.id] = action.payload.value;
-    //   break;
-    // }
+    case 'toggled_provider': {
+      const provider = draft.where_to_watch.providers.find((service) => service.provider_id === action.payload.provider_id);
+      if (provider) provider.is_selected = !provider.is_selected;
+      break;
+    }
     default: {
       throw Error('Unknown action');
     }
