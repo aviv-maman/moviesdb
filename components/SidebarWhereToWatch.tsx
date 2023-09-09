@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import { Accordion, AccordionItem, Avatar, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
 import countries from '@/lib/data/countries.json';
 import { useForm } from '@/context/FormContext';
-import CheckboxCustom from './CheckboxCustom';
+import CheckboxService from './CheckboxService';
 
 interface SidebarWhereToWatchProps {}
 
@@ -62,7 +62,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>
           {state.where_to_watch.providers.map((option) => (
-            <CheckboxCustom
+            <CheckboxService
               key={option.provider_id}
               provider_id={option.provider_id}
               value={option.provider_name}

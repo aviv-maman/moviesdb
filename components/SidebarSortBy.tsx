@@ -39,6 +39,7 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
           variant='bordered'
           color='success'
           labelPlacement='outside'
+          scrollShadowProps={{ hideScrollBar: false, offset: 15 }}
           onChange={(e) => handleSortBy(e.target.value)}>
           {sortBy.map((option) => (
             <SelectItem key={option.value} value={option.value}>

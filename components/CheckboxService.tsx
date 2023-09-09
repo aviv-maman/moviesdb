@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import { Avatar, Tooltip } from '@nextui-org/react';
 import { useCheckbox, Chip, VisuallyHidden, tv, CheckboxProps } from '@nextui-org/react';
 import { useForm } from '@/context/FormContext';
-interface CheckboxCustomProps extends CheckboxProps {
+interface CheckboxServiceProps extends CheckboxProps {
   avatar?: string;
   provider_id: number;
   value: string;
@@ -30,7 +30,7 @@ const checkbox = tv({
   },
 });
 
-const CheckboxCustom: FC<CheckboxCustomProps> = (props) => {
+const CheckboxService: FC<CheckboxServiceProps> = (props) => {
   const { children, isSelected, isFocusVisible, getBaseProps, getLabelProps, getInputProps } = useCheckbox({
     ...props,
   });
@@ -67,4 +67,4 @@ const CheckboxCustom: FC<CheckboxCustomProps> = (props) => {
   );
 };
 
-export default CheckboxCustom;
+export default CheckboxService;

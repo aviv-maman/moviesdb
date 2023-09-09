@@ -1,10 +1,11 @@
 'use client';
 
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem, cn } from '@nextui-org/react';
-import { type FC } from 'react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
+import { useMemo, type FC } from 'react';
 import MultiSelect from './MultiSelect';
 import ButtonCustom from './ButtonCustom';
 import genresRes from '@/lib/data/genres.json';
+import CheckboxGenre from './CheckboxGenre';
 
 interface SidebarFiltersProps {}
 
@@ -98,13 +99,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
       <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filter Results' className='flex flex-col w-full'>
         <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me'>
           {showMe.map((option) => (
-            <Radio key={option.value} value={option.value}>
+            <Radio key={option.value} value={option.value} color='warning'>
               {option.label}
             </Radio>
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup defaultValue={availabilities.map((option) => option.value)} orientation='vertical' label='Availabilities '>
+        <CheckboxGroup defaultValue={availabilities.map((option) => option.value)} orientation='vertical' label='Availabilities'>
           {availabilities.map((option) => (
             <Checkbox key={option.value} value={option.value} color='success'>
               {option.label}
@@ -114,7 +115,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         <Divider orientation='horizontal' className='my-4' />
         <CheckboxGroup defaultValue={releaseDates.map((option) => option.value)} orientation='vertical' label='Release Dates'>
           {releaseDates.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='success'>
+            <Checkbox key={option.value} value={option.value} color='danger'>
               {option.label}
             </Checkbox>
           ))}
@@ -122,22 +123,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         <Divider orientation='horizontal' className='my-4' />
         <CheckboxGroup defaultValue={genres.map((option) => option.value)} orientation='horizontal' label='Genres'>
           {genres.map((option) => (
-            <Checkbox
-              key={option.value}
-              value={option.value}
-              aria-label={option.label}
-              color='success'
-              classNames={{
-                base: cn(
-                  'inline-flex max-w-md bg-content1 m-0',
-                  'hover:bg-content2 items-center justify-start',
-                  'cursor-pointer rounded-lg gap-2 p-4 border-1 border-transparent',
-                  'data-[selected=true]:border-primary'
-                ),
-                label: 'w-full',
-              }}>
-              {option.label}
-            </Checkbox>
+            <CheckboxGenre key={option.value} aria-label={option.label} value={option.value} label={option.label} color='primary' />
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
