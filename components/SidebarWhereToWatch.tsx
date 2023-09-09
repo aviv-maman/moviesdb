@@ -58,13 +58,13 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         <h2 className='relative text-small text-foreground-500'>Available Services</h2>
 
         <Checkbox color='warning' className='my-1'>
-          Select My Services
+          <span className='text-small'>Select my services</span>
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>
           {state.where_to_watch.providers.map((option) => (
             <CheckboxCustom
               key={option.provider_id}
-              id={option.provider_id}
+              provider_id={option.provider_id}
               value={option.provider_name}
               avatar={`https://image.tmdb.org/t/p/w500/${option.logo_path}`}
             />
