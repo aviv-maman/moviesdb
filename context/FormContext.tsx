@@ -3,6 +3,7 @@
 import { createContext, useContext, useMemo, type ReactNode, type Dispatch, useEffect } from 'react';
 import { formReducer } from './formReducer';
 import { useImmerReducer } from 'use-immer';
+import { AVAILABILITIES, SHOW_ME, RELEASE_DATES, GENRES, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
 
 export type FormStore = {
   state: FormContextState;
@@ -10,9 +11,17 @@ export type FormStore = {
 };
 
 const initialContextState = {
-  keywords: [{ id: 0, value: '' }],
-  sort_by: 'popularity.desc',
+  sort_by: SORT_BY[0].value,
   where_to_watch: { country: 'US', providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0, is_selected: false }] },
+  show_me: SHOW_ME[0].value,
+  availabilities: [...AVAILABILITIES.map((option) => option.value)],
+  release_dates: [...RELEASE_DATES.map((option) => option.value)],
+  genres: [...GENRES.map((option) => option.value)],
+  language: LANGUAGES[0].value,
+  user_score: { min: 0, max: 10 },
+  keywords: [{ id: 0, value: '' }],
+  minimum_votes: 0,
+  with_runtime: { min: 0, max: 400 },
 };
 
 const FormContext = createContext<FormStore>({ dispatch: () => {}, state: initialContextState });
@@ -48,13 +57,6 @@ type ActionMap<M extends { [index: string]: any }> = {
 };
 
 type FormPayload = {
-  added_keyword: {
-    id: number;
-    value: string;
-  };
-  deleted_keyword: {
-    id: number;
-  };
   sort_by: {
     value: string;
   };
@@ -63,6 +65,28 @@ type FormPayload = {
   };
   toggled_provider: {
     provider_id: number;
+  };
+  added_keyword: {
+    id: number;
+    value: string;
+  };
+  deleted_keyword: {
+    id: number;
+  };
+  show_me: {
+    value: string;
+  };
+  toggled_availability: {
+    value: string[];
+  };
+  toggled_release_date: {
+    value: string[];
+  };
+  toggled_genre: {
+    value: string[];
+  };
+  changed_language: {
+    value: string;
   };
 };
 

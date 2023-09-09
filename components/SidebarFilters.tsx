@@ -1,142 +1,90 @@
 'use client';
 
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
-import { useMemo, type FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import MultiSelect from './MultiSelect';
 import ButtonCustom from './ButtonCustom';
-import genresRes from '@/lib/data/genres.json';
 import CheckboxGenre from './CheckboxGenre';
+import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_DATES, SHOW_ME } from '@/lib/data/search_filters';
+import { useForm } from '@/context/FormContext';
 
 interface SidebarFiltersProps {}
 
 const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
-  const showMe = [
-    { label: 'Everything', value: 'everything' },
-    { label: "Movies I Haven't Seen", value: 'not-seen' },
-    { label: 'Movies I Have Seen', value: 'seen' },
-  ];
+  const { dispatch, state } = useForm();
 
-  const availabilities = [
-    { label: 'Stream', value: 'stream' },
-    { label: 'Free', value: 'free' },
-    { label: 'Ads', value: 'ads' },
-    { label: 'Rent', value: 'rent' },
-    { label: 'Buy', value: 'buy' },
-  ];
+  const handleShowMe = (value: string) => {
+    dispatch({ type: 'show_me', payload: { value } });
+  };
 
-  const releaseDates = [
-    { label: 'Premiere', value: 'premiere' },
-    { label: 'Theatrical', value: 'theatrical' },
-    { label: 'Theatrical (Limited)', value: 'theatrical-limited' },
-    { label: 'Digital', value: 'digital' },
-    { label: 'Physical', value: 'physical' },
-    { label: 'TV', value: 'tv' },
-    // { label: 'Streaming', value: 'streaming' },
-  ];
+  const handleAvailabilities = (value: string[]) => {
+    dispatch({ type: 'toggled_availability', payload: { value } });
+  };
 
-  const { results: genres } = genresRes;
+  const handleReleaseDates = (value: string[]) => {
+    dispatch({ type: 'toggled_release_date', payload: { value } });
+  };
 
-  const languages = [
-    { label: 'English', value: 'en' },
-    { label: 'Spanish', value: 'es' },
-    { label: 'French', value: 'fr' },
-    { label: 'German', value: 'de' },
-    { label: 'Italian', value: 'it' },
-    { label: 'Japanese', value: 'ja' },
-    { label: 'Korean', value: 'ko' },
-    { label: 'Chinese', value: 'zh' },
-    { label: 'Hindi', value: 'hi' },
-    { label: 'Portuguese', value: 'pt' },
-    { label: 'Arabic', value: 'ar' },
-    { label: 'Russian', value: 'ru' },
-    { label: 'Turkish', value: 'tr' },
-    { label: 'Dutch', value: 'nl' },
-    { label: 'Polish', value: 'pl' },
-    { label: 'Swedish', value: 'sv' },
-    { label: 'Danish', value: 'da' },
-    { label: 'Finnish', value: 'fi' },
-    { label: 'Norwegian', value: 'no' },
-    { label: 'Hebrew', value: 'he' },
-    { label: 'Thai', value: 'th' },
-    { label: 'Czech', value: 'cs' },
-    { label: 'Romanian', value: 'ro' },
-    { label: 'Hungarian', value: 'hu' },
-    { label: 'Greek', value: 'el' },
-    { label: 'Indonesian', value: 'id' },
-    { label: 'Ukrainian', value: 'uk' },
-    { label: 'Vietnamese', value: 'vi' },
-    { label: 'Malay', value: 'ms' },
-    { label: 'Persian', value: 'fa' },
-    { label: 'Bulgarian', value: 'bg' },
-    { label: 'Afrikaans', value: 'af' },
-    { label: 'Icelandic', value: 'is' },
-    { label: 'Lithuanian', value: 'lt' },
-    { label: 'Slovenian', value: 'sl' },
-    { label: 'Estonian', value: 'et' },
-    { label: 'Slovak', value: 'sk' },
-    { label: 'Latvian', value: 'lv' },
-    { label: 'Serbian', value: 'sr' },
-    { label: 'Basque', value: 'eu' },
-    { label: 'Croatian', value: 'hr' },
-    { label: 'Tagalog', value: 'tl' },
-    { label: 'Catalan', value: 'ca' },
-    { label: 'Galician', value: 'gl' },
-    { label: 'Urdu', value: 'ur' },
-    { label: 'Bengali', value: 'bn' },
-    { label: 'Bosnian', value: 'bs' },
-    { label: 'Macedonian', value: 'mk' },
-    { label: 'Albanian', value: 'sq' },
-    { label: 'Tamil', value: 'ta' },
-    { label: 'Telugu', value: 'te' },
-    { label: 'Belarusian', value: 'be' },
-    { label: 'Azerbaijani', value: 'az' },
-    { label: 'Georgian', value: 'ka' },
-    { label: 'Armenian', value: 'hy' },
-  ];
+  const handleGenres = (value: string[]) => {
+    dispatch({ type: 'toggled_genre', payload: { value } });
+  };
+
+  const handleLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: 'changed_language', payload: { value: e.target.value } });
+  };
 
   return (
     <Accordion variant='bordered'>
       <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filter Results' className='flex flex-col w-full'>
-        <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me'>
-          {showMe.map((option) => (
+        <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me' onValueChange={handleShowMe}>
+          {SHOW_ME.map((option) => (
             <Radio key={option.value} value={option.value} color='warning'>
               {option.label}
             </Radio>
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup defaultValue={availabilities.map((option) => option.value)} orientation='vertical' label='Availabilities'>
-          {availabilities.map((option) => (
+        <CheckboxGroup
+          defaultValue={AVAILABILITIES.map((option) => option.value)}
+          orientation='vertical'
+          label='Availabilities'
+          onValueChange={handleAvailabilities}>
+          {AVAILABILITIES.map((option) => (
             <Checkbox key={option.value} value={option.value} color='success'>
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup defaultValue={releaseDates.map((option) => option.value)} orientation='vertical' label='Release Dates'>
-          {releaseDates.map((option) => (
+        <CheckboxGroup
+          defaultValue={RELEASE_DATES.map((option) => option.value)}
+          orientation='vertical'
+          label='Release Dates'
+          onValueChange={handleReleaseDates}>
+          {RELEASE_DATES.map((option) => (
             <Checkbox key={option.value} value={option.value} color='danger'>
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup defaultValue={genres.map((option) => option.value)} orientation='horizontal' label='Genres'>
-          {genres.map((option) => (
+        <CheckboxGroup defaultValue={GENRES.map((option) => option.value)} orientation='horizontal' label='Genres' onValueChange={handleGenres}>
+          {GENRES.map((option) => (
             <CheckboxGenre key={option.value} aria-label={option.label} value={option.value} label={option.label} color='primary' />
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <div className='relative flex flex-col gap-2'>
-          <span className='relative text-medium text-foreground-500'>Language</span>
+        <div className='relative flex flex-col gap-2 my-10'>
           <Select
+            label='Select language'
             aria-label='language selection'
             className='max-w-xs'
-            defaultSelectedKeys={['en']}
+            defaultSelectedKeys={[state.language]}
             variant='bordered'
             color='success'
-            labelPlacement='outside'>
-            {languages.map((option) => (
+            labelPlacement='outside'
+            onChange={handleLanguage}>
+            {LANGUAGES.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
@@ -144,16 +92,16 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           </Select>
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>User Score</span>
-          <input type='range' min='1' max='100' />
+          <input type='range' min='1' max='10' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Keywords</span>
           <MultiSelect />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Minimum User Votes</span>
-          <input type='range' min='1' max='100' />
+          <input type='range' min='1' max='500' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Runtime</span>
-          <input type='range' min='1' max='100' />
+          <input type='range' min='1' max='400' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <ButtonCustom label='Clear Filters' className='w-full mt-4' variant='faded' />
         </div>

@@ -19,13 +19,13 @@ const CarouselDropdown: FC<CarouselDropdownProps> = ({ className }) => {
         </button>
       </DropdownTrigger>
       <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
-        <DropdownItem key='list' startContent={<IconList className={iconClasses} />}>
+        <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
           Add to list
         </DropdownItem>
-        <DropdownItem key='favorites' startContent={<IconHeartFilled className={iconClasses} />}>
+        <DropdownItem key='favorites' startContent={<IconHeartFilled className={iconClasses} size={18} />}>
           Add to favorites
         </DropdownItem>
-        <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} />}>
+        <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
           Rate
         </DropdownItem>
       </DropdownMenu>

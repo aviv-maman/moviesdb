@@ -34,6 +34,26 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
       if (provider) provider.is_selected = !provider.is_selected;
       break;
     }
+    case 'show_me': {
+      draft.show_me = action.payload.value;
+      break;
+    }
+    case 'toggled_availability': {
+      draft.availabilities = action.payload.value;
+      break;
+    }
+    case 'toggled_release_date': {
+      draft.release_dates = action.payload.value;
+      break;
+    }
+    case 'toggled_genre': {
+      draft.genres = action.payload.value;
+      break;
+    }
+    case 'changed_language': {
+      draft.language = action.payload.value;
+      break;
+    }
     default: {
       throw Error('Unknown action');
     }
