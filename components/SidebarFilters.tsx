@@ -7,6 +7,7 @@ import ButtonCustom from './ButtonCustom';
 import CheckboxGenre from './CheckboxGenre';
 import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_DATES, SHOW_ME } from '@/lib/data/search_filters';
 import { useForm } from '@/context/FormContext';
+import SliderCustom from './SliderCustom';
 
 interface SidebarFiltersProps {}
 
@@ -97,6 +98,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           </Select>
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>User Score</span>
+          <SliderCustom />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Keywords</span>
           <MultiSelect />
