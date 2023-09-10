@@ -54,6 +54,11 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
       draft.language = action.payload.value;
       break;
     }
+    case 'changed_user_score': {
+      draft.user_score.min = action.payload.min;
+      draft.user_score.max = action.payload.max;
+      break;
+    }
     default: {
       throw Error('Unknown action');
     }

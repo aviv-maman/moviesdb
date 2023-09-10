@@ -1,7 +1,7 @@
 'use client';
 
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
-import type { ChangeEvent, FC } from 'react';
+import type { FC } from 'react';
 import MultiSelect from './MultiSelect';
 import ButtonCustom from './ButtonCustom';
 import CheckboxGenre from './CheckboxGenre';
@@ -29,8 +29,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
     dispatch({ type: 'toggled_genre', payload: { value } });
   };
 
-  const handleLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: 'changed_language', payload: { value: e.target.value } });
+  const handleLanguage = (value: string) => {
+    dispatch({ type: 'changed_language', payload: { value } });
+  };
+
+  const handleUserScore = (value: number | [number, number]) => {
+    if (typeof value === 'number') dispatch({ type: 'changed_user_score', payload: { min: value, max: value } });
+    else dispatch({ type: 'changed_user_score', payload: { min: value[0], max: value[1] } });
   };
 
   return (
@@ -83,7 +88,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             variant='bordered'
             color='success'
             labelPlacement='outside'
-            onChange={handleLanguage}>
+            onChange={(e) => handleLanguage(e.target.value)}>
             {LANGUAGES.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -92,7 +97,6 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           </Select>
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>User Score</span>
-          <input type='range' min='1' max='10' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Keywords</span>
           <MultiSelect />

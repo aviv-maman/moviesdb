@@ -66,13 +66,6 @@ type FormPayload = {
   toggled_provider: {
     provider_id: number;
   };
-  added_keyword: {
-    id: number;
-    value: string;
-  };
-  deleted_keyword: {
-    id: number;
-  };
   show_me: {
     value: string;
   };
@@ -87,6 +80,24 @@ type FormPayload = {
   };
   changed_language: {
     value: string;
+  };
+  changed_user_score: {
+    min: number;
+    max: number;
+  };
+  added_keyword: {
+    id: number;
+    value: string;
+  };
+  deleted_keyword: {
+    id: number;
+  };
+  changed_minimum_votes: {
+    value: number;
+  };
+  changed_runtime: {
+    min: number;
+    max: number;
   };
 };
 
