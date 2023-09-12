@@ -97,17 +97,14 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             ))}
           </Select>
           <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <span className='relative text-medium text-foreground-500'>User Score</span>
-          <SliderCustom />
+          <SliderCustom type='range' title='User Score' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <span className='relative text-medium text-foreground-500'>Keywords</span>
           <MultiSelect />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <span className='relative text-medium text-foreground-500'>Minimum User Votes</span>
-          <input type='range' min='1' max='500' />
+          <SliderCustom type='slider' min={0} max={500} step={50} title='Minimum User Votes' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <span className='relative text-medium text-foreground-500'>Runtime</span>
-          <input type='range' min='1' max='400' />
+          <SliderCustom type='range' min={0} max={360} step={15} marksInterval={4} title='Runtime' />
           <Divider orientation='horizontal' className='mt-5 mb-3' />
           <ButtonCustom label='Clear Filters' className='w-full mt-4' variant='faded' />
         </div>
