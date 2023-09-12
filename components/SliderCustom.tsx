@@ -17,8 +17,8 @@ interface SliderCustomProps {
 const SliderCustom: FC<SliderCustomProps> = ({ type = 'slider', min = 0, max = 10, step = 1, marksInterval = 1, ...props }) => {
   return (
     <>
-      {props.title && <span className='relative text-medium text-foreground-500 mx-3 mb-1'>{props.title}</span>}
-      <div className={`mx-6 ` + props.className}>
+      {props.title && <span className='relative text-medium text-foreground-500 mb-1'>{props.title}</span>}
+      <div className={`ml-3 mr-6 ` + props.className}>
         {type === 'slider' ? (
           <Slider
             defaultValue={min}
