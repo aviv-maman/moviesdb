@@ -8,7 +8,7 @@ interface SidebarMenuProps {}
 
 const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
   return (
-    <aside id='logo-sidebar' className='border-r border-gray-200 dark:border-neutral-800' aria-label='Sidebar'>
+    <aside id='logo-sidebar' className='min-[960px]:border-r border-gray-200 dark:border-neutral-800' aria-label='Sidebar'>
       <div className='h-full overflow-y-auto w-full min-[960px]:w-96 mr-4 mt-4'>
         <ul className='space-y-4 font-medium'>
           <li className='bg-foreground-50 rounded-medium'>

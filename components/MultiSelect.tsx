@@ -3,6 +3,7 @@ import AsyncSelect from 'react-select/async';
 import keywords from '@/lib/data/keyword_ids_09_04_2023.json';
 import type { KeywordList } from '@/lib/api.types';
 import { useForm } from '@/context/FormContext';
+import { useDarkMode } from '@/context/DarkModeContext';
 
 type MultiOptions = {
   id: number;
@@ -14,6 +15,7 @@ const MultiSelect: FC = () => {
   const { results } = keywords as KeywordList;
 
   const { state, dispatch } = useForm();
+  const { isDarkMode } = useDarkMode();
 
   const filterOptions = (inputValue: string) => {
     return results.filter((i) => i.name.toLowerCase().includes(inputValue.toLowerCase()));
@@ -40,17 +42,28 @@ const MultiSelect: FC = () => {
         control: (baseStyles, { isFocused, isDisabled }) => ({
           ...baseStyles,
           backgroundColor: 'transparent',
-          border: isDisabled ? '2px solid rgb(156 163 175)' : isFocused ? '2px solid #17c964' : '2px solid #3f3f46',
+          border: isDisabled
+            ? '2px solid rgb(156 163 175)'
+            : isFocused
+            ? '2px solid #17c964'
+            : isDarkMode
+            ? '2px solid #3f3f46'
+            : '2px solid #e5e7eb',
           minHeight: 40,
           borderRadius: 10,
           boxShadow: undefined,
           '&:hover': {
-            borderColor: isFocused ? '2px solid #17c964' : '#71717a',
+            borderColor: isFocused ? '2px solid #17c964' : isDarkMode ? '#71717a' : '#a1a1aa',
+            cursor: 'text',
           },
         }),
         menu: (baseStyles) => ({
           ...baseStyles,
           borderRadius: 10,
+        }),
+        indicatorsContainer: (baseStyles) => ({
+          ...baseStyles,
+          cursor: 'pointer',
         }),
       }}
       onChange={(newValue, actionMeta) => {
