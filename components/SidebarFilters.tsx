@@ -92,7 +92,14 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         <Divider orientation='horizontal' className='my-4' />
         <CheckboxGroup defaultValue={GENRES.map((option) => option.value)} orientation='horizontal' label='Genres' onValueChange={handleGenres}>
           {GENRES.map((option) => (
-            <CheckboxGenre key={option.value} aria-label={option.label} value={option.value} label={option.label} color='primary' />
+            <CheckboxGenre
+              key={option.value}
+              aria-label={option.label}
+              value={option.value}
+              label={option.label}
+              color='primary'
+              className='mx-0 px-1'
+            />
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
