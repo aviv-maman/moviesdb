@@ -55,10 +55,10 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
           ))}
         </Select>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <h2 className='relative text-small text-foreground-500'>Available Services</h2>
+        <h2 className='relative font-normal text-foreground-500'>Available Services</h2>
 
         <Checkbox color='warning' className='my-1'>
-          <span className='text-small'>Select my services</span>
+          <span className='font-normal'>Select my services</span>
         </Checkbox>
         <CheckboxGroup orientation='horizontal'>
           {state.where_to_watch.providers.map((option) => (

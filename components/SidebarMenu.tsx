@@ -9,15 +9,15 @@ interface SidebarMenuProps {}
 const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
   return (
     <aside id='logo-sidebar' className='border-r border-gray-200 dark:border-neutral-800' aria-label='Sidebar'>
-      <div className='h-full overflow-y-auto bg-slate-200 dark:bg-slate-900 w-full min-[960px]:w-96'>
-        <ul className='space-y-2 font-medium'>
-          <li>
+      <div className='h-full overflow-y-auto w-full min-[960px]:w-96 mr-4 mt-4'>
+        <ul className='space-y-4 font-medium'>
+          <li className='bg-foreground-50 rounded-medium'>
             <SidebarSortBy />
           </li>
-          <li>
+          <li className='bg-foreground-50 rounded-medium'>
             <SidebarWhereToWatch />
           </li>
-          <li>
+          <li className='bg-foreground-50 rounded-medium'>
             <SidebarFilters />
           </li>
         </ul>
