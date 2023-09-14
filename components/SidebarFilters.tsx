@@ -1,13 +1,14 @@
 'use client';
 
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
 import type { FC } from 'react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
 import ButtonCustom from './ButtonCustom';
 import CheckboxGenre from './CheckboxGenre';
 import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_DATES, SHOW_ME } from '@/lib/data/search_filters';
 import { useForm } from '@/context/FormContext';
 import SliderCustom from './SliderCustom';
+import DatePickerCustom from './DatePickerCustom';
 
 interface SidebarFiltersProps {}
 
@@ -50,25 +51,26 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup
-          defaultValue={AVAILABILITIES.map((option) => option.value)}
-          orientation='vertical'
-          label='Availabilities'
-          onValueChange={handleAvailabilities}>
+        <span className='relative text-medium text-foreground-500 block'>Availabilities</span>
+        <Checkbox key={'all-releases'} value={'all'} className='my-1'>
+          Search all availabilities
+        </Checkbox>
+        <CheckboxGroup defaultValue={AVAILABILITIES.map((option) => option.value)} orientation='horizontal' onValueChange={handleAvailabilities}>
           {AVAILABILITIES.map((option) => (
             <Checkbox key={option.value} value={option.value} color='success'>
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
-        <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup
-          defaultValue={RELEASE_DATES.map((option) => option.value)}
-          orientation='vertical'
-          label='Release Dates'
-          onValueChange={handleReleaseDates}>
+        <Divider orientation='horizontal' className='my-3' />
+        <DatePickerCustom />
+        <span className='relative text-medium text-foreground-500 block'>Release Types</span>
+        <Checkbox key={'all-releases'} value={'all'} className='my-1'>
+          Search all releases
+        </Checkbox>
+        <CheckboxGroup defaultValue={RELEASE_DATES.map((option) => option.value)} orientation='horizontal' onValueChange={handleReleaseDates}>
           {RELEASE_DATES.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='danger'>
+            <Checkbox key={option.value} value={option.value} color='secondary'>
               {option.label}
             </Checkbox>
           ))}

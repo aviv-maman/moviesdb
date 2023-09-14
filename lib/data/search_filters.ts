@@ -42,11 +42,11 @@ export const SHOW_ME = [
 ];
 
 export const AVAILABILITIES = [
-  { label: 'Stream', value: 'stream' },
+  { label: 'Streaming', value: 'stream' },
   { label: 'Free', value: 'free' },
-  { label: 'Ads', value: 'ads' },
-  { label: 'Rent', value: 'rent' },
-  { label: 'Buy', value: 'buy' },
+  { label: 'Advertisement', value: 'ads' },
+  { label: 'Rental', value: 'rent' },
+  { label: 'Purchase', value: 'buy' },
 ];
 
 export const RELEASE_DATES = [
