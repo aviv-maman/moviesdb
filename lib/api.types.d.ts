@@ -152,3 +152,29 @@ export type KeywordList = {
     name: string;
   }[];
 };
+
+export type LocationResponse = {
+  place_id: number;
+  licence: string;
+  osm_type: string;
+  osm_id: number;
+  lat: string;
+  lon: string;
+  category: string;
+  type: string;
+  place_rank: number;
+  importance: number;
+  name: string;
+  display_name: string;
+  address: {
+    road: string;
+    town: string;
+    state_district: string;
+    state: string;
+    'ISO3166-2-lvl4': string;
+    postcode: string;
+    country: string;
+    country_code: string;
+  };
+  boundingbox: string[];
+};
