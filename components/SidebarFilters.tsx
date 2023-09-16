@@ -41,7 +41,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
   };
 
   return (
-    <Accordion variant='bordered'>
+    <Accordion variant='bordered' defaultExpandedKeys={['filters']}>
       <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filter Results' className='flex flex-col w-full'>
         <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me' onValueChange={handleShowMe} className='font-normal'>
           {SHOW_ME.map((option) => (
@@ -103,7 +103,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <div className='relative flex flex-col gap-2 my-10'>
+        <div className='relative flex flex-col gap-2 mt-10 mb-2'>
           <Select
             label='Select language'
             aria-label='language selection'
@@ -119,17 +119,16 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
               </SelectItem>
             ))}
           </Select>
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <Divider orientation='horizontal' className='my-3' />
           <SliderCustom type='range' title='User Score' />
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <span className='relative text-medium text-foreground-500'>Keywords</span>
-          <MultiSelect />
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <Divider orientation='horizontal' className='my-3' />
+          <MultiSelect title='Keywords' />
+          <Divider orientation='horizontal' className='my-3' />
           <SliderCustom type='slider' min={0} max={500} step={50} title='Minimum User Votes' />
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
+          <Divider orientation='horizontal' className='my-3' />
           <SliderCustom type='range' min={0} max={360} step={15} marksInterval={4} title='Runtime' />
-          <Divider orientation='horizontal' className='mt-5 mb-3' />
-          <ButtonCustom label='Clear Filters' className='w-full mt-4' variant='faded' />
+          <Divider orientation='horizontal' className='my-3' />
+          <ButtonCustom label='Clear Filters' className='w-full' variant='faded' />
         </div>
       </AccordionItem>
     </Accordion>

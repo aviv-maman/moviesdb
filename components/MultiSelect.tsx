@@ -11,7 +11,11 @@ type MultiOptions = {
   label: string;
 };
 
-const MultiSelect: FC = () => {
+interface MultiSelectProps {
+  title?: string;
+}
+
+const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
   const { results } = keywords as KeywordList;
 
   const { state, dispatch } = useForm();
@@ -29,52 +33,55 @@ const MultiSelect: FC = () => {
     });
 
   return (
-    <AsyncSelect
-      id='multi-select'
-      name='MultiSelect'
-      instanceId={new Date().getTime().toString()}
-      isMulti
-      placeholder='Type to search...'
-      loadOptions={promiseOptions}
-      openMenuOnClick={false}
-      className='font-normal text-small text-foreground-500'
-      styles={{
-        control: (baseStyles, { isFocused, isDisabled }) => ({
-          ...baseStyles,
-          backgroundColor: 'transparent',
-          border: isDisabled
-            ? '2px solid rgb(156 163 175)'
-            : isFocused
-            ? '2px solid #17c964'
-            : isDarkMode
-            ? '2px solid #3f3f46'
-            : '2px solid #e5e7eb',
-          minHeight: 40,
-          borderRadius: 10,
-          boxShadow: undefined,
-          '&:hover': {
-            borderColor: isFocused ? '2px solid #17c964' : isDarkMode ? '#71717a' : '#a1a1aa',
-            cursor: 'text',
-          },
-        }),
-        menu: (baseStyles) => ({
-          ...baseStyles,
-          borderRadius: 10,
-        }),
-        indicatorsContainer: (baseStyles) => ({
-          ...baseStyles,
-          cursor: 'pointer',
-        }),
-      }}
-      onChange={(newValue, actionMeta) => {
-        if (actionMeta.action === 'remove-value') dispatch({ type: 'deleted_keyword', payload: { id: actionMeta.removedValue?.id } });
-        if (actionMeta.action === 'select-option') {
-          if (state.keywords.some((option) => option.id === actionMeta.option?.id)) return;
-          if (actionMeta.option?.id && actionMeta.option?.value)
-            dispatch({ type: 'added_keyword', payload: { id: actionMeta.option?.id, value: actionMeta.option?.value } });
-        }
-      }}
-    />
+    <section>
+      <span className='text-medium text-foreground-500'>{title}</span>
+      <AsyncSelect
+        id='multi-select'
+        name='MultiSelect'
+        instanceId={new Date().getTime().toString()}
+        isMulti
+        placeholder='Type to search...'
+        loadOptions={promiseOptions}
+        openMenuOnClick={false}
+        className='font-normal text-small text-foreground-500 mt-3'
+        styles={{
+          control: (baseStyles, { isFocused, isDisabled }) => ({
+            ...baseStyles,
+            backgroundColor: 'transparent',
+            border: isDisabled
+              ? '2px solid rgb(156 163 175)'
+              : isFocused
+              ? '2px solid #17c964'
+              : isDarkMode
+              ? '2px solid #3f3f46'
+              : '2px solid #e5e7eb',
+            minHeight: 40,
+            borderRadius: 10,
+            boxShadow: undefined,
+            '&:hover': {
+              borderColor: isFocused ? '2px solid #17c964' : isDarkMode ? '#71717a' : '#a1a1aa',
+              cursor: 'text',
+            },
+          }),
+          menu: (baseStyles) => ({
+            ...baseStyles,
+            borderRadius: 10,
+          }),
+          indicatorsContainer: (baseStyles) => ({
+            ...baseStyles,
+            cursor: 'pointer',
+          }),
+        }}
+        onChange={(newValue, actionMeta) => {
+          if (actionMeta.action === 'remove-value') dispatch({ type: 'deleted_keyword', payload: { id: actionMeta.removedValue?.id } });
+          if (actionMeta.action === 'select-option') {
+            if (state.keywords.some((option) => option.id === actionMeta.option?.id)) return;
+            if (actionMeta.option?.id && actionMeta.option?.value)
+              dispatch({ type: 'added_keyword', payload: { id: actionMeta.option?.id, value: actionMeta.option?.value } });
+          }
+        }}
+      />
+    </section>
   );
 };
 

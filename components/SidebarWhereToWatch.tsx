@@ -12,8 +12,12 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();
 
+  const handleChangeCountry = (value: string) => {
+    dispatch({ type: 'changed_country', payload: { value } });
+  };
+
   return (
-    <Accordion defaultExpandedKeys={['where-to-watch']} variant='bordered'>
+    <Accordion variant='bordered'>
       <AccordionItem
         key='where-to-watch'
         aria-label='Accordion of where to watch'
@@ -23,7 +27,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         <Select
           label='Select country'
           aria-label='country selection'
-          className='max-w-xs my-4'
+          className='max-w-xs mt-4'
           defaultSelectedKeys={[state.where_to_watch.country]}
           variant='bordered'
           color='success'
@@ -37,7 +41,11 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
               src={`https://flagcdn.com/${state.where_to_watch.country.toLowerCase()}.svg`}
             />
           }
-          onChange={(e) => dispatch({ type: 'changed_country', payload: { value: e.target.value } })}>
+          selectedKeys={[state.where_to_watch.country]}
+          onChange={(e) => {
+            if (e.target.value === '') return handleChangeCountry(state.where_to_watch.country);
+            handleChangeCountry(e.target.value);
+          }}>
           {countryList.map((option) => (
             <SelectItem
               key={option.iso_3166_1}
@@ -60,7 +68,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         <Checkbox color='warning' className='my-1'>
           <span className='font-normal'>Select my services</span>
         </Checkbox>
-        <CheckboxGroup orientation='horizontal'>
+        <CheckboxGroup orientation='horizontal' className='mb-2'>
           {state.where_to_watch.providers.map((option) => (
             <CheckboxService
               key={option.provider_id}

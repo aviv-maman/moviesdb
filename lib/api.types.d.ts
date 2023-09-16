@@ -1,62 +1,80 @@
-export type ListResponse = {
+type ListItem = {
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  overview: string;
+  poster_path: string;
+  popularity: number;
+  vote_average: number;
+  vote_count: number;
+};
+
+type MovieItem = ListItem & {
+  adult: boolean;
+  title: string;
+  original_title: string;
+  release_date: string;
+  video: boolean;
+};
+
+type SeriesItem = ListItem & {
+  name: string;
+  original_name: string;
+  first_air_date: string;
+  origin_country: string[];
+};
+
+type PersonItem = {
+  adult: boolean;
+  gender: 1 | 2 | 0;
+  id: number;
+  known_for: ((MovieItem & { media_type: 'movie' }) & (SeriesItem & { media_type: 'tv' }))[];
+  known_for_department: string;
+  name: string;
+  popularity: number;
+  profile_path: string;
+};
+
+type ListResponse = {
   page: number;
-  results: {
-    adult: boolean;
-    backdrop_path: string;
-    id: number;
-    title: string;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    poster_path: string;
-    media_type: string;
-    genre_ids: number[];
-    popularity: number;
-    release_date: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-  }[];
   total_pages: number;
   total_results: number;
 };
 
-export type UpcomingListResponse = ListResponse & {
+export type TrendingMovieListResponse = ListResponse & {
+  results: (MovieItem & { media_type: 'movie' })[];
+};
+
+export type TrendingSeriesListResponse = ListResponse & {
+  results: (SeriesItem & { media_type: 'tv' })[];
+};
+
+export type TrendingPersonListResponse = ListResponse & {
+  results: (PersonItem & { original_name: string; media_type: 'person' })[];
+};
+
+export type TrendingAllListResponse = ListResponse & {
+  results: TrendingMovieListResponse['results'] & TrendingSeriesListResponse['results'] & TrendingPersonListResponse['results'];
+};
+
+export type UpcomingMovieListResponse = TrendingMovieListResponse & {
   dates: {
     maximum: string;
     minimum: string;
   };
 };
 
-export type PopularPeopleListResponse = {
-  page: number;
-  results: {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for: {
-      adult: boolean;
-      backdrop_path: string;
-      genre_ids: number[];
-      id: number;
-      media_type: string;
-      original_language: string;
-      original_title: string;
-      overview: string;
-      poster_path: string;
-      release_date: string;
-      title: string;
-      video: boolean;
-      vote_average: number;
-      vote_count: number;
-    }[];
-    known_for_department: string;
-    name: string;
-    popularity: number;
-    profile_path: string;
-  }[];
-  total_pages: number;
-  total_results: number;
+export type MovieListResponse = ListResponse & {
+  results: MovieItem[];
+};
+
+export type SeriesListResponse = ListResponse & {
+  results: SeriesItem[];
+};
+
+export type PopularPeopleListResponse = ListResponse & {
+  results: PersonItem[];
 };
 
 export type TrendingListParams = {

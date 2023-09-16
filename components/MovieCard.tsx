@@ -3,10 +3,10 @@
 import { type FC } from 'react';
 import { CircularProgress, Image } from '@nextui-org/react';
 import CarouselDropdown from './CarouselDropdown';
-import type { ListResponse } from '@/lib/api.types';
+import type { MovieListResponse, SeriesListResponse } from '@/lib/api.types';
 
 interface MovieCardProps {
-  data: ListResponse['results'][0];
+  data: MovieListResponse['results'][0] | SeriesListResponse['results'][0];
 }
 
 const MovieCard: FC<MovieCardProps> = ({ data }) => {
@@ -28,21 +28,26 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
     return ratingColors[Math.floor(rating)];
   };
 
+  //TODO: Add fallback image
+  //TODO: Add type to item
+  const item = {
+    title: data.title || data.name || 'Not available',
+    description: data.overview || 'Not available',
+    image: `https://image.tmdb.org/t/p/w342/${data.poster_path}`,
+    href: data.title ? `/movies/${data.id}` : data.name ? `/series/${data.id}` : '/',
+    rating: data.vote_average || 0,
+    releaseDate: data.release_date || data.first_air_date || '0000-00-00',
+  };
+
   return (
     <div className='relative w-auto rounded-md' style={{ maxWidth: '12rem' }}>
-      <Image
-        src={`https://image.tmdb.org/t/p/w342/${data.poster_path}`}
-        alt={data.original_title}
-        className='z-0 h-full w-full rounded-md object-cover'
-        width={400}
-        height={500}
-      />
+      <Image src={item.image} alt={item.title} className='z-0 h-full w-full rounded-md object-cover' width={400} height={500} />
       <CarouselDropdown />
-      <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent'></div>
+      <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
       <div className='absolute bottom-0 left-0 text-left w-full p-2'>
-        <h1 className='text-small font-semibold text-white'>{data.title || 'Not available'}</h1>
+        <h1 className='text-small font-semibold text-white'>{item.title}</h1>
         <div className='flex justify-between mt-1 items-center'>
-          <span className='text-tiny text-gray-300'>{data.release_date || '0000-00-00'}</span>
+          <span className='text-tiny text-gray-300'>{item.releaseDate}</span>
           <CircularProgress
             aria-label='Vote average'
             size='sm'
