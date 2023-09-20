@@ -1,23 +1,46 @@
 'use client';
 
-import { type FC } from 'react';
+import { useEffect, type FC } from 'react';
 import { Accordion, AccordionItem, Avatar, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
 import countries from '@/lib/data/countries.json';
 import { useForm } from '@/context/FormContext';
 import CheckboxService from './CheckboxService';
+import { useGeoLocation } from '@/hooks/useGeoLocation';
+import useSWR from 'swr';
+import type { LocationResponse } from '@/lib/api.types';
 
 interface SidebarWhereToWatchProps {}
 
 const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();
+  const { error, loading, position } = useGeoLocation();
+
+  const [latitude, longitude] = [String(position?.coords.latitude), String(position?.coords.longitude)];
+  const [geoURL, geoArgs] = ['/api/geo-location', { headers: { latitude: latitude, longitude: longitude } } as RequestInit | undefined];
+
+  const {
+    data: location,
+    error: locationError,
+    isLoading,
+    isValidating,
+  } = useSWR<{ data: LocationResponse }, Error>(position ? { url: geoURL, options: geoArgs } : null);
 
   const handleChangeCountry = (value: string) => {
+    value = value.toUpperCase();
     dispatch({ type: 'changed_country', payload: { value } });
   };
 
+  useEffect(() => {
+    if (location?.data && 'address' in location.data && location.data.address.country_code !== null) {
+      handleChangeCountry(location.data.address.country_code.toUpperCase());
+    }
+    console.log('locationError', locationError);
+    console.log('location', location);
+  }, [location]);
+
   return (
-    <Accordion variant='bordered'>
+    <Accordion variant='bordered' defaultExpandedKeys={['where-to-watch']}>
       <AccordionItem
         key='where-to-watch'
         aria-label='Accordion of where to watch'
@@ -28,7 +51,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
           label='Select country'
           aria-label='country selection'
           className='max-w-xs mt-4'
-          defaultSelectedKeys={[state.where_to_watch.country]}
+          isLoading={isLoading || isValidating}
           variant='bordered'
           color='success'
           labelPlacement='outside'

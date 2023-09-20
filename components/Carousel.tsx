@@ -4,12 +4,12 @@ import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
-import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
+import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 import MovieCard from './MovieCard';
 
 interface CarouselProps {
   tabs?: string[];
-  data: ListResponse[] | UpcomingListResponse[];
+  data: MovieListResponse[] | UpcomingMovieListResponse[];
 }
 
 const Carousel: FC<CarouselProps> = ({ tabs, data }) => {

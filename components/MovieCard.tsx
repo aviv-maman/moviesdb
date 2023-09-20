@@ -31,12 +31,12 @@ const MovieCard: FC<MovieCardProps> = ({ data }) => {
   //TODO: Add fallback image
   //TODO: Add type to item
   const item = {
-    title: data.title || data.name || 'Not available',
+    title: 'title' in data ? data.title : data.name || 'Not available',
     description: data.overview || 'Not available',
     image: `https://image.tmdb.org/t/p/w342/${data.poster_path}`,
-    href: data.title ? `/movies/${data.id}` : data.name ? `/series/${data.id}` : '/',
+    href: 'title' in data ? `/movies/${data.id}` : data.name ? `/series/${data.id}` : '/',
     rating: data.vote_average || 0,
-    releaseDate: data.release_date || data.first_air_date || '0000-00-00',
+    releaseDate: 'release_date' in data ? data.release_date : data.first_air_date || '0000-00-00',
   };
 
   return (

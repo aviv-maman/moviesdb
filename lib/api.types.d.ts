@@ -153,28 +153,41 @@ export type KeywordList = {
   }[];
 };
 
-export type LocationResponse = {
-  place_id: number;
-  licence: string;
-  osm_type: string;
-  osm_id: number;
-  lat: string;
-  lon: string;
-  category: string;
-  type: string;
-  place_rank: number;
-  importance: number;
-  name: string;
-  display_name: string;
+type LocationResOK = {
+  place_id: number | null;
+  licence: string | null;
+  osm_type: string | null;
+  osm_id: number | null;
+  lat: string | null;
+  lon: string | null;
+  class: string | null;
+  type: string | null;
+  place_rank: number | null;
+  importance: number | null;
+  addresstype: string | null;
+  name: string | null;
+  display_name: string | null;
   address: {
-    road: string;
-    town: string;
-    state_district: string;
-    state: string;
-    'ISO3166-2-lvl4': string;
-    postcode: string;
-    country: string;
-    country_code: string;
+    amenity: string | null;
+    house_number: string | null;
+    road: string | null;
+    suburb: string | null;
+    city: string | null;
+    county: string | null;
+    'ISO3166-2-lvl6': string | null;
+    state: string | null;
+    'ISO3166-2-lvl4': string | null;
+    postcode: string | null;
+    country: string | null;
+    country_code: string | null;
+    town: string | null;
+    state_district: string | null;
   };
-  boundingbox: string[];
+  boundingbox: string[] | null;
 };
+
+type LocationResError = {
+  error: { code: number | null; message: string | null };
+};
+
+export type LocationResponse = LocationResOK | LocationResError;

@@ -5,17 +5,17 @@ import trendingMedia from '@/lib/data/trending-all.json';
 import popularMovies from '@/lib/data/popular-movies.json';
 import topMovies from '@/lib/data/top_rated-movies.json';
 import upcomingMovies from '@/lib/data/upcoming-movies.json';
-import type { ListResponse, UpcomingListResponse } from '@/lib/api.types';
+import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 import FeatureCard from '@/components/FeatureCard';
 import { features, resources } from '@/lib/features-data';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Index() {
-  const trendingData = trendingMedia as ListResponse;
-  const popularMoviesData = popularMovies as ListResponse;
-  const topMoviesData = topMovies as ListResponse;
-  const upcomingMoviesData = upcomingMovies as UpcomingListResponse;
+  const trendingData = trendingMedia as MovieListResponse;
+  const popularMoviesData = popularMovies as MovieListResponse;
+  const topMoviesData = topMovies as MovieListResponse;
+  const upcomingMoviesData = upcomingMovies as UpcomingMovieListResponse;
 
   const backgroundLoader = (width: 'w300' | 'w780' | 'w1280' | 'original', index?: number) => {
     const chosenNumber = index || Math.floor(Math.random() * 19);
@@ -24,7 +24,7 @@ export default async function Index() {
 
   return (
     <div className='w-full flex flex-col items-center'>
-      <div className='animate-in flex flex-col gap-7 max-w-7xl'>
+      <div className='flex flex-col gap-7 max-w-7xl'>
         <div
           style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
           className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}>

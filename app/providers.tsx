@@ -5,12 +5,16 @@ import { NextUIProvider } from '@nextui-org/react';
 import StyledComponentsRegistry from '@/lib/registry';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import { FormProvider } from '@/context/FormContext';
+import { SWRConfigProvider } from '@/context/SWRConfigContext';
+
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <StyledComponentsRegistry>
       <DarkModeProvider>
         <FormProvider>
-          <NextUIProvider>{children}</NextUIProvider>
+          <NextUIProvider>
+            <SWRConfigProvider>{children}</SWRConfigProvider>
+          </NextUIProvider>
         </FormProvider>
       </DarkModeProvider>
     </StyledComponentsRegistry>
