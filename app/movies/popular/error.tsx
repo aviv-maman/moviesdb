@@ -3,17 +3,20 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { IconArrowNarrowLeft, IconHome, IconReload } from '@tabler/icons-react';
+import type { ThrownErrorSWR } from '@/lib/generic.types';
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+export default function Error({ error, reset }: { error: Error | ThrownErrorSWR; reset: () => void }) {
   const router = useRouter();
+  const statusCode = 'statusCode' in error ? error.statusCode : 404;
+  const statusText = 'statusText' in error ? error.statusText : error.name;
 
   return (
     <div className='flex justify-center min-h-screen w-full'>
       <div className='text-center border-1 rounded-md p-5 h-fit my-20'>
         <div>
-          <h1 className='font-black text-gray-400 dark:text-gray-200 text-8xl'>{404}</h1>
+          <h1 className='font-black text-gray-400 dark:text-gray-200 text-8xl'>{statusCode}</h1>
           <span className='text-2xl font-bold tracking-tight text-gray-700 sm:text-4xl'>Uh-oh!</span>
-          <h2>{error.name}</h2>
+          <h2>{statusText}</h2>
           <span className='mt-4 text-gray-500'>{error.message}</span>
         </div>
         <div className='flex items-center mt-6 gap-x-3'>

@@ -17,7 +17,7 @@ export const SWRConfigProvider: FC<SWRConfigContextProps> = ({ children }) => {
       // Attach extra info to the error object.
       // error.info = await res.json();
 
-      const errorWithInfo = { ...error, info: { status: res.status, statusText: res.statusText, ok: res.ok } };
+      const errorWithInfo = { ...error, statusCode: res.status, statusText: res.statusText };
       throw errorWithInfo;
     }
 
