@@ -42,7 +42,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
 
   return (
     <Accordion variant='bordered' defaultExpandedKeys={['filters']}>
-      <AccordionItem key='filters' aria-label='Accordion of filters' title='Filters' subtitle='Filter Results' className='flex flex-col w-full'>
+      <AccordionItem
+        key='filters'
+        aria-label='Accordion of filters'
+        title='Filters'
+        subtitle='Filter Results'
+        className='flex flex-col w-full'
+        classNames={{ content: 'overflow-x-hidden' }}>
         <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me' onValueChange={handleShowMe} className='font-normal'>
           {SHOW_ME.map((option) => (
             <Radio key={option.value} value={option.value}>

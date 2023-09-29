@@ -2,7 +2,7 @@
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, NavbarItem } from '@nextui-org/react';
 import { IconChevronDown } from '@tabler/icons-react';
-import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
 import type { ReactNode, FC } from 'react';
 
 interface HeaderDropdownProps {
@@ -18,6 +18,7 @@ interface HeaderDropdownProps {
 const HeaderDropdown: FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
   const router = useRouter();
   const activeSegment = useSelectedLayoutSegment();
+  const activeSegments = useSelectedLayoutSegments();
 
   const dropdownLabel = targetSegment;
   const capitalizedLabel = dropdownLabel.charAt(0).toUpperCase() + dropdownLabel.slice(1);
@@ -47,7 +48,7 @@ const HeaderDropdown: FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
               key={href}
               description={description}
               startContent={icon}
-              className={activeSegment === targetSegment ? 'bg-primary-500/10' : ''}
+              className={href === `/${activeSegment}/${activeSegments[1]}` ? 'bg-primary-500/10' : ''}
               onClick={() => router.push(href)}>
               {label}
             </DropdownItem>

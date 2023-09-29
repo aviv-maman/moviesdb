@@ -18,7 +18,7 @@ const SliderCustom: FC<SliderCustomProps> = ({ type = 'slider', min = 0, max = 1
   return (
     <>
       {props.title && <span className='relative text-medium text-foreground-500 mb-1'>{props.title}</span>}
-      <div className={`ml-3 mr-6 ` + props.className}>
+      <div className={`pl-0 pr-0 ` + props.className}>
         {type === 'slider' ? (
           <Slider
             defaultValue={min}
@@ -31,6 +31,8 @@ const SliderCustom: FC<SliderCustomProps> = ({ type = 'slider', min = 0, max = 1
               if (mark % 2 !== 0) return;
               return <span className='text-xs text-gray-400 dark:text-gray-500'>{mark}</span>;
             }}
+            barClassName='mr-1'
+            className='mr-2.5 ml-2.5'
           />
         ) : (
           <RangeSlider
@@ -44,6 +46,8 @@ const SliderCustom: FC<SliderCustomProps> = ({ type = 'slider', min = 0, max = 1
               if (mark % marksInterval !== 0) return;
               return <span className='text-xs text-gray-400 dark:text-gray-500'>{mark}</span>;
             }}
+            barClassName='mr-1'
+            className='mr-2.5 ml-2.5'
           />
         )}
       </div>

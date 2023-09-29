@@ -1,4 +1,4 @@
-import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconStarFilled, IconStarsFilled } from '@tabler/icons-react';
+import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconStar, IconStarFilled, IconStars, IconStarsFilled } from '@tabler/icons-react';
 
 export const mobileItems = ['Profile', 'Help', 'About', 'Log Out'];
 
@@ -34,25 +34,25 @@ export const seriesLinks = [
     href: '/series/popular',
     label: 'Popular',
     description: 'The most popular series.',
-    icon: <IconStarsFilled size={24} className='text-warning' />,
+    icon: <IconStars size={24} color='#f59e0b' />,
   },
   {
     href: '/series/on-the-air',
     label: 'On the Air',
     description: 'Series currently airing on TV and streaming services.',
-    icon: <IconDeviceTv size={24} className='text-secondary' />,
+    icon: <IconDeviceTv size={24} color='#005bc4' />,
   },
   {
     href: '/series/top-rated',
     label: 'Top Rated',
     description: 'Series with the highest score by users.',
-    icon: <IconStarFilled size={24} className='text-danger' />,
+    icon: <IconStar size={24} color='#22c55e' />,
   },
   {
     href: '/series/airing-today',
     label: 'Airing Today',
     description: 'Series which will be aired today.',
-    icon: <IconClockDown size={24} className='text-orange-600' />,
+    icon: <IconClockDown size={24} color='#dc2626' />,
   },
 ];
 
