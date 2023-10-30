@@ -119,7 +119,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
             </DropdownMenu>
           ) : (
             <DropdownMenu aria-label='Profile Actions' variant='flat' disabledKeys={[isLoading ? 'logout' : '']}>
-              <DropdownItem key='profile' className='h-14 gap-2'>
+              <DropdownItem key='profile' className='h-14 gap-2' onClick={() => router.push('/profile')}>
                 <p className='font-semibold'>Signed in as</p>
                 <p className='font-semibold'>{user.email}</p>
               </DropdownItem>
@@ -136,7 +136,12 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
       <NavbarMenu>
         {mobileItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link color={index === 2 ? 'primary' : index === mobileItems.length - 1 ? 'danger' : 'foreground'} className='w-full' href='#' size='lg'>
+            <Link
+              color={index === 2 ? 'primary' : index === mobileItems.length - 1 ? 'danger' : 'foreground'}
+              className='w-full'
+              href='#'
+              size='lg'
+            >
               {item}
             </Link>
           </NavbarMenuItem>

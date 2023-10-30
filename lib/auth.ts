@@ -46,7 +46,15 @@ export async function getProfile() {
   const supabase = createServerSupabaseClient();
   try {
     const { user } = (await supabase.auth.getUser()).data;
-    const { data: profile, error, status } = await supabase.from('profiles').select('*').eq('id', user?.id).single();
+    const {
+      data: profile,
+      error,
+      status,
+    } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user?.id as string)
+      .single();
     if (error && status !== 406) {
       throw error;
     }

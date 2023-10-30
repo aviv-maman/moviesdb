@@ -10,7 +10,7 @@ export interface Database {
           username: string | null;
           full_name: string | null;
           avatar_url: string | null;
-          website: string | null;
+          tmdb_session_id: string | null;
         };
         Insert: {
           id: string;
@@ -18,7 +18,7 @@ export interface Database {
           username?: string | null;
           full_name?: string | null;
           avatar_url?: string | null;
-          website?: string | null;
+          tmdb_session_id?: string | null;
         };
         Update: {
           id?: string;
@@ -26,7 +26,7 @@ export interface Database {
           username?: string | null;
           full_name?: string | null;
           avatar_url?: string | null;
-          website?: string | null;
+          tmdb_session_id?: string | null;
         };
       };
     };

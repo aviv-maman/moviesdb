@@ -55,7 +55,9 @@ export type TrendingPersonListResponse = ListResponse & {
 };
 
 export type TrendingAllListResponse = ListResponse & {
-  results: TrendingMovieListResponse['results'] & TrendingSeriesListResponse['results'] & TrendingPersonListResponse['results'];
+  results: TrendingMovieListResponse['results'] &
+    TrendingSeriesListResponse['results'] &
+    TrendingPersonListResponse['results'];
 };
 
 export type UpcomingMovieListResponse = TrendingMovieListResponse & {
@@ -191,3 +193,18 @@ type LocationResError = {
 };
 
 export type LocationResponse = LocationResOK | LocationResError;
+
+export type CreateRequestTokenResponse = {
+  success: boolean;
+  expires_at: string;
+  request_token: string;
+};
+
+export type CreateTmdbSessionIdResponse = {
+  success: boolean;
+  session_id: string;
+};
+
+export type DeleteTmdbSessionIdResponse = {
+  success: boolean;
+};

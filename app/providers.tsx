@@ -6,15 +6,18 @@ import StyledComponentsRegistry from '@/lib/registry';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import { FormProvider } from '@/context/FormContext';
 import { SWRConfigProvider } from '@/context/SWRConfigContext';
+import { ProfileProvider } from '@/context/ProfileContext';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <StyledComponentsRegistry>
       <DarkModeProvider>
         <FormProvider>
-          <NextUIProvider>
-            <SWRConfigProvider>{children}</SWRConfigProvider>
-          </NextUIProvider>
+          <ProfileProvider>
+            <NextUIProvider>
+              <SWRConfigProvider>{children}</SWRConfigProvider>
+            </NextUIProvider>
+          </ProfileProvider>
         </FormProvider>
       </DarkModeProvider>
     </StyledComponentsRegistry>
