@@ -4,6 +4,7 @@ import { createContext, useContext, useMemo, type ReactNode, type Dispatch } fro
 import { useImmerReducer } from 'use-immer';
 import { profileReducer } from './profileReducer';
 import type { Profile } from '@/lib/database.types';
+import type { TmdbProfile } from '@/lib/api.types';
 
 export type ProfileStore = {
   state: ProfileContextState;
@@ -13,6 +14,7 @@ export type ProfileStore = {
 const initialContextState = {
   active_view: 'profile',
   supabase_profile: {} as Profile | null,
+  tmdb_profile: {} as TmdbProfile | null,
 };
 
 const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
@@ -48,6 +50,9 @@ type ProfilePayload = {
   };
   changed_supabase_profile: {
     value: Profile | null;
+  };
+  changed_tmdb_profile: {
+    value: TmdbProfile | null;
   };
 };
 

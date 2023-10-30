@@ -11,6 +11,7 @@ export interface Database {
           full_name: string | null;
           avatar_url: string | null;
           tmdb_session_id: string | null;
+          tmdb_account_id: number | null;
         };
         Insert: {
           id: string;
@@ -19,6 +20,7 @@ export interface Database {
           full_name?: string | null;
           avatar_url?: string | null;
           tmdb_session_id?: string | null;
+          tmdb_account_id?: number | null;
         };
         Update: {
           id?: string;
@@ -27,6 +29,7 @@ export interface Database {
           full_name?: string | null;
           avatar_url?: string | null;
           tmdb_session_id?: string | null;
+          tmdb_account_id?: number | null;
         };
       };
     };
