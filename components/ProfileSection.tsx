@@ -3,28 +3,31 @@
 import { useEffect, type FC } from 'react';
 import ProfileMenu from '@/components/ProfileMenu';
 import ProfileSettings from '@/components/ProfileSettings';
-import ProfileTMDB from './ProfileTMDB';
+import ProfileIntegrations from './ProfileIntegrations';
 import { useProfile } from '@/context/ProfileContext';
 import type { Profile } from '@/lib/database.types';
+import type { User } from '@supabase/supabase-js';
 
 interface ProfileSectionProps {
   profile: Profile | null;
+  user: User | null;
 }
 
-const ProfileSection: FC<ProfileSectionProps> = ({ profile }) => {
+const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
   const { dispatch, state } = useProfile();
 
   useEffect(() => {
     dispatch({ type: 'changed_active_view', payload: { value: 'profile' } });
     dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
-  }, [dispatch, profile]);
+    dispatch({ type: 'changed_supabase_user', payload: { value: user } });
+  }, [dispatch, profile, user]);
 
   return (
-    <div className='w-full block min-[960px]:flex m-auto justify-center'>
+    <>
       <ProfileMenu />
       {state.active_view === 'profile' && <ProfileSettings />}
-      {state.active_view === 'tmdb' && <ProfileTMDB />}
-    </div>
+      {state.active_view === 'integrations' && <ProfileIntegrations />}
+    </>
   );
 };
 

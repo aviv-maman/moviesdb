@@ -14,6 +14,10 @@ export const profileReducer = (draft: ProfileContextState, action: ProfileAction
       draft.tmdb_profile = action.payload.value;
       break;
     }
+    case 'changed_supabase_user': {
+      draft.supabase_user = action.payload.value;
+      break;
+    }
     default: {
       throw Error('Unknown action');
     }

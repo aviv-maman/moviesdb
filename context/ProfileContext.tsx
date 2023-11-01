@@ -5,6 +5,7 @@ import { useImmerReducer } from 'use-immer';
 import { profileReducer } from './profileReducer';
 import type { Profile } from '@/lib/database.types';
 import type { TmdbProfile } from '@/lib/api.types';
+import type { User } from '@supabase/supabase-js';
 
 export type ProfileStore = {
   state: ProfileContextState;
@@ -15,6 +16,7 @@ const initialContextState = {
   active_view: 'profile',
   supabase_profile: {} as Profile | null,
   tmdb_profile: {} as TmdbProfile | null,
+  supabase_user: {} as User | null,
 };
 
 const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
@@ -46,13 +48,16 @@ type ActionMap<M extends { [index: string]: any }> = {
 
 type ProfilePayload = {
   changed_active_view: {
-    value: 'profile' | 'tmdb';
+    value: 'profile' | 'integrations';
   };
   changed_supabase_profile: {
     value: Profile | null;
   };
   changed_tmdb_profile: {
     value: TmdbProfile | null;
+  };
+  changed_supabase_user: {
+    value: User | null;
   };
 };
 

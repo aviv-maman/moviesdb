@@ -85,8 +85,8 @@ const Profile: FC<ProfileProps> = async ({}) => {
   }
 
   return (
-    <div className='w-full block min-[960px]:flex m-auto justify-center'>
-      <ProfileSection profile={profile} />
+    <div className='w-full block min-[960px]:flex m-auto mt-4'>
+      <ProfileSection profile={profile} user={user} />
     </div>
   );
 };
