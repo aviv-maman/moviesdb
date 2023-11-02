@@ -37,7 +37,7 @@ const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
   }, [dispatch, tmdb_profile]);
 
   return (
-    <div className='dark:bg-gray-900 dark:text-gray-100 w-full'>
+    <div className='dark:text-gray-100 w-full'>
       <div className='mb-4'>
         <h1 className='text-gray-800 text-lg font-extrabold'>Integrations</h1>
         <p className='text-gray-600 text-sm'>Extend your experience by connecting to other services.</p>

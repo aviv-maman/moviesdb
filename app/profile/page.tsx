@@ -14,7 +14,7 @@ export const handleLinkAccount = async () => {
   'use server';
   const options: RequestInit = {
     method: 'GET',
-    cache: 'no-cache',
+    cache: 'no-cache', // cache: 'force-cache',
     headers: {
       accept: 'application/json',
       Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
@@ -42,7 +42,7 @@ export const handleUnlinkAccount = async () => {
   'use server';
   const options: RequestInit = {
     method: 'DELETE',
-    cache: 'no-cache',
+    cache: 'no-cache', // cache: 'force-cache',
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
@@ -84,11 +84,7 @@ const Profile: FC<ProfileProps> = async ({}) => {
     throw new Error(error.message);
   }
 
-  return (
-    <div className='w-full block min-[960px]:flex m-auto mt-4'>
-      <ProfileSection profile={profile} user={user} />
-    </div>
-  );
+  return <ProfileSection profile={profile} user={user} />;
 };
 
 export default Profile;

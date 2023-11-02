@@ -11,7 +11,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({}) => {
   const { dispatch } = useProfile();
 
   return (
-    <div className='sm:w-full md:max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 mx-4'>
+    <div className='sm:w-full md:max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 mr-0 md:mr-4 my-4 md:my-0'>
       <Listbox
         aria-label='Actions'
         onAction={(key) =>

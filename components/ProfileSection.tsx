@@ -23,11 +23,11 @@ const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
   }, [dispatch, profile, user]);
 
   return (
-    <>
+    <section className='md:flex md:mt-4'>
       <ProfileMenu />
       {state.active_view === 'profile' && <ProfileSettings />}
       {state.active_view === 'integrations' && <ProfileIntegrations />}
-    </>
+    </section>
   );
 };
 
