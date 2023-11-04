@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
-import type { Database } from '@/lib/database.types';
 import type { TmdbProfile } from '@/lib/api.types';
 
 export async function GET(request: Request) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const accountOptions: RequestInit = {
     method: 'GET',
     headers: {

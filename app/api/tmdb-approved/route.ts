@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
-import type { Database } from '@/lib/database.types';
 import type { CreateTmdbSessionIdResponse, TmdbProfile } from '@/lib/api.types';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const sessionOptions = {
     method: 'POST',
     headers: {

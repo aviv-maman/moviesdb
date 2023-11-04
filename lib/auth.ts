@@ -1,11 +1,14 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 
 import type { Profile, Database } from './database.types';
 import type { PostgrestError } from '@supabase/supabase-js';
 
-export const createServerSupabaseClient = cache(() => createServerComponentClient<Database>({ cookies }));
+export const createServerSupabaseClient = cache(() => {
+  const cookieStore = cookies();
+  return createClient(cookieStore);
+});
 
 export async function getSession() {
   const supabase = createServerSupabaseClient();

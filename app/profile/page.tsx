@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import ProfileSection from '@/components/ProfileSection';
 import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
 import { redirect } from 'next/navigation';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import type { Database } from '@/lib/database.types';
 
@@ -51,7 +51,8 @@ export const handleUnlinkAccount = async () => {
   };
   const res = await fetch('https://api.themoviedb.org/3/authentication/session', options);
   if (res.ok) {
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
     const userRes = await supabase.auth.getUser();
     const { error, status } = await supabase
       .from('profiles')
@@ -93,7 +94,8 @@ export const updateProfile = async (profile: Database['public']['Tables']['profi
   'use server';
   const { full_name, username, avatar_url } = profile;
   try {
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
     const userRes = await supabase.auth.getUser();
     const { data, error, status } = await supabase
       .from('profiles')
@@ -115,8 +117,11 @@ export const updateProfile = async (profile: Database['public']['Tables']['profi
 };
 
 const Profile: FC<ProfileProps> = async ({}) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const user = (await supabase.auth.getSession())?.data?.session?.user;
+  if (!user) redirect('/login'); // This route can only be accessed by authenticated users.
+
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')

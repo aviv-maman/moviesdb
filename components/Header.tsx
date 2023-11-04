@@ -20,8 +20,8 @@ import {
 } from '@nextui-org/react';
 import Logo from './Logo';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import type { Profile, Database } from '@/lib/database.types';
+import { createClient } from '@/utils/supabase/client';
+import type { Profile } from '@/lib/database.types';
 import HeaderDropdown from './HeaderDropdown';
 import { mobileItems, movieLinks, seriesLinks } from '@/lib/header-links';
 
@@ -33,7 +33,7 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ user, profile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignOut = async () => {
@@ -66,7 +66,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
           classNames={{
             base: 'max-w-full sm:max-w-[15rem] h-max hidden md:block',
             input: 'text-small',
-            inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+            inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 h-9',
           }}
           placeholder='Type to search...'
           size='sm'
