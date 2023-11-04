@@ -34,7 +34,7 @@ export const handleLinkAccount = async () => {
       `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/api/tmdb-approved`
     );
   } else {
-    throw new Error(res.statusText);
+    throw new Error(`Error ${res.status}: ${res.statusText}.`);
   }
 };
 
@@ -52,37 +52,77 @@ export const handleUnlinkAccount = async () => {
   const res = await fetch('https://api.themoviedb.org/3/authentication/session', options);
   if (res.ok) {
     const supabase = createServerComponentClient<Database>({ cookies });
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    const { error } = await supabase
+    const userRes = await supabase.auth.getUser();
+    const { error, status } = await supabase
       .from('profiles')
       .update({
         tmdb_session_id: null,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', user?.id as string);
-    if (error) {
-      throw new Error(error.message);
-    }
+      .eq('id', userRes.data.user?.id as string);
+    if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
+
     const data: DeleteTmdbSessionIdResponse = await res.json();
     data.success && cookies().delete('tmdb_session_id');
   }
 };
 
+// export const updateProfile = async (formData: FormData) => {
+//   'use server';
+//   const full_name = (formData.get('full_name') as string) || null;
+//   const username = (formData.get('username') as string) || null;
+//   const avatar_url = (formData.get('avatar_url') as string) || null;
+//   try {
+//     const supabase = createServerComponentClient<Database>({ cookies });
+//     const userRes = await supabase.auth.getUser();
+//     const { error, status } = await supabase.from('profiles').upsert({
+//       id: userRes.data.user?.id as string,
+//       full_name,
+//       username,
+//       avatar_url,
+//       updated_at: new Date().toISOString(),
+//     });
+//     if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
+//     console.error('Profile updated!');
+//   } catch (error) {
+//     console.error('Error updating the data!');
+//   }
+// };
+
+export const updateProfile = async (profile: Database['public']['Tables']['profiles']['Update']) => {
+  'use server';
+  const { full_name, username, avatar_url } = profile;
+  try {
+    const supabase = createServerComponentClient<Database>({ cookies });
+    const userRes = await supabase.auth.getUser();
+    const { data, error, status } = await supabase
+      .from('profiles')
+      .upsert({
+        id: userRes.data.user?.id as string,
+        full_name,
+        username,
+        avatar_url,
+        updated_at: new Date().toISOString(),
+      })
+      .select('*')
+      .single();
+    if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
+    return data;
+    console.error('Profile updated!');
+  } catch (error) {
+    console.error('Error updating the data!');
+  }
+};
+
 const Profile: FC<ProfileProps> = async ({}) => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = (await supabase.auth.getSession())?.data?.session?.user;
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', user?.id as string)
     .single();
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (error) throw error;
 
   return <ProfileSection profile={profile} user={user} />;
 };

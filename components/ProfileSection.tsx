@@ -10,7 +10,7 @@ import type { User } from '@supabase/supabase-js';
 
 interface ProfileSectionProps {
   profile: Profile | null;
-  user: User | null;
+  user?: User | null;
 }
 
 const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {

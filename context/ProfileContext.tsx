@@ -57,7 +57,7 @@ type ProfilePayload = {
     value: TmdbProfile | null;
   };
   changed_supabase_user: {
-    value: User | null;
+    value?: User | null;
   };
 };
 

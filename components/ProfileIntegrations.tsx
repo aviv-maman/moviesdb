@@ -45,9 +45,9 @@ const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
       <div className='border rounded-lg max-w-sm'>
         <div className='flex items-start justify-between p-4'>
           <div className='space-y-2'>
-            <Image src='./tmdb.jpg' alt='tmdb' className='inline-block h-12 rounded-none' width={'48'} />
+            <Image src='./tmdb48.jpg' alt='tmdb' className='inline-block h-12 rounded-none' width={'48'} />
             <h4 className='text-gray-800 font-semibold'>{'The Movie Database (TMDB)'}</h4>
-            <p className='text-gray-600 text-sm'>{'One of the largest database of movies and series.'}</p>
+            <p className='text-gray-600 text-sm'>{'One of the largest databases of movies and series.'}</p>
           </div>
           <form action={handleLinkAccount}>
             <Suspense fallback={<Spinner />}>

@@ -16,12 +16,12 @@ export async function GET(request: Request) {
   };
   try {
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
+      data: { session },
+    } = await supabase.auth.getSession();
     const { data: supabaseProfile, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('id', user?.id as string)
+      .eq('id', session?.user.id as string)
       .single();
     if (error) {
       console.log('Supabase handleLinkAccount', error);

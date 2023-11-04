@@ -23,9 +23,7 @@ const inter = Inter({ subsets: ['latin'] });
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const supabase = createServerComponentClient({ cookies });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = (await supabase.auth.getSession())?.data?.session?.user;
 
   // const { profile, error: profileError } = await getProfile();
 
