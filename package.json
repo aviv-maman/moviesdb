@@ -6,10 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.1",
+    "@nextui-org/react": "^2.2.2",
     "@splidejs/react-splide": "^0.7.12",
-    "@supabase/auth-ui-react": "^0.4.6",
-    "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.9",
     "@supabase/supabase-js": "^2.38.4",
     "@tabler/icons-react": "^2.40.0",

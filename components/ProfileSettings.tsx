@@ -1,10 +1,11 @@
 'use client';
 
 import { useProfile } from '@/context/ProfileContext';
-import { Avatar, useDisclosure } from '@nextui-org/react';
+import { Avatar, Badge, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, useDisclosure } from '@nextui-org/react';
 import { IconMail, IconPencil, IconUser } from '@tabler/icons-react';
 import { type FC } from 'react';
 import ProfileEditModal from './ProfileEditModal';
+import { IconCamera } from '@tabler/icons-react';
 
 interface ProfileSettingsProps {}
 
@@ -17,14 +18,39 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       <ProfileEditModal isOpen={isOpen} onOpenChange={onOpenChange} />
       <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-100'>
         <div className='flex m-4'>
-          <Avatar
-            src={state.supabase_profile?.avatar_url || undefined}
-            alt='avatar'
-            className='p-4 w-28 h-28 md:w-32 md:h-32 mr-4'
-            isBordered={false}
-            radius='sm'
-            size='lg'
-          />
+          <Dropdown placement='bottom-end'>
+            <DropdownTrigger>
+              <Badge
+                isOneChar
+                content={<IconCamera size={16} />}
+                size='lg'
+                color='success'
+                className='cursor-pointer'
+                placement='top-left'
+              >
+                <Avatar
+                  src={state.supabase_profile?.avatar_url || undefined}
+                  alt='avatar'
+                  className='p-4 w-28 h-28 md:w-32 md:h-32 mr-4'
+                  isBordered={false}
+                  radius='sm'
+                  size='lg'
+                />
+              </Badge>
+            </DropdownTrigger>
+            <DropdownMenu
+              aria-label='Picture Actions'
+              variant='flat'
+              disabledKeys={!state.supabase_profile?.avatar_url ? ['view', 'remove'] : ''}
+            >
+              <DropdownItem key='view'>View</DropdownItem>
+              <DropdownItem key='upload'>Upload</DropdownItem>
+              <DropdownItem key='remove' color='danger'>
+                Remove
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
           <div className='flex flex-col space-y-4'>
             <div>
               <h2 className='text-lg font-semibold'>{state.supabase_profile?.full_name || 'Not set yet'}</h2>

@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 
-import type { Profile, Database } from './database.types';
+import type { Profile } from './database.types';
 import type { PostgrestError } from '@supabase/supabase-js';
 
 export const createServerSupabaseClient = cache(() => {
