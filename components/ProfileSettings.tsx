@@ -1,20 +1,10 @@
 'use client';
 
 import { useProfile } from '@/context/ProfileContext';
-import {
-  Avatar,
-  Badge,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Spinner,
-  useDisclosure,
-} from '@nextui-org/react';
-import { IconCamera, IconMail, IconPencil, IconPhoto, IconTrash, IconUpload, IconUser } from '@tabler/icons-react';
+import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
+import { IconMail, IconPencil, IconPhotoOff, IconUpload, IconUser } from '@tabler/icons-react';
 import { useTransition, type FC } from 'react';
 import ProfileEditModal from './ProfileEditModal';
-import AvatarUploadModal from './AvatarUploadModal';
 import { createClient } from '@/utils/supabase/client';
 import { updateProfile } from '@/app/profile/page';
 
@@ -24,9 +14,23 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   const { dispatch, state } = useProfile();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [uploadPending, startUploadTransition] = useTransition();
-  const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onOpenChange: onOpenChangeAvatar } = useDisclosure();
   const [removePending, startRemoveTransition] = useTransition();
 
+  const uploadAvatar = async (file: File) => {
+    try {
+      if (!file) throw new Error('You must select an image to upload.');
+      const supabase = createClient();
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${state.supabase_user?.id}.${fileExt}`;
+      const bucket = supabase.storage.from('avatars');
+      const { error: uploadError } = await bucket.upload(fileName, file, { upsert: true });
+      if (uploadError) throw uploadError;
+      const publicUrl = bucket.getPublicUrl(fileName).data.publicUrl;
+      return await updateProfile({ avatar_url: publicUrl });
+    } catch (error) {
+      console.log('Error uploading avatar!');
+    }
+  };
   const removeAvatar = async () => {
     try {
       const supabase = createClient();
@@ -47,61 +51,44 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   return (
     <>
       <ProfileEditModal isOpen={isOpen} onOpenChange={onOpenChange} />
-      <AvatarUploadModal
-        isOpen={isOpenAvatar}
-        onOpenChange={onOpenChangeAvatar}
-        onUploadStart={startUploadTransition}
-        pending={uploadPending}
-        label='Upload'
-      />
       <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-100'>
         <div className='flex m-4'>
-          <Dropdown placement='bottom-end'>
-            <DropdownTrigger>
-              <Badge
-                isOneChar
-                content={<IconCamera size={16} />}
-                size='lg'
-                color='success'
-                className='cursor-pointer'
-                placement='top-left'
-              >
-                <Avatar
-                  src={state.supabase_profile?.avatar_url || undefined}
-                  alt='avatar'
-                  className='p-4 w-28 h-28 md:w-32 md:h-32 mr-4'
-                  isBordered={false}
-                  radius='sm'
-                  size='lg'
+          <Badge
+            isOneChar
+            className='rounded-md'
+            content={
+              <label htmlFor='profile_pic' className='cursor-pointer'>
+                <input
+                  id='profile_pic'
+                  name='profile_pic'
+                  className='absolute top-[-1000px]'
+                  disabled={uploadPending || removePending}
+                  type='file'
+                  accept='image/*'
+                  onChange={async (e) => {
+                    startUploadTransition(async () => {
+                      if (!e.target?.files) throw new Error('You must select an image to upload.');
+                      const profile = await uploadAvatar(e.target.files[0]);
+                      if (profile) dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
+                    });
+                  }}
                 />
-              </Badge>
-            </DropdownTrigger>
-            <DropdownMenu
-              aria-label='Picture Actions'
-              variant='flat'
-              disabledKeys={!state.supabase_profile?.avatar_url ? ['view', 'remove'] : ''}
-            >
-              <DropdownItem key='view' color='secondary' startContent={<IconPhoto size={18} />}>
-                View
-              </DropdownItem>
-              <DropdownItem
-                key='upload'
-                color='primary'
-                startContent={uploadPending ? <Spinner size='sm' /> : <IconUpload size={18} />}
-                onClick={onOpenAvatar}
-              >
-                Upload
-              </DropdownItem>
-              <DropdownItem
-                key='remove'
-                color='danger'
-                startContent={removePending ? <Spinner size='sm' /> : <IconTrash size={18} />}
-                onClick={async () => startRemoveTransition(async () => await removeAvatar())}
-              >
-                Remove
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+                <IconUpload size={16} />
+              </label>
+            }
+            size='lg'
+            color='warning'
+            placement='top-left'
+          >
+            <Avatar
+              src={state.supabase_profile?.avatar_url || undefined}
+              alt='avatar'
+              className='p-4 w-28 h-28 md:w-32 md:h-32 mr-4'
+              isBordered={false}
+              radius='sm'
+              size='lg'
+            />
+          </Badge>
 
           <div className='flex flex-col space-y-4'>
             <div>
@@ -124,10 +111,22 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
           <button
             type='button'
             onClick={onOpen}
-            className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-2 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4'
+            className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4'
           >
-            <IconPencil size={20} className='mr-1' />
-            <span>Edit</span>
+            <IconPencil size={18} />
+          </button>
+          <button
+            type='button'
+            className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4 disabled:cursor-not-allowed disabled:opacity-50'
+            aria-label='Remove Avatar'
+            disabled={!state.supabase_profile?.avatar_url || removePending || uploadPending}
+            onClick={async () => startRemoveTransition(async () => await removeAvatar())}
+          >
+            {removePending || uploadPending ? (
+              <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} />
+            ) : (
+              <IconPhotoOff size={18} />
+            )}
           </button>
         </div>
       </div>
