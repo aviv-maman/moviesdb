@@ -25,6 +25,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [uploadPending, startUploadTransition] = useTransition();
   const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onOpenChange: onOpenChangeAvatar } = useDisclosure();
+  const [removePending, startRemoveTransition] = useTransition();
 
   const removeAvatar = async () => {
     try {
@@ -91,7 +92,12 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               >
                 Upload
               </DropdownItem>
-              <DropdownItem key='remove' color='danger' startContent={<IconTrash size={18} />} onClick={removeAvatar}>
+              <DropdownItem
+                key='remove'
+                color='danger'
+                startContent={removePending ? <Spinner size='sm' /> : <IconTrash size={18} />}
+                onClick={async () => startRemoveTransition(async () => await removeAvatar())}
+              >
                 Remove
               </DropdownItem>
             </DropdownMenu>
