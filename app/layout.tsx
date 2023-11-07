@@ -2,7 +2,6 @@ import { Suspense, type ReactNode } from 'react';
 import '../styles/globals.css';
 import Header from '@/components/Header';
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import Footer from '@/components/Footer';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
@@ -24,8 +23,7 @@ export const viewport: Viewport = {
 const inter = Inter({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   const user = (await supabase.auth.getSession())?.data?.session?.user;
 

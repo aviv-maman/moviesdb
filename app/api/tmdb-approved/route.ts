@@ -5,8 +5,7 @@ import type { CreateTmdbSessionIdResponse, TmdbProfile } from '@/lib/api.types';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
   const sessionOptions = {
     method: 'POST',
     headers: {

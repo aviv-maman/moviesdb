@@ -1,15 +1,13 @@
 // TODO: Duplicate or move this file outside the `_examples` folder to make it a route
 
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProtectedRoute() {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   const {
     data: { user },
@@ -23,8 +21,7 @@ export default async function ProtectedRoute() {
 
   const signOut = async () => {
     'use server';
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
+    const supabase = createClient();
     await supabase.auth.signOut();
     redirect('/login');
   };

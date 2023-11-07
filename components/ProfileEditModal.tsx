@@ -17,7 +17,7 @@ const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) =
   const [pending, startTransition] = useTransition();
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={pending}>
       <ModalContent>
         {(onClose) => (
           <div>

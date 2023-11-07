@@ -2,7 +2,6 @@
 
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +12,7 @@ export default async function ServerAction() {
 
     if (title) {
       // Create a Supabase client configured to use cookies
-      const cookieStore = cookies();
-      const supabase = createClient(cookieStore);
+      const supabase = createClient();
 
       // This assumes you have a `todos` table in Supabase. Check out
       // the `Create Table and seed with data` section of the README 👇

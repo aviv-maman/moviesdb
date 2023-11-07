@@ -1,21 +1,58 @@
 'use client';
 
 import { useProfile } from '@/context/ProfileContext';
-import { Avatar, Badge, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, useDisclosure } from '@nextui-org/react';
-import { IconMail, IconPencil, IconUser } from '@tabler/icons-react';
-import { type FC } from 'react';
+import {
+  Avatar,
+  Badge,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Spinner,
+  useDisclosure,
+} from '@nextui-org/react';
+import { IconCamera, IconMail, IconPencil, IconPhoto, IconTrash, IconUpload, IconUser } from '@tabler/icons-react';
+import { useTransition, type FC } from 'react';
 import ProfileEditModal from './ProfileEditModal';
-import { IconCamera } from '@tabler/icons-react';
+import AvatarUploadModal from './AvatarUploadModal';
+import { createClient } from '@/utils/supabase/client';
+import { updateProfile } from '@/app/profile/page';
 
 interface ProfileSettingsProps {}
 
 const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
-  const { state } = useProfile();
+  const { dispatch, state } = useProfile();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [uploadPending, startUploadTransition] = useTransition();
+  const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onOpenChange: onOpenChangeAvatar } = useDisclosure();
+
+  const removeAvatar = async () => {
+    try {
+      const supabase = createClient();
+      const bucket = supabase.storage.from('avatars');
+      if (!state.supabase_profile?.avatar_url) throw new Error('Avatar not found.');
+      const fileName = state.supabase_profile.avatar_url.split('/').pop();
+      if (!fileName) throw new Error('Invalid avatar url.');
+      const { error: removeError } = await bucket.remove([fileName]);
+      if (removeError) throw removeError;
+      const profile = await updateProfile({ avatar_url: null });
+      if (!profile) throw new Error('Profile not found.');
+      dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
+    } catch (error) {
+      console.log('Error uploading avatar!');
+    }
+  };
 
   return (
     <>
       <ProfileEditModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <AvatarUploadModal
+        isOpen={isOpenAvatar}
+        onOpenChange={onOpenChangeAvatar}
+        onUploadStart={startUploadTransition}
+        pending={uploadPending}
+        label='Upload'
+      />
       <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-100'>
         <div className='flex m-4'>
           <Dropdown placement='bottom-end'>
@@ -43,9 +80,18 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               variant='flat'
               disabledKeys={!state.supabase_profile?.avatar_url ? ['view', 'remove'] : ''}
             >
-              <DropdownItem key='view'>View</DropdownItem>
-              <DropdownItem key='upload'>Upload</DropdownItem>
-              <DropdownItem key='remove' color='danger'>
+              <DropdownItem key='view' color='secondary' startContent={<IconPhoto size={18} />}>
+                View
+              </DropdownItem>
+              <DropdownItem
+                key='upload'
+                color='primary'
+                startContent={uploadPending ? <Spinner size='sm' /> : <IconUpload size={18} />}
+                onClick={onOpenAvatar}
+              >
+                Upload
+              </DropdownItem>
+              <DropdownItem key='remove' color='danger' startContent={<IconTrash size={18} />} onClick={removeAvatar}>
                 Remove
               </DropdownItem>
             </DropdownMenu>
