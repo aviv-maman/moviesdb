@@ -39,20 +39,24 @@ const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
   return (
     <div className='dark:text-gray-100 w-full'>
       <div className='mb-4'>
-        <h1 className='text-gray-800 text-lg font-extrabold'>Integrations</h1>
-        <p className='text-gray-600 text-sm'>Extend your experience by connecting to other services.</p>
+        <h1 className='text-lg font-extrabold'>Integrations</h1>
+        <p className='text-orange-600 dark:text-orange-500 text-sm'>
+          Extend your experience by connecting to other services.
+        </p>
       </div>
       <div className='border rounded-lg max-w-sm'>
         <div className='flex items-start justify-between p-4'>
           <div className='space-y-2'>
             <Image src='./tmdb48.jpg' alt='tmdb' className='inline-block h-12 rounded-none' width={'48'} />
-            <h4 className='text-gray-800 font-semibold'>{'The Movie Database (TMDB)'}</h4>
-            <p className='text-gray-600 text-sm'>{'One of the largest databases of movies and series.'}</p>
+            <h4 className='font-semibold'>{'The Movie Database (TMDB)'}</h4>
+            <p className='text-gray-600 dark:text-gray-400 text-sm'>
+              One of the largest databases of movies and series.
+            </p>
           </div>
           <form action={handleLinkAccount}>
             <Suspense fallback={<Spinner />}>
               <button
-                className='text-gray-700 text-sm border rounded-lg p-2 duration-150 hover:bg-gray-100 flex items-center'
+                className='text-gray-600 dark:text-gray-300 text-sm border rounded-lg p-2 duration-150 hover:bg-gray-200 hover:dark:bg-gray-700 flex items-center'
                 formAction={state.supabase_profile?.tmdb_session_id ? handleUnlinkAccount : handleLinkAccount}
                 type='submit'
               >
