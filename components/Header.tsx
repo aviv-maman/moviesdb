@@ -111,21 +111,28 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
           </DropdownTrigger>
           {!user?.id ? (
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem key='login' onClick={() => router.push('/login')}>
+              <DropdownItem key='login' textValue='Login' onClick={() => router.push('/login')}>
                 Login
               </DropdownItem>
-              <DropdownItem key='help'>Help</DropdownItem>
-              <DropdownItem key='about'>About</DropdownItem>
+              <DropdownItem key='about' textValue='About'>
+                About
+              </DropdownItem>
             </DropdownMenu>
           ) : (
             <DropdownMenu aria-label='Profile Actions' variant='flat' disabledKeys={[isLoading ? 'logout' : '']}>
-              <DropdownItem key='profile' className='h-14 gap-2' onClick={() => router.push('/profile')}>
+              <DropdownItem
+                key='profile'
+                textValue='Profile'
+                className='h-14 gap-2'
+                onClick={() => router.push('/profile')}
+              >
                 <p className='font-semibold'>Signed in as</p>
                 <p className='font-semibold'>{user.email}</p>
               </DropdownItem>
-              <DropdownItem key='help'>Help</DropdownItem>
-              <DropdownItem key='about'>About</DropdownItem>
-              <DropdownItem key='logout' color='danger' onClick={handleSignOut}>
+              <DropdownItem key='about' textValue='About'>
+                About
+              </DropdownItem>
+              <DropdownItem key='logout' textValue='Logout' color='danger' onClick={handleSignOut}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>

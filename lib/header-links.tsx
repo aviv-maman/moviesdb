@@ -1,6 +1,15 @@
-import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconStar, IconStarFilled, IconStars, IconStarsFilled } from '@tabler/icons-react';
+import {
+  IconClockDown,
+  IconDeviceTv,
+  IconMeteor,
+  IconPlayerPlay,
+  IconStar,
+  IconStarFilled,
+  IconStars,
+  IconStarsFilled,
+} from '@tabler/icons-react';
 
-export const mobileItems = ['Profile', 'Help', 'About', 'Log Out'];
+export const mobileItems = ['Profile', 'About', 'Log Out'];
 
 export const movieLinks = [
   {
