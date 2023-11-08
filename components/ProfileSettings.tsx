@@ -95,20 +95,26 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               />
             </Badge>
 
-            <div className='flex flex-col space-y-4'>
+            <div className='flex flex-col space-y-2'>
               <div>
-                <h2 className='text-lg font-semibold'>{state.supabase_profile?.full_name || 'Not set yet'}</h2>
-                <span className='text-sm dark:text-gray-400'>{state.supabase_profile?.username || 'Not set yet'}</span>
+                <h5 className='text-xs text-amber-600 leading-5'>Full Name</h5>
+                <h2 className='text-lg font-semibold mb-2' style={{ lineHeight: 0.75 }}>
+                  {state.supabase_profile?.full_name || 'Not set yet'}
+                </h2>
+                <h5 className='text-xs text-amber-600 leading-5'>Username</h5>
+                <h4 className='text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
+                  {state.supabase_profile?.username || 'Not set yet'}
+                </h4>
               </div>
-              <div className='space-y-1'>
-                <span className='flex items-center space-x-1'>
-                  <IconMail size={20} />
-                  <span className='text-sm dark:text-gray-400'>{state.supabase_user?.email}</span>
-                </span>
-                <span className='flex items-center space-x-1'>
-                  <IconUser size={20} />
-                  <span className='text-sm dark:text-gray-400'>{state.supabase_profile?.tmdb_account_id}</span>
-                </span>
+              <div>
+                <h5 className='text-xs text-amber-600 leading-5'>Email</h5>
+                <h4 className='text-sm dark:text-gray-400 mb-2' style={{ lineHeight: 0.75 }}>
+                  {state.supabase_user?.email}
+                </h4>
+                <h5 className='text-xs text-amber-600 leading-5'>TMDB ID</h5>
+                <h4 className='text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
+                  {state.supabase_profile?.tmdb_account_id}
+                </h4>
               </div>
             </div>
           </div>

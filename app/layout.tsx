@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 import type { Viewport, Metadata } from 'next';
-import { getProfile } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Rotten Popcorn',
@@ -24,10 +23,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const supabase = createClient();
-
   const user = (await supabase.auth.getSession())?.data?.session?.user;
-
-  // const { profile, error: profileError } = await getProfile();
 
   return (
     <html lang='en' suppressHydrationWarning>
@@ -37,7 +33,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <Suspense fallback={<div>Loading...</div>}>
             <Header user={user} />
           </Suspense>
-          <main className='pb-6 sm:px-6 lg:px-8'>{children}</main>
+          <main className='pb-6 sm:px-6 lg:px-8 h-full min-h-screen'>{children}</main>
           <Footer />
         </Providers>
       </body>
