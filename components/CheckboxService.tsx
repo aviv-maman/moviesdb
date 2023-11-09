@@ -45,9 +45,10 @@ const CheckboxService: FC<CheckboxServiceProps> = (props) => {
       showArrow
       placement='bottom'
       classNames={{
-        base: 'py-3 px-4 border border-default-200 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
+        content: 'py-1 px-2 border border-default-300 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
         arrow: 'bg-default-200',
-      }}>
+      }}
+    >
       <label {...getBaseProps()}>
         <VisuallyHidden>
           <input {...getInputProps()} />
@@ -60,7 +61,8 @@ const CheckboxService: FC<CheckboxServiceProps> = (props) => {
           color='primary'
           variant='faded'
           onClick={(e) => dispatch({ type: 'toggled_provider', payload: { provider_id: props.provider_id } })}
-          {...getLabelProps()}>
+          {...getLabelProps()}
+        >
           {children ? children : <Avatar radius='sm' size='md' src={props.avatar} name={props.value} />}
         </Chip>
       </label>

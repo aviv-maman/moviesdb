@@ -1,57 +1,35 @@
 'use client';
 
-import { type ComponentProps, type FC } from 'react';
-import { Slider, RangeSlider } from 'rsuite';
-import 'rsuite/dist/rsuite-no-reset.min.css';
+import { type FC } from 'react';
+import { Slider, type SliderProps } from '@nextui-org/react';
 
-interface SliderCustomProps {
-  type?: 'slider' | 'range';
-  min?: number;
-  max?: number;
-  step?: number;
+interface SliderCustomProps extends SliderProps {
+  showMarks?: boolean;
   marksInterval?: number;
-  title?: string;
-  className?: ComponentProps<'div'>['className'];
 }
 
-const SliderCustom: FC<SliderCustomProps> = ({ type = 'slider', min = 0, max = 10, step = 1, marksInterval = 1, ...props }) => {
+const SliderCustom: FC<SliderCustomProps> = ({ showMarks = true, marksInterval, ...props }) => {
+  const renderMarks = () => {
+    marksInterval = marksInterval ? marksInterval : props.step ? props.step : 1;
+    const marksArray = [];
+    const maxValue = props.maxValue || 10;
+    for (let i = 0; i <= maxValue; i += marksInterval) {
+      marksArray.push({ value: i, label: `${i}` });
+    }
+    return marksArray;
+  };
+
   return (
-    <>
-      {props.title && <span className='relative text-medium text-foreground-500 mb-1'>{props.title}</span>}
-      <div className={`pl-0 pr-0 ` + props.className}>
-        {type === 'slider' ? (
-          <Slider
-            defaultValue={min}
-            min={min}
-            max={max}
-            step={step}
-            graduated
-            progress
-            renderMark={(mark) => {
-              if (mark % 2 !== 0) return;
-              return <span className='text-xs text-gray-400 dark:text-gray-500'>{mark}</span>;
-            }}
-            barClassName='mr-1'
-            className='mr-2.5 ml-2.5'
-          />
-        ) : (
-          <RangeSlider
-            defaultValue={[min, max]}
-            min={min}
-            max={max}
-            step={step}
-            graduated
-            progress
-            renderMark={(mark) => {
-              if (mark % marksInterval !== 0) return;
-              return <span className='text-xs text-gray-400 dark:text-gray-500'>{mark}</span>;
-            }}
-            barClassName='mr-1'
-            className='mr-2.5 ml-2.5'
-          />
-        )}
-      </div>
-    </>
+    <Slider
+      aria-label={`${props.label}`}
+      showSteps
+      showTooltip
+      marks={showMarks ? renderMarks() : undefined}
+      color='foreground'
+      classNames={{ mark: 'text-xs text-slate-600 dark:text-slate-400' }}
+      minValue={props.minValue || 0}
+      {...props}
+    />
   );
 };
 

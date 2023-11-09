@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 import { DatePicker } from 'rsuite';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 interface DatePickerCustomProps {}
 

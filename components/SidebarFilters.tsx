@@ -48,8 +48,9 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         title='Filters'
         subtitle='Filter Results'
         className='flex flex-col w-full'
-        classNames={{ content: 'overflow-x-hidden' }}>
-        <RadioGroup defaultValue={'everything'} orientation='vertical' label='Show Me' onValueChange={handleShowMe} className='font-normal'>
+        classNames={{ content: 'overflow-x-hidden' }}
+      >
+        <RadioGroup defaultValue='everything' orientation='vertical' label='Show Me' onValueChange={handleShowMe} className='font-normal'>
           {SHOW_ME.map((option) => (
             <Radio key={option.value} value={option.value}>
               {option.label}
@@ -68,7 +69,8 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           orientation='horizontal'
           onValueChange={handleAvailabilities}
           className='font-normal'
-          isDisabled={state.availabilities[0] === 'all-availabilities'}>
+          isDisabled={state.availabilities[0] === 'all-availabilities'}
+        >
           {AVAILABILITIES.map((option) => (
             <Checkbox key={option.value} value={option.value} color='secondary'>
               {option.label}
@@ -88,7 +90,8 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           orientation='horizontal'
           onValueChange={handleReleaseDates}
           className='font-normal'
-          isDisabled={state.release_dates[0] === 'all-releases'}>
+          isDisabled={state.release_dates[0] === 'all-releases'}
+        >
           {RELEASE_DATES.map((option) => (
             <Checkbox key={option.value} value={option.value} color='secondary'>
               {option.label}
@@ -96,7 +99,12 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <CheckboxGroup defaultValue={GENRES.map((option) => option.value)} orientation='horizontal' label='Genres' onValueChange={handleGenres}>
+        <CheckboxGroup
+          defaultValue={GENRES.map((option) => option.value)}
+          orientation='horizontal'
+          label='Genres'
+          onValueChange={handleGenres}
+        >
           {GENRES.map((option) => (
             <CheckboxGenre
               key={option.value}
@@ -118,7 +126,8 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             variant='bordered'
             color='success'
             labelPlacement='outside'
-            onChange={(e) => handleLanguage(e.target.value)}>
+            onChange={(e) => handleLanguage(e.target.value)}
+          >
             {LANGUAGES.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
@@ -126,13 +135,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             ))}
           </Select>
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom type='range' title='User Score' />
+          <SliderCustom label='User Score' maxValue={10} step={1} defaultValue={[0, 10]} />
           <Divider orientation='horizontal' className='my-3' />
           <MultiSelect title='Keywords' />
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom type='slider' min={0} max={500} step={50} title='Minimum User Votes' />
+          <SliderCustom label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom type='range' min={0} max={360} step={15} marksInterval={4} title='Runtime' />
+          <SliderCustom label='Runtime' maxValue={360} step={15} marksInterval={60} defaultValue={[0, 360]} />
           <Divider orientation='horizontal' className='my-3' />
           <ButtonCustom label='Clear Filters' className='w-full' variant='faded' />
         </div>

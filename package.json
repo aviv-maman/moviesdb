@@ -16,7 +16,7 @@
     "next": "^14.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-select": "^5.7.7",
+    "react-select": "^5.8.0",
     "rsuite": "^5.43.0",
     "swr": "^2.2.4",
     "use-immer": "^0.9.0"
