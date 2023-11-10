@@ -34,7 +34,7 @@ const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
 
   return (
     <section>
-      <span className='text-medium text-foreground-500'>{title}</span>
+      <span className='text-sm text-foreground-500'>{title}</span>
       <AsyncSelect
         id='multi-select'
         name='MultiSelect'
@@ -43,7 +43,7 @@ const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
         placeholder='Type to search...'
         loadOptions={promiseOptions}
         openMenuOnClick={false}
-        className='font-normal text-small text-foreground-500 mt-3'
+        className='font-normal text-sm text-foreground-500 mt-2'
         styles={{
           control: (baseStyles, { isFocused, isDisabled }) => ({
             ...baseStyles,

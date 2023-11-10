@@ -43,10 +43,11 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
     <Accordion variant='bordered' defaultExpandedKeys={['where-to-watch']}>
       <AccordionItem
         key='where-to-watch'
-        aria-label='Accordion of where to watch'
+        aria-label='Where to watch'
         title='Where to Watch'
         subtitle='Streaming Services'
-        className='flex flex-col w-full'>
+        classNames={{ title: 'text-md' }}
+      >
         <Select
           label='Select country'
           aria-label='country selection'
@@ -68,7 +69,8 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
           onChange={(e) => {
             if (e.target.value === '') return handleChangeCountry(state.where_to_watch.country);
             handleChangeCountry(e.target.value);
-          }}>
+          }}
+        >
           {countryList.map((option) => (
             <SelectItem
               key={option.iso_3166_1}
@@ -80,18 +82,19 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
                   radius='sm'
                   src={`https://flagcdn.com/${option.iso_3166_1.toLowerCase()}.svg`}
                 />
-              }>
+              }
+            >
               {option.native_name}
             </SelectItem>
           ))}
         </Select>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <h2 className='relative font-normal text-foreground-500'>Available Services</h2>
+        <h2 className='relative text-sm font-normal text-foreground-500'>Available Services</h2>
 
         <Checkbox color='warning' className='my-1'>
-          <span className='font-normal'>Select my services</span>
+          <span className='font-normal text-sm'>Select my services</span>
         </Checkbox>
-        <CheckboxGroup orientation='horizontal' className='mb-2'>
+        <CheckboxGroup orientation='horizontal' className='mb-2' classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}>
           {state.where_to_watch.providers.map((option) => (
             <CheckboxService
               key={option.provider_id}

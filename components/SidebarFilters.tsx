@@ -48,19 +48,25 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         title='Filters'
         subtitle='Filter Results'
         className='flex flex-col w-full'
-        classNames={{ content: 'overflow-x-hidden' }}
+        classNames={{ title: 'text-md', content: 'overflow-x-hidden' }}
       >
-        <RadioGroup defaultValue='everything' orientation='vertical' label='Show Me' onValueChange={handleShowMe} className='font-normal'>
+        <RadioGroup
+          defaultValue='everything'
+          orientation='vertical'
+          label='Show Me'
+          onValueChange={handleShowMe}
+          classNames={{ label: 'text-sm' }}
+        >
           {SHOW_ME.map((option) => (
-            <Radio key={option.value} value={option.value}>
+            <Radio key={option.value} value={option.value} classNames={{ label: 'font-normal text-sm' }}>
               {option.label}
             </Radio>
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <span className='relative text-medium text-foreground-500 block font-normal'>Availabilities</span>
+        <span className='relative block text-foreground-500 text-sm'>Availabilities</span>
         <CheckboxGroup defaultValue={[state.availabilities[0]]} onValueChange={handleAvailabilities}>
-          <Checkbox key={'search-all-availabilities'} value={'all-availabilities'} className='my-1 font-normal'>
+          <Checkbox key={'search-all-availabilities'} value={'all-availabilities'} classNames={{ label: 'my-2 text-sm font-normal' }}>
             Search all availabilities
           </Checkbox>
         </CheckboxGroup>
@@ -68,20 +74,19 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           defaultValue={AVAILABILITIES.map((option) => option.value)}
           orientation='horizontal'
           onValueChange={handleAvailabilities}
-          className='font-normal'
           isDisabled={state.availabilities[0] === 'all-availabilities'}
         >
           {AVAILABILITIES.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='secondary'>
+            <Checkbox key={option.value} value={option.value} color='secondary' classNames={{ label: 'text-sm font-normal' }}>
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-3' />
         <DatePickerCustom />
-        <span className='relative text-medium text-foreground-500 block font-normal'>Release Types</span>
+        <span className='relative text-foreground-500 block text-sm'>Release Types</span>
         <CheckboxGroup defaultValue={[state.release_dates[0]]} onValueChange={handleReleaseDates}>
-          <Checkbox key={'search-all-releases'} value={'all-releases'} className='my-1 font-normal'>
+          <Checkbox key={'search-all-releases'} value={'all-releases'} classNames={{ label: 'my-2 text-sm font-normal' }}>
             Search all releases
           </Checkbox>
         </CheckboxGroup>
@@ -89,11 +94,10 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           defaultValue={RELEASE_DATES.map((option) => option.value)}
           orientation='horizontal'
           onValueChange={handleReleaseDates}
-          className='font-normal'
           isDisabled={state.release_dates[0] === 'all-releases'}
         >
           {RELEASE_DATES.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='secondary'>
+            <Checkbox key={option.value} value={option.value} color='secondary' classNames={{ label: 'text-sm font-normal' }}>
               {option.label}
             </Checkbox>
           ))}
@@ -104,6 +108,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           orientation='horizontal'
           label='Genres'
           onValueChange={handleGenres}
+          classNames={{ label: 'text-sm', wrapper: 'gap-1' }}
         >
           {GENRES.map((option) => (
             <CheckboxGenre
@@ -112,12 +117,12 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
               value={option.value}
               label={option.label}
               color='primary'
-              className='mx-0 px-1'
+              className='mx-0 px-0'
             />
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <div className='relative flex flex-col gap-2 mt-10 mb-2'>
+        <div className='relative flex flex-col gap-2 mt-4 mb-2'>
           <Select
             label='Select language'
             aria-label='language selection'

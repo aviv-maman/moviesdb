@@ -16,7 +16,7 @@ const CheckboxGenre: FC<CheckboxGenreProps> = (props) => {
   const checkbox = tv({
     slots: {
       base: 'border-default hover:bg-default-200',
-      content: 'text-default-500',
+      content: 'text-sm',
     },
     variants: {
       isSelected: {
@@ -47,7 +47,8 @@ const CheckboxGenre: FC<CheckboxGenreProps> = (props) => {
         }}
         startContent={isSelected ? <IconCheck className='ml-1' size={18} /> : <IconX className='ml-1' size={18} />}
         variant='faded'
-        {...getLabelProps()}>
+        {...getLabelProps()}
+      >
         {children ? children : props.label}
       </Chip>
     </label>

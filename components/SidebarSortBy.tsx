@@ -16,7 +16,7 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
 
   return (
     <Accordion variant='bordered'>
-      <AccordionItem key='sort-by' aria-label='Accordion of sort by' title='Sort' subtitle='Sort Results By'>
+      <AccordionItem key='sort-by' aria-label='Sort' title='Sort' subtitle='Sort Results By' classNames={{ title: 'text-md' }}>
         <Select
           label='Select sorting option'
           aria-label='sort selection'
@@ -31,7 +31,8 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
           onChange={(e) => {
             if (e.target.value === '') return handleSortBy(state.sort_by);
             handleSortBy(e.target.value);
-          }}>
+          }}
+        >
           {SORT_BY.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
