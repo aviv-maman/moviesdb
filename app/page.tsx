@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Carousel from '@/components/Carousel';
+import FeatureCard from '@/components/FeatureCard';
+import { features } from '@/lib/features-data';
+import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 
 import trendingMedia from '@/lib/data/trending-all.json';
 import popularMovies from '@/lib/data/popular-movies.json';
 import topMovies from '@/lib/data/top_rated-movies.json';
 import upcomingMovies from '@/lib/data/upcoming-movies.json';
-import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
-import FeatureCard from '@/components/FeatureCard';
-import { features, resources } from '@/lib/features-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,60 +41,12 @@ export default async function Index() {
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
         <div className='flex flex-col gap-8 text-foreground px-6 sm:px-0'>
-          <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>
-            Everything you need to get started
-          </h2>
-          {/* <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
-            {resources.map(({ title, subtitle, url, icon }) => (
-              <a
-                key={title}
-                className='relative flex flex-col group rounded-lg border p-6 hover:border-sky-400'
-                href={url}
-                target='_blank'
-                rel='noreferrer'>
-                <h3 className='font-bold mb-2  min-h-[40px] lg:min-h-[60px] text-slate-900 dark:text-white'>{title}</h3>
-                <div className='flex flex-col grow gap-4 justify-between text-slate-500 dark:text-slate-400'>
-                  <p className='text-sm opacity-70'>{subtitle}</p>
-                  <div className='flex justify-between items-center'>
-                    <svg
-                      width='24'
-                      height='24'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='opacity-80 group-hover:opacity-100'>
-                      <path d={icon} stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-                    </svg>
-
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='24'
-                      height='24'
-                      viewBox='0 0 24 24'
-                      fill='none'
-                      stroke='currentColor'
-                      strokeWidth='2'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      className='ml-2 h-4 w-4 opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all'>
-                      <polyline points='9 18 15 12 9 6' />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div> */}
+          <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground px-6 sm:px-0'>
           {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
-            <FeatureCard
-              key={title}
-              title={title}
-              subtitle={subtitle}
-              icon={icon}
-              isLinkingRequired={isLinkingRequired}
-            />
+            <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
           ))}
         </div>
 

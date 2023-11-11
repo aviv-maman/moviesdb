@@ -8,7 +8,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "@splidejs/react-splide": "^0.7.12",
-    "@supabase/ssr": "^0.0.9",
+    "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.38.4",
     "@tabler/icons-react": "^2.40.0",
     "framer-motion": "^10.16.4",

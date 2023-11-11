@@ -45,7 +45,7 @@ const CheckboxService: FC<CheckboxServiceProps> = (props) => {
       showArrow
       placement='bottom'
       classNames={{
-        content: 'p-1 border border-default-300 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
+        content: 'py-1 px-2 border border-default-300 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
         arrow: 'bg-default-200',
       }}
     >
