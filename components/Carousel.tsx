@@ -4,12 +4,18 @@ import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
-import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
-import MovieCard from './MovieCard';
+import type {
+  MovieListResponse,
+  PeopleListResponse,
+  SeriesListResponse,
+  TrendingResponse,
+  UpcomingMovieListResponse,
+} from '@/lib/api.types';
+import CardGeneric from './CardGeneric';
 
 interface CarouselProps {
   tabs?: string[];
-  data: MovieListResponse[] | UpcomingMovieListResponse[];
+  data: MovieListResponse[] | UpcomingMovieListResponse[] | TrendingResponse[] | SeriesListResponse[] | PeopleListResponse[];
 }
 
 const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
@@ -37,10 +43,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
         <CardBody className='overflow-hidden'>
           {!tabs ? (
             /* One carousel => No tabs */
-            <Splide tag='section' aria-label='Movies Carousel' options={options}>
+            <Splide tag='section' aria-label='Media Carousel' options={options}>
               {resultsArray[0].map((slide, slideIndex) => (
                 <SplideSlide key={slideIndex}>
-                  <MovieCard data={slide} />
+                  <CardGeneric data={slide} />
                 </SplideSlide>
               ))}
             </Splide>
@@ -49,10 +55,10 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
             <Tabs size='md' aria-label='Tabs section'>
               {resultsArray.map((results, resultsIndex) => (
                 <Tab key={`tab-${resultsIndex}`} title={tabs ? tabs[resultsIndex] : resultsIndex + 1}>
-                  <Splide tag='section' aria-label='Movies Carousel' options={options}>
+                  <Splide tag='section' aria-label='Media Carousel' options={options}>
                     {results.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
-                        <MovieCard data={slide} />
+                        <CardGeneric data={slide} />
                       </SplideSlide>
                     ))}
                   </Splide>

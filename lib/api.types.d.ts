@@ -29,7 +29,7 @@ type PersonItem = {
   adult: boolean;
   gender: 1 | 2 | 0;
   id: number;
-  known_for: ((MovieItem & { media_type: 'movie' }) & (SeriesItem & { media_type: 'tv' }))[];
+  known_for: ((MovieItem & { media_type: 'movie' }) | (SeriesItem & { media_type: 'tv' }))[];
   known_for_department: string;
   name: string;
   popularity: number;
@@ -55,10 +55,14 @@ export type TrendingPersonListResponse = ListResponse & {
 };
 
 export type TrendingAllListResponse = ListResponse & {
-  results: TrendingMovieListResponse['results'] &
-    TrendingSeriesListResponse['results'] &
-    TrendingPersonListResponse['results'];
+  results: TrendingMovieListResponse['results'] & TrendingSeriesListResponse['results'] & TrendingPersonListResponse['results'];
 };
+
+export type TrendingResponse =
+  | TrendingMovieListResponse
+  | TrendingSeriesListResponse
+  | TrendingPersonListResponse
+  | TrendingAllListResponse;
 
 export type UpcomingMovieListResponse = TrendingMovieListResponse & {
   dates: {
@@ -75,7 +79,7 @@ export type SeriesListResponse = ListResponse & {
   results: SeriesItem[];
 };
 
-export type PopularPeopleListResponse = ListResponse & {
+export type PeopleListResponse = ListResponse & {
   results: PersonItem[];
 };
 
@@ -86,7 +90,7 @@ export type TrendingListParams = {
   time_window: 'day' | 'week';
 };
 
-export type DiscoverListParams = {
+export type DiscoverMoviesParams = {
   certification?: string;
   'certification.gte'?: string;
   'certification.lte'?: string;
@@ -96,30 +100,26 @@ export type DiscoverListParams = {
   language?: string;
   page?: number;
   primary_release_year?: number;
-  'primary_release_date.gte'?: Date;
-  'primary_release_date.lte'?: Date;
+  'primary_release_date.gte'?: string;
+  'primary_release_date.lte'?: string;
   region?: string;
-  'release_date.gte'?: Date;
-  'release_date.lte'?: Date;
+  'release_date.gte'?: string;
+  'release_date.lte'?: string;
   sort_by?:
     | 'popularity.asc'
     | 'popularity.desc'
-    | 'release_date.asc'
-    | 'release_date.desc'
     | 'revenue.asc'
     | 'revenue.desc'
     | 'primary_release_date.asc'
     | 'primary_release_date.desc'
-    | 'original_title.asc'
-    | 'original_title.desc'
     | 'vote_average.asc'
     | 'vote_average.desc'
     | 'vote_count.asc'
     | 'vote_count.desc';
-  'vote_average.gte'?: string;
-  'vote_average.lte'?: string;
-  'vote_count.gte'?: string;
-  'vote_count.lte'?: string;
+  'vote_average.gte'?: number;
+  'vote_average.lte'?: number;
+  'vote_count.gte'?: number;
+  'vote_count.lte'?: number;
   watch_region?: string;
   with_cast?: string;
   with_companies?: string;
@@ -129,7 +129,7 @@ export type DiscoverListParams = {
   with_origin_country?: string;
   with_original_language?: string;
   with_people?: string;
-  with_release_type: number;
+  with_release_type?: 1 | 2 | 3 | 4 | 5 | 6; //Premiere | Theatrical (limited) | Theatrical | Digital | Physical | TV
   'with_runtime.gte'?: string;
   'with_runtime.lte'?: string;
   with_watch_monetization_types?: string;
@@ -138,7 +138,53 @@ export type DiscoverListParams = {
   without_genres?: string;
   without_keywords?: string;
   without_watch_providers?: string;
-  year?: string;
+  year?: number;
+};
+
+export type DiscoverSeriesParams = {
+  'air_date.gte'?: string;
+  'air_date.lte'?: string;
+  first_air_date_year?: number;
+  'first_air_date.gte'?: string;
+  'first_air_date.lte'?: string;
+  include_adult?: boolean;
+  include_null_first_air_dates?: boolean;
+  language?: string;
+  page?: number;
+  screened_theatrically?: boolean;
+  sort_by?:
+    | 'popularity.asc'
+    | 'popularity.desc'
+    | 'revenue.asc'
+    | 'revenue.desc'
+    | 'primary_release_date.asc'
+    | 'primary_release_date.desc'
+    | 'vote_average.asc'
+    | 'vote_average.desc'
+    | 'vote_count.asc'
+    | 'vote_count.desc';
+  timezone?: string;
+  'vote_average.gte'?: number;
+  'vote_average.lte'?: number;
+  'vote_count.gte'?: number;
+  'vote_count.lte'?: number;
+  watch_region?: string;
+  with_companies?: string;
+  with_genres?: string;
+  with_keywords?: string;
+  with_networks?: number;
+  with_origin_country?: string;
+  with_original_language?: string;
+  'with_runtime.gte'?: string;
+  'with_runtime.lte'?: string;
+  with_status?: 0 | 1 | 2 | 3 | 4 | 5;
+  with_watch_monetization_types?: string;
+  with_watch_providers?: string;
+  without_companies?: string;
+  without_genres?: string;
+  without_keywords?: string;
+  without_watch_providers?: string;
+  with_type?: 0 | 1 | 2 | 3 | 4 | 5 | 6; //Scripted | Documentary | Reality | Talk | Animation | News | Soap
 };
 
 export type ListParams = {

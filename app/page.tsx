@@ -2,25 +2,46 @@ import Link from 'next/link';
 import Carousel from '@/components/Carousel';
 import FeatureCard from '@/components/FeatureCard';
 import { features } from '@/lib/features-data';
-import type { MovieListResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 
-import trendingMedia from '@/lib/data/trending-all.json';
-import popularMovies from '@/lib/data/popular-movies.json';
-import topMovies from '@/lib/data/top_rated-movies.json';
-import upcomingMovies from '@/lib/data/upcoming-movies.json';
+import { getTrendingItems } from '@/lib/api_trending';
+import { discoverMovies, getMovies } from '@/lib/api_movie_lists';
+import { getSeries } from '@/lib/api_series_lists';
+import { getPeople } from '@/lib/api_people_lists';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Index() {
-  const trendingData = trendingMedia as MovieListResponse;
-  const popularMoviesData = popularMovies as MovieListResponse;
-  const topMoviesData = topMovies as MovieListResponse;
-  const upcomingMoviesData = upcomingMovies as UpcomingMovieListResponse;
+const getDateWithLastDayOfMonth = () => {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  return `${year}-${month}-${lastDayOfMonth}`;
+};
 
+export default async function Index() {
   const backgroundLoader = (width: 'w300' | 'w780' | 'w1280' | 'original', index?: number) => {
     const chosenNumber = index || Math.floor(Math.random() * 19);
-    return `https://image.tmdb.org/t/p/${width}${popularMoviesData.results[chosenNumber].backdrop_path}`;
+    return `https://image.tmdb.org/t/p/${width}${popularMovies.results[chosenNumber].backdrop_path}`;
   };
+
+  const [trendingMovies, trendingSeries] = await Promise.all([getTrendingItems({ type: 'movie' }), getTrendingItems({ type: 'tv' })]);
+  const [popularMovies, popularSeries, PopularPeople] = await Promise.all([
+    getMovies({ type: 'popular' }),
+    getSeries({ type: 'popular' }),
+    getPeople({ type: 'popular' }),
+  ]);
+
+  const [topRatedMovies, topRatedSeries] = await Promise.all([getMovies({ type: 'top_rated' }), getSeries({ type: 'top_rated' })]);
+  const [upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies] = await Promise.all([
+    discoverMovies({
+      'primary_release_date.gte': new Date().toISOString().slice(0, 10),
+      'primary_release_date.lte': new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    }),
+    discoverMovies({
+      'primary_release_date.gte': new Date().toISOString().slice(0, 10),
+      'release_date.lte': new Date(getDateWithLastDayOfMonth()).toISOString().slice(0, 10),
+    }),
+    discoverMovies({ 'primary_release_date.gte': new Date().toISOString().slice(0, 10), year: new Date().getFullYear() }),
+  ]);
 
   return (
     <div className='w-full flex flex-col items-center'>
@@ -52,18 +73,15 @@ export default async function Index() {
 
         <div className='justify-center flex flex-col gap-7 text-xs'>
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
-          <Carousel tabs={['Today', 'This Week']} data={[trendingData, trendingData]} />
+          <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
-          <Carousel
-            tabs={['All', 'Streaming', 'On TV', 'In Theaters']}
-            data={[popularMoviesData, topMoviesData, popularMoviesData, topMoviesData]}
-          />
+          <Carousel tabs={['Movies', 'Series', 'People']} data={[popularMovies, popularSeries, PopularPeople]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
-          <Carousel tabs={['Movies', 'Series']} data={[topMoviesData, topMoviesData]} />
+          <Carousel tabs={['Movies', 'Series']} data={[topRatedMovies, topRatedSeries]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
           <Carousel
             tabs={['Up to 7 days', 'This Month', 'This Year']}
-            data={[upcomingMoviesData, upcomingMoviesData, upcomingMoviesData]}
+            data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
           />
           <p className='text-center'>
             Created by{' '}
