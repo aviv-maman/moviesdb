@@ -36,8 +36,8 @@ const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
     <section>
       <span className='text-sm text-foreground-500'>{title}</span>
       <AsyncSelect
-        id='multi-select'
-        name='MultiSelect'
+        id='with_keywords'
+        name='with_keywords'
         instanceId={new Date().getTime().toString()}
         isMulti
         placeholder='Type to search...'

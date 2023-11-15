@@ -1,5 +1,4 @@
 'use client';
-
 import { type FC } from 'react';
 import ButtonCustom from './ButtonCustom';
 import { IconSearch } from '@tabler/icons-react';
@@ -18,7 +17,7 @@ const SearchButton: FC<SearchButtonProps> = ({}) => {
       className='mt-4'
       variant='faded'
       startContent={keywords ? undefined : <IconSearch size={18} />}
-      // isLoading={!!text}
+      //   type='submit'
     />
   );
 };

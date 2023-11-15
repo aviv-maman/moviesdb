@@ -9,9 +9,21 @@ const DatePickerCustom: FC<DatePickerCustomProps> = ({}) => {
     <div className='my-3 flex flex-col gap-2'>
       <span className='relative text-foreground-500 block text-sm'>Release Dates</span>
       <span className='relative font-normal text-sm mr-3'>From</span>
-      <DatePicker format='dd-MM-yyyy' className='bg-default-50 w-fit' menuClassName='dark:bg-gray-800' placeholder='Select Date Start' />
+      <DatePicker
+        name='release_date.gte'
+        format='dd-MM-yyyy'
+        className='bg-default-50 w-fit'
+        menuClassName='dark:bg-gray-800'
+        placeholder='Select Date Start'
+      />
       <span className='relative font-normal text-sm mr-3'>Until</span>
-      <DatePicker format='dd-MM-yyyy' className='bg-default-50 w-fit' menuClassName='dark:bg-gray-800' placeholder='Select Date End' />
+      <DatePicker
+        name='release_date.lte'
+        format='dd-MM-yyyy'
+        className='bg-default-50 w-fit'
+        menuClassName='dark:bg-gray-800'
+        placeholder='Select Date End'
+      />
     </div>
   );
 };

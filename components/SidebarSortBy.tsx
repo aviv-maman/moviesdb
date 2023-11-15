@@ -1,5 +1,4 @@
 'use client';
-
 import { type FC } from 'react';
 import { Accordion, AccordionItem, Select, SelectItem } from '@nextui-org/react';
 import { useForm } from '@/context/FormContext';
@@ -18,6 +17,7 @@ const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
     <Accordion variant='bordered'>
       <AccordionItem key='sort-by' aria-label='Sort' title='Sort' subtitle='Sort Results By' classNames={{ title: 'text-md' }}>
         <Select
+          name='sort_by'
           label='Select sorting option'
           aria-label='sort selection'
           selectionMode='single'

@@ -1,5 +1,4 @@
 'use client';
-
 import type { FC } from 'react';
 import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
@@ -51,6 +50,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         classNames={{ title: 'text-md', content: 'overflow-x-hidden' }}
       >
         <RadioGroup
+          name='show_me'
           defaultValue='everything'
           orientation='vertical'
           label='Show Me'
@@ -71,6 +71,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           </Checkbox>
         </CheckboxGroup>
         <CheckboxGroup
+          name='with_release_type'
           defaultValue={AVAILABILITIES.map((option) => option.value)}
           orientation='horizontal'
           onValueChange={handleAvailabilities}
@@ -104,6 +105,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-4' />
         <CheckboxGroup
+          name='with_genres'
           defaultValue={GENRES.map((option) => option.value)}
           orientation='horizontal'
           label='Genres'
@@ -124,6 +126,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         <Divider orientation='horizontal' className='mt-5 mb-3' />
         <div className='relative flex flex-col gap-2 mt-4 mb-2'>
           <Select
+            name='language'
             label='Select language'
             aria-label='language selection'
             className='max-w-xs'
@@ -140,13 +143,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             ))}
           </Select>
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom label='User Score' maxValue={10} step={1} defaultValue={[0, 10]} />
+          <SliderCustom name='vote_average' label='User Score' maxValue={10} step={1} defaultValue={[0, 10]} />
           <Divider orientation='horizontal' className='my-3' />
           <MultiSelect title='Keywords' />
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
+          <SliderCustom name='vote_count.gte' label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom label='Runtime' maxValue={360} step={15} marksInterval={60} defaultValue={[0, 360]} />
+          <SliderCustom name='with_runtime' label='Runtime' maxValue={360} step={15} marksInterval={60} defaultValue={[0, 360]} />
           <Divider orientation='horizontal' className='my-3' />
           <ButtonCustom label='Clear Filters' className='w-full' variant='faded' />
         </div>

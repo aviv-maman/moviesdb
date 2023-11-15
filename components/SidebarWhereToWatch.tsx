@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, type FC } from 'react';
 import { Accordion, AccordionItem, Avatar, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
 import countries from '@/lib/data/countries.json';
@@ -49,6 +48,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         classNames={{ title: 'text-md' }}
       >
         <Select
+          name='watch_region'
           label='Select country'
           aria-label='country selection'
           className='max-w-xs mt-4'
@@ -94,7 +94,12 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         <Checkbox color='warning' className='my-1'>
           <span className='font-normal text-sm'>Select my services</span>
         </Checkbox>
-        <CheckboxGroup orientation='horizontal' className='mb-2' classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}>
+        <CheckboxGroup
+          name='with_watch_providers'
+          orientation='horizontal'
+          className='mb-2'
+          classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}
+        >
           {state.where_to_watch.providers.map((option) => (
             <CheckboxService
               key={option.provider_id}
