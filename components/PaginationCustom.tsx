@@ -1,5 +1,4 @@
 'use client';
-
 import { useCallback, type FC } from 'react';
 import { Pagination, type PaginationProps } from '@nextui-org/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
