@@ -1,10 +1,20 @@
 'use client';
 import type { FC } from 'react';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
+import {
+  Accordion,
+  AccordionItem,
+  Checkbox,
+  CheckboxGroup,
+  Divider,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectItem,
+} from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
 import ButtonCustom from './ButtonCustom';
 import CheckboxGenre from './CheckboxGenre';
-import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_DATES, SHOW_ME } from '@/lib/data/search_filters';
+import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
 import { useForm } from '@/context/FormContext';
 import SliderCustom from './SliderCustom';
 import DatePickerCustom from './DatePickerCustom';
@@ -19,24 +29,15 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
   };
 
   const handleAvailabilities = (value: string[]) => {
-    dispatch({ type: 'toggled_availability', payload: { value } });
+    dispatch({
+      type: 'toggled_availability',
+      payload: { value: value.includes('all-availabilities') ? ['all-availabilities'] : value },
+    });
   };
 
-  const handleReleaseDates = (value: string[]) => {
-    dispatch({ type: 'toggled_release_date', payload: { value } });
-  };
-
-  const handleGenres = (value: string[]) => {
-    dispatch({ type: 'toggled_genre', payload: { value } });
-  };
-
-  const handleLanguage = (value: string) => {
-    dispatch({ type: 'changed_language', payload: { value } });
-  };
-
-  const handleUserScore = (value: number | [number, number]) => {
-    if (typeof value === 'number') dispatch({ type: 'changed_user_score', payload: { min: value, max: value } });
-    else dispatch({ type: 'changed_user_score', payload: { min: value[0], max: value[1] } });
+  const handleReleaseType = (value: string[]) => {
+    const numValue = value.map((option) => Number(option));
+    dispatch({ type: 'toggled_release_types', payload: { value: numValue.includes(0) ? [0] : numValue } });
   };
 
   return (
@@ -64,52 +65,57 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' />
-        <span className='relative block text-foreground-500 text-sm'>Availabilities</span>
-        <CheckboxGroup defaultValue={[state.availabilities[0]]} onValueChange={handleAvailabilities}>
-          <Checkbox key={'search-all-availabilities'} value={'all-availabilities'} classNames={{ label: 'my-2 text-sm font-normal' }}>
+        <span className='relative block text-foreground-500 text-sm my-2'>Availabilities</span>
+        <CheckboxGroup
+          name='with_availabilities'
+          orientation='horizontal'
+          defaultValue={['all-availabilities', ...AVAILABILITIES.map((option) => option.value)]}
+          onValueChange={handleAvailabilities}
+        >
+          <Checkbox key='all-availabilities' value='all-availabilities' classNames={{ label: 'text-sm font-normal' }}>
             Search all availabilities
           </Checkbox>
-        </CheckboxGroup>
-        <CheckboxGroup
-          name='with_release_type'
-          defaultValue={AVAILABILITIES.map((option) => option.value)}
-          orientation='horizontal'
-          onValueChange={handleAvailabilities}
-          isDisabled={state.availabilities[0] === 'all-availabilities'}
-        >
           {AVAILABILITIES.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='secondary' classNames={{ label: 'text-sm font-normal' }}>
+            <Checkbox
+              key={option.value}
+              value={option.value}
+              isDisabled={state.availabilities.includes('all-availabilities')}
+              color='secondary'
+              classNames={{ label: 'text-sm font-normal' }}
+            >
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-3' />
         <DatePickerCustom />
-        <span className='relative text-foreground-500 block text-sm'>Release Types</span>
-        <CheckboxGroup defaultValue={[state.release_dates[0]]} onValueChange={handleReleaseDates}>
-          <Checkbox key={'search-all-releases'} value={'all-releases'} classNames={{ label: 'my-2 text-sm font-normal' }}>
+        <span className='relative text-foreground-500 block text-sm my-2'>Release Types</span>
+        <CheckboxGroup
+          name='with_release_type'
+          defaultValue={['0', ...RELEASE_TYPES.map((option) => String(option.value))]}
+          orientation='horizontal'
+          onValueChange={handleReleaseType}
+        >
+          <Checkbox key='all-releases' value='0' classNames={{ label: 'text-sm font-normal' }}>
             Search all releases
           </Checkbox>
-        </CheckboxGroup>
-        <CheckboxGroup
-          defaultValue={RELEASE_DATES.map((option) => option.value)}
-          orientation='horizontal'
-          onValueChange={handleReleaseDates}
-          isDisabled={state.release_dates[0] === 'all-releases'}
-        >
-          {RELEASE_DATES.map((option) => (
-            <Checkbox key={option.value} value={option.value} color='secondary' classNames={{ label: 'text-sm font-normal' }}>
+          {RELEASE_TYPES.map((option) => (
+            <Checkbox
+              key={option.value}
+              value={String(option.value)}
+              isDisabled={state.release_types.includes(0)}
+              color='secondary'
+              classNames={{ label: 'text-sm font-normal' }}
+            >
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
-        <Divider orientation='horizontal' className='my-4' />
+        <Divider orientation='horizontal' className='my-3' />
         <CheckboxGroup
           name='with_genres'
-          defaultValue={GENRES.map((option) => option.value)}
           orientation='horizontal'
           label='Genres'
-          onValueChange={handleGenres}
           classNames={{ label: 'text-sm', wrapper: 'gap-1' }}
         >
           {GENRES.map((option) => (
@@ -130,11 +136,9 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             label='Select language'
             aria-label='language selection'
             className='max-w-xs'
-            defaultSelectedKeys={[state.language]}
             variant='bordered'
             color='success'
             labelPlacement='outside'
-            onChange={(e) => handleLanguage(e.target.value)}
           >
             {LANGUAGES.map((option) => (
               <SelectItem key={option.value} value={option.value}>
@@ -145,7 +149,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           <Divider orientation='horizontal' className='my-3' />
           <SliderCustom name='vote_average' label='User Score' maxValue={10} step={1} defaultValue={[0, 10]} />
           <Divider orientation='horizontal' className='my-3' />
-          <MultiSelect title='Keywords' />
+          <MultiSelect name='with_keywords' title='Keywords' />
           <Divider orientation='horizontal' className='my-3' />
           <SliderCustom name='vote_count.gte' label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
           <Divider orientation='horizontal' className='my-3' />

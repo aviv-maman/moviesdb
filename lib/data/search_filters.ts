@@ -49,14 +49,13 @@ export const AVAILABILITIES = [
   { label: 'Purchase', value: 'buy' },
 ];
 
-export const RELEASE_DATES = [
-  { label: 'Premiere', value: 'premiere' },
-  { label: 'Theatrical', value: 'theatrical' },
-  { label: 'Theatrical (Limited)', value: 'theatrical-limited' },
-  { label: 'Digital', value: 'digital' },
-  { label: 'Physical', value: 'physical' },
-  { label: 'TV', value: 'tv' },
-  // { label: 'Streaming', value: 'streaming' },
+export const RELEASE_TYPES = [
+  { label: 'Premiere', value: 1 },
+  { label: 'Theatrical (Limited)', value: 2 },
+  { label: 'Theatrical', value: 3 },
+  { label: 'Digital', value: 4 },
+  { label: 'Physical', value: 5 },
+  { label: 'TV', value: 6 },
 ];
 
 export const LANGUAGES = [

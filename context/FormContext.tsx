@@ -1,9 +1,8 @@
 'use client';
-
 import { createContext, useContext, useMemo, type ReactNode, type Dispatch, useEffect } from 'react';
 import { formReducer } from './formReducer';
 import { useImmerReducer } from 'use-immer';
-import { AVAILABILITIES, SHOW_ME, RELEASE_DATES, GENRES, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
+import { SHOW_ME, GENRES, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
 
 export type FormStore = {
   state: FormContextState;
@@ -12,10 +11,14 @@ export type FormStore = {
 
 const initialContextState = {
   sort_by: SORT_BY[0].value,
-  where_to_watch: { country: 'US', providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0, is_selected: false }] },
+  where_to_watch: {
+    country: '',
+    providers: [{ provider_id: 0, provider_name: '', logo_path: '', display_priority: 0, is_selected: false }],
+  },
   show_me: SHOW_ME[0].value,
-  availabilities: ['all-availabilities'], //[...AVAILABILITIES.map((option) => option.value)],
-  release_dates: ['all-releases'], //[...RELEASE_DATES.map((option) => option.value)],
+  availabilities: ['all-availabilities'],
+  release_dates: { gte: '', lte: '' },
+  release_types: [0],
   genres: [...GENRES.map((option) => option.value)],
   language: LANGUAGES[0].value,
   user_score: { min: 0, max: 10 },
@@ -63,8 +66,8 @@ type FormPayload = {
   changed_country: {
     value: string;
   };
-  toggled_provider: {
-    provider_id: number;
+  toggled_watch_providers: {
+    value: number[];
   };
   show_me: {
     value: string;
@@ -72,8 +75,12 @@ type FormPayload = {
   toggled_availability: {
     value: string[];
   };
-  toggled_release_date: {
-    value: string[];
+  toggled_release_dates: {
+    gte: string;
+    lte: string;
+  };
+  toggled_release_types: {
+    value: number[];
   };
   toggled_genre: {
     value: string[];

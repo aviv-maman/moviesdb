@@ -2,7 +2,6 @@ import { type FC } from 'react';
 import AsyncSelect from 'react-select/async';
 import keywords from '@/lib/data/keyword_ids_09_04_2023.json';
 import type { KeywordList } from '@/lib/api.types';
-import { useForm } from '@/context/FormContext';
 import { useDarkMode } from '@/context/DarkModeContext';
 
 type MultiOptions = {
@@ -13,12 +12,11 @@ type MultiOptions = {
 
 interface MultiSelectProps {
   title?: string;
+  name?: string;
 }
 
-const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
+const MultiSelect: FC<MultiSelectProps> = ({ title, name }) => {
   const { results } = keywords as KeywordList;
-
-  const { state, dispatch } = useForm();
   const { isDarkMode } = useDarkMode();
 
   const filterOptions = (inputValue: string) => {
@@ -37,7 +35,7 @@ const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
       <span className='text-sm text-foreground-500'>{title}</span>
       <AsyncSelect
         id='with_keywords'
-        name='with_keywords'
+        name={name}
         instanceId={new Date().getTime().toString()}
         isMulti
         placeholder='Type to search...'
@@ -71,14 +69,6 @@ const MultiSelect: FC<MultiSelectProps> = ({ title }) => {
             ...baseStyles,
             cursor: 'pointer',
           }),
-        }}
-        onChange={(newValue, actionMeta) => {
-          if (actionMeta.action === 'remove-value') dispatch({ type: 'deleted_keyword', payload: { id: actionMeta.removedValue?.id } });
-          if (actionMeta.action === 'select-option') {
-            if (state.keywords.some((option) => option.id === actionMeta.option?.id)) return;
-            if (actionMeta.option?.id && actionMeta.option?.value)
-              dispatch({ type: 'added_keyword', payload: { id: actionMeta.option?.id, value: actionMeta.option?.value } });
-          }
         }}
       />
     </section>

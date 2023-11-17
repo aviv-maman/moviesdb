@@ -1,13 +1,11 @@
 'use client';
-
 import { type FC } from 'react';
 import { Avatar, Tooltip } from '@nextui-org/react';
 import { useCheckbox, Chip, VisuallyHidden, tv, CheckboxProps } from '@nextui-org/react';
-import { useForm } from '@/context/FormContext';
+
 interface CheckboxServiceProps extends CheckboxProps {
   avatar?: string;
-  provider_id: number;
-  value: string;
+  provider_name: string;
 }
 
 const checkbox = tv({
@@ -37,15 +35,14 @@ const CheckboxService: FC<CheckboxServiceProps> = (props) => {
 
   const styles = checkbox({ isSelected, isFocusVisible });
 
-  const { dispatch } = useForm();
-
   return (
     <Tooltip
-      content={props.value}
+      content={props.provider_name}
       showArrow
       placement='bottom'
       classNames={{
-        content: 'py-1 px-2 border border-default-300 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
+        content:
+          'py-1 px-2 border border-default-300 bg-gradient-to-br from-white to-default-300 dark:from-default-100 dark:to-default-50',
         arrow: 'bg-default-200',
       }}
     >
@@ -60,7 +57,6 @@ const CheckboxService: FC<CheckboxServiceProps> = (props) => {
           }}
           color='primary'
           variant='faded'
-          onClick={(e) => dispatch({ type: 'toggled_provider', payload: { provider_id: props.provider_id } })}
           {...getLabelProps()}
         >
           {children ? children : <Avatar radius='sm' size='md' src={props.avatar} name={props.value} />}

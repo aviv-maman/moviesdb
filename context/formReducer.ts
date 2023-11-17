@@ -29,9 +29,12 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
       draft.where_to_watch.providers.sort((a, b) => a.provider_name.localeCompare(b.provider_name));
       break;
     }
-    case 'toggled_provider': {
-      const provider = draft.where_to_watch.providers.find((service) => service.provider_id === action.payload.provider_id);
-      if (provider) provider.is_selected = !provider.is_selected;
+    case 'toggled_watch_providers': {
+      draft.where_to_watch.providers.forEach((provider) => {
+        if (draft.where_to_watch.providers.find((p) => p.provider_id === provider.provider_id)) {
+          provider.is_selected = !provider.is_selected;
+        }
+      });
       break;
     }
     case 'show_me': {
@@ -42,8 +45,13 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
       draft.availabilities = action.payload.value;
       break;
     }
-    case 'toggled_release_date': {
-      draft.release_dates = action.payload.value;
+    case 'toggled_release_dates': {
+      draft.release_dates.gte = action.payload.gte;
+      draft.release_dates.lte = action.payload.lte;
+      break;
+    }
+    case 'toggled_release_types': {
+      draft.release_types = action.payload.value;
       break;
     }
     case 'toggled_genre': {
