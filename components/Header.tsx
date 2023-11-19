@@ -16,9 +16,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Autocomplete,
-  AutocompleteItem,
-  Button,
 } from '@nextui-org/react';
 import Logo from './Logo';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -26,7 +23,7 @@ import { createClient } from '@/utils/supabase/client';
 import type { Profile } from '@/lib/database.types';
 import HeaderDropdown from './HeaderDropdown';
 import { mobileItems, movieLinks, seriesLinks } from '@/lib/header-links';
-import searchData from '@/lib/data/search_data.json';
+import ButtonCustom from './ButtonCustom';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -48,16 +45,6 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
     refresh();
   };
 
-  const handleSearch = (term: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set('query', term);
-    } else {
-      params.delete('query');
-    }
-    push(`/search?${params.toString()}`);
-  };
-
   const handleSubmit = (formData: FormData) => {
     const params = new URLSearchParams(searchParams);
     const query = formData.get('query')?.toString();
@@ -69,10 +56,14 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
     push(`/search?${params.toString()}`);
   };
 
-  //   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     const formData = new FormData(e.currentTarget);
-  //     handleSearch(formData.get('query')?.toString() || '');
+  //   const handleSearch = (term: string) => {
+  //     const params = new URLSearchParams(searchParams);
+  //     if (term) {
+  //       params.set('query', term);
+  //     } else {
+  //       params.delete('query');
+  //     }
+  //     push(`/search?${params.toString()}`);
   //   };
 
   return (
@@ -93,44 +84,40 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
       </NavbarContent>
 
       <NavbarContent className='items-center' justify='end'>
-        <form action={handleSubmit}>
-          <Autocomplete
+        <form action={handleSubmit} id='search-form'>
+          <Input
             id='query'
             name='query'
             aria-label='Search'
             classNames={{
-              base: 'max-w-full sm:max-w-[15rem] hidden md:block',
-              listboxWrapper: 'font-normal text-default-500',
-              selectorButton: 'hidden',
-              endContentWrapper: 'cursor-pointer',
+              base: 'max-w-full sm:max-w-[15rem] h-max hidden md:block',
+              input: 'text-small',
+              inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 h-9',
             }}
-            inputProps={{ classNames: { inputWrapper: 'h-9' } }}
-            listboxProps={{ hideSelectedIcon: true }}
             placeholder='Type to search...'
             size='sm'
-            type='input'
-            defaultItems={searchData.results}
-            selectorIcon={null}
+            startContent={<IconSearch size={18} />}
             endContent={
-              <Button type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-9 w-9 left-1 top-[1px]'>
+              <ButtonCustom
+                type='submit'
+                isIconOnly
+                size='sm'
+                variant='flat'
+                color='primary'
+                className='h-9 w-12 left-3 top-[1px]'
+              >
                 <IconSearch size={16} />
-              </Button>
+              </ButtonCustom>
             }
-            menuTrigger='input'
-            allowsCustomValue
-            onSelectionChange={(key) => push(key.toString())}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
-                handleSearch(e.currentTarget.value);
+                const formElement = document.getElementById('search-form') as HTMLFormElement;
+                formElement?.requestSubmit();
               }
             }}
-            defaultInputValue={searchParams.get('query') || ''}
-          >
-            {searchData.results.map((item) => (
-              <AutocompleteItem key={`/${item.media_type}/${item.id}`}>{item.title || item.name}</AutocompleteItem>
-            ))}
-          </Autocomplete>
+            defaultValue={searchParams.get('query') || ''}
+          />
         </form>
 
         <Dropdown placement='bottom-end' className='md:hidden'>
