@@ -1,15 +1,11 @@
+'use server';
 import { createClient } from '@/utils/supabase/server';
-import { cache } from 'react';
-
 import type { Profile } from './database.types';
 import type { PostgrestError } from '@supabase/supabase-js';
-
-export const createServerSupabaseClient = cache(() => {
-  return createClient();
-});
+import { redirect } from 'next/navigation';
 
 export async function getSession() {
-  const supabase = createServerSupabaseClient();
+  const supabase = createClient();
   try {
     const {
       data: { session },
@@ -23,7 +19,7 @@ export async function getSession() {
 
 //To be used in account page
 export async function getUserDetails() {
-  const supabase = createServerSupabaseClient();
+  const supabase = createClient();
   try {
     const { data: userDetails } = await supabase.from('users').select('*').single();
     return userDetails as Profile | null;
@@ -33,18 +29,14 @@ export async function getUserDetails() {
   }
 }
 
-export async function signOut() {
-  const supabase = createServerSupabaseClient();
-  try {
-    const authError = await supabase.auth.signOut();
-    return authError.error;
-  } catch (error) {
-    console.error('signOut Error:', error);
-  }
-}
+export const signOut = async () => {
+  const supabase = createClient();
+  const { error: authError } = await supabase.auth.signOut();
+  return authError ? authError : redirect('/');
+};
 
 export async function getProfile() {
-  const supabase = createServerSupabaseClient();
+  const supabase = createClient();
   try {
     const { user } = (await supabase.auth.getUser()).data;
     const {

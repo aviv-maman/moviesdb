@@ -19,11 +19,11 @@ import {
 } from '@nextui-org/react';
 import Logo from './Logo';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
 import type { Profile } from '@/lib/database.types';
 import HeaderDropdown from './HeaderDropdown';
 import { mobileItems, movieLinks, seriesLinks } from '@/lib/header-links';
 import ButtonCustom from './ButtonCustom';
+import { signOut } from '@/lib/auth';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -33,16 +33,11 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ user, profile }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchParams = useSearchParams();
-  const { push, refresh } = useRouter();
-  const supabase = createClient();
-  const [isLoading, setIsLoading] = useState(false);
+  const { push } = useRouter();
 
   const handleSignOut = async () => {
-    setIsLoading(true);
-    const { error } = await supabase.auth.signOut();
+    const error = await signOut();
     if (error) console.log('Error logging out:', error.message);
-    setIsLoading(false);
-    refresh();
   };
 
   const handleSubmit = (formData: FormData) => {
@@ -84,7 +79,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
       </NavbarContent>
 
       <NavbarContent className='items-center' justify='end'>
-        <form action={handleSubmit} id='search-form'>
+        <form id='search-form' action={handleSubmit}>
           <Input
             id='query'
             name='query'
@@ -126,17 +121,40 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
           </DropdownTrigger>
           <DropdownMenu aria-label='Search' variant='flat'>
             <DropdownItem key='search-dropdown' isReadOnly>
-              <Input
-                classNames={{
-                  base: 'max-w-full',
-                  input: 'text-small',
-                  inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
-                }}
-                placeholder='Type to search...'
-                size='sm'
-                startContent={<IconSearch size={18} />}
-                type='search'
-              />
+              <form id='search-form-mobile' action={handleSubmit}>
+                <Input
+                  id='query-mobile'
+                  name='query'
+                  classNames={{
+                    base: 'max-w-full',
+                    input: 'text-small',
+                    inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+                  }}
+                  placeholder='Type to search...'
+                  size='sm'
+                  startContent={<IconSearch size={18} />}
+                  endContent={
+                    <ButtonCustom
+                      type='submit'
+                      isIconOnly
+                      size='sm'
+                      variant='flat'
+                      color='primary'
+                      className='h-12 w-14 left-3 top-[1px]'
+                    >
+                      <IconSearch size={16} />
+                    </ButtonCustom>
+                  }
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      const formElement = document.getElementById('search-form-mobile') as HTMLFormElement;
+                      formElement?.requestSubmit();
+                    }
+                  }}
+                  defaultValue={searchParams.get('query') || ''}
+                />
+              </form>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -165,7 +183,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
               </DropdownItem>
             </DropdownMenu>
           ) : (
-            <DropdownMenu aria-label='Profile Actions' variant='flat' disabledKeys={[isLoading ? 'logout' : '']}>
+            <DropdownMenu aria-label='Profile Actions' variant='flat'>
               <DropdownItem key='profile' textValue='Profile' className='h-14 gap-2' onClick={() => push('/profile')}>
                 <p className='font-semibold'>Signed in as</p>
                 <p className='font-semibold'>{user.email}</p>
