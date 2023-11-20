@@ -1,5 +1,4 @@
 'use client';
-
 import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -21,7 +20,7 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   const resultsArray = data.map((item) => item.results);
   const options: Options = {
-    gap: '1rem',
+    gap: '1.5rem',
     perPage: 6,
     pagination: false,
     breakpoints: {
