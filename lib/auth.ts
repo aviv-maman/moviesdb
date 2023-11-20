@@ -4,7 +4,39 @@ import type { Profile } from './database.types';
 import type { PostgrestError } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
 
-export async function getSession() {
+export const signUp = async (formData: FormData) => {
+  'use server';
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+  const supabase = createClient();
+  const authRes = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: `${location.origin}/auth/callback` },
+  });
+  if (authRes.error) return redirect('/login?message=Could not authenticate user');
+  return redirect('/login?message=Check email to continue sign in process');
+};
+
+export const signIn = async (formData: FormData) => {
+  'use server';
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+  const supabase = createClient();
+  const authRes = await supabase.auth.signInWithPassword({ email, password });
+  if (authRes.error) return redirect('/login?message=Could not authenticate user');
+  return redirect('/');
+};
+
+export const signOut = async () => {
+  'use server';
+  const supabase = createClient();
+  const { error: authError } = await supabase.auth.signOut();
+  return authError ? authError : redirect('/');
+};
+
+export const getSession = async () => {
+  'use server';
   const supabase = createClient();
   try {
     const {
@@ -15,10 +47,11 @@ export async function getSession() {
     console.error('getSession Error:', error);
     return null;
   }
-}
+};
 
 //To be used in account page
-export async function getUserDetails() {
+export const getUserDetails = async () => {
+  'use server';
   const supabase = createClient();
   try {
     const { data: userDetails } = await supabase.from('users').select('*').single();
@@ -27,15 +60,10 @@ export async function getUserDetails() {
     console.error('getUserDetails Error:', error);
     return null;
   }
-}
-
-export const signOut = async () => {
-  const supabase = createClient();
-  const { error: authError } = await supabase.auth.signOut();
-  return authError ? authError : redirect('/');
 };
 
-export async function getProfile() {
+export const getProfile = async () => {
+  'use server';
   const supabase = createClient();
   try {
     const { user } = (await supabase.auth.getUser()).data;
@@ -56,4 +84,4 @@ export async function getProfile() {
     console.error('getProfile Error:', error);
     return { profile: null, error };
   }
-}
+};
