@@ -13,12 +13,12 @@ import type {
 } from '@/lib/api.types';
 import CardGeneric from './CardGeneric';
 
-interface CarouselProps {
+interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   tabs?: string[];
   data: MovieListResponse[] | UpcomingMovieListResponse[] | TrendingResponse[] | SeriesListResponse[] | PeopleListResponse[];
 }
 
-const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
+const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   const resultsArray = data.map((item) => item.results);
   const options: Options = {
     gap: '1rem',
@@ -38,7 +38,7 @@ const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
   };
 
   return (
-    <div className='max-w-[1400px] w-full m-auto'>
+    <div className='max-w-[1400px] w-screen md:w-fit m-auto' {...rest}>
       <Card className='max-w-full'>
         <CardBody className='overflow-hidden'>
           {!tabs ? (

@@ -3,6 +3,11 @@ import { createClient } from '@/utils/supabase/server';
 import type { Profile } from './database.types';
 import type { PostgrestError } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
+
+const headersInstance = headers();
+const protocol = headersInstance.get('x-forwarded-proto');
+const host = headersInstance.get('host');
 
 export const signUp = async (formData: FormData) => {
   'use server';
@@ -12,7 +17,7 @@ export const signUp = async (formData: FormData) => {
   const authRes = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${location.origin}/auth/callback` },
+    options: { emailRedirectTo: `${protocol}://${host}/auth/callback` },
   });
   if (authRes.error) return redirect('/login?message=Could not authenticate user');
   return redirect('/login?message=Check email to continue sign in process');

@@ -23,14 +23,20 @@ export default async function Index() {
     return `https://image.tmdb.org/t/p/${width}${popularMovies.results[chosenNumber].backdrop_path}`;
   };
 
-  const [trendingMovies, trendingSeries] = await Promise.all([getTrendingItems({ type: 'movie' }), getTrendingItems({ type: 'tv' })]);
+  const [trendingMovies, trendingSeries] = await Promise.all([
+    getTrendingItems({ type: 'movie' }),
+    getTrendingItems({ type: 'tv' }),
+  ]);
   const [popularMovies, popularSeries, PopularPeople] = await Promise.all([
     getMovies({ type: 'popular' }),
     getSeries({ type: 'popular' }),
     getPeople({ type: 'popular' }),
   ]);
 
-  const [topRatedMovies, topRatedSeries] = await Promise.all([getMovies({ type: 'top_rated' }), getSeries({ type: 'top_rated' })]);
+  const [topRatedMovies, topRatedSeries] = await Promise.all([
+    getMovies({ type: 'top_rated' }),
+    getSeries({ type: 'top_rated' }),
+  ]);
   const [upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies] = await Promise.all([
     discoverMovies({
       'primary_release_date.gte': new Date().toISOString().slice(0, 10),
@@ -80,7 +86,7 @@ export default async function Index() {
           <Carousel tabs={['Movies', 'Series']} data={[topRatedMovies, topRatedSeries]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
           <Carousel
-            tabs={['Up to 7 days', 'This Month', 'This Year']}
+            tabs={['Up to 7 Days', 'This Month', 'This Year']}
             data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
           />
           <p className='text-center'>
