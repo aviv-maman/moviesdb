@@ -28,12 +28,13 @@ const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
         perPage: 2,
       },
       768: {
-        perPage: 3,
-      },
-      1024: {
         perPage: 4,
       },
+      1024: {
+        perPage: 5,
+      },
     },
+    width: '100%',
   };
 
   return (
