@@ -8,8 +8,7 @@ import {
   IconStars,
   IconStarsFilled,
 } from '@tabler/icons-react';
-
-export const mobileItems = ['Profile', 'About', 'Log Out'];
+import { type DropdownItemProps } from '@nextui-org/react';
 
 export const movieLinks = [
   {
@@ -77,3 +76,16 @@ export const seriesLinks = [
 //     </Link>
 //   </NavbarItem>
 // ));
+
+export const avatarDropItems = {
+  guest: [
+    { key: 'login', textValue: 'Login', href: '/login', color: 'primary' },
+    { key: 'register', textValue: 'Register', href: '/register', color: 'secondary' },
+    { key: 'about', textValue: 'About', href: '/about', color: 'primary' },
+  ] as DropdownItemProps[],
+  user: [
+    { key: 'profile', textValue: 'Signed in as', href: '/profile', color: 'success' },
+    { key: 'about', textValue: 'About', href: '/about', color: 'primary' },
+    { key: 'logout', textValue: 'Logout', color: 'danger' },
+  ] as DropdownItemProps[],
+};

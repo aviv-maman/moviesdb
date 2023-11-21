@@ -21,7 +21,7 @@ import Logo from './Logo';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { Profile } from '@/lib/database.types';
 import HeaderDropdown from './HeaderDropdown';
-import { mobileItems, movieLinks, seriesLinks } from '@/lib/header-links';
+import { avatarDropItems, movieLinks, seriesLinks } from '@/lib/header-links';
 import ButtonCustom from './ButtonCustom';
 import { signOut } from '@/lib/auth';
 
@@ -62,7 +62,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   //   };
 
   return (
-    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
         <div onClick={() => push('/')} className='cursor-pointer flex items-center gap-3'>
           <Logo />
@@ -128,7 +128,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
                   classNames={{
                     base: 'max-w-full',
                     input: 'text-small',
-                    inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+                    inputWrapper: 'font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 h-10',
                   }}
                   placeholder='Type to search...'
                   size='sm'
@@ -140,7 +140,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
                       size='sm'
                       variant='flat'
                       color='primary'
-                      className='h-12 w-14 left-3 top-[1px]'
+                      className='h-10 w-12 left-3 top-[1px]'
                     >
                       <IconSearch size={16} />
                     </ButtonCustom>
@@ -173,42 +173,51 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
               src={profile?.avatar_url || undefined}
             />
           </DropdownTrigger>
-          {!user?.id ? (
-            <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem key='login' textValue='Login' onClick={() => push('/login')}>
-                Login
-              </DropdownItem>
-              <DropdownItem key='about' textValue='About'>
-                About
-              </DropdownItem>
-            </DropdownMenu>
-          ) : (
-            <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem key='profile' textValue='Profile' className='h-14 gap-2' onClick={() => push('/profile')}>
-                <p className='font-semibold'>Signed in as</p>
-                <p className='font-semibold'>{user.email}</p>
-              </DropdownItem>
-              <DropdownItem key='about' textValue='About'>
-                About
-              </DropdownItem>
-              <DropdownItem key='logout' textValue='Logout' color='danger' onClick={handleSignOut}>
-                Log Out
-              </DropdownItem>
-            </DropdownMenu>
-          )}
+          <DropdownMenu aria-label='Profile Actions' variant='flat'>
+            {!user?.id
+              ? avatarDropItems.guest.map((item) => (
+                  <DropdownItem key={item.key} {...item}>
+                    {item.textValue}
+                  </DropdownItem>
+                ))
+              : avatarDropItems.user.map((item) => (
+                  <DropdownItem
+                    onClick={item.key === 'logout' ? handleSignOut : undefined}
+                    description={item.key === 'profile' && user.email}
+                    {...item}
+                    key={item.key}
+                  >
+                    {item.textValue}
+                  </DropdownItem>
+                ))}
+          </DropdownMenu>
         </Dropdown>
       </NavbarContent>
 
       <NavbarMenu>
-        {mobileItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+        <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>MOVIES</span>
+        {movieLinks.map((item, index) => (
+          <NavbarMenuItem key={`${index}-${item.label}`}>
             <Link
-              color={index === 2 ? 'primary' : index === mobileItems.length - 1 ? 'danger' : 'foreground'}
-              className='w-full'
-              href='#'
+              className='w-full text-default-900 dark:text-default-500 h-9'
+              href={item.href}
               size='lg'
+              onClick={() => setIsMenuOpen(false)}
             >
-              {item}
+              {item.label}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+        <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>SERIES</span>
+        {seriesLinks.map((item, index) => (
+          <NavbarMenuItem key={`${index}-${item.label}`}>
+            <Link
+              className='w-full text-default-900 dark:text-default-500 h-9'
+              href={item.href}
+              size='lg'
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.label}
             </Link>
           </NavbarMenuItem>
         ))}
