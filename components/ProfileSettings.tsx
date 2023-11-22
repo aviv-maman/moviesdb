@@ -1,9 +1,8 @@
 'use client';
-
-import { useProfile } from '@/context/ProfileContext';
-import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
-import { IconMail, IconPencil, IconPhotoOff, IconUpload, IconUser } from '@tabler/icons-react';
 import { useTransition, type FC } from 'react';
+import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
+import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
+import { useProfile } from '@/context/ProfileContext';
 import ProfileEditModal from './ProfileEditModal';
 import { createClient } from '@/utils/supabase/client';
 import { updateProfile } from '@/app/profile/page';

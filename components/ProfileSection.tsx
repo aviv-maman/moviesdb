@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, type FC } from 'react';
 import ProfileMenu from '@/components/ProfileMenu';
 import ProfileSettings from '@/components/ProfileSettings';

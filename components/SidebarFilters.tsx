@@ -154,8 +154,6 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           <SliderCustom name='vote_count.gte' label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
           <Divider orientation='horizontal' className='my-3' />
           <SliderCustom name='with_runtime' label='Runtime' maxValue={360} step={15} marksInterval={60} defaultValue={[0, 360]} />
-          <Divider orientation='horizontal' className='my-3' />
-          <ButtonCustom label='Clear Filters' className='w-full' variant='faded' />
         </div>
       </AccordionItem>
     </Accordion>

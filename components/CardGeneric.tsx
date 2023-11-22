@@ -1,5 +1,4 @@
 'use client';
-
 import { type FC } from 'react';
 import { CircularProgress, Image } from '@nextui-org/react';
 import CarouselDropdown from './CarouselDropdown';
@@ -48,8 +47,8 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
   };
 
   return (
-    <div className='relative w-auto rounded-md' style={{ maxWidth: '12rem' }}>
-      <Image src={item.image} alt={item.title} className='z-0 h-full w-full rounded-md object-cover' width={400} height={500} />
+    <div className='relative w-auto rounded-md max-w-[12rem]'>
+      <Image src={item.image} alt={item.title} className='z-0 w-full rounded-md object-cover min-h-[16rem] sm:min-h-[15rem]' />
       {'known_for' in data ? null : <CarouselDropdown />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
       <div className='absolute bottom-0 left-0 text-left w-full p-2'>

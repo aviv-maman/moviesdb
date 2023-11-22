@@ -3,9 +3,10 @@ import { type FC } from 'react';
 import SidebarSortBy from './SidebarSortBy';
 import SidebarWhereToWatch from './SidebarWhereToWatch';
 import SidebarFilters from './SidebarFilters';
-import SearchButton from './SearchButton';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { AVAILABILITIES, GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
+import ButtonCustom from './ButtonCustom';
+import { IconSearch } from '@tabler/icons-react';
 
 interface SidebarMenuProps {}
 
@@ -126,7 +127,13 @@ const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
             </li>
           </ul>
           <div className='w-full flex justify-center'>
-            <SearchButton />
+            <ButtonCustom
+              type='submit'
+              label='Search'
+              className='mt-4 w-full max-w-sm text-secondary-500 bg-secondary-200 dark:bg-secondary-300 dark:text-secondary-700'
+              variant='shadow'
+              startContent={<IconSearch size={18} />}
+            />
           </div>
         </form>
       </div>
