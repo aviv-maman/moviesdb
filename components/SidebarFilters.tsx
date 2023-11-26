@@ -12,7 +12,6 @@ import {
   SelectItem,
 } from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
-import ButtonCustom from './ButtonCustom';
 import CheckboxGenre from './CheckboxGenre';
 import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
 import { useForm } from '@/context/FormContext';

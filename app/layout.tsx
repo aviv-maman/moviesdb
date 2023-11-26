@@ -28,12 +28,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={`${inter.className} h-full min-h-screen text-foreground bg-background antialiased animate-in`}>
+      <body className={`${inter.className} min-h-screen text-foreground bg-background antialiased animate-in`}>
         <Providers>
           <Suspense fallback={<div>Loading...</div>}>
             <Header user={user} />
           </Suspense>
-          <main className='pb-6 sm:px-6 lg:px-8 h-full min-h-screen'>{children}</main>
+          {children}
           <Footer />
         </Providers>
       </body>

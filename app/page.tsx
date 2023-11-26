@@ -1,8 +1,6 @@
-import Link from 'next/link';
 import Carousel from '@/components/Carousel';
 import FeatureCard from '@/components/FeatureCard';
 import { features } from '@/lib/features-data';
-
 import { getTrendingItems } from '@/lib/api_trending';
 import { discoverMovies, getMovies } from '@/lib/api_movie_lists';
 import { getSeries } from '@/lib/api_series_lists';
@@ -50,7 +48,7 @@ export default async function Index() {
   ]);
 
   return (
-    <div className='w-full flex flex-col items-center'>
+    <div className='w-full flex flex-col items-center px-4'>
       <div className='flex flex-col gap-7 max-w-7xl'>
         <div
           style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
@@ -71,13 +69,13 @@ export default async function Index() {
           <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground px-6 sm:px-0'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground'>
           {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
             <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
           ))}
         </div>
 
-        <div className='justify-center flex flex-col gap-7 text-xs'>
+        <div className='justify-center flex flex-col gap-7 text-xs mb-8'>
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
           <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
@@ -89,12 +87,6 @@ export default async function Index() {
             tabs={['Up to 7 Days', 'This Month', 'This Year']}
             data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
           />
-          <p className='text-center'>
-            Created by{' '}
-            <Link href='https://www.linkedin.com/in/aviv-maman-914a95223' target='_blank' className='font-bold'>
-              Aviv Maman
-            </Link>
-          </p>
         </div>
       </div>
     </div>

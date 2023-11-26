@@ -5,7 +5,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-o
 import { IconDots, IconHeartFilled, IconList, IconStarFilled } from '@tabler/icons-react';
 
 interface CarouselDropdownProps {
-  className?: string;
+  className?: HTMLElement['className'];
 }
 
 const CarouselDropdown: FC<CarouselDropdownProps> = ({ className }) => {

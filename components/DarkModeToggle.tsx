@@ -7,7 +7,7 @@ import { IconMoon, IconSun } from '@tabler/icons-react';
 type DarkModeToggleProps = {
   color?: string;
   size?: string | number;
-  className?: string;
+  className?: HTMLElement['className'];
 };
 
 function DarkModeToggle({ color, size = '1.5rem', className }: DarkModeToggleProps) {
@@ -20,7 +20,8 @@ function DarkModeToggle({ color, size = '1.5rem', className }: DarkModeTogglePro
       onClick={toggleDarkMode}
       className={`${className} border border-neutral-300 dark:border-neutral-800`}
       aria-label='Toggle dark mode'
-      variant='light'>
+      variant='light'
+    >
       {isDarkMode ? <IconSun color={color} size={size} /> : <IconMoon color={color} size={size} />}
     </Button>
   );
