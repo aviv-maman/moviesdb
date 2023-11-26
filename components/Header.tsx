@@ -176,7 +176,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
           <DropdownMenu aria-label='Profile Actions' variant='flat'>
             {!user?.id
               ? avatarDropItems.guest.map((item) => (
-                  <DropdownItem key={item.key} {...item}>
+                  <DropdownItem {...item} key={item.key}>
                     {item.textValue}
                   </DropdownItem>
                 ))
