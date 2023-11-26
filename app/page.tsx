@@ -48,7 +48,7 @@ export default async function Index() {
   ]);
 
   return (
-    <div className='w-full flex flex-col items-center px-4'>
+    <main className='w-full flex flex-col items-center px-4'>
       <div className='flex flex-col gap-7 max-w-7xl'>
         <div
           style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
@@ -89,6 +89,6 @@ export default async function Index() {
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
