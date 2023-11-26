@@ -48,46 +48,44 @@ export default async function Index() {
   ]);
 
   return (
-    <main className='w-full flex flex-col items-center px-4'>
-      <div className='flex flex-col gap-7 max-w-7xl'>
-        <div
-          style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
-          className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}
-        >
-          <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-gradient-to-b from-[#00000099]'>
-            <div className='flex h-full items-center justify-center'>
-              <p className='text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center my-12 text-white'>
-                The easiest way to discover <strong>movies</strong> and <strong>series</strong>
-              </p>
-            </div>
+    <main className='flex flex-col gap-7 mx-4'>
+      <div
+        style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
+        className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}
+      >
+        <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-gradient-to-b from-[#00000099]'>
+          <div className='flex h-full items-center justify-center'>
+            <p className='text-3xl lg:text-4xl !leading-tight mx-auto text-center my-12 text-white'>
+              The easiest way to discover <strong>movies</strong> and <strong>series</strong>
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
+      <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
-        <div className='flex flex-col gap-8 text-foreground px-6 sm:px-0'>
-          <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
-        </div>
+      <div className='flex flex-col gap-8 text-foreground px-6 sm:px-0'>
+        <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
+      </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground'>
-          {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
-            <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
-          ))}
-        </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground'>
+        {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
+          <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
+        ))}
+      </div>
 
-        <div className='justify-center flex flex-col gap-7 text-xs mb-8'>
-          <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
-          <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
-          <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
-          <Carousel tabs={['Movies', 'Series', 'People']} data={[popularMovies, popularSeries, PopularPeople]} />
-          <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
-          <Carousel tabs={['Movies', 'Series']} data={[topRatedMovies, topRatedSeries]} />
-          <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
-          <Carousel
-            tabs={['Up to 7 Days', 'This Month', 'This Year']}
-            data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
-          />
-        </div>
+      <div className='justify-center flex flex-col gap-7 text-xs mb-8'>
+        <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
+        <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
+        <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
+        <Carousel tabs={['Movies', 'Series', 'People']} data={[popularMovies, popularSeries, PopularPeople]} />
+        <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
+        <Carousel tabs={['Movies', 'Series']} data={[topRatedMovies, topRatedSeries]} />
+        <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
+        <Carousel
+          tabs={['Up to 7 Days', 'This Month', 'This Year']}
+          data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
+        />
       </div>
     </main>
   );

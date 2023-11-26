@@ -38,7 +38,7 @@ const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   };
 
   return (
-    <div className='max-w-[1400px] w-screen md:w-fit m-auto' {...rest}>
+    <div className='md:w-fit' {...rest}>
       <Card className='max-w-full border'>
         <CardBody className='overflow-hidden'>
           {!tabs ? (
