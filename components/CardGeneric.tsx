@@ -23,6 +23,8 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
     10: 'success',
   };
 
+  const imgClasses = 'z-0 w-full rounded-md object-cover min-h-[16rem] sm:min-h-[15rem]';
+
   const loadRatingColor = (rating: number) => {
     return ratingColors[Math.floor(rating)];
   };
@@ -33,9 +35,11 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
     title: 'title' in data ? data.title : data.name || 'Not available',
     description: 'overview' in data ? data.overview : 'Not available',
     image:
-      'poster_path' in data
+      'poster_path' in data && data.poster_path
         ? `https://image.tmdb.org/t/p/w342/${data.poster_path}`
-        : `https://image.tmdb.org/t/p/w342/${data.profile_path}`,
+        : 'profile_path' in data && data.profile_path
+        ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
+        : './no-image.svg',
     href: 'title' in data ? `/movies/${data.id}` : data.name ? `/series/${data.id}` : '/',
     rating: 'vote_average' in data ? data.vote_average : data.popularity || 0,
     releaseDate:
@@ -48,7 +52,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
 
   return (
     <div className='relative w-auto rounded-md max-w-[12rem] h-full'>
-      <Image src={item.image} alt={item.title} className='z-0 w-full rounded-md object-cover min-h-[16rem] sm:min-h-[15rem]' />
+      <Image src={item.image} alt={item.title} className={`${item.image === './no-image.svg' && 'p-4'} ${imgClasses}`} />
       {'known_for' in data ? null : <CarouselDropdown />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
       <div className='absolute bottom-0 left-0 text-left w-full p-2'>
