@@ -23,7 +23,7 @@ export default async function Login() {
         </div>
       </div>
 
-      <div className='flex items-center w-full px-2 lg:w-2/6 mx-4'>
+      <div className='flex pt-16 w-full px-2 lg:w-2/6 m-4'>
         <div className='flex-1'>
           <div className='text-center'>
             <div className='flex justify-center mx-auto'>
