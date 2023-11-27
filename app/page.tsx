@@ -68,13 +68,13 @@ export default async function Index() {
         <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground xl:mx-12 2xl:mx-32'>
         {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
           <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
         ))}
       </div>
 
-      <div className='justify-center flex flex-col gap-7 text-xs mb-8'>
+      <div className='justify-center flex flex-col gap-7 text-xs mb-8 xl:mx-12 2xl:mx-32'>
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
         <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>

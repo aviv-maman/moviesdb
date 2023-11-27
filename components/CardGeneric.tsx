@@ -51,7 +51,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
   };
 
   return (
-    <div className='relative w-auto rounded-md max-w-[12rem] h-full'>
+    <div className='relative w-auto rounded-md h-full'>
       <Image src={item.image} alt={item.title} className={`${item.image === './no-image.svg' && 'p-4'} ${imgClasses}`} />
       {'known_for' in data ? null : <CarouselDropdown />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
