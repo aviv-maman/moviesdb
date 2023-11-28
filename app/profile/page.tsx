@@ -125,7 +125,7 @@ const Profile: FC<ProfileProps> = async ({}) => {
   if (error) throw error;
 
   return (
-    <main className='md:flex m-4 min-h-[76vh]'>
+    <main className='animate-in md:flex m-4 min-h-[76vh]'>
       <ProfileMenu />
       <ProfileSection profile={profile} user={user} />
     </main>

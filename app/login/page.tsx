@@ -8,7 +8,7 @@ export default async function Login() {
   const themeClasses = 'dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600';
 
   return (
-    <main className='flex justify-center min-h-[80vh]'>
+    <main className='animate-in flex justify-center min-h-[80vh]'>
       <div
         className='hidden bg-cover lg:block lg:w-2/3'
         style={{
