@@ -10,7 +10,7 @@ export default function Footer() {
   const range = currentYear > establishedYear ? `${establishedYear}-${currentYear}` : `${establishedYear}`;
 
   return (
-    <footer className='mx-auto px-6 border-neutral-200 dark:border-neutral-800 border-t bg-neutral-50 dark:bg-zinc-950'>
+    <footer className='mx-auto px-6 border-neutral-200 dark:border-neutral-800 border-t bg-neutral-100 dark:bg-zinc-950'>
       <div className='flex flex-col items-center justify-between py-3 sm:py-6 md:flex-row'>
         <div className='text-sm pb-3 lg:pb-0'>
           <span>&copy; {range} Rotten Popcorn. All rights reserved.</span>

@@ -1,5 +1,4 @@
 'use server';
-
 import { type FC } from 'react';
 import ProfileSection from '@/components/ProfileSection';
 import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
@@ -7,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import type { Database } from '@/lib/database.types';
+import ProfileMenu from '@/components/ProfileMenu';
 
 interface ProfileProps {}
 
@@ -30,9 +30,7 @@ export const handleLinkAccount = async () => {
       httpOnly: true,
       secure: true,
     });
-    redirect(
-      `https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/api/tmdb-approved`
-    );
+    redirect(`https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/api/tmdb-approved`);
   } else {
     throw new Error(`Error ${res.status}: ${res.statusText}.`);
   }
@@ -126,7 +124,12 @@ const Profile: FC<ProfileProps> = async ({}) => {
     .single();
   if (error) throw error;
 
-  return <ProfileSection profile={profile} user={user} />;
+  return (
+    <main className='md:flex m-4 min-h-[76vh]'>
+      <ProfileMenu />
+      <ProfileSection profile={profile} user={user} />
+    </main>
+  );
 };
 
 export default Profile;

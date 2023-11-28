@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, type FC } from 'react';
-import ProfileMenu from '@/components/ProfileMenu';
 import ProfileSettings from '@/components/ProfileSettings';
 import ProfileIntegrations from './ProfileIntegrations';
 import { useProfile } from '@/context/ProfileContext';
@@ -22,11 +21,10 @@ const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
   }, [dispatch, profile, user]);
 
   return (
-    <main className='md:flex m-4 min-h-[75vh]'>
-      <ProfileMenu />
+    <>
       {state.active_view === 'profile' && <ProfileSettings />}
       {state.active_view === 'integrations' && <ProfileIntegrations />}
-    </main>
+    </>
   );
 };
 

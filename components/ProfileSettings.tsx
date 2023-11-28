@@ -55,7 +55,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
           <h1 className='text-lg font-extrabold'>Profile Settings</h1>
           <p className='text-orange-600 dark:text-orange-500 text-sm'>Edit your profile information.</p>
         </div>
-        <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-100'>
+        <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-200'>
           <div className='flex m-4'>
             <Badge
               isOneChar
@@ -127,7 +127,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             </button>
             <button
               type='button'
-              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4 disabled:cursor-not-allowed disabled:opacity-50'
+              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4 disabled:cursor disabled:opacity-50 disabled:hover:bg-inherit disabled:dark:hover:bg-inherit'
               aria-label='Remove Avatar'
               disabled={!state.supabase_profile?.avatar_url || removePending || uploadPending}
               onClick={async () => startRemoveTransition(async () => await removeAvatar())}
