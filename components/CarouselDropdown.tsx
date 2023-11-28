@@ -1,5 +1,4 @@
 'use client';
-
 import { type FC } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
 import { IconDots, IconHeartFilled, IconList, IconStarFilled } from '@tabler/icons-react';

@@ -271,3 +271,8 @@ export type TmdbProfile = {
   include_adult: boolean;
   username: string;
 };
+
+export type GeneralPostRes = {
+  status_code: number;
+  status_message: string;
+};

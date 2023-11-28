@@ -1,4 +1,4 @@
-import { Suspense, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import '../styles/globals.css';
 import Header from '@/components/Header';
 import { createClient } from '@/utils/supabase/server';
