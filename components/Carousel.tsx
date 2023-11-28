@@ -20,21 +20,24 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   const resultsArray = data.map((item) => item.results);
   const options: Options = {
-    gap: '1.5rem',
+    gap: '1rem',
     perPage: 6,
     pagination: false,
     breakpoints: {
-      640: {
+      524: {
         perPage: 2,
       },
+      640: {
+        perPage: 3,
+      },
       768: {
-        perPage: 4,
+        perPage: 3,
       },
       1024: {
-        perPage: 5,
+        perPage: 4,
       },
     },
-    width: '100%',
+    autoHeight: true,
   };
 
   return (

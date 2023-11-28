@@ -23,7 +23,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
     10: 'success',
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover min-h-[16rem] sm:min-h-[15rem]';
+  const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto';
 
   const loadRatingColor = (rating: number) => {
     return ratingColors[Math.floor(rating)];
@@ -51,7 +51,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
   };
 
   return (
-    <div className='relative w-auto rounded-md h-full'>
+    <div className='relative rounded-md h-full max-w-[11rem]'>
       <Image src={item.image} alt={item.title} className={`${item.image === './no-image.svg' && 'p-4'} ${imgClasses}`} />
       {'known_for' in data ? null : <CarouselDropdown />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />

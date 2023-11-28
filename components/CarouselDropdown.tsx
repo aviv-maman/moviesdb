@@ -20,7 +20,7 @@ const CarouselDropdown: FC<CarouselDropdownProps> = ({ className }) => {
       </DropdownTrigger>
       <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
         <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
-          Add to list
+          Add to watch list
         </DropdownItem>
         <DropdownItem key='favorites' startContent={<IconHeartFilled className={iconClasses} size={18} />}>
           Add to favorites
