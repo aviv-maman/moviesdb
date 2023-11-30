@@ -7,6 +7,7 @@ const reqOptionsGet: RequestInit = {
     accept: 'application/json',
     Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
   },
+  next: { revalidate: 60 * 10 },
 };
 
 const reqOptionsPost: RequestInit = {
@@ -47,26 +48,30 @@ export const toggleFavorite = async (options: toggleFavOptions) => {
 type getFavOptions = {
   account_id: number;
   session_id: string;
-  media_type: 'movies' | 'tv';
+  media_type: 'movie' | 'tv';
   language?: string;
   page?: number;
   sort_by?: 'created_at.asc' | 'created_at.desc';
+  revalidate?: number;
 };
 
-const getFavorites = async (options: getFavOptions) => {
+export const getFavorites = async (options: getFavOptions) => {
   'use server';
   options.language = options.language || 'en-US';
   options.page = options.page || 1;
   options.sort_by = options.sort_by || 'created_at.asc';
+  options.revalidate = options.revalidate || 60 * 10;
+  const mediaTypePath = options.media_type === 'movie' ? 'movies' : 'tv';
   const { account_id, session_id, media_type, language, page, sort_by } = options;
 
   try {
     const res = await fetch(
-      `https://api.themoviedb.org/3/account/${account_id}/favorite/${media_type}?language=${language}&page=${page}&session_id=${session_id}&sort_by=${sort_by}`,
-      reqOptionsGet
+      `https://api.themoviedb.org/3/account/${account_id}/favorite/${mediaTypePath}?language=${language}&page=${page}&session_id=${session_id}&sort_by=${sort_by}`,
+      { ...reqOptionsGet, next: { revalidate: options.revalidate } }
     );
+    // if (!res.ok) throw new Error(`${res.status} - ${res.statusText}`);
     const data = await res.json();
-    return media_type === 'movies' ? (data as MovieListResponse) : (data as SeriesListResponse);
+    return media_type === 'movie' ? (data as MovieListResponse) : (data as SeriesListResponse);
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
@@ -75,4 +80,12 @@ const getFavorites = async (options: getFavOptions) => {
     }
     throw error;
   }
+};
+
+export const getAllFavoritesUsingRecursion = async (options: getFavOptions) => {
+  'use server';
+  const res = await getFavorites(options);
+  if (res.page === res.total_pages || res.total_pages === 0 || !res.page) return res;
+  res.results.concat((await getAllFavoritesUsingRecursion({ ...options, page: res.page + 1 })).results);
+  return res;
 };

@@ -7,6 +7,7 @@ import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import type { Database } from '@/lib/database.types';
 import ProfileMenu from '@/components/ProfileMenu';
+import { getProfile, getUserDetails } from '@/lib/auth';
 
 interface ProfileProps {}
 
@@ -116,13 +117,7 @@ const Profile: FC<ProfileProps> = async ({}) => {
   const supabase = createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
   if (!user) redirect('/login'); // This route can only be accessed by authenticated users.
-
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user?.id as string)
-    .single();
-  if (error) throw error;
+  const { profile, error } = await getProfile(user?.id);
 
   return (
     <main className='animate-in md:flex m-4 min-h-[76vh]'>

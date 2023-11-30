@@ -1,5 +1,5 @@
 'use client';
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import { type User } from '@supabase/supabase-js';
 import { IconSearch } from '@tabler/icons-react';
@@ -24,16 +24,21 @@ import HeaderDropdown from './HeaderDropdown';
 import { avatarDropItems, movieLinks, seriesLinks } from '@/lib/header-links';
 import ButtonCustom from './ButtonCustom';
 import { signOut } from '@/lib/auth';
+import { useProfile } from '@/context/ProfileContext';
+import type { MovieItem, SeriesItem } from '@/lib/api.types';
 
 type HeaderProps = {
   user?: User | null | undefined;
   profile?: Profile | null | undefined;
+  favMovies?: MovieItem[];
+  favSeries?: SeriesItem[];
 };
 
-const Header: FC<HeaderProps> = ({ user, profile }) => {
+const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();
+  const { dispatch } = useProfile();
 
   const handleSignOut = async () => {
     const error = await signOut();
@@ -60,6 +65,13 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
   //     }
   //     push(`/search?${params.toString()}`);
   //   };
+
+  useEffect(() => {
+    dispatch({ type: 'changed_supabase_user', payload: { value: user ? user : null } });
+    dispatch({ type: 'changed_supabase_profile', payload: { value: profile ? profile : null } });
+    dispatch({ type: 'changed_favorite_movie', payload: { value: favMovies ? favMovies.map((item) => item.id) : [] } });
+    dispatch({ type: 'changed_favorite_tv', payload: { value: favSeries ? favSeries.map((item) => item.id) : [] } });
+  }, [dispatch, user, profile, favMovies, favSeries]);
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -168,7 +180,7 @@ const Header: FC<HeaderProps> = ({ user, profile }) => {
               as='button'
               className='transition-transform'
               color='default'
-              name={profile?.full_name || undefined}
+              name={undefined}
               size='sm'
               src={profile?.avatar_url || undefined}
             />

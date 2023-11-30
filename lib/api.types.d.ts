@@ -16,6 +16,7 @@ type MovieItem = ListItem & {
   original_title: string;
   release_date: string;
   video: boolean;
+  isFavorite?: boolean;
 };
 
 type SeriesItem = ListItem & {
@@ -23,6 +24,7 @@ type SeriesItem = ListItem & {
   original_name: string;
   first_air_date: string;
   origin_country: string[];
+  isFavorite?: boolean;
 };
 
 type PersonItem = {
@@ -34,6 +36,7 @@ type PersonItem = {
   name: string;
   popularity: number;
   profile_path: string;
+  isFavorite?: boolean;
 };
 
 type ListResponse = {
@@ -273,6 +276,7 @@ export type TmdbProfile = {
 };
 
 export type GeneralPostRes = {
-  status_code: number;
+  status_code: number; //1-success,12-updated successfully,13-removed successfully
   status_message: string;
+  success: boolean;
 };

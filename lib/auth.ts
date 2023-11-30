@@ -50,43 +50,33 @@ export const getSession = async () => {
     return session;
   } catch (error) {
     console.error('getSession Error:', error);
-    return null;
+    throw error;
   }
 };
 
 //To be used in account page
-export const getUserDetails = async () => {
+export const getUserDetails = async (id: string) => {
   'use server';
   const supabase = createClient();
   try {
-    const { data: userDetails } = await supabase.from('users').select('*').single();
-    return userDetails as Profile | null;
+    const res = await supabase.auth.getUser();
+    return { data: res.data.user, error: res.error };
   } catch (error) {
     console.error('getUserDetails Error:', error);
-    return null;
+    throw error;
   }
 };
 
-export const getProfile = async () => {
+export const getProfile = async (id: string) => {
   'use server';
+  if (!id) throw new Error('No id provided to getProfile');
   const supabase = createClient();
   try {
-    const { user } = (await supabase.auth.getUser()).data;
-    const {
-      data: profile,
-      error,
-      status,
-    } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', user?.id as string)
-      .single();
-    if (error && status !== 406) {
-      throw error;
-    }
-    return { profile, error } as { profile: Profile | null; error: PostgrestError | null };
+    const { data, error, status } = await supabase.from('profiles').select('*').eq('id', id).single();
+    if (error && status !== 406) throw error;
+    return { profile: data, error } as { profile: Profile | null; error: PostgrestError | null };
   } catch (error) {
     console.error('getProfile Error:', error);
-    return { profile: null, error };
+    throw error;
   }
 };

@@ -18,7 +18,8 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
-  const resultsArray = data.map((item) => item.results);
+  const resultsArray = data?.map((item) => item.results);
+
   const options: Options = {
     gap: '1rem',
     perPage: 6,

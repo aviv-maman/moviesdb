@@ -6,6 +6,9 @@ import Footer from '@/components/Footer';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 import type { Viewport, Metadata } from 'next';
+import { getProfile } from '@/lib/auth';
+import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
+import type { MovieItem, SeriesItem } from '@/lib/api.types';
 
 export const metadata: Metadata = {
   title: 'Rotten Popcorn',
@@ -24,13 +27,34 @@ const inter = Inter({ subsets: ['latin'] });
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const supabase = createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
+  const { profile } = await getProfile(user?.id as string);
+  let favMovies, favSeries;
+  if (user) {
+    const { profile, error } = await getProfile(user?.id);
+    if (profile && profile?.tmdb_account_id && profile?.tmdb_session_id) {
+      const [favoriteMovies, favoriteSeries] = await Promise.all([
+        getAllFavoritesUsingRecursion({
+          account_id: profile?.tmdb_account_id,
+          session_id: profile?.tmdb_session_id,
+          media_type: 'movie',
+        }),
+        getAllFavoritesUsingRecursion({
+          account_id: profile?.tmdb_account_id,
+          session_id: profile?.tmdb_session_id,
+          media_type: 'tv',
+        }),
+      ]);
+      favMovies = (favoriteMovies.results || []) as MovieItem[];
+      favSeries = (favoriteSeries.results || []) as SeriesItem[];
+    }
+  }
 
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
       <body className={`${inter.className} min-h-screen text-foreground bg-background antialiased`}>
         <Providers>
-          <Header user={user} />
+          <Header user={user} profile={profile} favMovies={favMovies} favSeries={favSeries} />
           {children}
           <Footer />
         </Providers>

@@ -1,57 +1,28 @@
 'use client';
-
-import { Suspense, type FC, useEffect } from 'react';
+import { Suspense, type FC } from 'react';
 import { handleLinkAccount, handleUnlinkAccount } from '@/app/profile/page';
 import { IconPlugConnected, IconPlugConnectedX } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
-import useSWR from 'swr';
-import type { TmdbProfile } from '@/lib/api.types';
 import { Image, Spinner } from '@nextui-org/react';
 import Link from 'next/link';
 
 interface ProfileIntegrationsProps {}
 
 const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
-  const { dispatch, state } = useProfile();
-
-  const options: RequestInit = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}`,
-    },
-    cache: 'no-store',
-  };
-
-  const {
-    data: tmdb_profile,
-    error,
-    isValidating,
-    isLoading,
-  } = useSWR<TmdbProfile, Error>(
-    state.supabase_profile?.tmdb_session_id ? { url: `/api/tmdb-profile`, options } : null
-  );
-
-  useEffect(() => {
-    dispatch({ type: 'changed_tmdb_profile', payload: { value: tmdb_profile ? tmdb_profile : null } });
-  }, [dispatch, tmdb_profile]);
+  const { state } = useProfile();
 
   return (
     <div className='dark:text-gray-100 w-full'>
       <div className='mb-4'>
         <h1 className='text-lg font-extrabold'>Integrations</h1>
-        <p className='text-orange-600 dark:text-orange-500 text-sm'>
-          Extend your experience by connecting to other services.
-        </p>
+        <p className='text-orange-600 dark:text-orange-500 text-sm'>Extend your experience by connecting to other services.</p>
       </div>
       <div className='border rounded-lg max-w-sm'>
         <div className='flex items-start justify-between p-4'>
           <div className='space-y-2'>
             <Image src='./tmdb48.jpg' alt='tmdb' className='inline-block h-12 rounded-none' width={'48'} />
             <h4 className='font-semibold'>{'The Movie Database (TMDB)'}</h4>
-            <p className='text-gray-600 dark:text-gray-400 text-sm'>
-              One of the largest databases of movies and series.
-            </p>
+            <p className='text-gray-600 dark:text-gray-400 text-sm'>One of the largest databases of movies and series.</p>
           </div>
           <form action={handleLinkAccount}>
             <Suspense fallback={<Spinner />}>
