@@ -105,10 +105,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
     } else {
       params.delete('with_keywords');
     }
-
-    console.log(`${pathname}?${params.toString()}`);
-
-    // replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`);
   }
 
   return (

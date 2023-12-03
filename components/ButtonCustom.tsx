@@ -12,7 +12,7 @@ const ButtonCustom: FC<ButtonCustomProps> = ({ label, children, ...rest }) => {
   const { pending } = useFormStatus();
 
   return (
-    <Button isLoading={pending} {...rest}>
+    <Button isLoading={pending} {...rest} startContent={!pending && rest.startContent}>
       {label || children}
     </Button>
   );

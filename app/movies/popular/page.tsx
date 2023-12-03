@@ -8,13 +8,13 @@ interface PopularMoviesProps {
 
 const PopularMovies: FC<PopularMoviesProps> = async ({ searchParams }) => {
   return (
-    <div className='animate-in w-full block min-[960px]:flex m-auto justify-center'>
+    <main className='animate-in w-full block min-[960px]:flex m-auto justify-center min-h-[80vh]'>
       <SidebarMenu />
       <div className='p-4 max-w-7xl mx-auto justify-center'>
         <h1 className='mb-4 text-2xl font-bold text-slate-900 dark:text-white'>Movies</h1>
         <PageResults searchParams={searchParams} />
       </div>
-    </div>
+    </main>
   );
 };
 
