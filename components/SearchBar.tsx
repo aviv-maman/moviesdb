@@ -34,7 +34,7 @@ const SearchNavbar: React.FC = () => {
   const [mediaType, setMediaType] = useState(formState.media_type);
 
   return (
-    <header className='sticky top-[65px] border-b w-full md:text-sm bg-zinc-200 dark:bg-zinc-600'>
+    <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d]'>
       <form id='search-filter' action={formAction} className='flex items-center'>
         <SearchSelect name='media_type' label='Content Type' items={SEARCH_TYPES} setMediaType={setMediaType} />
         <SearchAutoComplete name='language' label='Language' items={LANGUAGES} />

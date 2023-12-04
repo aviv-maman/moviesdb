@@ -7,7 +7,6 @@ const reqOptionsGet: RequestInit = {
     accept: 'application/json',
     Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
   },
-  next: { revalidate: 60 * 10 },
 };
 
 const reqOptionsPost: RequestInit = {
@@ -17,6 +16,7 @@ const reqOptionsPost: RequestInit = {
     'content-type': 'application/json',
     Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
   },
+  cache: 'no-cache',
 };
 
 type toggleFavOptions = {
@@ -52,7 +52,8 @@ type getFavOptions = {
   language?: string;
   page?: number;
   sort_by?: 'created_at.asc' | 'created_at.desc';
-  revalidate?: number;
+  revalidate?: number | false;
+  cache?: RequestCache;
 };
 
 export const getFavorites = async (options: getFavOptions) => {
@@ -60,14 +61,13 @@ export const getFavorites = async (options: getFavOptions) => {
   options.language = options.language || 'en-US';
   options.page = options.page || 1;
   options.sort_by = options.sort_by || 'created_at.asc';
-  options.revalidate = options.revalidate || 60 * 10;
   const mediaTypePath = options.media_type === 'movie' ? 'movies' : 'tv';
   const { account_id, session_id, media_type, language, page, sort_by } = options;
 
   try {
     const res = await fetch(
       `https://api.themoviedb.org/3/account/${account_id}/favorite/${mediaTypePath}?language=${language}&page=${page}&session_id=${session_id}&sort_by=${sort_by}`,
-      { ...reqOptionsGet, next: { revalidate: options.revalidate } }
+      { ...reqOptionsGet, cache: options.cache, next: { revalidate: options.revalidate } }
     );
     // if (!res.ok) throw new Error(`${res.status} - ${res.statusText}`);
     const data = await res.json();

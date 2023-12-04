@@ -1,5 +1,4 @@
 'use client';
-import { type FC } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
 import { IconDots, IconHeart, IconHeartFilled, IconList, IconStarFilled } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
@@ -11,7 +10,7 @@ interface CarouselDropdownProps {
   mediaType: 'movie' | 'tv';
 }
 
-const CarouselDropdown: FC<CarouselDropdownProps> = ({ className, mediaId, mediaType }) => {
+const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId, mediaType }) => {
   const iconClasses = 'text-xl text-default-500 pointer-events-none flex-shrink-0';
 
   const { dispatch, state } = useProfile();
