@@ -74,17 +74,10 @@ export type UpcomingMovieListResponse = TrendingMovieListResponse & {
   };
 };
 
-export type MovieListResponse = ListResponse & {
-  results: MovieItem[];
-};
-
-export type SeriesListResponse = ListResponse & {
-  results: SeriesItem[];
-};
-
-export type PeopleListResponse = ListResponse & {
-  results: PersonItem[];
-};
+export type MovieListResponse = ListResponse & { results: MovieItem[] };
+export type SeriesListResponse = ListResponse & { results: SeriesItem[] };
+export type PersonListResponse = ListResponse & { results: PersonItem[] };
+export type MovieSeriesPersonListResponse = ListResponse & { results: MovieItem[] | SeriesItem[] | PersonItem[] };
 
 export type TrendingListParams = {
   page?: number;

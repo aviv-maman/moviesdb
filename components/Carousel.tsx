@@ -1,23 +1,16 @@
 'use client';
-import { type FC } from 'react';
 import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
-import type {
-  MovieListResponse,
-  PeopleListResponse,
-  SeriesListResponse,
-  TrendingResponse,
-  UpcomingMovieListResponse,
-} from '@/lib/api.types';
+import type { MovieSeriesPersonListResponse, TrendingResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 import CardGeneric from './CardGeneric';
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   tabs?: string[];
-  data: MovieListResponse[] | UpcomingMovieListResponse[] | TrendingResponse[] | SeriesListResponse[] | PeopleListResponse[];
+  data: UpcomingMovieListResponse[] | TrendingResponse[] | MovieSeriesPersonListResponse[];
 }
 
-const Carousel: FC<CarouselProps> = ({ tabs, data, ...rest }) => {
+const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   const resultsArray = data?.map((item) => item.results);
 
   const options: Options = {

@@ -2,10 +2,10 @@
 import { type FC } from 'react';
 import { CircularProgress, Image } from '@nextui-org/react';
 import CarouselDropdown from './CarouselDropdown';
-import type { MovieListResponse, PeopleListResponse, SeriesListResponse } from '@/lib/api.types';
+import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 
 interface CardGenericProps {
-  data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PeopleListResponse['results'][0];
+  data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
 }
 
 const CardGeneric: FC<CardGenericProps> = ({ data }) => {

@@ -1,4 +1,4 @@
-import type { PeopleListResponse } from './api.types';
+import type { PersonListResponse } from './api.types';
 
 type PeopleApiOptions = {
   type: 'popular';
@@ -27,7 +27,7 @@ export const getPeople = async (options: PeopleApiOptions) => {
       }
     }
     const res = await fetch(`https://api.themoviedb.org/3/person/${options.type}?${searchParams.toString()}`, reqOptions);
-    return (await res.json()) as PeopleListResponse;
+    return (await res.json()) as PersonListResponse;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
