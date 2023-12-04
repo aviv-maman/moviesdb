@@ -20,7 +20,7 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({ items, name, la
       size='sm'
     >
       {items.map((item) => (
-        <AutocompleteItem key={item.value} textValue={item.value}>
+        <AutocompleteItem key={item.value} value={item.value}>
           {item.label}
         </AutocompleteItem>
       ))}

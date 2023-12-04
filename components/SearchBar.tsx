@@ -20,7 +20,8 @@ const SearchNavbar: React.FC = () => {
       if (value !== '') {
         if (key === 'language' && value === 'en-US') continue;
         if (key === 'media_type' && value === 'multi') continue;
-        params.set(key, value);
+        if (key === 'language') formData.set(key, LANGUAGES.find((item) => item.label === value)?.value || value);
+        params.set(key, key === 'language' ? formData.get('language') : value);
       } else {
         params.delete(key);
       }
@@ -34,28 +35,31 @@ const SearchNavbar: React.FC = () => {
   const [mediaType, setMediaType] = useState(formState.media_type);
 
   return (
-    <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d]'>
-      <form id='search-filter' action={formAction} className='flex items-center'>
-        <SearchSelect name='media_type' label='Content Type' items={SEARCH_TYPES} setMediaType={setMediaType} />
-        <SearchAutoComplete name='language' label='Language' items={LANGUAGES} />
-        {(mediaType === 'movie' || mediaType === 'tv') && (
-          <Input
-            id='year'
-            name='year'
-            label='Year'
-            placeholder='YYYY'
-            size='sm'
-            variant='faded'
-            type='number'
-            min={1885}
-            max={new Date().getFullYear() + 100}
-            classNames={{ base: 'max-w-[4rem]', input: '[&::-webkit-inner-spin-button]:appearance-none' }}
-          />
-        )}
+    <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d] px-1'>
+      <form id='search-filter' action={formAction} className='flex items-center w-full justify-between'>
+        <div className='flex w-full'>
+          <SearchSelect name='media_type' label='Content Type' items={SEARCH_TYPES} setMediaType={setMediaType} />
+          <SearchAutoComplete name='language' label='Language' items={LANGUAGES} />
+          {(mediaType === 'movie' || mediaType === 'tv') && (
+            <Input
+              id='year'
+              name='year'
+              label='Year'
+              placeholder='YYYY'
+              size='sm'
+              variant='faded'
+              type='number'
+              min={1885}
+              max={new Date().getFullYear() + 100}
+              classNames={{ base: 'max-w-[4rem]', input: '[&::-webkit-inner-spin-button]:appearance-none' }}
+            />
+          )}
+        </div>
         <ButtonCustom
           type='submit'
-          label='Apply'
-          className='text-secondary-500 bg-secondary-200 dark:bg-secondary-300 dark:text-secondary-700'
+          isIconOnly
+          size='sm'
+          className='text-secondary-500 bg-secondary-200 dark:bg-secondary-300 dark:text-secondary-700 justify-self-end'
           variant='ghost'
           startContent={<IconFilterSearch size={18} />}
         />
