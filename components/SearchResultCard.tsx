@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 import { MOVIE_GENRES, SERIES_GENRES } from '@/lib/data/search_filters';
+import Link from 'next/link';
 
 interface SearchResultCardProps {
   data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
@@ -38,52 +39,26 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
   };
 
   return (
-    <article className='flex bg-white transition hover:shadow-xl border rounded my-4'>
-      <div className='rotate-180 p-2 [writing-mode:_vertical-lr]'>
-        <time dateTime='2022-10-10' className='flex items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900'>
-          <span>2022</span>
-          <span className='w-px flex-1 bg-gray-900/10'></span>
-          <span>Oct 10</span>
-        </time>
-      </div>
+    <article className='transition hover:shadow-xl border my-4'>
+      <Link href={item.href} className='flex'>
+        <Image width={224} height={336} alt={item.title} src={item.image} className='object-cover' priority />
 
-      <div className='hidden sm:block sm:basis-56'>
-        <Image
-          width={224}
-          height={224}
-          alt={item.title}
-          src={item.image}
-          className='aspect-square w-auto h-auto object-cover'
-          priority
-        />
-      </div>
-
-      <div className='flex flex-1 flex-col justify-between'>
-        <div className='border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6'>
-          <a href={item.href}>
+        <div className='flex flex-1 flex-col justify-between'>
+          <div className='border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6'>
             <h3 className='font-bold uppercase text-gray-900'>{item.title}</h3>
-          </a>
-          <div className='flex flex-col'>
-            <span className='text-small'>
-              {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
-            </span>
-            <span className='text-tiny text-default-400'>{item.genre_ids}</span>
+            <div className='flex flex-col'>
+              <span className='text-small'>
+                {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
+              </span>
+              <span className='text-tiny text-default-400'>{item.genre_ids}</span>
+            </div>
+
+            <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-700'>
+              {item.description.length > 200 ? item.description.slice(0, 700) + '...' : item.description}
+            </p>
           </div>
-
-          <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-700'>
-            {item.description.length > 200 ? item.description.slice(0, 700) + '...' : item.description}
-          </p>
         </div>
-
-        <div className='sm:flex sm:items-end sm:justify-end'>
-          <a
-            href='#'
-            className='block bg-yellow-300 px-5 py-3 text-center text-xs font-bold uppercase text-gray-900 transition hover:bg-yellow-400'
-          >
-            Read Blog
-          </a>
-        </div>
-      </div>
+      </Link>
     </article>
   );
 };
