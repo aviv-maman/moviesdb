@@ -40,7 +40,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
         : 'profile_path' in data && data.profile_path
         ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
         : './no-image.svg',
-    href: 'title' in data ? `/movies/${data.id}` : 'original_name' in data ? `/series/${data.id}` : `/people/${data.id}`,
+    href: 'title' in data ? `/movies/${data.id}` : 'first_air_date' in data ? `/series/${data.id}` : `/people/${data.id}`,
     rating: 'vote_average' in data ? data.vote_average : data.popularity || 0,
     releaseDate:
       'release_date' in data

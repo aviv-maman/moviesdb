@@ -4,7 +4,7 @@ import SidebarSortBy from './SidebarSortBy';
 import SidebarWhereToWatch from './SidebarWhereToWatch';
 import SidebarFilters from './SidebarFilters';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { AVAILABILITIES, GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
+import { AVAILABILITIES, MOVIE_GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
 import ButtonCustom from './ButtonCustom';
 import { IconSearch } from '@tabler/icons-react';
 
@@ -70,7 +70,7 @@ const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
       params.delete('with_release_type');
     }
 
-    if (0 < with_genres.length && with_genres.length < GENRES.length) {
+    if (0 < with_genres.length && with_genres.length < MOVIE_GENRES.length) {
       params.set('with_genres', String(with_genres));
     } else {
       params.delete('with_genres');

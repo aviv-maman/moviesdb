@@ -13,7 +13,7 @@ import {
 } from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
 import CheckboxGenre from './CheckboxGenre';
-import { AVAILABILITIES, GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
+import { AVAILABILITIES, MOVIE_GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
 import { useForm } from '@/context/FormContext';
 import SliderCustom from './SliderCustom';
 import DatePickerCustom from './DatePickerCustom';
@@ -117,7 +117,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           label='Genres'
           classNames={{ label: 'text-sm', wrapper: 'gap-1' }}
         >
-          {GENRES.map((option) => (
+          {MOVIE_GENRES.map((option) => (
             <CheckboxGenre
               key={option.value}
               aria-label={option.label}

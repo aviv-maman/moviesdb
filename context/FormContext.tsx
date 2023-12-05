@@ -2,7 +2,7 @@
 import { createContext, useContext, useMemo, type ReactNode, type Dispatch, useEffect } from 'react';
 import { formReducer } from './formReducer';
 import { useImmerReducer } from 'use-immer';
-import { SHOW_ME, GENRES, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
+import { SHOW_ME, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
 
 export type FormStore = {
   state: FormContextState;
@@ -19,7 +19,7 @@ const initialContextState = {
   availabilities: ['all-availabilities'],
   release_dates: { gte: '', lte: '' },
   release_types: [0],
-  genres: [...GENRES.map((option) => option.value)],
+  genres: [],
   language: LANGUAGES[0].value,
   user_score: { min: 0, max: 10 },
   keywords: [{ id: 0, value: '' }],
