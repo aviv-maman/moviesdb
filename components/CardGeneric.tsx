@@ -1,5 +1,4 @@
 'use client';
-import { type FC } from 'react';
 import { CircularProgress, Image } from '@nextui-org/react';
 import CarouselDropdown from './CarouselDropdown';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
@@ -8,29 +7,15 @@ interface CardGenericProps {
   data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
 }
 
-const CardGeneric: FC<CardGenericProps> = ({ data }) => {
-  const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' } = {
+const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
+  const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' | 'default' } = {
     0: 'danger',
-    1: 'danger',
-    2: 'danger',
-    3: 'danger',
-    4: 'danger',
-    5: 'warning',
-    6: 'warning',
-    7: 'warning',
-    8: 'success',
-    9: 'success',
-    10: 'success',
+    1: 'warning',
+    2: 'success',
+    3: 'default',
   };
-
   const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto';
 
-  const loadRatingColor = (rating: number) => {
-    return ratingColors[Math.floor(rating)];
-  };
-
-  //TODO: Add fallback image
-  //TODO: Add type to item
   const item = {
     title: 'title' in data ? data.title : data.name || 'Not available',
     description: 'overview' in data ? data.overview : 'Not available',
@@ -50,6 +35,10 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
         : data.known_for.map((item) => ('title' in item ? item.title : item.name)).join(', ') || '0000-00-00',
     media_id: data.id,
     media_type: 'title' in data ? 'movie' : ('tv' as 'movie' | 'tv'),
+    ratingColor:
+      ratingColors[
+        'vote_average' in data ? (Math.floor(data.vote_average) <= 4 ? 0 : Math.floor(data.vote_average) <= 7 ? 1 : 2) : 3
+      ],
   };
 
   return (
@@ -66,7 +55,7 @@ const CardGeneric: FC<CardGenericProps> = ({ data }) => {
               aria-label='Vote average'
               size='sm'
               value={'vote_average' in data ? data.vote_average * 10 : undefined}
-              color={loadRatingColor('vote_average' in data ? data.vote_average : 0)}
+              color={item.ratingColor}
               showValueLabel={true}
               className='text-white'
             />
