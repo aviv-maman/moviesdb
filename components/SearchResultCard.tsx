@@ -41,11 +41,11 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
   return (
     <article className='transition hover:shadow-xl border my-4'>
       <Link href={item.href} className='flex'>
-        <Image width={224} height={336} alt={item.title} src={item.image} className='object-cover' priority />
+        <Image width={224} height={336} alt={item.title} src={item.image} className='object-cover sm:w-48 md:w-56' priority />
 
         <div className='flex flex-1 flex-col justify-between'>
           <div className='border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6'>
-            <h3 className='font-bold uppercase text-gray-900'>{item.title}</h3>
+            <h3 className='font-bold text-gray-700 dark:text-gray-300'>{item.title}</h3>
             <div className='flex flex-col'>
               <span className='text-small'>
                 {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
@@ -53,7 +53,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
               <span className='text-tiny text-default-400'>{item.genre_ids}</span>
             </div>
 
-            <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-700'>
+            <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-600 dark:text-gray-400'>
               {item.description.length > 200 ? item.description.slice(0, 700) + '...' : item.description}
             </p>
           </div>
