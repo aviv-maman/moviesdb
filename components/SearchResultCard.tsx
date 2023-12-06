@@ -3,12 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MOVIE_GENRES, SERIES_GENRES } from '@/lib/data/search_filters';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
+import SearchResultBadge from './SearchResultBadge';
 
 interface SearchResultCardProps {
   data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
 }
 
-const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
+const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
   const genres =
     'genre_ids' in data
       ? 'title' in data
@@ -50,7 +51,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
   };
 
   return (
-    <article className='transition hover:shadow-xl border my-4 bg-'>
+    <article className='transition hover:shadow-xl border my-4'>
       <Link href={item.href} className='flex'>
         <Image
           width={224}
@@ -79,10 +80,8 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ data }) => {
           </div>
 
           <div className='my-1 flex flex-wrap gap-1 p-6'>
-            {genres.map((genre, index) => (
-              <span key={`${index}-${genre}`} className={`whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs ${genre?.color}`}>
-                {genre?.label}
-              </span>
+            {item.genres.map((genre, index) => (
+              <SearchResultBadge key={`${index}-${genre}`} label={genre?.label} color={genre?.color} />
             ))}
           </div>
         </div>
