@@ -54,24 +54,27 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
     <article className='transition hover:shadow-xl border my-4'>
       <Link href={item.href} className='flex'>
         <Image
-          width={224}
-          height={336}
+          width={112}
+          height={168}
           alt={item.title}
           src={item.image}
-          className='object-cover sm:w-48 md:w-56 border-r-1'
+          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 md:h-[336px]'
           priority
         />
 
         <div className='flex flex-1 flex-col justify-between'>
-          <div className='border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6'>
+          <div className='border-s border-gray-900/10 p-2 sm:border-l-transparent sm:p-6'>
             <div className='flex justify-between'>
-              <h3 className='font-bold text-gray-700 dark:text-gray-300'>{item.title}</h3>
-              <p className={`text-sm font-semibold inline-flex items-center p-1.5 rounded ${item.ratingColor}`}>{item.rating}</p>
-            </div>
-            <div className='flex flex-col'>
-              <span className='text-small'>
-                {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
-              </span>
+              <div className='flex flex-col'>
+                <h3 className='font-bold text-gray-700 dark:text-gray-300 leading-tight'>{item.title}</h3>
+                <span className='text-small'>
+                  {item.release_date} |{' '}
+                  {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
+                </span>
+              </div>
+              <p className={`text-sm font-semibold inline-flex items-center p-1.5 rounded h-fit ${item.ratingColor}`}>
+                {item.rating}
+              </p>
             </div>
 
             <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-600 dark:text-gray-400'>
@@ -79,7 +82,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
             </p>
           </div>
 
-          <div className='my-1 flex flex-wrap gap-1 p-6'>
+          <div className='my-1 md:flex flex-wrap gap-1 p-6 hidden'>
             {item.genres.map((genre, index) => (
               <SearchResultBadge key={`${index}-${genre}`} label={genre?.label} color={genre?.color} />
             ))}
