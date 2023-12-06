@@ -17,7 +17,7 @@ const reqOptionsGet: RequestInit = {
 
 type MultiOptions = {
   media_type: 'multi';
-  query: string;
+  query?: string;
   include_adult?: boolean;
   language?: string;
   page?: number;
@@ -25,7 +25,7 @@ type MultiOptions = {
 
 type MovieOptions = {
   media_type: 'movie';
-  query: string;
+  query?: string;
   include_adult?: boolean;
   language?: string;
   primary_release_year?: number;
@@ -36,7 +36,7 @@ type MovieOptions = {
 
 type TvOptions = {
   media_type: 'tv';
-  query: string;
+  query?: string;
   first_air_date_year?: number;
   include_adult?: boolean;
   language?: string;
@@ -46,7 +46,7 @@ type TvOptions = {
 
 type PersonOptions = {
   media_type: 'person';
-  query: string;
+  query?: string;
   include_adult?: boolean;
   language?: string;
   page?: number;

@@ -2,7 +2,7 @@
 import SearchBar from '@/components/SearchBar';
 import SearchResultCard from '@/components/SearchResultCard';
 import SearchResultCardSkeleton from '@/components/SearchResultCardSkeleton';
-import searchData from '@/lib/data/search_data.json';
+import { type FilterOptions, filterSearch } from '@/lib/api_search';
 import { Suspense } from 'react';
 
 interface SearchProps {
@@ -11,6 +11,13 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = async ({ searchParams }) => {
   const SKELETON_LENGTH = 10;
+  const filterParams: FilterOptions = {
+    media_type: searchParams.media_type ? (String(searchParams.media_type) as 'multi' | 'movie' | 'tv' | 'person') : 'multi',
+    query: searchParams.query ? String(searchParams.query) : undefined,
+    page: Number(searchParams.page) || 1,
+  };
+
+  const searchData = await filterSearch(filterParams);
 
   return (
     <main className='animate-in w-full min-h-[80vh]'>
