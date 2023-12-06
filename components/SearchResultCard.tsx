@@ -34,7 +34,8 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
         ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
         : './no-image.svg',
     href: 'title' in data ? `/movies/${data.id}` : 'first_air_date' in data ? `/series/${data.id}` : `/people/${data.id}`,
-    rating: 'vote_average' in data ? data.vote_average.toFixed(1) : data.popularity.toFixed(1) || 0.0,
+    rating:
+      'vote_average' in data ? (data.vote_average === 10 ? 10 : data.vote_average.toFixed(1)) : data.popularity.toFixed(1) || 0.0,
     release_date:
       'release_date' in data
         ? data.release_date.split('-')[0]
@@ -46,7 +47,15 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
     genres,
     ratingColor:
       ratingColors[
-        'vote_average' in data ? (Math.floor(data.vote_average) <= 4 ? 0 : Math.floor(data.vote_average) <= 7 ? 1 : 2) : 3
+        'vote_average' in data
+          ? Math.floor(data.vote_average) === 0
+            ? 3
+            : Math.floor(data.vote_average) <= 4
+            ? 0
+            : Math.floor(data.vote_average) <= 7
+            ? 1
+            : 2
+          : 0
       ],
   };
 
