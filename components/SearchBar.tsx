@@ -17,10 +17,10 @@ const SearchNavbar: React.FC = () => {
   const handleFilter = async (prevState: FormState, formData: FormData) => {
     const params = new URLSearchParams(searchParams);
     params.delete('page');
+    const defaultParams: FormState & { [key: string]: string } = { media_type: 'multi', language: 'English' };
     for (const [key, value] of Object(formData.entries())) {
-      if (value !== '') {
-        if (key === 'language' && value === 'en-US') continue;
-        if (key === 'media_type' && value === 'multi') continue;
+      const stringKey = String(key);
+      if (value !== '' && value !== defaultParams[stringKey]) {
         if (key === 'language') formData.set(key, LANGUAGES.find((item) => item.label === value)?.value || value);
         params.set(key, key === 'language' ? formData.get('language') : value);
       } else {
