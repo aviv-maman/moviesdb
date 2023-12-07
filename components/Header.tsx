@@ -48,6 +48,11 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
   const handleSubmit = (formData: FormData) => {
     const params = new URLSearchParams(searchParams);
     const query = formData.get('query')?.toString();
+    params.forEach((value, key) => {
+      if (key !== 'query') {
+        params.delete(key);
+      }
+    });
     if (query) {
       params.set('query', query);
     } else {
@@ -55,16 +60,6 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
     }
     push(`/search?${params.toString()}`);
   };
-
-  //   const handleSearch = (term: string) => {
-  //     const params = new URLSearchParams(searchParams);
-  //     if (term) {
-  //       params.set('query', term);
-  //     } else {
-  //       params.delete('query');
-  //     }
-  //     push(`/search?${params.toString()}`);
-  //   };
 
   useEffect(() => {
     dispatch({ type: 'changed_supabase_user', payload: { value: user ? user : null } });
