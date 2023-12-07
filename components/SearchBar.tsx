@@ -16,6 +16,7 @@ const SearchNavbar: React.FC = () => {
 
   const handleFilter = async (prevState: FormState, formData: FormData) => {
     const params = new URLSearchParams(searchParams);
+    params.delete('page');
     for (const [key, value] of Object(formData.entries())) {
       if (value !== '') {
         if (key === 'language' && value === 'en-US') continue;
