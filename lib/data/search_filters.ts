@@ -30,7 +30,7 @@ export const MOVIE_GENRES = [
   { label: 'Romance', value: '10749', color: 'violet' },
   { label: 'Science Fiction', value: '878', color: 'emerald' },
   { label: 'TV Movie', value: '10770', color: 'teal' },
-  { label: 'Thriller', value: '53', color: 'blue' },
+  { label: 'Thriller', value: '53', color: 'red' },
   { label: 'War', value: '10752', color: 'purple' },
   { label: 'Western', value: '37', color: 'red' },
 ];
