@@ -30,7 +30,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const { profile } = await getProfile(user?.id as string);
   let favMovies, favSeries;
   if (user) {
-    const { profile, error } = await getProfile(user?.id);
     if (profile && profile?.tmdb_account_id && profile?.tmdb_session_id) {
       const [favoriteMovies, favoriteSeries] = await Promise.all([
         getAllFavoritesUsingRecursion({

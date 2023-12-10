@@ -41,7 +41,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
           {!tabs ? (
             /* One carousel => No tabs */
             <Splide tag='section' aria-label='Media Carousel' options={options}>
-              {resultsArray[0].map((slide, slideIndex) => (
+              {resultsArray[0]?.map((slide, slideIndex) => (
                 <SplideSlide key={slideIndex}>
                   <CardGeneric data={slide} />
                 </SplideSlide>
@@ -50,10 +50,10 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
           ) : (
             /* Multiple carousels => Tabs */
             <Tabs size='md' aria-label='Tabs section'>
-              {resultsArray.map((results, resultsIndex) => (
+              {resultsArray?.map((results, resultsIndex) => (
                 <Tab key={`tab-${resultsIndex}`} title={tabs ? tabs[resultsIndex] : resultsIndex + 1}>
                   <Splide tag='section' aria-label='Media Carousel' options={options}>
-                    {results.map((slide, slideIndex) => (
+                    {results?.map((slide, slideIndex) => (
                       <SplideSlide key={slideIndex}>
                         <CardGeneric data={slide} />
                       </SplideSlide>
