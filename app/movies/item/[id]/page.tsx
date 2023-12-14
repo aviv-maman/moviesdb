@@ -1,11 +1,11 @@
 'use server';
 
 interface MoviePageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { id: string };
 }
 
-const MoviePage: React.FC<MoviePageProps> = async ({ searchParams }) => {
-  const id = searchParams?.id;
+const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
+  const id = params?.id;
 
   return (
     <main className='animate-in w-full block min-[960px]:flex m-auto justify-center min-h-fit'>
