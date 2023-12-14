@@ -1,8 +1,7 @@
-import { type ReactNode } from 'react';
 import '../styles/globals.css';
 import Header from '@/components/Header';
-import { createClient } from '@/utils/supabase/server';
 import Footer from '@/components/Footer';
+import { createClient } from '@/utils/supabase/server';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 import type { Viewport, Metadata } from 'next';
@@ -24,7 +23,7 @@ export const viewport: Viewport = {
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
   const { profile } = await getProfile(user?.id as string);
