@@ -61,11 +61,7 @@ export type TrendingAllListResponse = ListResponse & {
   results: TrendingMovieListResponse['results'] & TrendingSeriesListResponse['results'] & TrendingPersonListResponse['results'];
 };
 
-export type TrendingResponse =
-  | TrendingMovieListResponse
-  | TrendingSeriesListResponse
-  | TrendingPersonListResponse
-  | TrendingAllListResponse;
+export type TrendingResponse = TrendingMovieListResponse | TrendingSeriesListResponse | TrendingPersonListResponse | TrendingAllListResponse;
 
 export type UpcomingMovieListResponse = TrendingMovieListResponse & {
   dates: {
@@ -272,4 +268,52 @@ export type GeneralPostRes = {
   status_code: number; //1-success,12-updated successfully,13-removed successfully
   status_message: string;
   success: boolean;
+};
+
+export type GetMovieResponse = {
+  adult: boolean;
+  backdrop_path?: string;
+  belongs_to_collection?: {
+    id: number;
+    name: string;
+    poster_path: string;
+    backdrop_path: string;
+  } | null;
+  budget?: number;
+  genres?: {
+    id: number;
+    name: string;
+  }[];
+  homepage?: string;
+  id: number;
+  imdb_id?: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path?: string;
+  production_companies?: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries?: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  spoken_languages: {
+    english_name: string;
+    iso_639_1: string;
+    name: string;
+  }[];
+  status: string;
+  tagline?: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 };

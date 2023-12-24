@@ -1,10 +1,9 @@
-import { type FC } from 'react';
 import { DatePicker } from 'rsuite';
 import 'rsuite/dist/rsuite-no-reset.min.css';
 
 interface DatePickerCustomProps {}
 
-const DatePickerCustom: FC<DatePickerCustomProps> = ({}) => {
+const DatePickerCustom: React.FC<DatePickerCustomProps> = ({}) => {
   return (
     <div className='my-3 flex flex-col gap-2'>
       <span className='relative text-foreground-500 block text-sm'>Release Dates</span>
