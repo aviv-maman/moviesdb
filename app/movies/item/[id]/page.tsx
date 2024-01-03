@@ -33,21 +33,28 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                 className={`${movieItem?.poster_path === './no-image.svg' && 'p-4'} ${imgClasses}`}
               />
               <div className='block mx-4'>
-                <h1 className='mb-2 text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
-                <span className='font-medium'>{`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}</span>
+                <h1 className='mb-4 text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
+                <SearchResultBadge
+                  label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
+                  className='font-sans rounded-md'
+                  color='sky'
+                  textSize='text-md'
+                />
                 <p className='text-md my-2'>{movieItem?.overview}</p>
                 <div className='flex gap-x-1'>
                   {movieItem?.genres?.map((genre, index) => (
                     <SearchResultBadge key={index} label={genre} className='rounded-md' color='pink' textSize='text-sm' />
                   ))}
                 </div>
-                <div className='flex flex-col items-center justify-center w-1/2 p-4 text-white'>
-                  <span className='text-sm'>Rating</span>
-                  <span className='text-2xl font-bold'>{(movieItem?.vote_average || 0) * 10}%</span>
-                </div>
-                <div className='flex flex-col items-center justify-center w-1/2 p-4 text-white'>
-                  <span className='text-sm'>Votes</span>
-                  <span className='text-2xl font-bold'>{movieItem?.vote_count}</span>
+                <div className='flex gap-x-1'>
+                  <div className='flex flex-col items-center justify-center p-4'>
+                    <span className='text-sm'>Rating</span>
+                    <span className='text-2xl font-bold'>{(movieItem?.vote_average || 0) * 10}%</span>
+                  </div>
+                  <div className='flex flex-col items-center justify-center p-4'>
+                    <span className='text-sm'>Votes</span>
+                    <span className='text-2xl font-bold'>{movieItem?.vote_count}</span>
+                  </div>
                 </div>
               </div>
             </div>
