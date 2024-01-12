@@ -45,27 +45,27 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
               />
               <div className='block mx-4'>
                 <h1 className='mb-4 text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
-                <SearchResultBadge
-                  label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
-                  className='font-sans rounded-md'
-                  color='sky'
-                  textSize='text-md'
-                />
-                <p className='text-md my-2'>{movieItem?.overview}</p>
-                <div className='flex gap-x-1'>
-                  {movieItem?.genres?.map((genre, index) => (
-                    <SearchResultBadge key={index} label={genre} className='rounded-md' color='pink' textSize='text-sm' />
-                  ))}
-                </div>
-                <div className='flex gap-x-1'>
+                <div className='flex gap-x-1 items-center'>
+                  <SearchResultBadge
+                    label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
+                    className='font-sans rounded-md h-fit'
+                    color='sky'
+                    textSize='text-md'
+                  />
                   <CircularProgress
                     aria-label='Vote average'
-                    size='lg'
+                    size='md'
                     value={'vote_average' in movieItem ? movieItem?.vote_average : undefined}
                     color={movieItem?.ratingColor}
                     showValueLabel={true}
                     className='text-white'
                   />
+                </div>
+                <p className='text-md my-2'>{movieItem?.overview}</p>
+                <div className='flex gap-x-1'>
+                  {movieItem?.genres?.map((genre, index) => (
+                    <SearchResultBadge key={index} label={genre} className='rounded-md' color='pink' textSize='text-sm' />
+                  ))}
                 </div>
               </div>
             </div>
