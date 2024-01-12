@@ -72,7 +72,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
               </div>
             </div>
 
-            <div className='justify-center flex flex-col text-xs mb-8 min-[400px]:mx-4 min-[450px]:mx-8 min-[800px]:mx-8 min-[900px]:mx-12 min-[930px]:mx-16 min-[960px]:mx-24 mx-0 sm:mx-16 md:mx-0 lg:mx-2 min-[1200px]:mx-8 xl:mx-12 2xl:mx-52'>
+            <div className='flex flex-col mx-auto justify-center text-xs mb-8 sm:w-full md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/2'>
               <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
               <CarouselCredits data={movieItem?.credits} />
             </div>
