@@ -2,7 +2,7 @@
 
 import SearchResultBadge from '@/components/SearchResultBadge';
 import { getMovieById } from '@/lib/api_movies';
-import { Image } from '@nextui-org/react';
+import { CircularProgress, Image } from '@nextui-org/react';
 
 interface MoviePageProps {
   params: { id: string };
@@ -11,6 +11,14 @@ interface MoviePageProps {
 const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
   const id = Number(params?.id);
   const { movie } = await getMovieById({ movie_id: id });
+
+  const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' | 'default' } = {
+    0: 'danger',
+    1: 'warning',
+    2: 'success',
+    3: 'default',
+  };
+
   const movieItem = {
     ...movie,
     backdrop_path: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movie?.backdrop_path}`,
@@ -18,7 +26,10 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     genres: movie?.genres?.map((genre) => genre.name),
     spoken_languages: movie?.spoken_languages?.map((lang) => lang.english_name),
     runtime: `${Math.floor((movie?.runtime || 0) / 60)}h ${(movie?.runtime || 0) % 60}m`,
+    ratingColor:
+      ratingColors[movie && 'vote_average' in movie ? (Math.floor(movie.vote_average) <= 4 ? 0 : Math.floor(movie.vote_average) <= 7 ? 1 : 2) : 3],
   };
+
   const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full';
 
   return (
@@ -47,14 +58,14 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                   ))}
                 </div>
                 <div className='flex gap-x-1'>
-                  <div className='flex flex-col items-center justify-center p-4'>
-                    <span className='text-sm'>Rating</span>
-                    <span className='text-2xl font-bold'>{(movieItem?.vote_average || 0) * 10}%</span>
-                  </div>
-                  <div className='flex flex-col items-center justify-center p-4'>
-                    <span className='text-sm'>Votes</span>
-                    <span className='text-2xl font-bold'>{movieItem?.vote_count}</span>
-                  </div>
+                  <CircularProgress
+                    aria-label='Vote average'
+                    size='lg'
+                    value={'vote_average' in movieItem ? movieItem?.vote_average : undefined}
+                    color={movieItem?.ratingColor}
+                    showValueLabel={true}
+                    className='text-white'
+                  />
                 </div>
               </div>
             </div>
