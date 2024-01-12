@@ -316,4 +316,41 @@ export type GetMovieResponse = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  credits?: {
+    cast?: {
+      adult: boolean | null;
+      gender: number | null;
+      id: number;
+      known_for_department: string | null;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string | null;
+      cast_id: number;
+      character: string | null;
+      credit_id: string;
+      order: number | null;
+    }[];
+    crew?: {
+      adult: boolean | null;
+      gender: number | null;
+      id: number;
+      known_for_department: string | null;
+      name: string;
+      original_name: string;
+      popularity: number;
+      profile_path: string | null;
+      credit_id: string;
+      department: string | null;
+      job: string | null;
+    }[];
+  };
+  external_ids?: {
+    id: number;
+    imdb_id?: string | null;
+    wikidata_id?: string | null;
+    facebook_id?: string | null;
+    instagram_id?: string | null;
+    twitter_id?: string | null;
+  };
 };
