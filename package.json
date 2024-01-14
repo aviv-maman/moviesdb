@@ -10,7 +10,7 @@
     "@splidejs/react-splide": "^0.7.12",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.3",
-    "@tabler/icons-react": "^2.45.0",
+    "@tabler/icons-react": "^2.46.0",
     "framer-motion": "^10.18.0",
     "immer": "^10.0.3",
     "next": "^14.0.4",
