@@ -1,5 +1,4 @@
 import { produce } from 'immer';
-import MovieExample from '@/lib/data/movie-details.json';
 import { GetMovieResponse } from './api.types';
 
 type GetMovieOptions = {
@@ -29,9 +28,8 @@ export const getMovieById = async (options: GetMovieOptions) => {
         searchParams.set(key, value.toString());
       }
     }
-    // const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?${searchParams.toString()}`, reqOptions);
-    // return await res.json();
-    return { movie: MovieExample as GetMovieResponse, error: null };
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?${searchParams.toString()}`, reqOptions);
+    return { movie: (await res.json()) as GetMovieResponse, error: null };
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
