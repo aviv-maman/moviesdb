@@ -100,7 +100,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
             size='sm'
             startContent={<IconSearch size={18} />}
             endContent={
-              <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-9 w-12 left-3 top-[1px]'>
+              <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-9 w-12 left-2 top-[1px]'>
                 <IconSearch size={16} />
               </ButtonCustom>
             }
