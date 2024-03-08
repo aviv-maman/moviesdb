@@ -100,14 +100,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
             size='sm'
             startContent={<IconSearch size={18} />}
             endContent={
-              <ButtonCustom
-                type='submit'
-                isIconOnly
-                size='sm'
-                variant='flat'
-                color='primary'
-                className='h-9 w-12 left-3 top-[1px]'
-              >
+              <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-9 w-12 left-3 top-[1px]'>
                 <IconSearch size={16} />
               </ButtonCustom>
             }
@@ -124,7 +117,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
 
         <Dropdown placement='bottom-end' className='md:hidden'>
           <DropdownTrigger className='md:hidden'>
-            <IconSearch size={18} />
+            <IconSearch size={18} className='md:hidden' />
           </DropdownTrigger>
           <DropdownMenu aria-label='Search' variant='flat'>
             <DropdownItem key='search-dropdown' isReadOnly>
@@ -141,14 +134,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
                   size='sm'
                   startContent={<IconSearch size={18} />}
                   endContent={
-                    <ButtonCustom
-                      type='submit'
-                      isIconOnly
-                      size='sm'
-                      variant='flat'
-                      color='primary'
-                      className='h-10 w-12 left-3 top-[1px]'
-                    >
+                    <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-10 w-12 left-3 top-[1px]'>
                       <IconSearch size={16} />
                     </ButtonCustom>
                   }
@@ -192,8 +178,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
                     onClick={item.key === 'logout' ? handleSignOut : undefined}
                     description={item.key === 'profile' && user.email}
                     {...item}
-                    key={item.key}
-                  >
+                    key={item.key}>
                     {item.textValue}
                   </DropdownItem>
                 ))}
@@ -205,12 +190,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
         <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>MOVIES</span>
         {movieLinks.map((item, index) => (
           <NavbarMenuItem key={`${index}-${item.label}`}>
-            <Link
-              className='w-full text-default-900 dark:text-default-500 h-9'
-              href={item.href}
-              size='lg'
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <Link className='w-full text-default-900 dark:text-default-500 h-9' href={item.href} size='lg' onClick={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>
@@ -218,12 +198,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
         <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>SERIES</span>
         {seriesLinks.map((item, index) => (
           <NavbarMenuItem key={`${index}-${item.label}`}>
-            <Link
-              className='w-full text-default-900 dark:text-default-500 h-9'
-              href={item.href}
-              size='lg'
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <Link className='w-full text-default-900 dark:text-default-500 h-9' href={item.href} size='lg' onClick={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>
