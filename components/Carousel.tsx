@@ -36,7 +36,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
 
   return (
     <div className='md:w-fit' {...rest}>
-      <Card className='max-w-full border'>
+      <Card className='max-w-[1152px] border'>
         <CardBody className='overflow-hidden'>
           {!tabs ? (
             /* One carousel => No tabs */

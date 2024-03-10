@@ -69,7 +69,7 @@ export default async function Index() {
         ))}
       </div>
 
-      <div className='justify-center flex flex-col gap-7 text-xs mb-8 min-[400px]:mx-4 min-[450px]:mx-8 min-[800px]:mx-8 min-[900px]:mx-12 min-[930px]:mx-16 min-[960px]:mx-24 mx-0 sm:mx-16 md:mx-0 lg:mx-2 min-[1200px]:mx-8 xl:mx-12 2xl:mx-[668px]'>
+      <div className='gap-7 text-xs mb-8 flex flex-col justify-center'>
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
         <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
