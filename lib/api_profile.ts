@@ -1,3 +1,4 @@
+'use server';
 import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
