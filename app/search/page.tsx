@@ -34,13 +34,10 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
               <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Search Results</h1>
               <span className='shadow animate-pulse h-4 bg-gray-300 rounded-lg w-16 dark:bg-gray-600 ml-1'></span>
             </div>
-          }
-        >
+          }>
           <div className='flex items-center'>
             <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Search Results</h1>
-            <span className='p-1 ml-1 text-xs font-semibold text-blue-800 bg-blue-200 rounded-md'>
-              {searchData.total_results} items
-            </span>
+            <span className='p-1 ml-1 text-xs font-semibold text-blue-800 bg-blue-200 rounded-md'>{searchData?.total_results} items</span>
           </div>
         </Suspense>
         <Suspense
@@ -50,14 +47,13 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
                 <SearchResultCardSkeleton key={index} />
               ))}
             </>
-          }
-        >
-          {searchData.results.map((item) => (
+          }>
+          {searchData?.results?.map((item) => (
             <SearchResultCard key={item.id} data={item} />
           ))}
           <div className='flex justify-between w-full'>
-            <LoadPageBtn label='Back' totalPages={searchData.total_pages} />
-            <LoadPageBtn label='Next' totalPages={searchData.total_pages} />
+            <LoadPageBtn label='Back' totalPages={searchData?.total_pages} />
+            <LoadPageBtn label='Next' totalPages={searchData?.total_pages} />
           </div>
         </Suspense>
       </div>

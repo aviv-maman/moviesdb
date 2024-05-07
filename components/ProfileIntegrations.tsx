@@ -1,6 +1,6 @@
 'use client';
 import { Suspense, type FC } from 'react';
-import { handleLinkAccount, handleUnlinkAccount } from '@/app/profile/page';
+import { handleLinkAccount, handleUnlinkAccount } from '@/lib/api_profile';
 import { IconPlugConnected, IconPlugConnectedX } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { Image, Spinner } from '@nextui-org/react';
@@ -29,8 +29,7 @@ const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
               <button
                 className='text-gray-600 dark:text-gray-300 text-sm border rounded-lg p-2 duration-150 hover:bg-gray-200 hover:dark:bg-gray-700 flex items-center'
                 formAction={state.supabase_profile?.tmdb_session_id ? handleUnlinkAccount : handleLinkAccount}
-                type='submit'
-              >
+                type='submit'>
                 {state.supabase_profile?.tmdb_session_id ? (
                   <IconPlugConnectedX size={20} className='mr-1' />
                 ) : (
@@ -46,8 +45,7 @@ const ProfileIntegrations: FC<ProfileIntegrationsProps> = ({}) => {
             href='https://www.themoviedb.org/settings/sessions/api'
             className='text-indigo-600 hover:text-indigo-500 text-sm font-medium'
             target='_blank'
-            rel='noopener noreferrer'
-          >
+            rel='noopener noreferrer'>
             View integration
           </Link>
         </div>

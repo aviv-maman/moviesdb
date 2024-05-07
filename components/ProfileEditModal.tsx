@@ -2,7 +2,7 @@
 
 import { FC, useRef, useTransition } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@nextui-org/react';
-import { updateProfile } from '@/app/profile/page';
+import { updateProfile } from '@/lib/api_profile';
 import { useProfile } from '@/context/ProfileContext';
 
 interface ProfileEditModalProps {
@@ -45,8 +45,7 @@ const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) =
               <Button
                 variant='faded'
                 onPress={onClose}
-                className='bg-red-100 dark:bg-red-500 text-red-500 dark:text-red-100 hover:bg-red-300 hover:dark:bg-red-300 hover:text-red-600 hover:dark:text-red-600 border-red-400'
-              >
+                className='bg-red-100 dark:bg-red-500 text-red-500 dark:text-red-100 hover:bg-red-300 hover:dark:bg-red-300 hover:text-red-600 hover:dark:text-red-600 border-red-400'>
                 Close
               </Button>
               <Button
@@ -63,8 +62,7 @@ const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) =
                     if (data) dispatch({ type: 'changed_supabase_profile', payload: { value: data } });
                     onClose();
                   });
-                }}
-              >
+                }}>
                 Submit
               </Button>
             </ModalFooter>

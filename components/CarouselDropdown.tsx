@@ -41,8 +41,8 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
 
   return (
     <Dropdown className={className}>
-      <DropdownTrigger className='absolute top-1 left-1'>
-        <button className='rounded-lg bg-default-300 hover:bg-current'>
+      <DropdownTrigger>
+        <button className='rounded-lg bg-default-300 hover:bg-current absolute top-1 left-1'>
           <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
         </button>
       </DropdownTrigger>
@@ -59,8 +59,7 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
               <IconHeartFilled className={iconClasses} size={18} />
             )
           }
-          onClick={handleFavorite}
-        >
+          onClick={handleFavorite}>
           {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
         </DropdownItem>
         <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>

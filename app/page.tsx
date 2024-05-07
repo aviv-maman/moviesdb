@@ -5,6 +5,7 @@ import { getTrendingItems } from '@/lib/api_trending';
 import { discoverMovies, getMovies } from '@/lib/api_movie_lists';
 import { getSeries } from '@/lib/api_series_lists';
 import { getPeople } from '@/lib/api_people_lists';
+import popularMoviesFallback from '@/lib/data/popular_movies.json';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,23 +19,18 @@ const getDateWithLastDayOfMonth = () => {
 export default async function Index() {
   const backgroundLoader = (width: 'w300' | 'w780' | 'w1280' | 'original', index?: number) => {
     const chosenNumber = index || Math.floor(Math.random() * 19);
-    return `https://image.tmdb.org/t/p/${width}${popularMovies.results[chosenNumber].backdrop_path}`;
+    const backdropPath = popularMovies?.results?.[chosenNumber]?.backdrop_path || popularMoviesFallback?.results?.[chosenNumber]?.backdrop_path;
+    return `https://image.tmdb.org/t/p/${width}${backdropPath}`;
   };
 
-  const [trendingMovies, trendingSeries] = await Promise.all([
-    getTrendingItems({ type: 'movie' }),
-    getTrendingItems({ type: 'tv' }),
-  ]);
+  const [trendingMovies, trendingSeries] = await Promise.all([getTrendingItems({ type: 'movie' }), getTrendingItems({ type: 'tv' })]);
   const [popularMovies, popularSeries, PopularPeople] = await Promise.all([
     getMovies({ type: 'popular' }),
     getSeries({ type: 'popular' }),
     getPeople({ type: 'popular' }),
   ]);
 
-  const [topRatedMovies, topRatedSeries] = await Promise.all([
-    getMovies({ type: 'top_rated' }),
-    getSeries({ type: 'top_rated' }),
-  ]);
+  const [topRatedMovies, topRatedSeries] = await Promise.all([getMovies({ type: 'top_rated' }), getSeries({ type: 'top_rated' })]);
   const [upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies] = await Promise.all([
     discoverMovies({
       'primary_release_date.gte': new Date().toISOString().slice(0, 10),
@@ -51,8 +47,7 @@ export default async function Index() {
     <main className='animate-in flex flex-col gap-7 mx-4'>
       <div
         style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
-        className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}
-      >
+        className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}>
         <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed bg-gradient-to-b from-[#00000099]'>
           <div className='flex h-full items-center justify-center'>
             <p className='text-3xl lg:text-4xl !leading-tight mx-auto text-center my-12 text-white'>
@@ -74,7 +69,7 @@ export default async function Index() {
         ))}
       </div>
 
-      <div className='justify-center flex flex-col gap-7 text-xs mb-8 min-[400px]:mx-4 min-[450px]:mx-8 min-[800px]:mx-8 min-[900px]:mx-12 min-[930px]:mx-16 min-[960px]:mx-24 mx-0 sm:mx-16 md:mx-0 lg:mx-2 min-[1200px]:mx-8 xl:mx-12 2xl:mx-52'>
+      <div className='flex flex-col justify-center gap-7 text-xs mb-8'>
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
         <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
@@ -82,10 +77,7 @@ export default async function Index() {
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Top Rated</h1>
         <Carousel tabs={['Movies', 'Series']} data={[topRatedMovies, topRatedSeries]} />
         <h1 className='font-bold text-2xl px-6 sm:px-0'>Upcoming</h1>
-        <Carousel
-          tabs={['Up to 7 Days', 'This Month', 'This Year']}
-          data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]}
-        />
+        <Carousel tabs={['Up to 7 Days', 'This Month', 'This Year']} data={[upcomingWeeklyMovies, upcomingMonthlyMovies, upcomingYearlyMovies]} />
       </div>
     </main>
   );

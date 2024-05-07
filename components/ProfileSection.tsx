@@ -17,7 +17,7 @@ const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
   useEffect(() => {
     dispatch({ type: 'changed_active_view', payload: { value: 'profile' } });
     dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
-    dispatch({ type: 'changed_supabase_user', payload: { value: user } });
+    dispatch({ type: 'changed_supabase_user', payload: { value: user ? user : null } });
   }, [dispatch, profile, user]);
 
   return (

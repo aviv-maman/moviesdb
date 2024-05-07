@@ -23,7 +23,7 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMedi
       onSelectionChange={(e) => {
         const key = e.valueOf();
         if (typeof key === 'string') return;
-        if ('currentKey' in key) setMediaType((prevState) => key.currentKey as 'movie' | 'tv' | 'multi' | 'person');
+        if ('currentKey' in key) setMediaType((prevState) => key.currentKey as 'multi' | 'movie' | 'tv' | 'person');
       }}
     >
       {items.map((item) => (

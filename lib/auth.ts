@@ -5,19 +5,16 @@ import type { PostgrestError } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
-const headersInstance = headers();
-const protocol = headersInstance.get('x-forwarded-proto');
-const host = headersInstance.get('host');
-
 export const signUp = async (formData: FormData) => {
   'use server';
+  const origin = headers().get('origin');
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
   const supabase = createClient();
   const authRes = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${protocol}://${host}/auth/callback` },
+    options: { emailRedirectTo: `${origin}/auth/callback` },
   });
   if (authRes.error) return redirect('/login?message=Could not authenticate user');
   return redirect('/login?message=Check email to continue sign in process');
@@ -55,7 +52,7 @@ export const getSession = async () => {
 };
 
 //To be used in account page
-export const getUserDetails = async (id: string) => {
+export const getUserDetails = async () => {
   'use server';
   const supabase = createClient();
   try {
@@ -69,14 +66,14 @@ export const getUserDetails = async (id: string) => {
 
 export const getProfile = async (id: string) => {
   'use server';
-  if (!id) throw new Error('No id provided to getProfile');
+  if (!id) return { profile: null, error: new ReferenceError('An ID was not provided to getProfile.') };
   const supabase = createClient();
   try {
     const { data, error, status } = await supabase.from('profiles').select('*').eq('id', id).single();
-    if (error && status !== 406) throw error;
+    if (error && status !== 406) return { profile: null, error };
     return { profile: data, error } as { profile: Profile | null; error: PostgrestError | null };
   } catch (error) {
     console.error('getProfile Error:', error);
-    throw error;
+    return { profile: null, error };
   }
 };
