@@ -10,7 +10,7 @@ import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
 
 export const metadata: Metadata = {
-  title: 'Rotten Popcorn',
+  title: 'MoviesDB',
   description: "Search for movies and TV shows to watch, and keep track of what you've watched.",
 };
 

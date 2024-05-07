@@ -73,7 +73,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
       <NavbarContent justify='start'>
         <div onClick={() => push('/')} className='cursor-pointer flex items-center gap-3'>
           <Logo />
-          <span className='hidden md:inline-block'>RottenPopcorn</span>
+          <span className='hidden md:inline-block'>MoviesDB</span>
         </div>
 
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
