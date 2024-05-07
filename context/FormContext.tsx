@@ -19,7 +19,7 @@ const initialContextState = {
   availabilities: ['all-availabilities'],
   release_dates: { gte: '', lte: '' },
   release_types: [0],
-  genres: [],
+  genres: [''],
   language: LANGUAGES[0].value,
   user_score: { min: 0, max: 10 },
   keywords: [{ id: 0, value: '' }],
