@@ -5,7 +5,7 @@ import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import ProfileEditModal from './ProfileEditModal';
 import { createClient } from '@/utils/supabase/client';
-import { updateProfile } from '@/app/profile/page';
+import { updateProfile } from '@/lib/api_profile';
 
 interface ProfileSettingsProps {}
 
@@ -82,8 +82,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               }
               size='lg'
               color='warning'
-              placement='top-left'
-            >
+              placement='top-left'>
               <Avatar
                 src={state.supabase_profile?.avatar_url || undefined}
                 alt='avatar'
@@ -121,8 +120,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <button
               type='button'
               onClick={onOpen}
-              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4'
-            >
+              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4'>
               <IconPencil size={18} />
             </button>
             <button
@@ -130,13 +128,8 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4 disabled:cursor disabled:opacity-50 disabled:hover:bg-inherit disabled:dark:hover:bg-inherit'
               aria-label='Remove Avatar'
               disabled={!state.supabase_profile?.avatar_url || removePending || uploadPending}
-              onClick={async () => startRemoveTransition(async () => await removeAvatar())}
-            >
-              {removePending || uploadPending ? (
-                <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} />
-              ) : (
-                <IconPhotoOff size={18} />
-              )}
+              onClick={async () => startRemoveTransition(async () => await removeAvatar())}>
+              {removePending || uploadPending ? <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} /> : <IconPhotoOff size={18} />}
             </button>
           </div>
         </div>

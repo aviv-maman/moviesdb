@@ -1,5 +1,6 @@
 'use server';
 import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
+import type { Database } from '@/lib/database.types';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
@@ -56,5 +57,30 @@ export const handleUnlinkAccount = async () => {
 
     const data: DeleteTmdbSessionIdResponse = await res.json();
     data.success && cookies().delete('tmdb_session_id');
+  }
+};
+
+export const updateProfile = async (profile: Database['public']['Tables']['profiles']['Update']) => {
+  'use server';
+  const { full_name, username, avatar_url } = profile;
+  try {
+    const supabase = createClient();
+    const userRes = await supabase.auth.getUser();
+    const { data, error, status } = await supabase
+      .from('profiles')
+      .upsert({
+        id: userRes.data.user?.id as string,
+        full_name,
+        username,
+        avatar_url,
+        updated_at: new Date().toISOString(),
+      })
+      .select('*')
+      .single();
+    if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
+    return data;
+    console.error('Profile updated!');
+  } catch (error) {
+    console.error('Error updating the data!');
   }
 };
