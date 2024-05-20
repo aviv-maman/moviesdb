@@ -34,7 +34,6 @@ export const getSeries = async (options: SeriesApiOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };
 
@@ -70,6 +69,5 @@ export const discoverSeries = async (options?: DiscoverSeriesParams) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

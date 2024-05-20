@@ -29,6 +29,5 @@ export const getTrendingItems = async (options: TrendingApiOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

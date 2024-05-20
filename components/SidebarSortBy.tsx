@@ -6,7 +6,7 @@ interface SidebarSortByProps {}
 
 const SidebarSortBy: FC<SidebarSortByProps> = ({}) => {
   return (
-    <Accordion variant='bordered'>
+    <Accordion variant='bordered' keepContentMounted>
       <AccordionItem key='sort-by' aria-label='Sort' title='Sort' subtitle='Sort Results By' classNames={{ title: 'text-md' }}>
         <Select
           name='sort_by'

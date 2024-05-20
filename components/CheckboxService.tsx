@@ -10,8 +10,8 @@ interface CheckboxServiceProps extends CheckboxProps {
 
 const checkbox = tv({
   slots: {
-    base: 'border-default hover:bg-default-200 h-12 w-12 rounded-lg flex items-center justify-center',
-    content: 'text-default-500',
+    base: 'border-default hover:bg-default-200 h-11 w-11 rounded-lg flex items-center justify-center px-0',
+    content: 'text-default-500 px-0',
   },
   variants: {
     isSelected: {

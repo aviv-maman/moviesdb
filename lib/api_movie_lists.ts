@@ -36,7 +36,6 @@ export const getMovies = async (options: MoviesApiOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };
 
@@ -73,6 +72,5 @@ export const discoverMovies = async (options?: DiscoverMoviesParams) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

@@ -40,7 +40,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
   };
 
   return (
-    <Accordion variant='bordered' defaultExpandedKeys={['filters']}>
+    <Accordion variant='bordered' defaultExpandedKeys={['filters']} keepContentMounted>
       <AccordionItem
         key='filters'
         aria-label='Accordion of filters'
