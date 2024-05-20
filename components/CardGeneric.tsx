@@ -14,7 +14,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
     2: 'success',
     3: 'default',
   };
-  const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto';
+  const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto min-h-64';
 
   const item = {
     title: 'title' in data ? data.title : data.name || 'Not available',
@@ -24,7 +24,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
         ? `https://image.tmdb.org/t/p/w342/${data.poster_path}`
         : 'profile_path' in data && data.profile_path
         ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
-        : './no-image.svg',
+        : './no-image.jpg',
     href: 'title' in data ? `/movies/${data.id}` : 'first_air_date' in data ? `/series/${data.id}` : `/people/${data.id}`,
     rating: 'vote_average' in data ? data.vote_average : data.popularity || 0,
     releaseDate:
@@ -43,7 +43,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
 
   return (
     <div className='relative rounded-md h-full max-w-[11rem]'>
-      <Image src={item.image} alt={item.title} className={`${item.image === './no-image.svg' && 'p-4'} ${imgClasses}`} />
+      <Image src={item.image} alt={item.title} className={`${imgClasses} border-1 min-w-[159px] md:min-w-[175px]`} fallbackSrc={'./no-image.jpg'} radius='sm' />
       {'known_for' in data ? null : <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
       <div className='absolute bottom-0 left-0 text-left w-full p-2'>
