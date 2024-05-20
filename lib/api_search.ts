@@ -78,6 +78,6 @@ export const filterSearch = async (options: FilterOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
+    // throw error;
   }
 };

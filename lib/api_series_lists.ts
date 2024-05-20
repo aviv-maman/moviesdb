@@ -27,7 +27,7 @@ export const getSeries = async (options: SeriesApiOptions) => {
       }
     }
     const res = await fetch(`https://api.themoviedb.org/3/tv/${options.type}?${searchParams.toString()}`, reqOptions);
-    return (await res.json()) as SeriesListResponse;
+    return (await res.json()) as SeriesListResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
@@ -62,7 +62,7 @@ export const discoverSeries = async (options?: DiscoverSeriesParams) => {
       }
     }
     const res = await fetch(`https://api.themoviedb.org/3/discover/tv?${searchParams.toString()}`, reqOptions);
-    return (await res.json()) as SeriesListResponse;
+    return (await res.json()) as SeriesListResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)

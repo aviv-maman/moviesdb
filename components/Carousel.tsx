@@ -7,11 +7,11 @@ import CardGeneric from './CardGeneric';
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   tabs?: string[];
-  data: UpcomingMovieListResponse[] | TrendingResponse[] | MovieSeriesPersonListResponse[];
+  data?: UpcomingMovieListResponse[] | TrendingResponse[] | MovieSeriesPersonListResponse[];
 }
 
 const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
-  const resultsArray = data?.map((item) => item.results);
+  const resultsArray = data?.map((item) => item?.results);
 
   const options: Options = {
     gap: '1rem',
@@ -41,7 +41,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
           {!tabs ? (
             /* One carousel => No tabs */
             <Splide tag='section' aria-label='Media Carousel' options={options}>
-              {resultsArray[0]?.map((slide, slideIndex) => (
+              {resultsArray?.[0]?.map((slide, slideIndex) => (
                 <SplideSlide key={slideIndex}>
                   <CardGeneric data={slide} />
                 </SplideSlide>
