@@ -18,20 +18,22 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
     perPage: 6,
     pagination: false,
     breakpoints: {
-      524: {
-        perPage: 2,
+      386: {
+        perPage: 1,
       },
       640: {
-        perPage: 3,
+        perPage: 2,
       },
-      768: {
+      824: {
         perPage: 3,
       },
       1024: {
         perPage: 4,
       },
+      1280: {
+        perPage: 5,
+      },
     },
-    autoHeight: true,
   };
 
   return (
