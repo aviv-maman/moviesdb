@@ -18,7 +18,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
     perPage: 6,
     pagination: false,
     breakpoints: {
-      386: {
+      388: {
         perPage: 1,
       },
       640: {

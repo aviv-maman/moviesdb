@@ -70,7 +70,7 @@ export default async function Index() {
       </div>
 
       <div className='flex justify-center w-full'>
-        <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[386px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[824px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
+        <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Trending</h1>
           <Carousel tabs={['Movies', 'Series']} data={[trendingMovies, trendingSeries]} />
           <h1 className='font-bold text-2xl px-6 sm:px-0'>Popular</h1>
