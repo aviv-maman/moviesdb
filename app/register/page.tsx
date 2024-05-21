@@ -10,7 +10,7 @@ export default async function Register() {
   const host = headersInstance.get('host');
 
   return (
-    <div className='animate-in flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2'>
+    <div className='animate-in flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2 min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <form action={signUp} className='flex-1 flex flex-col w-full justify-center gap-2 text-foreground'>
         <label className='text-md' htmlFor='email'>
           Email

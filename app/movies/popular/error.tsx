@@ -10,7 +10,7 @@ export default function Error({ error, reset }: { error: (Error & { digest?: str
   const statusText = 'statusText' in error ? error.statusText : error.name;
 
   return (
-    <main className='flex justify-center min-h-screen w-full'>
+    <main className='flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)] w-full'>
       <div className='text-center border-1 rounded-md p-5 h-fit my-20'>
         <div>
           <h1 className='font-black text-gray-400 dark:text-gray-200 text-8xl'>{statusCode}</h1>

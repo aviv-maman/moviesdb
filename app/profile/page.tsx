@@ -15,7 +15,7 @@ const Profile: FC<ProfileProps> = async ({}) => {
   const { profile, error } = await getProfile(user?.id);
 
   return (
-    <main className='animate-in md:flex m-4 min-h-[76vh]'>
+    <main className='animate-in md:flex m-4 min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <ProfileMenu />
       <ProfileSection profile={profile} user={user} />
     </main>

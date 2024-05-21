@@ -44,7 +44,7 @@ export default async function Index() {
   ]);
 
   return (
-    <main className='animate-in flex flex-col gap-7 mx-4'>
+    <main className='animate-in flex flex-col gap-7 mx-4 min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div
         style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
         className={`relative overflow-hidden bg-cover bg-no-repeat p-12 text-center h-96`}>

@@ -34,7 +34,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     vote_average: movie && 'vote_average' in movie ? movie?.vote_average * 10 : 0,
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full';
+  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]';
 
   return (
     <main className='animate-in w-full block m-auto justify-center min-h-fit'>
