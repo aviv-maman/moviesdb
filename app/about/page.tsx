@@ -7,7 +7,7 @@ interface pageProps {}
 export default function AboutPage(props: pageProps) {
   return (
     <main className='flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)] w-full'>
-      <div className='flex flex-col text-center rounded-md h-fit my-20'>
+      <div className='flex flex-col text-center rounded-md h-fit my-5'>
         <p className='text-3xl lg:text-4xl text-center font-semibold py-3'>About</p>
         <div className='flex flex-col gap-5'>
           <Card className='max-w-[400px] mx-5'>

@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 export default async function Login() {
   const themeClasses = 'dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600';
+  const inputClasses =
+    'text-sm block w-full px-4 py-2 mt-2 text-green-500 dark:text-green-300 placeholder-green-500 dark:placeholder-green-300 bg-gray-100 border border-gray-300 dark:border-zinc-500 rounded-lg dark:bg-zinc-700 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-400 focus:outline-none focus:ring focus:ring-opacity-40';
 
   return (
     <main className='animate-in flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
@@ -37,14 +39,7 @@ export default async function Login() {
                 <label htmlFor='email' className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>
                   Email Address
                 </label>
-                <input
-                  type='email'
-                  name='email'
-                  id='email'
-                  placeholder='Enter your email'
-                  className='text-sm block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
-                  required
-                />
+                <input type='email' name='email' id='email' placeholder='Enter your email' className={inputClasses} required />
               </div>
 
               <div className='mt-6'>
@@ -59,19 +54,11 @@ export default async function Login() {
                     Forgot password?
                   </Link> */}
                 </div>
-
-                <input
-                  type='password'
-                  name='password'
-                  id='password'
-                  placeholder='Enter your password'
-                  className='text-sm block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40'
-                  required
-                />
+                <input type='password' name='password' id='password' placeholder='Enter your password' className={inputClasses} required />
               </div>
 
-              <div className='mt-6'>
-                <ButtonCustom type='submit' label='Sign In' radius='none' className={`${themeClasses} rounded border w-full`} />
+              <div className='mt-6 flex justify-center'>
+                <ButtonCustom type='submit' label='Sign In' radius='none' className={`${themeClasses} rounded border`} />
               </div>
             </form>
 
