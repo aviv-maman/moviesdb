@@ -1,6 +1,6 @@
 'use client';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
-import { IconDots, IconHeart, IconHeartFilled, IconList, IconStarFilled } from '@tabler/icons-react';
+import { IconDots, IconHeart, IconHeartFilled, IconList, IconMovie, IconStarFilled } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
 
@@ -47,6 +47,9 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
         </button>
       </DropdownTrigger>
       <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
+        <DropdownItem key='list' startContent={<IconMovie className={iconClasses} size={18} />}>
+          View details
+        </DropdownItem>
         <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
           Add to watch list
         </DropdownItem>

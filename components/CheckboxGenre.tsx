@@ -47,8 +47,7 @@ const CheckboxGenre: FC<CheckboxGenreProps> = (props) => {
         }}
         startContent={isSelected ? <IconCheck className='ml-1' size={16} /> : <IconX className='ml-1' size={16} />}
         variant='faded'
-        {...getLabelProps()}
-      >
+        {...(getLabelProps() as any)}>
         {children ? children : props.label}
       </Chip>
     </label>
