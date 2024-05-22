@@ -21,17 +21,10 @@ export default function AboutPage(props: pageProps) {
                 />
                 <div className='flex flex-col gap-1 items-start justify-center'>
                   <h4 className='text-small font-semibold leading-none text-default-600'>Aviv Maman</h4>
-                  <Link
-                    isExternal
-                    showAnchorIcon
-                    href='https://www.linkedin.com/in/aviv-maman-914a95223'
-                    className='text-small tracking-tight text-default-400'>
-                    @aviv-maman-914a95223
-                  </Link>
+                  <h5 className='text-small tracking-tight text-default-400'>@aviv-maman-914a95223</h5>
                 </div>
               </div>
             </CardHeader>
-            <Divider />
             <CardBody className='p-3 text-small text-default-400'>
               <p>Full-Stack developer and UI enthusiast. I enjoy working with React and Next.js. Feel Free to contact me.</p>
             </CardBody>
@@ -42,18 +35,16 @@ export default function AboutPage(props: pageProps) {
               <Image alt='MoviesDB Logo' height={40} radius='sm' src='./logo.jpg' width={40} />
               <div className='flex flex-col'>
                 <p className='text-md text-start'>MoviesDB</p>
-                <Link isExternal showAnchorIcon href='https://moviesdb-indol.vercel.app' className='text-small text-default-500'>
-                  https://moviesdb-indol.vercel.app
-                </Link>
+                <p className='text-small text-default-500'>https://moviesdb-indol.vercel.app</p>
               </div>
             </CardHeader>
             <Divider />
             <CardBody>
-              <p>An app to explore movies and series.</p>
+              <p>Make beautiful websites regardless of your design experience.</p>
             </CardBody>
             <Divider />
             <CardFooter>
-              <Link isExternal showAnchorIcon href='https://github.com/aviv-maman/moviesdb' isBlock>
+              <Link isExternal showAnchorIcon href='https://github.com/aviv-maman/moviesdb'>
                 View source code on GitHub
               </Link>
             </CardFooter>

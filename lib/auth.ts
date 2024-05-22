@@ -16,7 +16,7 @@ export const signUp = async (formData: FormData) => {
     password,
     options: { emailRedirectTo: `${origin}/auth/callback` },
   });
-  if (authRes.error) throw authRes.error; //  if (authRes.error) return redirect('/login?message=Could not authenticate user');
+  if (authRes.error) return redirect('/login?message=Could not authenticate user');
   return redirect('/login?message=Check email to continue sign in process');
 };
 
@@ -26,7 +26,7 @@ export const signIn = async (formData: FormData) => {
   const password = formData.get('password') as string;
   const supabase = createClient();
   const authRes = await supabase.auth.signInWithPassword({ email, password });
-  if (authRes.error) throw authRes.error;
+  if (authRes.error) return redirect('/login?message=Could not authenticate user');
   return redirect('/');
 };
 
