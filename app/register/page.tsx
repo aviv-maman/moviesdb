@@ -1,16 +1,36 @@
-'use server';
+'use client';
 import { signUp } from '@/lib/auth';
 import ButtonCustom from '@/components/ButtonCustom';
 import Logo from '@/components/Logo';
 import Link from 'next/link';
+import { Toaster, toast } from 'sonner';
+import { useFormState } from 'react-dom';
 
-export default async function Register() {
+type FormState = {
+  message?: string;
+};
+
+export default function Register() {
   const themeClasses = 'dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600';
   const inputClasses =
     'text-sm block w-full px-4 py-2 mt-2 text-green-500 dark:text-green-300 placeholder-green-500 dark:placeholder-green-300 bg-gray-100 border border-gray-300 dark:border-zinc-500 rounded-lg dark:bg-zinc-700 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-400 focus:outline-none focus:ring focus:ring-opacity-40';
 
+  const onFormSubmission = async (prevState: FormState, formData: FormData) => {
+    toast.promise(signUp(formData), {
+      loading: 'Loading...',
+      success: (data) => {
+        return `Check email to continue sign in process`;
+      },
+      error: 'User authentication failed',
+    });
+    return { ...prevState };
+  };
+  const initialState: FormState = { message: '' };
+  const [formState, formAction] = useFormState(onFormSubmission, initialState);
+
   return (
     <main className='animate-in flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
+      <Toaster richColors />
       <div
         className='hidden bg-cover lg:block lg:w-2/3'
         style={{
@@ -34,7 +54,7 @@ export default async function Register() {
           </div>
 
           <div className='mt-8'>
-            <form action={signUp} className='mt-8'>
+            <form action={formAction} className='mt-8'>
               <div>
                 <label htmlFor='email' className='block mb-2 text-sm text-gray-600 dark:text-gray-200'>
                   Email Address
