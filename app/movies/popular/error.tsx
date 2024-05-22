@@ -6,11 +6,11 @@ import type { ThrownErrorSWR } from '@/lib/generic.types';
 
 export default function Error({ error, reset }: { error: (Error & { digest?: string }) | ThrownErrorSWR; reset: () => void }) {
   const router = useRouter();
-  const statusCode = 'statusCode' in error ? error.statusCode : 404;
+  const statusCode = 'statusCode' in error ? error.statusCode : 500;
   const statusText = 'statusText' in error ? error.statusText : error.name;
 
   return (
-    <main className='flex justify-center min-h-screen w-full'>
+    <main className='flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)] w-full'>
       <div className='text-center border-1 rounded-md p-5 h-fit my-20'>
         <div>
           <h1 className='font-black text-gray-400 dark:text-gray-200 text-8xl'>{statusCode}</h1>
@@ -18,7 +18,7 @@ export default function Error({ error, reset }: { error: (Error & { digest?: str
           <h2>{statusText}</h2>
           <span className='mt-4 text-gray-500'>{error.message}</span>
         </div>
-        <div className='flex items-center mt-6 gap-x-3'>
+        <div className='flex items-center justify-center mt-6 gap-x-3'>
           <button
             onClick={() => router.back()}
             className='flex items-center justify-center px-4 py-2 text-sm text-gray-700 transition-colors duration-200 bg-gray-200 border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-300 dark:text-gray-200 dark:border-gray-700'>

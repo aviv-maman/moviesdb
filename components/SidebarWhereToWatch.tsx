@@ -42,7 +42,7 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
   //   }, [location]);
 
   return (
-    <Accordion variant='bordered' defaultExpandedKeys={['where-to-watch']}>
+    <Accordion variant='bordered' defaultExpandedKeys={['where-to-watch']} keepContentMounted>
       <AccordionItem
         key='where-to-watch'
         aria-label='Where to watch'

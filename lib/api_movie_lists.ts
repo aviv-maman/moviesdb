@@ -29,14 +29,13 @@ export const getMovies = async (options: MoviesApiOptions) => {
       }
     }
     const res = await fetch(`https://api.themoviedb.org/3/movie/${options.type}?${searchParams.toString()}`, reqOptions);
-    return (await res.json()) as MovieListResponse;
+    return (await res.json()) as MovieListResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };
 
@@ -66,13 +65,12 @@ export const discoverMovies = async (options?: DiscoverMoviesParams) => {
       }
     }
     const res = await fetch(`https://api.themoviedb.org/3/discover/movie?${searchParams.toString()}`, reqOptions);
-    return (await res.json()) as MovieListResponse;
+    return (await res.json()) as MovieListResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

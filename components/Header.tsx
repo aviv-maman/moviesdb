@@ -115,6 +115,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
           />
         </form>
 
+        {/*Mobile Menu*/}
         <Dropdown placement='bottom-end' className='md:hidden'>
           <DropdownTrigger className='md:hidden'>
             <IconSearch size={18} className='md:hidden' />
@@ -134,7 +135,7 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
                   size='sm'
                   startContent={<IconSearch size={18} />}
                   endContent={
-                    <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-10 w-12 left-3 top-[1px]'>
+                    <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-10 w-12 left-2 top-[1px]'>
                       <IconSearch size={16} />
                     </ButtonCustom>
                   }

@@ -1,5 +1,5 @@
 'use client';
-import { CircularProgress, Image } from '@nextui-org/react';
+import { CircularProgress, Image, Link } from '@nextui-org/react';
 import CarouselDropdown from './CarouselDropdown';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 
@@ -14,7 +14,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
     2: 'success',
     3: 'default',
   };
-  const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto';
+  const imgClasses = 'z-0 w-full rounded-md object-cover max-w-full max-h-auto min-h-64';
 
   const item = {
     title: 'title' in data ? data.title : data.name || 'Not available',
@@ -24,8 +24,8 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
         ? `https://image.tmdb.org/t/p/w342/${data.poster_path}`
         : 'profile_path' in data && data.profile_path
         ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
-        : './no-image.svg',
-    href: 'title' in data ? `/movies/${data.id}` : 'first_air_date' in data ? `/series/${data.id}` : `/people/${data.id}`,
+        : './no-image.jpg',
+    href: 'title' in data ? `/movies/item/${data.id}` : 'first_air_date' in data ? `/series/item/${data.id}` : `/people/item/${data.id}`,
     rating: 'vote_average' in data ? data.vote_average : data.popularity || 0,
     releaseDate:
       'release_date' in data
@@ -35,16 +35,25 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
         : data.known_for.map((item) => ('title' in item ? item.title : item.name)).join(', ') || '0000-00-00',
     media_id: data.id,
     media_type: 'title' in data ? 'movie' : ('tv' as 'movie' | 'tv'),
-    ratingColor:
-      ratingColors[
-        'vote_average' in data ? (Math.floor(data.vote_average) <= 4 ? 0 : Math.floor(data.vote_average) <= 7 ? 1 : 2) : 3
-      ],
+    ratingColor: ratingColors['vote_average' in data ? (Math.floor(data.vote_average) <= 4 ? 0 : Math.floor(data.vote_average) <= 7 ? 1 : 2) : 3],
   };
 
   return (
     <div className='relative rounded-md h-full max-w-[11rem]'>
-      <Image src={item.image} alt={item.title} className={`${item.image === './no-image.svg' && 'p-4'} ${imgClasses}`} />
-      {'known_for' in data ? null : <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} />}
+      <Link
+        href={item.href}
+        isDisabled={item.href.includes('people')}
+        disableAnimation
+        className='absolute top-0 bottom-0 left-0 right-0 z-10 hover:bg-violet-400 hover:opacity-20 rounded-md'
+      />
+      <Image
+        src={item.image}
+        alt={item.title}
+        className={`${imgClasses} border-1 min-w-[159px] md:min-w-[175px]`}
+        fallbackSrc={'./no-image.jpg'}
+        radius='sm'
+      />
+      {'known_for' in data ? null : <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} href={item.href} />}
       <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
       <div className='absolute bottom-0 left-0 text-left w-full p-2'>
         <h1 className='text-small font-semibold text-white'>{item.title}</h1>

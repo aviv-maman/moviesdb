@@ -1,6 +1,6 @@
 'use client';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
-import { IconDots, IconHeart, IconHeartFilled, IconList, IconStarFilled } from '@tabler/icons-react';
+import { IconDots, IconHeart, IconHeartFilled, IconList, IconMovie, IconStarFilled } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
 
@@ -8,9 +8,10 @@ interface CarouselDropdownProps {
   className?: HTMLElement['className'];
   mediaId: number;
   mediaType: 'movie' | 'tv';
+  href: string;
 }
 
-const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId, mediaType }) => {
+const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId, mediaType, href }) => {
   const iconClasses = 'text-xl text-default-500 pointer-events-none flex-shrink-0';
 
   const { dispatch, state } = useProfile();
@@ -46,7 +47,13 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
           <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
         </button>
       </DropdownTrigger>
-      <DropdownMenu variant='faded' aria-label='Dropdown menu with icons'>
+      <DropdownMenu
+        variant='faded'
+        aria-label='Dropdown menu with icons'
+        disabledKeys={state.supabase_profile?.tmdb_session_id ? undefined : ['list', 'favorites', 'rate']}>
+        <DropdownItem key='details' href={href} startContent={<IconMovie className={iconClasses} size={18} />}>
+          View details
+        </DropdownItem>
         <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
           Add to watch list
         </DropdownItem>

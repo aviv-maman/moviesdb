@@ -25,7 +25,7 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
   const searchData = await filterSearch(filterParams);
 
   return (
-    <main className='animate-in w-full min-h-[80vh]'>
+    <main className='animate-in w-full min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <SearchBar />
       <div className='p-4 max-w-7xl mx-auto'>
         <Suspense

@@ -22,13 +22,12 @@ export const getTrendingItems = async (options: TrendingApiOptions) => {
 
   try {
     const res = await fetch(`https://api.themoviedb.org/3/trending/${type}/${time_window}?language=${language}`, reqOptions);
-    return (await res.json()) as TrendingResponse;
+    return (await res.json()) as TrendingResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

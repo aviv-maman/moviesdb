@@ -34,6 +34,5 @@ export const getPeople = async (options: PeopleApiOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
   }
 };

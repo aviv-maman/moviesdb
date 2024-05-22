@@ -4,7 +4,7 @@ import CarouselCredits from '@/components/CarouselCredits';
 import RateItemDropdown from '@/components/RateItemDropdown';
 import SearchResultBadge from '@/components/SearchResultBadge';
 import { getMovieById } from '@/lib/api_movies';
-import { Button, CircularProgress, Image } from '@nextui-org/react';
+import { Button, CircularProgress, Image, Link } from '@nextui-org/react';
 import { IconHeart, IconList } from '@tabler/icons-react';
 
 interface MoviePageProps {
@@ -34,10 +34,10 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     vote_average: movie && 'vote_average' in movie ? movie?.vote_average * 10 : 0,
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full';
+  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto';
 
   return (
-    <main className='animate-in w-full block m-auto justify-center min-h-fit'>
+    <main className='animate-in w-full block m-auto justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div className='mx-auto justify-center'>
         <div style={{ backgroundImage: `url(${movieItem?.backdrop_path})` }} className='relative bg-cover bg-no-repeat w-full h-full'>
           <div className='overflow-hidden bg-fixed' style={{ backgroundColor: 'rgba(118, 183, 236, 0.5)' }}>
@@ -47,9 +47,9 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                 alt={movieItem?.title}
                 className={`${movieItem?.poster_path === './no-image.svg' && 'p-4'} ${imgClasses}`}
               />
-              <div className='block mx-4'>
-                <h1 className='my-2 sm:mb-4 text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
-                <div className='flex gap-x-1 items-center mb-2'>
+              <div className='flex flex-col sm:mx-3 gap-y-2'>
+                <h1 className='text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
+                <div className='flex gap-x-1 items-center'>
                   <SearchResultBadge
                     label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
                     className='font-sans rounded-md h-fit'
@@ -79,27 +79,33 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     <IconList />
                   </Button>
                 </div>
-                <p className='text-md my-2'>{movieItem?.overview}</p>
-                <div className='flex gap-x-1'>
-                  {movieItem?.external_ids?.imdb_id && (
-                    <a
-                      href={`https://www.imdb.com/title/${movieItem?.external_ids?.imdb_id}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='rounded-md bg-yellow-500 text-white px-2 py-1'>
-                      IMDB
-                    </a>
-                  )}
-                  {movieItem?.homepage && (
-                    <a href={movieItem?.homepage} target='_blank' rel='noopener noreferrer' className='rounded-md bg-yellow-500 text-white px-2 py-1'>
-                      Homepage
-                    </a>
-                  )}
-                </div>
                 <div className='flex gap-x-1'>
                   {movieItem?.spoken_languages?.map((lang, index) => (
-                    <SearchResultBadge key={index} label={lang} className='rounded-md' color='yellow' textSize='text-sm' />
+                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
                   ))}
+                </div>
+                <p className='text-md'>{movieItem?.overview}</p>
+                <div className='flex flex-row gap-x-1 h-full'>
+                  {movieItem?.external_ids?.imdb_id && (
+                    <Link
+                      isExternal
+                      showAnchorIcon
+                      href={`https://www.imdb.com/title/${movieItem?.external_ids?.imdb_id}`}
+                      color='foreground'
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      IMDB
+                    </Link>
+                  )}
+                  {movieItem?.homepage && (
+                    <Link
+                      isExternal
+                      showAnchorIcon
+                      href={movieItem?.homepage}
+                      color='foreground'
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      Home page
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
