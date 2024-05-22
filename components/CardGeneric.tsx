@@ -40,33 +40,37 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
 
   return (
     <div className='relative rounded-md h-full max-w-[11rem]'>
-      <Link href={item.href} color='foreground' isDisabled={item.href.includes('people')} className='opacity-100'>
-        <Image
-          src={item.image}
-          alt={item.title}
-          className={`${imgClasses} border-1 min-w-[159px] md:min-w-[175px]`}
-          fallbackSrc={'./no-image.jpg'}
-          radius='sm'
-        />
-        {'known_for' in data ? null : <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} href={item.href} />}
-        <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
-        <div className='absolute bottom-0 left-0 text-left w-full p-2'>
-          <h1 className='text-small font-semibold text-white'>{item.title}</h1>
-          <div className='flex justify-between mt-1 items-center'>
-            <span className='text-tiny text-gray-300'>{item.releaseDate}</span>
-            {'known_for' in data ? null : (
-              <CircularProgress
-                aria-label='Vote average'
-                size='sm'
-                value={'vote_average' in data ? data.vote_average * 10 : undefined}
-                color={item.ratingColor}
-                showValueLabel={true}
-                className='text-white'
-              />
-            )}
-          </div>
+      <Link
+        href={item.href}
+        color='foreground'
+        isDisabled={item.href.includes('people')}
+        className='absolute top-0 bottom-0 left-0 right-0 opacity-100 z-10'
+      />
+      <Image
+        src={item.image}
+        alt={item.title}
+        className={`${imgClasses} border-1 min-w-[159px] md:min-w-[175px]`}
+        fallbackSrc={'./no-image.jpg'}
+        radius='sm'
+      />
+      {'known_for' in data ? null : <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} href={item.href} />}
+      <div className='absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent' />
+      <div className='absolute bottom-0 left-0 text-left w-full p-2'>
+        <h1 className='text-small font-semibold text-white'>{item.title}</h1>
+        <div className='flex justify-between mt-1 items-center'>
+          <span className='text-tiny text-gray-300'>{item.releaseDate}</span>
+          {'known_for' in data ? null : (
+            <CircularProgress
+              aria-label='Vote average'
+              size='sm'
+              value={'vote_average' in data ? data.vote_average * 10 : undefined}
+              color={item.ratingColor}
+              showValueLabel={true}
+              className='text-white'
+            />
+          )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
