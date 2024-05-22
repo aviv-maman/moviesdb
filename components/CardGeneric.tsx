@@ -42,9 +42,9 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
     <div className='relative rounded-md h-full max-w-[11rem]'>
       <Link
         href={item.href}
-        color='foreground'
         isDisabled={item.href.includes('people')}
-        className='absolute top-0 bottom-0 left-0 right-0 opacity-100 z-10'
+        disableAnimation
+        className='absolute top-0 bottom-0 left-0 right-0 z-10 hover:bg-violet-400 hover:opacity-20 rounded-md'
       />
       <Image
         src={item.image}
