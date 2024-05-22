@@ -46,14 +46,9 @@ export const features = [
     icon: ['M8 16l2 -6l6 -2l-2 6l-6 2', 'M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0', 'M12 3l0 2', 'M12 19l0 2', 'M3 12l2 0', 'M19 12l2 0'],
   },
   {
-    title: 'Link streaming services',
+    title: 'Filter by streaming services',
     subtitle: 'Filter by your subscribed streaming services and find something to watch.',
-    icon: [
-      'M3 19l.01 0',
-      'M7 19a4 4 0 0 0 -4 -4',
-      'M11 19a8 8 0 0 0 -8 -8',
-      'M15 19h3a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -2.8 2',
-    ],
+    icon: ['M3 19l.01 0', 'M7 19a4 4 0 0 0 -4 -4', 'M11 19a8 8 0 0 0 -8 -8', 'M15 19h3a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -2.8 2'],
   },
   {
     title: 'View movie trailers',

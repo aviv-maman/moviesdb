@@ -34,10 +34,10 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     vote_average: movie && 'vote_average' in movie ? movie?.vote_average * 10 : 0,
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]';
+  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto';
 
   return (
-    <main className='animate-in w-full block m-auto justify-center min-h-fit'>
+    <main className='animate-in w-full block m-auto justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div className='mx-auto justify-center'>
         <div style={{ backgroundImage: `url(${movieItem?.backdrop_path})` }} className='relative bg-cover bg-no-repeat w-full h-full'>
           <div className='overflow-hidden bg-fixed' style={{ backgroundColor: 'rgba(118, 183, 236, 0.5)' }}>

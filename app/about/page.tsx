@@ -53,7 +53,7 @@ export default function AboutPage(props: pageProps) {
             </CardBody>
             <Divider />
             <CardFooter>
-              <Link isExternal showAnchorIcon href='https://github.com/aviv-maman/moviesdb'>
+              <Link isExternal showAnchorIcon href='https://github.com/aviv-maman/moviesdb' isBlock>
                 View source code on GitHub
               </Link>
             </CardFooter>

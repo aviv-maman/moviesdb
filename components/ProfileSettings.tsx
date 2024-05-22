@@ -111,7 +111,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                 </h4>
                 <h5 className='text-xs text-amber-600 leading-5'>TMDB ID</h5>
                 <h4 className='text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
-                  {state.supabase_profile?.tmdb_account_id}
+                  {state.supabase_profile?.tmdb_account_id || 'Not linked yet'}
                 </h4>
               </div>
             </div>
