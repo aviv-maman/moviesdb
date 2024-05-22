@@ -14,8 +14,8 @@
     "framer-motion": "^11.1.3",
     "immer": "^10.0.4",
     "next": "^14.2.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-select": "^5.8.0",
     "rsuite": "^5.59.1",
     "sonner": "^1.4.41",
@@ -23,8 +23,8 @@
     "use-immer": "^0.9.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.12",
-    "@types/react": "^18.3.2",
+    "@types/node": "^20.12.10",
+    "@types/react": "^18.2.42",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "autoprefixer": "^10.4.19",
