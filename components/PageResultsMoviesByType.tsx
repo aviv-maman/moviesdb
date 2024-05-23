@@ -1,15 +1,16 @@
 import { type FC } from 'react';
 import CardGeneric from '@/components/CardGeneric';
-import { discoverMovies } from '@/lib/api_movie_lists';
+import { getMovies } from '@/lib/api_movie_lists';
 import PaginationCustom from './PaginationCustom';
 
-interface PageResultsProps {
+interface PageResultsMoviesProps {
   searchParams: { [key: string]: string | string[] | undefined };
+  type: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
 }
 
-const PageResults: FC<PageResultsProps> = async ({ searchParams }) => {
+const PageResultsMovies: FC<PageResultsMoviesProps> = async ({ searchParams, type = 'popular' }) => {
   const currentPage = Number(searchParams?.page) || 1;
-  const { results, page, total_pages } = await discoverMovies({ ...searchParams, page: currentPage }) || {};
+  const { results, page, total_pages } = (await getMovies({ ...searchParams, page: currentPage, type })) || {};
 
   return (
     <>
@@ -23,4 +24,4 @@ const PageResults: FC<PageResultsProps> = async ({ searchParams }) => {
   );
 };
 
-export default PageResults;
+export default PageResultsMovies;

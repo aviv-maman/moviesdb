@@ -56,8 +56,8 @@ export const SERIES_GENRES = [
 
 export const SHOW_ME = [
   { label: 'Everything', value: 'everything' },
-  { label: "Movies I Haven't Seen", value: 'not-seen' },
-  { label: 'Movies I Have Seen', value: 'seen' },
+  { label: "Items I Haven't Seen", value: 'not-seen' },
+  { label: 'Items I Have Seen', value: 'seen' },
 ];
 
 export const AVAILABILITIES = [
