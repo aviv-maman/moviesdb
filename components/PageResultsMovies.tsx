@@ -3,13 +3,13 @@ import CardGeneric from '@/components/CardGeneric';
 import { discoverMovies } from '@/lib/api_movie_lists';
 import PaginationCustom from './PaginationCustom';
 
-interface PageResultsProps {
+interface PageResultsMoviesProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const PageResults: FC<PageResultsProps> = async ({ searchParams }) => {
+const PageResultsMovies: FC<PageResultsMoviesProps> = async ({ searchParams }) => {
   const currentPage = Number(searchParams?.page) || 1;
-  const { results, page, total_pages } = await discoverMovies({ ...searchParams, page: currentPage }) || {};
+  const { results, page, total_pages } = (await discoverMovies({ ...searchParams, page: currentPage })) || {};
 
   return (
     <>
@@ -23,4 +23,4 @@ const PageResults: FC<PageResultsProps> = async ({ searchParams }) => {
   );
 };
 
-export default PageResults;
+export default PageResultsMovies;
