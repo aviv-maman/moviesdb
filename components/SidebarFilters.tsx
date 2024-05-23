@@ -1,16 +1,6 @@
 'use client';
 import type { FC } from 'react';
-import {
-  Accordion,
-  AccordionItem,
-  Checkbox,
-  CheckboxGroup,
-  Divider,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectItem,
-} from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
 import MultiSelect from './MultiSelect';
 import CheckboxGenre from './CheckboxGenre';
 import { AVAILABILITIES, MOVIE_GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
@@ -47,9 +37,8 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         title='Filters'
         subtitle='Filter Results'
         className='flex flex-col w-full'
-        classNames={{ title: 'text-md', content: 'overflow-x-hidden' }}
-      >
-        <RadioGroup
+        classNames={{ title: 'text-md', content: 'overflow-x-hidden' }}>
+        {/* <RadioGroup
           name='show_me'
           defaultValue='everything'
           orientation='vertical'
@@ -63,14 +52,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             </Radio>
           ))}
         </RadioGroup>
-        <Divider orientation='horizontal' className='my-4' />
-        <span className='relative block text-foreground-500 text-sm my-2'>Availabilities</span>
+        <Divider orientation='horizontal' className='my-4' /> */}
+        <span className='relative block text-foreground-500 text-sm'>Availabilities</span>
         <CheckboxGroup
           name='with_availabilities'
           orientation='horizontal'
           defaultValue={['all-availabilities', ...AVAILABILITIES.map((option) => option.value)]}
-          onValueChange={handleAvailabilities}
-        >
+          onValueChange={handleAvailabilities}>
           <Checkbox key='all-availabilities' value='all-availabilities' classNames={{ label: 'text-sm font-normal' }}>
             Search all availabilities
           </Checkbox>
@@ -80,8 +68,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
               value={option.value}
               isDisabled={state.availabilities.includes('all-availabilities')}
               color='secondary'
-              classNames={{ label: 'text-sm font-normal' }}
-            >
+              classNames={{ label: 'text-sm font-normal' }}>
               {option.label}
             </Checkbox>
           ))}
@@ -93,8 +80,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           name='with_release_type'
           defaultValue={['0', ...RELEASE_TYPES.map((option) => String(option.value))]}
           orientation='horizontal'
-          onValueChange={handleReleaseType}
-        >
+          onValueChange={handleReleaseType}>
           <Checkbox key='all-releases' value='0' classNames={{ label: 'text-sm font-normal' }}>
             Search all releases
           </Checkbox>
@@ -104,19 +90,13 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
               value={String(option.value)}
               isDisabled={state.release_types.includes(0)}
               color='secondary'
-              classNames={{ label: 'text-sm font-normal' }}
-            >
+              classNames={{ label: 'text-sm font-normal' }}>
               {option.label}
             </Checkbox>
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-3' />
-        <CheckboxGroup
-          name='with_genres'
-          orientation='horizontal'
-          label='Genres'
-          classNames={{ label: 'text-sm', wrapper: 'gap-1' }}
-        >
+        <CheckboxGroup name='with_genres' orientation='horizontal' label='Genres' classNames={{ label: 'text-sm', wrapper: 'gap-1' }}>
           {MOVIE_GENRES.map((option) => (
             <CheckboxGenre
               key={option.value}
@@ -137,8 +117,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             className='max-w-xs'
             variant='bordered'
             color='success'
-            labelPlacement='outside'
-          >
+            labelPlacement='outside'>
             {LANGUAGES.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
