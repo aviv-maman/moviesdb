@@ -7,15 +7,16 @@ interface SearchSelectProps {
   name: string;
   label: string;
   setMediaType: Dispatch<SetStateAction<'multi' | 'movie' | 'tv' | 'person'>>;
+  defaultValue?: string | null;
 }
 
-const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMediaType }) => {
+const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMediaType, defaultValue }) => {
   return (
     <Select
       id={name}
       name={name}
       label={label}
-      defaultSelectedKeys={[items[0].value]}
+      defaultSelectedKeys={[defaultValue || items[0].value]}
       disallowEmptySelection
       variant='faded'
       size='sm'
@@ -24,8 +25,7 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMedi
         const key = e.valueOf();
         if (typeof key === 'string') return;
         if ('currentKey' in key) setMediaType((prevState) => key.currentKey as 'multi' | 'movie' | 'tv' | 'person');
-      }}
-    >
+      }}>
       {items.map((item) => (
         <SelectItem key={item.value} value={item.value}>
           {item.label}

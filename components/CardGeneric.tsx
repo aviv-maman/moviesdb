@@ -44,7 +44,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
         href={item.href}
         isDisabled={item.href.includes('people')}
         disableAnimation
-        className='absolute top-0 bottom-0 left-0 right-0 z-10 hover:bg-violet-400 hover:opacity-20 rounded-md'
+        className='absolute top-0 bottom-0 left-0 right-0 z-10 sm:hover:bg-violet-400 sm:hover:opacity-20 rounded-md'
       />
       <Image
         src={item.image}
