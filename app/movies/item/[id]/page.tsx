@@ -1,11 +1,11 @@
 'use server';
 
+import ButtonHeart from '@/components/ButtonHeart';
 import CarouselCredits from '@/components/CarouselCredits';
-import RateItemDropdown from '@/components/RateItemDropdown';
+// import RateItemDropdown from '@/components/RateItemDropdown';
 import SearchResultBadge from '@/components/SearchResultBadge';
 import { getMovieById } from '@/lib/api_movies';
-import { Button, CircularProgress, Image, Link } from '@nextui-org/react';
-import { IconHeart, IconList } from '@tabler/icons-react';
+import { CircularProgress, Image, Link } from '@nextui-org/react';
 
 interface MoviePageProps {
   params: { id: string };
@@ -71,13 +71,11 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     showValueLabel={true}
                     className='text-white'
                   />
-                  <Button isIconOnly aria-label='Like'>
-                    <IconHeart />
-                  </Button>
+                  <ButtonHeart mediaId={id} />
                   {/* <RateItemDropdown /> */}
-                  <Button isIconOnly aria-label='List'>
+                  {/* <Button isIconOnly aria-label='List'>
                     <IconList />
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className='flex gap-x-1'>
                   {movieItem?.spoken_languages?.map((lang, index) => (

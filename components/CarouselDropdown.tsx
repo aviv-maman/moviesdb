@@ -3,6 +3,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-o
 import { IconDots, IconHeart, IconHeartFilled, IconList, IconMovie, IconStarFilled } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
+import { Toaster, toast } from 'sonner';
 
 interface CarouselDropdownProps {
   className?: HTMLElement['className'];
@@ -25,7 +26,11 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
       media_id: mediaId,
       favorite: state.favorites[mediaType].includes(mediaId) ? false : true,
     });
-    if (!res.success) return;
+    if (!res.success) {
+      toast.error('An error was occurred');
+      return;
+    }
+    toast.success(state.favorites['movie'].includes(mediaId) ? 'Item was removed from favorites' : 'Item was added to favorites');
     dispatch({ type: 'toggled_favorite_item', payload: { value: { media_type: mediaType, id: mediaId } } });
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
@@ -41,39 +46,41 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
   };
 
   return (
-    <Dropdown className={className}>
-      <DropdownTrigger>
-        <button className='rounded-lg bg-default-300 hover:bg-current absolute top-1 left-1'>
-          <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
-        </button>
-      </DropdownTrigger>
-      <DropdownMenu
-        variant='faded'
-        aria-label='Dropdown menu with icons'
-        disabledKeys={state.supabase_profile?.tmdb_session_id ? undefined : ['list', 'favorites', 'rate']}>
-        <DropdownItem key='details' href={href} startContent={<IconMovie className={iconClasses} size={18} />}>
-          View details
-        </DropdownItem>
-        <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
-          Add to watch list
-        </DropdownItem>
-        <DropdownItem
-          key='favorites'
-          startContent={
-            state.favorites[mediaType].includes(mediaId) ? (
-              <IconHeart className={iconClasses} size={18} />
-            ) : (
-              <IconHeartFilled className={iconClasses} size={18} />
-            )
-          }
-          onClick={handleFavorite}>
-          {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
-        </DropdownItem>
-        {/* <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
+    <>
+      <Dropdown className={className}>
+        <DropdownTrigger>
+          <button className='rounded-lg bg-default-300 hover:bg-current absolute top-1 left-1'>
+            <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
+          </button>
+        </DropdownTrigger>
+        <DropdownMenu
+          variant='faded'
+          aria-label='Dropdown menu with icons'
+          disabledKeys={state.supabase_profile?.tmdb_session_id ? undefined : ['list', 'favorites', 'rate']}>
+          <DropdownItem key='details' href={href} startContent={<IconMovie className={iconClasses} size={18} />}>
+            View details
+          </DropdownItem>
+          {/* <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
+            Add to watch list
+          </DropdownItem> */}
+          <DropdownItem
+            key='favorites'
+            startContent={
+              state.favorites[mediaType].includes(mediaId) ? (
+                <IconHeartFilled className={iconClasses} size={18} />
+              ) : (
+                <IconHeart className={iconClasses} size={18} />
+              )
+            }
+            onClick={handleFavorite}>
+            {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
+          </DropdownItem>
+          {/* <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
           Rate
         </DropdownItem> */}
-      </DropdownMenu>
-    </Dropdown>
+        </DropdownMenu>
+      </Dropdown>
+    </>
   );
 };
 

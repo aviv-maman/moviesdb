@@ -3,7 +3,7 @@ import { signUp } from '@/lib/auth';
 import ButtonCustom from '@/components/ButtonCustom';
 import Logo from '@/components/Logo';
 import Link from 'next/link';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { useFormState } from 'react-dom';
 
 type FormState = {
@@ -30,7 +30,6 @@ export default function Register() {
 
   return (
     <main className='animate-in flex justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
-      <Toaster richColors />
       <div
         className='hidden bg-cover lg:block lg:w-2/3'
         style={{
