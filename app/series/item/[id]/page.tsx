@@ -41,9 +41,6 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
         : `${series?.first_air_date?.slice(0, 4)}-${series?.last_air_date?.slice(0, 4)}`,
   };
 
-  //   const imgClasses = 'z-0 w-full rounded-md object-cover h-full min-w-auto';
-  const imgClasses = '';
-
   return (
     <main className='animate-in w-full block m-auto justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div className='mx-auto justify-center'>
@@ -96,7 +93,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                     <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
                   ))}
                 </div>
-                <p className='text-md text-wrap flex'>{seriesItem?.overview}</p>
+                <p className='text-md text-wrap flex max-w-5xl'>{seriesItem?.overview}</p>
                 <div className='flex flex-row gap-x-1 h-full'>
                   {seriesItem?.external_ids?.imdb_id && (
                     <Link

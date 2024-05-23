@@ -44,14 +44,18 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
               <Image
                 src={movieItem?.poster_path}
                 alt={movieItem?.title}
-                className={`${movieItem?.poster_path === './no-image.svg' && 'p-4'} ${imgClasses}`}
+                width={342}
+                height={513}
+                className={`${movieItem?.poster_path === './no-image.svg' && 'p-4'} rounded-md`}
+                classNames={{ wrapper: 'w-full flex' }}
+                style={{ minWidth: 342, height: 513 }}
               />
               <div className='flex flex-col sm:mx-3 gap-y-2'>
                 <h1 className='text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
                 <div className='flex gap-x-1 items-center'>
                   <SearchResultBadge
                     label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
-                    className='font-sans rounded-md h-fit'
+                    className='font-sans rounded-md h-fit font-semibold'
                     color='sky'
                     textSize='text-md'
                   />
@@ -77,7 +81,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
                   ))}
                 </div>
-                <p className='text-md'>{movieItem?.overview}</p>
+                <p className='text-md text-wrap flex max-w-5xl'>{movieItem?.overview}</p>
                 <div className='flex flex-row gap-x-1 h-full'>
                   {movieItem?.external_ids?.imdb_id && (
                     <Link
