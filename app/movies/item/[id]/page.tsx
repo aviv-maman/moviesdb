@@ -2,7 +2,6 @@
 
 import ButtonHeart from '@/components/ButtonHeart';
 import CarouselCredits from '@/components/CarouselCredits';
-// import RateItemDropdown from '@/components/RateItemDropdown';
 import SearchResultBadge from '@/components/SearchResultBadge';
 import { getMovieById } from '@/lib/api_movies';
 import { CircularProgress, Image, Link } from '@nextui-org/react';
@@ -72,10 +71,6 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     className='text-white'
                   />
                   <ButtonHeart mediaId={id} />
-                  {/* <RateItemDropdown /> */}
-                  {/* <Button isIconOnly aria-label='List'>
-                    <IconList />
-                  </Button> */}
                 </div>
                 <div className='flex gap-x-1'>
                   {movieItem?.spoken_languages?.map((lang, index) => (
@@ -112,16 +107,6 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
               <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
               <CarouselCredits data={movieItem?.credits} />
             </div>
-
-            {/* <div className='flex gap-x-1'>
-              {movieItem?.credits?.cast?.slice(0, 5).map((cast, index) => (
-                <div key={index} className='flex flex-col items-center'>
-                  <Image src={`https://image.tmdb.org/t/p/w185${cast.profile_path}`} alt={cast.name} className={`${imgClasses} rounded-md`} />
-                  <p className='text-sm text-center'>{cast.name}</p>
-                  <p className='text-xs text-center'>{cast.character}</p>
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
       </div>
