@@ -69,9 +69,9 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
           onClick={handleFavorite}>
           {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
         </DropdownItem>
-        <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
+        {/* <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
           Rate
-        </DropdownItem>
+        </DropdownItem> */}
       </DropdownMenu>
     </Dropdown>
   );

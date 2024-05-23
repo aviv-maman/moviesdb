@@ -74,7 +74,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                   <Button isIconOnly aria-label='Like'>
                     <IconHeart />
                   </Button>
-                  <RateItemDropdown />
+                  {/* <RateItemDropdown /> */}
                   <Button isIconOnly aria-label='List'>
                     <IconList />
                   </Button>

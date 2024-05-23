@@ -54,15 +54,15 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
   };
 
   return (
-    <article className='transition hover:shadow-xl border my-4 bg-gray-100 dark:bg-gray-900'>
+    <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900'>
       <Link href={item.href} className='flex'>
         <Image
-          width={224}
+          width={168}
           height={336}
           alt={item.title}
           src={item.image}
           radius='none'
-          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 md:h-[336px]'
+          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px]'
         />
 
         <div className='flex flex-1 flex-col justify-between'>
