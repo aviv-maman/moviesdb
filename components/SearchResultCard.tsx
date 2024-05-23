@@ -63,6 +63,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           src={item.image}
           radius='none'
           className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px]'
+          classNames={{ wrapper: 'md:min-w-56' }}
         />
 
         <div className='flex flex-1 flex-col justify-between'>
