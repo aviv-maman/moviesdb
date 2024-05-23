@@ -1,13 +1,13 @@
 import { produce } from 'immer';
-import type { GetMovieResponse } from './api.types';
+import type { GetSeriesResponse } from './api.types';
 
 type GetMovieOptions = {
-  movie_id: number;
+  series_id: number;
   language?: string;
   append_to_response?: string;
 };
 
-export const getMovieById = async (options: GetMovieOptions) => {
+export const getSeriesById = async (options: GetMovieOptions) => {
   const reqOptions: RequestInit = {
     method: 'GET',
     headers: {
@@ -16,9 +16,9 @@ export const getMovieById = async (options: GetMovieOptions) => {
     },
     next: { revalidate: 60 * 60 * 24 },
   };
-  const id = options.movie_id;
-  const queryParamsObj = produce({ ...options, movie_id: undefined }, (draft) => {
-    delete draft['movie_id'];
+  const id = options.series_id;
+  const queryParamsObj = produce({ ...options, series_id: undefined }, (draft) => {
+    delete draft['series_id'];
   });
 
   try {
@@ -28,14 +28,14 @@ export const getMovieById = async (options: GetMovieOptions) => {
         searchParams.set(key, value.toString());
       }
     }
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?${searchParams.toString()}`, reqOptions);
-    return { movie: (await res.json()) as GetMovieResponse, error: null };
+    const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?${searchParams.toString()}`, reqOptions);
+    return { series: (await res.json()) as GetSeriesResponse, error: null };
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    return { movie: null, error: error as Error };
+    return { series: null, error: error as Error };
   }
 };

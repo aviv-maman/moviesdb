@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SearchSelect from './SearchSelect';
@@ -31,16 +31,27 @@ const SearchNavbar: React.FC = () => {
     return { ...prevState };
   };
 
-  const initialState: FormState = { media_type: 'multi', query: searchParams.get('query') || '', language: 'en-US' };
+  const initialState: FormState = { media_type: 'multi', query: searchParams.get('query') || '', language: searchParams.get('language') || 'en-US' };
   const [formState, formAction] = useFormState(handleFilter, initialState);
   const [mediaType, setMediaType] = useState(formState.media_type);
+
+  useEffect(() => {
+    if (searchParams.get('media_type') === 'movie' || searchParams.get('media_type') === 'tv' || searchParams.get('media_type') === 'person')
+      setMediaType((prevState) => searchParams.get('media_type') as 'multi' | 'movie' | 'tv' | 'person');
+  }, []);
 
   return (
     <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d] px-1'>
       <form id='search-filter' action={formAction} className='flex items-center w-full justify-between'>
         <div className='flex w-full'>
-          <SearchSelect name='media_type' label='Content Type' items={SEARCH_TYPES} setMediaType={setMediaType} />
-          <SearchAutoComplete name='language' label='Language' items={LANGUAGES} />
+          <SearchSelect
+            name='media_type'
+            label='Content Type'
+            items={SEARCH_TYPES}
+            setMediaType={setMediaType}
+            defaultValue={searchParams.get('media_type')}
+          />
+          <SearchAutoComplete name='language' label='Language' items={LANGUAGES} defaultValue={searchParams.get('language')} />
           {(mediaType === 'movie' || mediaType === 'tv') && (
             <Input
               id='year'

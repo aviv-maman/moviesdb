@@ -1,9 +1,9 @@
 'use server';
-import Image from 'next/image';
 import Link from 'next/link';
 import { MOVIE_GENRES, SERIES_GENRES } from '@/lib/data/search_filters';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 import SearchResultBadge from './SearchResultBadge';
+import { Image } from '@nextui-org/react';
 
 interface SearchResultCardProps {
   data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
@@ -33,15 +33,9 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
         : 'profile_path' in data && data.profile_path
         ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
         : './no-image.svg',
-    href: 'title' in data ? `/movies/${data.id}` : 'first_air_date' in data ? `/series/${data.id}` : `/people/${data.id}`,
-    rating:
-      'vote_average' in data ? (data.vote_average === 10 ? 10 : data.vote_average.toFixed(1)) : data.popularity.toFixed(1) || 0.0,
-    release_date:
-      'release_date' in data
-        ? data.release_date.split('-')[0]
-        : 'first_air_date' in data
-        ? data.first_air_date.split('-')[0]
-        : '',
+    href: 'title' in data ? `/movies/item/${data.id}` : 'first_air_date' in data ? `/series/item/${data.id}` : `/people/item/${data.id}`,
+    rating: 'vote_average' in data ? (data.vote_average === 10 ? 10 : data.vote_average.toFixed(1)) : data.popularity.toFixed(1) || 0.0,
+    release_date: 'release_date' in data ? data.release_date.split('-')[0] : 'first_air_date' in data ? data.first_air_date.split('-')[0] : '',
     media_id: data.id,
     media_type: 'title' in data ? 'movie' : 'first_air_date' in data ? 'tv' : ('person' as 'movie' | 'tv' | 'person'),
     genres,
@@ -60,16 +54,16 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
   };
 
   return (
-    <article className='transition hover:shadow-xl border my-4 bg-gray-100 dark:bg-gray-900'>
+    <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900'>
       <Link href={item.href} className='flex'>
         <Image
           width={168}
           height={336}
           alt={item.title}
           src={item.image}
-          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 md:h-[336px]'
-          priority
-          quality={100}
+          radius='none'
+          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px]'
+          classNames={{ wrapper: 'md:min-w-56' }}
         />
 
         <div className='flex flex-1 flex-col justify-between'>
@@ -78,13 +72,10 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
               <div className='flex flex-col'>
                 <h3 className='font-bold text-gray-700 dark:text-gray-300 leading-tight'>{item.title}</h3>
                 <span className='text-small'>
-                  {item.release_date} |{' '}
-                  {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
+                  {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
                 </span>
               </div>
-              <p className={`text-sm font-semibold inline-flex items-center p-1.5 rounded h-fit ${item.ratingColor}`}>
-                {item.rating}
-              </p>
+              <p className={`text-sm font-semibold inline-flex items-center p-1.5 rounded h-fit ${item.ratingColor}`}>{item.rating}</p>
             </div>
 
             <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-600 dark:text-gray-400'>

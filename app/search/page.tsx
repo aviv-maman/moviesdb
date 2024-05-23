@@ -11,6 +11,8 @@ interface SearchProps {
     media_type?: 'multi' | 'movie' | 'tv' | 'person';
     query?: string;
     page?: number;
+    language?: string;
+    year?: number;
   };
 }
 
@@ -20,6 +22,8 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
     media_type: searchParams?.media_type ? searchParams?.media_type : 'multi',
     query: searchParams?.query,
     page: Number(searchParams?.page) || 1,
+    language: searchParams?.language,
+    year: searchParams?.year ? Number(searchParams?.year) : undefined,
   };
 
   const searchData = await filterSearch(filterParams);
