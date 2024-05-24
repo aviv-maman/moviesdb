@@ -11,11 +11,11 @@ const FavoriteListMenu: FC<FavoriteListMenuProps> = ({}) => {
 
   return (
     <div className='sm:w-full md:max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 mr-0 md:mr-4 h-max sticky top-[82px] z-10 bg-content2 dark:bg-content1'>
-      <Listbox aria-label='Actions' onAction={(key) => dispatch({ type: 'changed_active_favlist', payload: { value: key as 'movies' | 'series' } })}>
-        <ListboxItem key='movies' startContent={<IconUserCog />}>
+      <Listbox aria-label='Actions' onAction={(key) => dispatch({ type: 'changed_active_favlist', payload: { value: key as 'movie' | 'tv' } })}>
+        <ListboxItem key='movie' startContent={<IconUserCog />}>
           Favorite Movies
         </ListboxItem>
-        <ListboxItem key='series' startContent={<IconTopologyStar />}>
+        <ListboxItem key='tv' startContent={<IconTopologyStar />}>
           Favorite Series
         </ListboxItem>
       </Listbox>

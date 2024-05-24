@@ -3,7 +3,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-o
 import { IconDots, IconHeart, IconHeartFilled, IconList, IconMovie, IconStarFilled } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 
 interface CarouselDropdownProps {
   className?: HTMLElement['className'];

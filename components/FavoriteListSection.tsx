@@ -1,6 +1,6 @@
 'use client';
 import { Suspense, useEffect, type FC } from 'react';
-// import SearchResultCardSkeleton from './SearchResultCardSkeleton';
+import FavoriteListCardSkeleton from './FavoriteListCardSkeleton';
 import type { MovieListResponse, SeriesListResponse } from '@/lib/api.types';
 import FavoriteListCard from './FavoriteListCard';
 import LoadPageBtn from './LoadPageBtn';
@@ -16,11 +16,11 @@ interface FavoriteListSectionProps {
 }
 
 const FavoriteListSection: FC<FavoriteListSectionProps> = ({ favoritesMovies, favoritesSeries, profile, user }) => {
-  // const SKELETON_LENGTH = 10;
+  const SKELETON_LENGTH = 10;
   const { dispatch, state } = useProfile();
 
   useEffect(() => {
-    dispatch({ type: 'changed_active_favlist', payload: { value: 'movies' } });
+    dispatch({ type: 'changed_active_favlist', payload: { value: 'movie' } });
     dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
     dispatch({ type: 'changed_supabase_user', payload: { value: user ? user : null } });
   }, [dispatch, profile, user]);
@@ -31,34 +31,34 @@ const FavoriteListSection: FC<FavoriteListSectionProps> = ({ favoritesMovies, fa
         fallback={
           <div className='flex items-center'>
             <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>{`Favorite ${
-              state.active_favlist === 'movies' ? 'Movies' : 'Series'
+              state.active_favlist === 'movie' ? 'Movies' : 'Series'
             }`}</h1>
             <span className='shadow animate-pulse h-4 bg-gray-300 rounded-lg w-16 dark:bg-gray-600 ml-1'></span>
           </div>
         }>
         <div className='flex items-center'>
           <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>{`Favorite ${
-            state.active_favlist === 'movies' ? 'Movies' : 'Series'
+            state.active_favlist === 'movie' ? 'Movies' : 'Series'
           }`}</h1>
           <span className='p-1 ml-1 text-xs font-semibold text-blue-800 bg-blue-200 rounded-md'>
-            {state.active_favlist === 'movies' ? favoritesMovies?.total_results : favoritesSeries?.total_results} items
+            {state.active_favlist === 'movie' ? favoritesMovies?.total_results : favoritesSeries?.total_results} items
           </span>
         </div>
       </Suspense>
       <Suspense
-      // fallback={
-      //   <>
-      //     {Array.from({ length: SKELETON_LENGTH }).map((_, index) => (
-      //       <SearchResultCardSkeleton key={index} />
-      //     ))}
-      //   </>}
-      >
-        {state.active_favlist === 'movies'
+        fallback={
+          <>
+            {Array.from({ length: SKELETON_LENGTH }).map((_, index) => (
+              <FavoriteListCardSkeleton key={index} />
+            ))}
+          </>
+        }>
+        {state.active_favlist === 'movie'
           ? favoritesMovies?.results?.map((item) => <FavoriteListCard key={item.id} data={item} />)
           : favoritesSeries?.results?.map((item) => <FavoriteListCard key={item.id} data={item} />)}
         <div className='flex justify-between w-full'>
-          <LoadPageBtn label='Back' totalPages={state.active_favlist === 'movies' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
-          <LoadPageBtn label='Next' totalPages={state.active_favlist === 'movies' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
+          <LoadPageBtn label='Back' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
+          <LoadPageBtn label='Next' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
         </div>
       </Suspense>
     </div>
