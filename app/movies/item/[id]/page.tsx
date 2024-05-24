@@ -49,7 +49,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                 classNames={{ wrapper: 'w-full flex' }}
                 style={{ minWidth: 342, height: 513 }}
               />
-              <div className='flex flex-col sm:mx-3 gap-y-2'>
+              <div className='flex flex-col sm:mx-3 gap-y-2 pt-2 sm:pt-0'>
                 <h1 className='text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
                 <div className='flex gap-x-1 items-center'>
                   <SearchResultBadge
