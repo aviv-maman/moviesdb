@@ -110,17 +110,16 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
 
   return (
     <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900 relative flex'>
-      <Link href={item.href} className='absolute top-0 bottom-0 left-0 right-0 z-0' />
+      <Link href={item.href} className='absolute top-0 bottom-0 left-0 right-0 z-10' />
       <Image
         width={168}
         height={336}
         alt={item.title}
         src={item.image}
         radius='none'
-        className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px]'
+        className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px] z-0'
         classNames={{ wrapper: 'md:min-w-56' }}
       />
-
       <div className='flex flex-1 flex-col justify-between'>
         <div className='border-s border-gray-900/10 p-2 sm:border-l-transparent sm:p-4'>
           <div className='flex justify-between'>
