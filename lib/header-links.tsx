@@ -1,13 +1,4 @@
-import {
-  IconClockDown,
-  IconDeviceTv,
-  IconMeteor,
-  IconPlayerPlay,
-  IconStar,
-  IconStarFilled,
-  IconStars,
-  IconStarsFilled,
-} from '@tabler/icons-react';
+import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconStar, IconStarFilled, IconStars, IconStarsFilled } from '@tabler/icons-react';
 import { type DropdownItemProps } from '@nextui-org/react';
 
 export const movieLinks = [
@@ -85,6 +76,7 @@ export const avatarDropItems = {
   ] as DropdownItemProps[],
   user: [
     { key: 'profile', textValue: 'Signed in as', href: '/profile', color: 'success' },
+    { key: 'favorite', textValue: 'Favorite List', href: '/profile/favorite-list', color: 'primary' },
     { key: 'about', textValue: 'About', href: '/about', color: 'primary' },
     { key: 'logout', textValue: 'Logout', color: 'danger' },
   ] as DropdownItemProps[],

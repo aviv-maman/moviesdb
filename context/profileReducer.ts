@@ -34,6 +34,10 @@ export const profileReducer = (draft: ProfileContextState, action: ProfileAction
       draft.favorites[media_type] = favorites;
       break;
     }
+    case 'changed_active_favlist': {
+      draft.active_favlist = action.payload.value;
+      break;
+    }
     default: {
       throw Error('Unknown action');
     }
