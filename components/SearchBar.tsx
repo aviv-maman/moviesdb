@@ -41,7 +41,7 @@ const SearchNavbar: React.FC = () => {
   }, []);
 
   return (
-    <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d] px-1'>
+    <header className='sticky top-[65px] border-b w-full md:text-sm bg-slate-100 dark:bg-[#0d0d0d] px-1 z-10'>
       <form id='search-filter' action={formAction} className='flex items-center w-full justify-between'>
         <div className='flex w-full'>
           <SearchSelect

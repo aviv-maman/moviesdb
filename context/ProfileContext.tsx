@@ -18,6 +18,7 @@ const initialContextState = {
     movie: [] as number[],
     tv: [] as number[],
   },
+  active_favlist: 'movie',
 };
 
 const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
@@ -65,6 +66,9 @@ type ProfilePayload = {
   };
   toggled_favorite_item: {
     value: { media_type: 'movie' | 'tv'; id: number };
+  };
+  changed_active_favlist: {
+    value: 'movie' | 'tv';
   };
 };
 

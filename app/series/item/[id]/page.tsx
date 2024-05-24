@@ -1,6 +1,7 @@
 'use server';
 
 import ButtonHeart from '@/components/ButtonHeart';
+import Carousel from '@/components/Carousel';
 import CarouselCredits from '@/components/CarouselCredits';
 import SearchResultBadge from '@/components/SearchResultBadge';
 import { getSeriesById } from '@/lib/api_series';
@@ -12,7 +13,7 @@ interface SeriesPageProps {
 
 const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
   const id = Number(params?.id);
-  const { series } = await getSeriesById({ series_id: id, append_to_response: 'credits,external_ids' });
+  const { series } = await getSeriesById({ series_id: id, append_to_response: 'credits,external_ids,videos,recommendations' });
 
   const ratingColors: { [key: number]: 'danger' | 'warning' | 'success' | 'default' } = {
     0: 'danger',
@@ -56,7 +57,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                 classNames={{ wrapper: 'w-full flex' }}
                 style={{ minWidth: 342, height: 513 }}
               />
-              <div className='flex flex-col sm:mx-3 gap-y-2'>
+              <div className='flex flex-col sm:mx-3 gap-y-2 pt-2 sm:pt-0'>
                 <h1 className='text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{seriesItem?.name}</h1>
                 <div className='flex gap-x-1 items-center flex-wrap'>
                   <SearchResultBadge
@@ -87,21 +88,13 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                     className='text-white'
                   />
                   <ButtonHeart mediaId={id} />
-                </div>
-                <div className='flex gap-x-1'>
-                  {seriesItem?.spoken_languages?.map((lang, index) => (
-                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
-                  ))}
-                </div>
-                <p className='text-md text-wrap flex max-w-5xl'>{seriesItem?.overview}</p>
-                <div className='flex flex-row gap-x-1 h-full'>
                   {seriesItem?.external_ids?.imdb_id && (
                     <Link
                       isExternal
                       showAnchorIcon
                       href={`https://www.imdb.com/title/${seriesItem?.external_ids?.imdb_id}`}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       IMDB
                     </Link>
                   )}
@@ -111,17 +104,27 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                       showAnchorIcon
                       href={seriesItem?.homepage}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       Home page
                     </Link>
                   )}
                 </div>
+                <div className='flex gap-x-1'>
+                  {seriesItem?.spoken_languages?.map((lang, index) => (
+                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
+                  ))}
+                </div>
+                <p className='text-md text-wrap flex max-w-5xl'>{seriesItem?.overview}</p>
               </div>
             </div>
 
-            <div className='flex flex-col mx-auto justify-center text-xs mb-8 sm:w-full md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/2'>
-              <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
-              <CarouselCredits data={seriesItem?.credits} />
+            <div className='flex justify-center w-full'>
+              <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
+                <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
+                <CarouselCredits data={seriesItem?.credits} />
+                <h1 className='font-bold text-2xl px-6 sm:px-0'>Recommendations</h1>
+                <Carousel data={[seriesItem?.recommendations]} />
+              </div>
             </div>
           </div>
         </div>

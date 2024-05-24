@@ -21,7 +21,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
     0: 'bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300',
     1: 'bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300',
     2: 'bg-green-300 text-green-900 dark:bg-green-900 dark:text-green-300',
-    3: 'bg-gray-300 text-gray-900 dark:bg-gray-900 dark:text-gray-300',
+    3: 'bg-gray-300 text-gray-900 dark:bg-gray-600 dark:text-gray-300',
   };
 
   const item = {
@@ -54,7 +54,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
   };
 
   return (
-    <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900'>
+    <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900 relative'>
       <Link href={item.href} className='flex'>
         <Image
           width={168}
@@ -62,7 +62,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           alt={item.title}
           src={item.image}
           radius='none'
-          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px]'
+          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px] z-0'
           classNames={{ wrapper: 'md:min-w-56' }}
         />
 
