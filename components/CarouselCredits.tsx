@@ -3,7 +3,6 @@ import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
 import type { GetMovieResponse } from '@/lib/api.types';
-import CardGeneric from './CardGeneric';
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GetMovieResponse['credits'];
@@ -38,7 +37,6 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
       <Card className='max-w-full border'>
         <CardBody className='overflow-hidden'>
           <Tabs size='md' aria-label='Tabs section'>
-            {/* {data?.map.((results, resultsIndex) => ( */}
             <Tab key={`tab-${1}`} title={`Cast`}>
               <Splide tag='section' aria-label='Cast Carousel' options={options}>
                 {data?.cast?.map((slide, slideIndex) => (
@@ -52,7 +50,19 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                 ))}
               </Splide>
             </Tab>
-            {/* ))} */}
+            <Tab key={`tab-${2}`} title={`Crew`}>
+              <Splide tag='section' aria-label='Cast Carousel' options={options}>
+                {data?.crew?.map((slide, slideIndex) => (
+                  <SplideSlide key={slideIndex}>
+                    <div className='flex flex-col items-center'>
+                      <Image src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`} alt={slide?.name} className={`${imgClasses} rounded-md`} />
+                      <p className='text-sm text-center'>{slide?.name}</p>
+                      <p className='text-xs text-center'>{slide?.job}</p>
+                    </div>
+                  </SplideSlide>
+                ))}
+              </Splide>
+            </Tab>
           </Tabs>
         </CardBody>
       </Card>

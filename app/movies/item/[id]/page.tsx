@@ -75,21 +75,13 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     className='text-white'
                   />
                   <ButtonHeart mediaId={id} />
-                </div>
-                <div className='flex gap-x-1'>
-                  {movieItem?.spoken_languages?.map((lang, index) => (
-                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
-                  ))}
-                </div>
-                <p className='text-md text-wrap flex max-w-5xl'>{movieItem?.overview}</p>
-                <div className='flex flex-row gap-x-1 h-full'>
                   {movieItem?.external_ids?.imdb_id && (
                     <Link
                       isExternal
                       showAnchorIcon
                       href={`https://www.imdb.com/title/${movieItem?.external_ids?.imdb_id}`}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       IMDB
                     </Link>
                   )}
@@ -99,11 +91,17 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                       showAnchorIcon
                       href={movieItem?.homepage}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900 h-fit self-end'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       Home page
                     </Link>
                   )}
                 </div>
+                <div className='flex gap-x-1'>
+                  {movieItem?.spoken_languages?.map((lang, index) => (
+                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
+                  ))}
+                </div>
+                <p className='text-md text-wrap flex max-w-5xl'>{movieItem?.overview}</p>
               </div>
             </div>
 
