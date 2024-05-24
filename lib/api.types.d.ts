@@ -353,6 +353,42 @@ export type GetMovieResponse = {
     instagram_id?: string | null;
     twitter_id?: string | null;
   };
+  videos?: {
+    results: {
+      iso_639_1: string;
+      iso_3166_1: string;
+      name: string;
+      key: string;
+      site: string; //e.g. YouTube
+      size: number; //resolution. e.g 1080
+      type: string; //e.g. Trailer
+      official: boolean;
+      published_at: string;
+      id: string;
+    }[];
+  };
+  recommendations?: {
+    page: number;
+    results: {
+      backdrop_path: string;
+      id: number;
+      original_title: string;
+      overview: string;
+      poster_path: string;
+      media_type: string;
+      adult: boolean;
+      title: string;
+      original_language: string;
+      genre_ids: number[];
+      popularity: number;
+      release_date: string;
+      video: boolean;
+      vote_average: number;
+      vote_count: number;
+    }[];
+    total_pages: number;
+    total_results: number;
+  };
 };
 
 export type GetSeriesResponse = {
@@ -478,5 +514,41 @@ export type GetSeriesResponse = {
     facebook_id: string | null;
     instagram_id: string | null;
     twitter_id: string | null;
+  };
+  videos?: {
+    results: {
+      iso_639_1: string;
+      iso_3166_1: string;
+      name: string;
+      key: string;
+      site: string; //e.g. YouTube
+      size: number; //resolution. e.g 1080
+      type: string; //e.g. Trailer
+      official: boolean;
+      published_at: string;
+      id: string;
+    }[];
+  };
+  recommendations?: {
+    page: number;
+    results: {
+      backdrop_path: string;
+      id: number;
+      original_name: string;
+      overview: string;
+      poster_path: string;
+      media_type: string;
+      adult: boolean;
+      name: string;
+      original_language: string;
+      genre_ids: number[];
+      popularity: number;
+      first_air_date: string;
+      vote_average: number;
+      vote_count: number;
+      origin_country: string[];
+    }[];
+    total_pages: number;
+    total_results: number;
   };
 };

@@ -14,26 +14,28 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
     perPage: 6,
     pagination: false,
     breakpoints: {
-      524: {
-        perPage: 2,
+      388: {
+        perPage: 1,
       },
       640: {
-        perPage: 3,
+        perPage: 2,
       },
-      768: {
+      824: {
         perPage: 3,
       },
       1024: {
         perPage: 4,
       },
+      1280: {
+        perPage: 5,
+      },
     },
-    autoHeight: true,
   };
 
   const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full';
 
   return (
-    <div className='' {...rest}>
+    <div className='w-full' {...rest}>
       <Card className='max-w-full border'>
         <CardBody className='overflow-hidden'>
           <Tabs size='md' aria-label='Tabs section'>
