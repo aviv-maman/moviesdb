@@ -34,12 +34,12 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
       <div className='p-4 max-w-7xl mx-auto'>
         <Suspense
           fallback={
-            <div className='flex items-center'>
+            <div className='flex items-center justify-between'>
               <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Search Results</h1>
               <span className='shadow animate-pulse h-4 bg-gray-300 rounded-lg w-16 dark:bg-gray-600 ml-1'></span>
             </div>
           }>
-          <div className='flex items-center'>
+          <div className='flex items-center justify-between'>
             <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>Search Results</h1>
             <span className='p-1 ml-1 text-xs font-semibold text-blue-800 bg-blue-200 rounded-md'>{searchData?.total_results} items</span>
           </div>
@@ -55,10 +55,12 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
           {searchData?.results?.map((item) => (
             <SearchResultCard key={item.id} data={item} />
           ))}
-          <div className='flex justify-between w-full'>
-            <LoadPageBtn label='Back' totalPages={searchData?.total_pages} />
-            <LoadPageBtn label='Next' totalPages={searchData?.total_pages} />
-          </div>
+          {searchData && searchData?.total_pages > 1 && (
+            <div className='flex justify-between w-full'>
+              <LoadPageBtn label='Back' totalPages={searchData?.total_pages} />
+              <LoadPageBtn label='Next' totalPages={searchData?.total_pages} />
+            </div>
+          )}
         </Suspense>
       </div>
     </main>

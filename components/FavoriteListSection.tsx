@@ -9,8 +9,8 @@ import type { Profile } from '@/lib/database.types';
 import type { User } from '@supabase/supabase-js';
 
 interface FavoriteListSectionProps {
-  favoritesMovies: MovieListResponse | SeriesListResponse;
-  favoritesSeries: MovieListResponse | SeriesListResponse;
+  favoritesMovies?: MovieListResponse | SeriesListResponse;
+  favoritesSeries?: MovieListResponse | SeriesListResponse;
   profile: Profile | null;
   user?: User | null;
 }
@@ -26,17 +26,17 @@ const FavoriteListSection: FC<FavoriteListSectionProps> = ({ favoritesMovies, fa
   }, [dispatch, profile, user]);
 
   return (
-    <div className='p-4 max-w-7xl mx-auto'>
+    <div className='p-4 max-w-7xl mx-auto w-full'>
       <Suspense
         fallback={
-          <div className='flex items-center'>
+          <div className='flex items-center justify-between'>
             <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>{`Favorite ${
               state.active_favlist === 'movie' ? 'Movies' : 'Series'
             }`}</h1>
             <span className='shadow animate-pulse h-4 bg-gray-300 rounded-lg w-16 dark:bg-gray-600 ml-1'></span>
           </div>
         }>
-        <div className='flex items-center'>
+        <div className='flex items-center justify-between'>
           <h1 className='text-2xl font-bold text-slate-900 dark:text-white'>{`Favorite ${
             state.active_favlist === 'movie' ? 'Movies' : 'Series'
           }`}</h1>
@@ -56,10 +56,13 @@ const FavoriteListSection: FC<FavoriteListSectionProps> = ({ favoritesMovies, fa
         {state.active_favlist === 'movie'
           ? favoritesMovies?.results?.map((item) => <FavoriteListCard key={item.id} data={item} />)
           : favoritesSeries?.results?.map((item) => <FavoriteListCard key={item.id} data={item} />)}
-        <div className='flex justify-between w-full'>
-          <LoadPageBtn label='Back' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
-          <LoadPageBtn label='Next' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
-        </div>
+
+        {((favoritesMovies && favoritesMovies?.total_pages > 1) || (favoritesSeries && favoritesSeries?.total_pages > 1)) && (
+          <div className='flex justify-between w-full'>
+            <LoadPageBtn label='Back' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
+            <LoadPageBtn label='Next' totalPages={state.active_favlist === 'movie' ? favoritesMovies?.total_pages : favoritesSeries?.total_pages} />
+          </div>
+        )}
       </Suspense>
     </div>
   );
