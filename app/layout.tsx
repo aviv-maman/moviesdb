@@ -30,20 +30,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let favMovies, favSeries;
   if (user) {
     if (profile && profile?.tmdb_account_id && profile?.tmdb_session_id) {
-      const [favoriteMovies, favoriteSeries] = await Promise.all([
-        getAllFavoritesUsingRecursion({
-          account_id: profile?.tmdb_account_id,
-          session_id: profile?.tmdb_session_id,
-          media_type: 'movie',
-        }),
-        getAllFavoritesUsingRecursion({
-          account_id: profile?.tmdb_account_id,
-          session_id: profile?.tmdb_session_id,
-          media_type: 'tv',
-        }),
-      ]);
-      favMovies = (favoriteMovies.results || []) as MovieItem[];
-      favSeries = (favoriteSeries.results || []) as SeriesItem[];
+      try {
+        const [favoriteMovies, favoriteSeries] = await Promise.all([
+          getAllFavoritesUsingRecursion({
+            account_id: profile?.tmdb_account_id,
+            session_id: profile?.tmdb_session_id,
+            media_type: 'movie',
+          }),
+          getAllFavoritesUsingRecursion({
+            account_id: profile?.tmdb_account_id,
+            session_id: profile?.tmdb_session_id,
+            media_type: 'tv',
+          }),
+        ]);
+        favMovies = (favoriteMovies.results || []) as MovieItem[];
+        favSeries = (favoriteSeries.results || []) as SeriesItem[];
+      } catch (error) {
+        // console.error(error);
+      }
     }
   }
 
