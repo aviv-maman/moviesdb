@@ -85,16 +85,17 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                     value={seriesItem?.vote_average}
                     color={seriesItem?.ratingColor}
                     showValueLabel={true}
-                    className='text-white'
+                    classNames={{ value: 'text-sm font-semibold' }}
+                    strokeWidth={4}
+                    valueLabel={Math.ceil(seriesItem?.vote_average)}
                   />
                   <ButtonHeart mediaId={id} />
                   {seriesItem?.external_ids?.imdb_id && (
                     <Link
                       isExternal
-                      underline='hover'
                       href={`https://www.imdb.com/title/${seriesItem?.external_ids?.imdb_id}`}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-400 text-gray-900'>
                       IMDB
                     </Link>
                   )}
@@ -103,8 +104,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                       isExternal
                       href={seriesItem?.homepage}
                       color='foreground'
-                      underline='hover'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-400 text-gray-900'>
                       Home
                     </Link>
                   )}
@@ -126,7 +126,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
             <div className='flex justify-center w-full'>
               <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
                 <div className='relative w-full flex gap-4 py-6 overflow-x-auto'>
-                  {seriesItem?.videos?.results?.slice(0, 16).map((video, index) => (
+                  {seriesItem?.videos?.results?.slice(0, 8).map((video, index) => (
                     <iframe
                       id={video.id}
                       key={`${video.id}-${index}`}
@@ -140,9 +140,9 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                   ))}
                 </div>
 
-                <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
+                <h1 className='font-bold text-2xl px-6 sm:px-0 backdrop-blur-md'>Credits</h1>
                 <CarouselCredits data={seriesItem?.credits} />
-                <h1 className='font-bold text-2xl px-6 sm:px-0'>Recommendations</h1>
+                <h1 className='font-bold text-2xl px-6 sm:px-0 backdrop-blur-md'>Recommendations</h1>
                 <Carousel data={[seriesItem?.recommendations]} />
               </div>
             </div>
