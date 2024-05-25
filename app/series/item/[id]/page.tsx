@@ -46,7 +46,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
     <main className='animate-in w-full block m-auto justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div className='mx-auto justify-center'>
         <div style={{ backgroundImage: `url(${seriesItem?.backdrop_path})` }} className='relative bg-cover bg-no-repeat w-full h-full'>
-          <div className='bg-fixed' style={{ backgroundColor: 'rgba(118, 183, 236, 0.5)' }}>
+          <div className='bg-fixed bg-white/20 dark:bg-black/50'>
             <div className='block md:flex p-8'>
               <Image
                 src={seriesItem?.poster_path}
@@ -63,18 +63,18 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                   <SearchResultBadge
                     label={`${seriesItem?.years}`}
                     className='font-sans rounded-md h-fit font-semibold'
-                    color='sky'
+                    color='cyan'
                     textSize='text-md'
                   />
                   <SearchResultBadge
                     label={`${seriesItem?.runtime}`}
                     className='font-sans rounded-md h-fit font-semibold'
-                    color='sky'
+                    color='cyan'
                     textSize='text-md'
                   />
-                  <div className='flex gap-x-1 flex-wrap'>
+                  <div className='flex gap-1 flex-wrap mt-2 sm:mt-0'>
                     {seriesItem?.genres?.map((genre, index) => (
-                      <SearchResultBadge key={index} label={genre} className='rounded-md' color='pink' textSize='text-sm' />
+                      <SearchResultBadge key={index} label={genre} className='rounded-md' color='indigo' textSize='text-sm' />
                     ))}
                   </div>
                 </div>
@@ -91,37 +91,42 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                   {seriesItem?.external_ids?.imdb_id && (
                     <Link
                       isExternal
-                      showAnchorIcon
+                      underline='hover'
                       href={`https://www.imdb.com/title/${seriesItem?.external_ids?.imdb_id}`}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       IMDB
                     </Link>
                   )}
                   {seriesItem?.homepage && (
                     <Link
                       isExternal
-                      showAnchorIcon
                       href={seriesItem?.homepage}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
-                      Home page
+                      underline='hover'
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      Home
                     </Link>
                   )}
                 </div>
                 <div className='flex gap-x-1'>
                   {seriesItem?.spoken_languages?.map((lang, index) => (
-                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
+                    <SearchResultBadge
+                      key={index}
+                      label={lang}
+                      className='rounded-md h-fit w-fit border text-black bg-neutral-200 dark:bg-neutral-700 border-neutral-400'
+                      textSize='text-sm'
+                    />
                   ))}
                 </div>
-                <p className='text-md text-wrap flex max-w-5xl'>{seriesItem?.overview}</p>
+                <p className='text-md text-wrap flex max-w-5xl rounded-sm p-1 pl-2 leading-snug backdrop-blur-3xl'>{seriesItem?.overview}</p>
               </div>
             </div>
 
             <div className='flex justify-center w-full'>
               <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
                 <div className='relative w-full flex gap-4 py-6 overflow-x-auto'>
-                  {seriesItem?.videos?.results?.map((video, index) => (
+                  {seriesItem?.videos?.results?.slice(0, 16).map((video, index) => (
                     <iframe
                       id={video.id}
                       key={`${video.id}-${index}`}

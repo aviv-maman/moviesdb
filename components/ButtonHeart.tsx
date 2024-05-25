@@ -42,8 +42,8 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
   };
 
   return (
-    <Button isIconOnly aria-label='Like' isDisabled={!state.supabase_profile?.tmdb_session_id} onClick={handleFavorite}>
-      {state.favorites['movie'].includes(mediaId) ? <IconHeartFilled /> : <IconHeart />}
+    <Button isIconOnly size='sm' aria-label='Like' isDisabled={!state.supabase_profile?.tmdb_session_id} onClick={handleFavorite}>
+      {state.favorites['movie'].includes(mediaId) ? <IconHeartFilled size={20} /> : <IconHeart size={20} />}
     </Button>
   );
 };
