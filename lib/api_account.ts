@@ -77,7 +77,8 @@ export const getFavorites = async (options: getFavOptions) => {
       console.error(`${error.name} - ${error.message}`);
       console.error(error.stack);
     }
-    throw error;
+    // throw error;
+    return {} as MovieListResponse;
   }
 };
 
