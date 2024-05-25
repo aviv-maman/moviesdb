@@ -32,7 +32,7 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
     },
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full';
+  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px]';
 
   return (
     <div className='w-full' {...rest}>
