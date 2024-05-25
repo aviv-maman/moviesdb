@@ -38,7 +38,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     <main className='animate-in w-full block m-auto justify-center min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)]'>
       <div className='mx-auto justify-center'>
         <div style={{ backgroundImage: `url(${movieItem?.backdrop_path})` }} className='relative bg-cover bg-no-repeat w-full h-full'>
-          <div className='overflow-hidden bg-fixed' style={{ backgroundColor: 'rgba(118, 183, 236, 0.5)' }}>
+          <div className='overflow-hidden bg-fixed bg-white/20 dark:bg-black/50'>
             <div className='block md:flex p-8'>
               <Image
                 src={movieItem?.poster_path}
@@ -50,17 +50,17 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                 style={{ minWidth: 342, height: 513 }}
               />
               <div className='flex flex-col sm:mx-3 gap-y-2 pt-2 sm:pt-0'>
-                <h1 className='text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white'>{movieItem?.title}</h1>
+                <h1 className='text-4xl sm:text-6xl font-bold text-black dark:text-white'>{movieItem?.title}</h1>
                 <div className='flex gap-x-1 items-center'>
                   <SearchResultBadge
                     label={`${movieItem?.release_date?.slice(0, 4)} • ${movieItem?.runtime}`}
                     className='font-sans rounded-md h-fit font-semibold'
-                    color='sky'
+                    color='cyan'
                     textSize='text-md'
                   />
-                  <div className='flex gap-x-1'>
+                  <div className='flex gap-1'>
                     {movieItem?.genres?.map((genre, index) => (
-                      <SearchResultBadge key={index} label={genre} className='rounded-md' color='pink' textSize='text-sm' />
+                      <SearchResultBadge key={index} label={genre} className='rounded-md' color='indigo' textSize='text-sm' />
                     ))}
                   </div>
                 </div>
@@ -77,37 +77,43 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                   {movieItem?.external_ids?.imdb_id && (
                     <Link
                       isExternal
-                      showAnchorIcon
                       href={`https://www.imdb.com/title/${movieItem?.external_ids?.imdb_id}`}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
                       IMDB
                     </Link>
                   )}
                   {movieItem?.homepage && (
                     <Link
                       isExternal
-                      showAnchorIcon
                       href={movieItem?.homepage}
                       color='foreground'
-                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-600 hover:dark:bg-yellow-400 dark:text-gray-900'>
-                      Home page
+                      underline='hover'
+                      className='rounded-md px-2 py-1 border-1 border-gray-700 bg-yellow-400 hover:bg-yellow-100 hover:dark:bg-yellow-400 dark:text-gray-900'>
+                      Home
                     </Link>
                   )}
                 </div>
                 <div className='flex gap-x-1'>
                   {movieItem?.spoken_languages?.map((lang, index) => (
-                    <SearchResultBadge key={index} label={lang} className='rounded-md h-fit w-fit' color='yellow' textSize='text-sm' />
+                    <SearchResultBadge
+                      key={index}
+                      label={lang}
+                      className='rounded-md h-fit w-fit border text-black bg-neutral-200 dark:bg-neutral-700 border-neutral-400'
+                      textSize='text-sm'
+                    />
                   ))}
                 </div>
-                <p className='text-md text-wrap flex max-w-5xl'>{movieItem?.overview}</p>
+                <p className='text-md text-wrap flex max-w-5xl rounded-sm p-1 pl-2 leading-snug backdrop-blur-3xl text-black dark:text-white'>
+                  {movieItem?.overview}
+                </p>
               </div>
             </div>
 
             <div className='flex justify-center w-full'>
               <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
                 <div className='relative w-full flex gap-4 py-6 overflow-x-auto'>
-                  {movieItem?.videos?.results?.map((video, index) => (
+                  {movieItem?.videos?.results?.slice(0, 16).map((video, index) => (
                     <iframe
                       id={video.id}
                       key={`${video.id}-${index}`}
