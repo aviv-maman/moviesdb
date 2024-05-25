@@ -120,6 +120,21 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
 
             <div className='flex justify-center w-full'>
               <div className='flex flex-col justify-center gap-7 text-xs mb-8 items-center max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
+                <div className='relative w-full flex gap-4 py-6 overflow-x-auto'>
+                  {seriesItem?.videos?.results?.map((video, index) => (
+                    <iframe
+                      id={video.id}
+                      key={`${video.id}-${index}`}
+                      className='sm:h-[320px] sm:min-w-[540px]'
+                      src={`https://www.${video.site}.com/embed/${video.key}?autoplay=1&origin=https://moviesdb-indol.vercel.app`}
+                      title={video.name}
+                      height={320}
+                      width={640}
+                      itemType='text/html'
+                    />
+                  ))}
+                </div>
+
                 <h1 className='font-bold text-2xl px-6 sm:px-0'>Credits</h1>
                 <CarouselCredits data={seriesItem?.credits} />
                 <h1 className='font-bold text-2xl px-6 sm:px-0'>Recommendations</h1>

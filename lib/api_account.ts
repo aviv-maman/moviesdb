@@ -63,7 +63,6 @@ export const getFavorites = async (options: getFavOptions) => {
   options.sort_by = options.sort_by || 'created_at.asc';
   const mediaTypePath = options.media_type === 'movie' ? 'movies' : 'tv';
   const { account_id, session_id, media_type, language, page, sort_by } = options;
-
   try {
     const res = await fetch(
       `https://api.themoviedb.org/3/account/${account_id}/favorite/${mediaTypePath}?language=${language}&page=${page}&session_id=${session_id}&sort_by=${sort_by}`,
