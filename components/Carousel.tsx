@@ -38,7 +38,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
 
   return (
     <div className='w-full' {...rest}>
-      <Card className='border'>
+      <Card className='border min-h-[263px]'>
         <CardBody className='overflow-hidden'>
           {!tabs ? (
             /* One carousel => No tabs */

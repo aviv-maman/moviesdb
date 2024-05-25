@@ -63,10 +63,12 @@ export default async function Index() {
         <h2 className='text-lg font-bold text-center text-slate-900 dark:text-white'>Everything you need to get started</h2>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground xl:mx-12 2xl:mx-32'>
-        {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
-          <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
-        ))}
+      <div className='flex justify-center w-full'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-col text-foreground max-w-[192px] min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]'>
+          {features.map(({ title, subtitle, icon, isLinkingRequired }) => (
+            <FeatureCard key={title} title={title} subtitle={subtitle} icon={icon} isLinkingRequired={isLinkingRequired} />
+          ))}
+        </div>
       </div>
 
       <div className='flex justify-center w-full'>

@@ -32,7 +32,7 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
     },
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px]';
+  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]';
 
   return (
     <div className='w-full' {...rest}>
@@ -44,7 +44,12 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                 {data?.cast?.map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
                     <div className='flex flex-col items-center'>
-                      <Image src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`} alt={slide?.name} className={`${imgClasses} rounded-md`} />
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
+                        alt={slide?.name}
+                        className={`${imgClasses} rounded-md`}
+                        fallbackSrc={'./no-image.jpg'}
+                      />
                       <p className='text-sm text-center'>{slide?.name}</p>
                       <p className='text-xs text-center'>{slide?.character}</p>
                     </div>
@@ -57,7 +62,12 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                 {data?.crew?.map((slide, slideIndex) => (
                   <SplideSlide key={slideIndex}>
                     <div className='flex flex-col items-center'>
-                      <Image src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`} alt={slide?.name} className={`${imgClasses} rounded-md`} />
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
+                        alt={slide?.name}
+                        className={`${imgClasses} rounded-md`}
+                        fallbackSrc={'./no-image.jpg'}
+                      />
                       <p className='text-sm text-center'>{slide?.name}</p>
                       <p className='text-xs text-center'>{slide?.job}</p>
                     </div>
