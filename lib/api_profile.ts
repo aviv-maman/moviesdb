@@ -25,7 +25,10 @@ export const handleLinkAccount = async () => {
       httpOnly: true,
       secure: true,
     });
-    redirect(`https://www.themoviedb.org/authenticate/${data.request_token}?redirect_to=http://localhost:3000/api/tmdb-approved`);
+    const PUBLIC_DOMAIN = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/api/tmdb-approved`
+      : 'http://localhost:3000/api/tmdb-approved';
+    redirect(PUBLIC_DOMAIN);
   } else {
     throw new Error(`Error ${res.status}: ${res.statusText}.`);
   }
