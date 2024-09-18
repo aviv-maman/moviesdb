@@ -1,9 +1,15 @@
 {
-  "cSpell.words": [
-    "nextui",
-    "rsuite",
-    "splide",
-    "splidejs",
-    "tmdb"
-  ]
+    "cSpell.words": [
+        "immer",
+        "nextui",
+        "rsuite",
+        "sonner",
+        "splide",
+        "splidejs",
+        "supabase",
+        "tabler",
+        "tailwindcss",
+        "tmdb"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }
