@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface GeolocationState {
-  position: GeolocationPosition | null;
+  position: Omit<GeolocationPosition, "toJSON"> | null;
   loading: boolean;
   error: GeolocationPositionError | null;
 }
@@ -24,8 +24,8 @@ export function useGeoLocation(options?: GeoLocationOptions) {
   useEffect(() => {
     const onSuccess = ({ coords, timestamp }: GeolocationPosition) => {
       setState((state) => ({
-        loading: false,
         position: { coords, timestamp },
+        loading: false,
         error: null,
       }));
     };
@@ -34,9 +34,17 @@ export function useGeoLocation(options?: GeoLocationOptions) {
       setState((state) => ({ ...state, loading: false, error }));
     };
 
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, optionsRef.current);
+    navigator.geolocation.getCurrentPosition(
+      onSuccess,
+      onError,
+      optionsRef.current
+    );
 
-    const watchId = navigator.geolocation.watchPosition(onSuccess, onError, optionsRef.current);
+    const watchId = navigator.geolocation.watchPosition(
+      onSuccess,
+      onError,
+      optionsRef.current
+    );
 
     return () => {
       navigator.geolocation.clearWatch(watchId);
