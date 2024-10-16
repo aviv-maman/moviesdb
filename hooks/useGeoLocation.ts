@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 interface GeolocationState {
-  position: Omit<GeolocationPosition, "toJSON"> | null;
+  position: Omit<GeolocationPosition, 'toJSON'> | null;
   loading: boolean;
   error: GeolocationPositionError | null;
 }
