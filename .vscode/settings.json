@@ -3,6 +3,7 @@
         "IMDB",
         "immer",
         "nextui",
+        "Postgrest",
         "rsuite",
         "sonner",
         "splide",
@@ -10,7 +11,9 @@
         "supabase",
         "tabler",
         "tailwindcss",
-        "tmdb"
+        "tmdb",
+        "trivago",
+        "upsert"
     ],
     "typescript.tsdk": "node_modules\\typescript\\lib"
 }

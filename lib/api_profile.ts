@@ -1,8 +1,9 @@
 'use server';
-import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
-import type { Database } from '@/lib/database.types';
+
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import type { CreateRequestTokenResponse, DeleteTmdbSessionIdResponse } from '@/lib/api.types';
+import type { Database } from '@/lib/database.types';
 import { createClient } from '@/utils/supabase/server';
 
 export const handleLinkAccount = async () => {
@@ -19,7 +20,8 @@ export const handleLinkAccount = async () => {
   const res = await fetch('https://api.themoviedb.org/3/authentication/token/new', options);
   if (res.ok) {
     const data: CreateRequestTokenResponse = await res.json();
-    cookies().set('tmdb_request_token', data.request_token, {
+    const cookieStore = cookies();
+    cookieStore.set('tmdb_request_token', data.request_token, {
       expires: new Date(data.expires_at),
       path: '/',
       httpOnly: true,
@@ -59,7 +61,10 @@ export const handleUnlinkAccount = async () => {
     if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
 
     const data: DeleteTmdbSessionIdResponse = await res.json();
-    data.success && cookies().delete('tmdb_session_id');
+    if (data?.success) {
+      const cookieStore = cookies();
+      cookieStore.delete('tmdb_session_id');
+    }
   }
 };
 

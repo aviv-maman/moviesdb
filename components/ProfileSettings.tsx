@@ -1,11 +1,12 @@
 'use client';
-import { useTransition, type FC } from 'react';
+
 import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
 import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
-import { useProfile } from '@/context/ProfileContext';
+import { type FC, useTransition } from 'react';
 import ProfileEditModal from './ProfileEditModal';
-import { createClient } from '@/utils/supabase/client';
+import { useProfile } from '@/context/ProfileContext';
 import { updateProfile } from '@/lib/api_profile';
+import { createClient } from '@/utils/supabase/client';
 
 interface ProfileSettingsProps {}
 
@@ -22,7 +23,9 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       const fileExt = file.name.split('.').pop();
       const fileName = `${state.supabase_user?.id}.${fileExt}`;
       const bucket = supabase.storage.from('avatars');
-      const { error: uploadError } = await bucket.upload(fileName, file, { upsert: true });
+      const { error: uploadError } = await bucket.upload(fileName, file, {
+        upsert: true,
+      });
       if (uploadError) throw uploadError;
       const publicUrl = bucket.getPublicUrl(fileName).data.publicUrl;
       return await updateProfile({ avatar_url: publicUrl });
@@ -41,7 +44,10 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       if (removeError) throw removeError;
       const profile = await updateProfile({ avatar_url: null });
       if (!profile) throw new Error('Profile not found.');
-      dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
+      dispatch({
+        type: 'changed_supabase_profile',
+        payload: { value: profile },
+      });
     } catch (error) {
       console.log('Error uploading avatar!');
     }
@@ -53,10 +59,10 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       <div className='block'>
         <div className='mb-4'>
           <h1 className='text-lg font-extrabold'>Profile Settings</h1>
-          <p className='text-orange-600 dark:text-orange-500 text-sm'>Edit your profile information.</p>
+          <p className='text-sm text-orange-600 dark:text-orange-500'>Edit your profile information.</p>
         </div>
-        <div className='block min-[640px]:flex justify-between bg-zinc-100 dark:bg-zinc-900 dark:text-gray-200 border-small rounded-small border-default-400 dark:border-default-200'>
-          <div className='flex m-4'>
+        <div className='block justify-between rounded-small border-small border-default-400 bg-zinc-100 dark:border-default-200 dark:bg-zinc-900 dark:text-gray-200 min-[640px]:flex'>
+          <div className='m-4 flex'>
             <Badge
               isOneChar
               className='rounded-md'
@@ -73,7 +79,11 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                       startUploadTransition(async () => {
                         if (!e.target?.files) throw new Error('You must select an image to upload.');
                         const profile = await uploadAvatar(e.target.files[0]);
-                        if (profile) dispatch({ type: 'changed_supabase_profile', payload: { value: profile } });
+                        if (profile)
+                          dispatch({
+                            type: 'changed_supabase_profile',
+                            payload: { value: profile },
+                          });
                       });
                     }}
                   />
@@ -86,7 +96,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               <Avatar
                 src={state.supabase_profile?.avatar_url || undefined}
                 alt='avatar'
-                className='p-4 w-28 h-28 md:w-32 md:h-32 mr-4'
+                className='mr-4 h-28 w-28 p-4 md:h-32 md:w-32'
                 isBordered={false}
                 radius='sm'
                 size='lg'
@@ -95,21 +105,21 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
 
             <div className='flex flex-col space-y-2'>
               <div>
-                <h5 className='text-xs text-amber-600 leading-5'>Full Name</h5>
-                <h2 className='text-lg font-semibold mb-2' style={{ lineHeight: 0.75 }}>
+                <h5 className='text-xs leading-5 text-amber-600'>Full Name</h5>
+                <h2 className='mb-2 text-lg font-semibold' style={{ lineHeight: 0.75 }}>
                   {state.supabase_profile?.full_name || 'Not set yet'}
                 </h2>
-                <h5 className='text-xs text-amber-600 leading-5'>Username</h5>
+                <h5 className='text-xs leading-5 text-amber-600'>Username</h5>
                 <h4 className='text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
                   {state.supabase_profile?.username || 'Not set yet'}
                 </h4>
               </div>
               <div>
-                <h5 className='text-xs text-amber-600 leading-5'>Email</h5>
-                <h4 className='text-sm dark:text-gray-400 mb-2' style={{ lineHeight: 0.75 }}>
+                <h5 className='text-xs leading-5 text-amber-600'>Email</h5>
+                <h4 className='mb-2 text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
                   {state.supabase_user?.email}
                 </h4>
-                <h5 className='text-xs text-amber-600 leading-5'>TMDB ID</h5>
+                <h5 className='text-xs leading-5 text-amber-600'>TMDB ID</h5>
                 <h4 className='text-sm dark:text-gray-400' style={{ lineHeight: 0.75 }}>
                   {state.supabase_profile?.tmdb_account_id || 'Not linked yet'}
                 </h4>
@@ -120,16 +130,20 @@ const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <button
               type='button'
               onClick={onOpen}
-              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4'>
+              className='m-4 flex items-center rounded-lg border p-1 text-sm text-gray-700 duration-150 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600'>
               <IconPencil size={18} />
             </button>
             <button
               type='button'
-              className='text-gray-700 dark:text-gray-300 text-sm border rounded-lg p-1 duration-150 hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center m-4 disabled:cursor disabled:opacity-50 disabled:hover:bg-inherit disabled:dark:hover:bg-inherit'
+              className='disabled:cursor m-4 flex items-center rounded-lg border p-1 text-sm text-gray-700 duration-150 hover:bg-gray-300 disabled:opacity-50 disabled:hover:bg-inherit dark:text-gray-300 dark:hover:bg-gray-600 disabled:dark:hover:bg-inherit'
               aria-label='Remove Avatar'
               disabled={!state.supabase_profile?.avatar_url || removePending || uploadPending}
               onClick={async () => startRemoveTransition(async () => await removeAvatar())}>
-              {removePending || uploadPending ? <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} /> : <IconPhotoOff size={18} />}
+              {removePending || uploadPending ? (
+                <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} />
+              ) : (
+                <IconPhotoOff size={18} />
+              )}
             </button>
           </div>
         </div>

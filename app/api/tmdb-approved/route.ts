@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 import type { CreateTmdbSessionIdResponse, TmdbProfile } from '@/lib/api.types';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -22,17 +22,18 @@ export async function GET(request: Request) {
     },
   };
   try {
+    const cookieStore = cookies();
     const tmdb_request_token =
-      cookies().get('tmdb_request_token')?.value || requestUrl.searchParams.get('request_token');
+      cookieStore.get('tmdb_request_token')?.value || requestUrl.searchParams.get('request_token');
     const res = await fetch(
       `https://api.themoviedb.org/3/authentication/session/new?request_token=${tmdb_request_token}`,
-      sessionOptions
+      sessionOptions,
     );
     if (!res.ok) throw new Error(`Error creating TMDB session: ${res.statusText}`);
     const sessionData: CreateTmdbSessionIdResponse = await res.json();
     const res2 = await fetch(
       `https://api.themoviedb.org/3/account?api_key=${process.env.TMDB_API_KEY}&session_id=${sessionData?.session_id}`,
-      accountOptions
+      accountOptions,
     );
     if (!res2.ok) throw new Error(`Error creating TMDB session: ${res2.statusText}`);
     const accountData: TmdbProfile = await res2.json();
