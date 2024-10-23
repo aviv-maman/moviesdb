@@ -1,8 +1,8 @@
 import { type FC } from 'react';
 import AsyncSelect from 'react-select/async';
-import keywords from '@/lib/data/keyword_ids_09_04_2023.json';
-import type { KeywordList } from '@/lib/api.types';
 import { useDarkMode } from '@/context/DarkModeContext';
+import type { KeywordList } from '@/lib/api.types';
+import keywords from '@/lib/data/keyword_ids_10_23_2024.json';
 
 type MultiOptions = {
   id: number;
@@ -41,7 +41,7 @@ const MultiSelect: FC<MultiSelectProps> = ({ title, name }) => {
         placeholder='Type to search...'
         loadOptions={promiseOptions}
         openMenuOnClick={false}
-        className='font-normal text-sm text-foreground-500 mt-2'
+        className='mt-2 text-sm font-normal text-foreground-500'
         styles={{
           control: (baseStyles, { isFocused, isDisabled }) => ({
             ...baseStyles,
@@ -49,10 +49,10 @@ const MultiSelect: FC<MultiSelectProps> = ({ title, name }) => {
             border: isDisabled
               ? '2px solid rgb(156 163 175)'
               : isFocused
-              ? '2px solid #17c964'
-              : isDarkMode
-              ? '2px solid #3f3f46'
-              : '2px solid #e5e7eb',
+                ? '2px solid #17c964'
+                : isDarkMode
+                  ? '2px solid #3f3f46'
+                  : '2px solid #e5e7eb',
             minHeight: 40,
             borderRadius: 10,
             boxShadow: undefined,
