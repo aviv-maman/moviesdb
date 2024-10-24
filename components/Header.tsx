@@ -102,6 +102,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
             startContent={<IconSearch size={18} />}
             endContent={
               <ButtonCustom
+                id='search-bar-btn-desk'
                 type='submit'
                 isIconOnly
                 size='sm'
@@ -143,6 +144,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                   startContent={<IconSearch size={18} />}
                   endContent={
                     <ButtonCustom
+                      id='search-bar-btn-mob'
                       type='submit'
                       isIconOnly
                       size='sm'

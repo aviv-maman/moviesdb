@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { toast } from 'sonner';
 import ButtonCustom from '@/components/ButtonCustom';
 import Logo from '@/components/Logo';
@@ -28,7 +28,7 @@ export default function Register() {
     return { ...prevState };
   };
   const initialState: FormState = { message: '' };
-  const [formState, formAction] = useFormState(onFormSubmission, initialState);
+  const [formState, formAction] = useActionState(onFormSubmission, initialState);
 
   return (
     <main className='animate-in flex min-h-[calc(100vh-162px)] justify-center sm:min-h-[calc(100vh-154px)]'>

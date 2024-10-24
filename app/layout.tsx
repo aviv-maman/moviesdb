@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 const inter = Inter({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const user = (await supabase.auth.getUser())?.data?.user;
   const { profile } = await getProfile(user?.id as string);
   let favMovies, favSeries;

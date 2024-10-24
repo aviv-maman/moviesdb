@@ -8,11 +8,11 @@ import SearchResultBadge from '@/components/SearchResultBadge';
 import { getSeriesById } from '@/lib/api_series';
 
 interface SeriesPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
-  const id = Number(params?.id);
+  const id = Number((await params).id);
   const { series } = await getSeriesById({
     series_id: id,
     append_to_response: 'credits,external_ids,videos,recommendations',

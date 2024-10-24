@@ -8,10 +8,11 @@ import { createClient } from '@/utils/supabase/server';
 
 export const signUp = async (formData: FormData) => {
   'use server';
-  const origin = headers().get('origin');
+  const headerList = await headers();
+  const origin = headerList.get('origin');
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
-  const supabase = createClient();
+  const supabase = await createClient();
   const authRes = await supabase.auth.signUp({
     email,
     password,
@@ -25,7 +26,7 @@ export const signIn = async (formData: FormData) => {
   'use server';
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
-  const supabase = createClient();
+  const supabase = await createClient();
   const authRes = await supabase.auth.signInWithPassword({ email, password });
   if (authRes.error) throw authRes.error;
   return redirect('/');
@@ -33,14 +34,14 @@ export const signIn = async (formData: FormData) => {
 
 export const signOut = async () => {
   'use server';
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error: authError } = await supabase.auth.signOut();
   return authError ? authError : redirect('/');
 };
 
 export const getSession = async () => {
   'use server';
-  const supabase = createClient();
+  const supabase = await createClient();
   try {
     const {
       data: { session },
@@ -55,7 +56,7 @@ export const getSession = async () => {
 //To be used in account page
 export const getUserDetails = async () => {
   'use server';
-  const supabase = createClient();
+  const supabase = await createClient();
   try {
     const res = await supabase.auth.getUser();
     return { data: res.data.user, error: res.error };
@@ -68,7 +69,7 @@ export const getUserDetails = async () => {
 export const getProfile = async (id: string) => {
   'use server';
   if (!id) return { profile: null, error: new ReferenceError('An ID was not provided to getProfile.') };
-  const supabase = createClient();
+  const supabase = await createClient();
   try {
     const { data, error, status } = await supabase.from('profiles').select('*').eq('id', id).single();
     if (error && status !== 406) return { profile: null, error };

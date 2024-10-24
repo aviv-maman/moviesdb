@@ -3,8 +3,7 @@
 import { Input } from '@nextui-org/react';
 import { IconFilterSearch } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
 import ButtonCustom from './ButtonCustom';
 import SearchAutoComplete from './SearchAutoComplete';
 import SearchSelect from './SearchSelect';
@@ -37,7 +36,7 @@ const SearchNavbar: React.FC = () => {
     query: searchParams.get('query') || '',
     language: searchParams.get('language') || 'en-US',
   };
-  const [formState, formAction] = useFormState(handleFilter, initialState);
+  const [formState, formAction] = useActionState(handleFilter, initialState);
   const [mediaType, setMediaType] = useState(formState.media_type);
 
   useEffect(() => {

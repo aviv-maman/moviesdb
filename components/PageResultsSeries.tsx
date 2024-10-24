@@ -3,12 +3,12 @@ import CardGeneric from '@/components/CardGeneric';
 import { discoverSeries } from '@/lib/api_series_lists';
 
 interface PageResultsSeriesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const PageResultsSeries: React.FC<PageResultsSeriesProps> = async ({ searchParams }) => {
-  const currentPage = Number(searchParams?.page) || 1;
-  const { results, page, total_pages } = (await discoverSeries({ ...searchParams, page: currentPage })) || {};
+  const currentPage = Number((await searchParams).page) || 1;
+  const { results, page, total_pages } = (await discoverSeries({ ...(await searchParams), page: currentPage })) || {};
 
   return (
     <>

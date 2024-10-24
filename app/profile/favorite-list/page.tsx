@@ -14,8 +14,8 @@ interface SearchProps {
   };
 }
 
-const Search: React.FC<SearchProps> = async ({ searchParams }) => {
-  const supabase = createClient();
+const Search: React.FC<SearchProps> = async () => {
+  const supabase = await createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
   if (!user) redirect('/login'); // This route can only be accessed by authenticated users.
   const { profile } = await getProfile(user?.id as string);

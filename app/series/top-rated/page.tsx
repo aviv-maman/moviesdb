@@ -2,7 +2,7 @@ import PageResultsSeriesByType from '@/components/PageResultsSeriesByType';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface TopRatedSeriesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const TopRatedSeries: React.FC<TopRatedSeriesProps> = async ({ searchParams }) => {

@@ -2,7 +2,7 @@ import PageResultsMoviesByType from '@/components/PageResultsMoviesByType';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface NowPlayingMoviesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const NowPlayingMovies: React.FC<NowPlayingMoviesProps> = async ({ searchParams }) => {

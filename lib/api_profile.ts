@@ -20,7 +20,7 @@ export const handleLinkAccount = async () => {
   const res = await fetch('https://api.themoviedb.org/3/authentication/token/new', options);
   if (res.ok) {
     const data: CreateRequestTokenResponse = await res.json();
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set('tmdb_request_token', data.request_token, {
       expires: new Date(data.expires_at),
       path: '/',
@@ -49,7 +49,7 @@ export const handleUnlinkAccount = async () => {
   };
   const res = await fetch('https://api.themoviedb.org/3/authentication/session', options);
   if (res.ok) {
-    const supabase = createClient();
+    const supabase = await createClient();
     const userRes = await supabase.auth.getUser();
     const { error, status } = await supabase
       .from('profiles')
@@ -62,7 +62,7 @@ export const handleUnlinkAccount = async () => {
 
     const data: DeleteTmdbSessionIdResponse = await res.json();
     if (data?.success) {
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       cookieStore.delete('tmdb_session_id');
     }
   }
@@ -72,7 +72,7 @@ export const updateProfile = async (profile: Database['public']['Tables']['profi
   'use server';
   const { full_name, username, avatar_url } = profile;
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
     const userRes = await supabase.auth.getUser();
     const { data, error, status } = await supabase
       .from('profiles')

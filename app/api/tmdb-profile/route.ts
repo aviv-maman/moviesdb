@@ -3,7 +3,7 @@ import type { TmdbProfile } from '@/lib/api.types';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: Request) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const accountOptions: RequestInit = {
     method: 'GET',
     headers: {

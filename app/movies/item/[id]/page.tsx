@@ -8,11 +8,11 @@ import SearchResultBadge from '@/components/SearchResultBadge';
 import { getMovieById } from '@/lib/api_movies';
 
 interface MoviePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
-  const id = Number(params?.id);
+  const id = Number((await params).id);
   const { movie } = await getMovieById({
     movie_id: id,
     append_to_response: 'credits,external_ids,videos,recommendations',
