@@ -1,13 +1,14 @@
 'use client';
-import { createContext, useContext, useMemo, type ReactNode, type Dispatch } from 'react';
+
+import type { User } from '@supabase/supabase-js';
+import { createContext, useContext, useMemo } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { profileReducer } from './profileReducer';
 import type { Profile } from '@/lib/database.types';
-import type { User } from '@supabase/supabase-js';
 
 export type ProfileStore = {
   state: ProfileContextState;
-  dispatch: Dispatch<ProfileActionMap>;
+  dispatch: React.Dispatch<ProfileActionMap>;
 };
 
 const initialContextState = {
@@ -23,7 +24,7 @@ const initialContextState = {
 
 const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
 
-function ProfileProvider({ children }: { children: ReactNode }) {
+function ProfileProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useImmerReducer(profileReducer, initialContextState);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);

@@ -1,4 +1,5 @@
 'use client';
+
 import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 
 interface SearchAutoCompleteProps {

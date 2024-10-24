@@ -6,7 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/react": "^2.4.8",
     "@splidejs/react-splide": "^0.7.12",
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.45.6",

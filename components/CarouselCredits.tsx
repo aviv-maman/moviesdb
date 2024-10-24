@@ -1,7 +1,8 @@
 'use client';
-import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+
 import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
+import { type Options, Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 import type { GetMovieResponse } from '@/lib/api.types';
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -32,7 +33,8 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
     },
   };
 
-  const imgClasses = 'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]';
+  const imgClasses =
+    'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]';
 
   return (
     <div className='w-full' {...rest}>
@@ -50,8 +52,8 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                         className={`${imgClasses} rounded-md`}
                         fallbackSrc={'./no-image.jpg'}
                       />
-                      <p className='text-sm text-center'>{slide?.name}</p>
-                      <p className='text-xs text-center'>{slide?.character}</p>
+                      <p className='text-center text-sm'>{slide?.name}</p>
+                      <p className='text-center text-xs'>{slide?.character}</p>
                     </div>
                   </SplideSlide>
                 ))}
@@ -68,8 +70,8 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                         className={`${imgClasses} rounded-md`}
                         fallbackSrc={'./no-image.jpg'}
                       />
-                      <p className='text-sm text-center'>{slide?.name}</p>
-                      <p className='text-xs text-center'>{slide?.job}</p>
+                      <p className='text-center text-sm'>{slide?.name}</p>
+                      <p className='text-center text-xs'>{slide?.job}</p>
                     </div>
                   </SplideSlide>
                 ))}

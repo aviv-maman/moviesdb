@@ -1,9 +1,10 @@
 'use client';
-import { useCallback, type FC } from 'react';
+
 import { Pagination, type PaginationProps } from '@nextui-org/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 
-const PaginationCustom: FC<PaginationProps> = ({ page, total, ...props }) => {
+const PaginationCustom: React.FC<PaginationProps> = ({ page, total, ...props }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
@@ -16,14 +17,16 @@ const PaginationCustom: FC<PaginationProps> = ({ page, total, ...props }) => {
       params.set(name, value);
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const changePage = (page: number) => {
     router.push(pathname + '?' + createQueryString('page', String(page)));
   };
 
-  return <Pagination showControls variant='bordered' showShadow total={total} page={page} onChange={changePage} {...props} />;
+  return (
+    <Pagination showControls variant='bordered' showShadow total={total} page={page} onChange={changePage} {...props} />
+  );
 };
 
 export default PaginationCustom;

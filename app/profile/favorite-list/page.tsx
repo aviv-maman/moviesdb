@@ -1,10 +1,11 @@
 'use server';
+
+import { redirect } from 'next/navigation';
 import FavoriteListMenu from '@/components/FavoriteListMenu';
 import FavoriteListSection from '@/components/FavoriteListSection';
-import { createClient } from '@/utils/supabase/server';
 import { getFavorites } from '@/lib/api_account';
 import { getProfile } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
 
 interface SearchProps {
   searchParams?: {
@@ -30,9 +31,14 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
   });
 
   return (
-    <main className='animate-in w-full min-h-[calc(100vh-162px)] sm:min-h-[calc(100vh-154px)] sm:flex p-4'>
+    <main className='animate-in min-h-[calc(100vh-162px)] w-full p-4 sm:flex sm:min-h-[calc(100vh-154px)]'>
       <FavoriteListMenu />
-      <FavoriteListSection favoritesMovies={favoritesMovies} favoritesSeries={favoritesSeries} profile={profile} user={user} />
+      <FavoriteListSection
+        favoritesMovies={favoritesMovies}
+        favoritesSeries={favoritesSeries}
+        profile={profile}
+        user={user}
+      />
     </main>
   );
 };

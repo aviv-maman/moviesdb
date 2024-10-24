@@ -58,10 +58,16 @@ export type TrendingPersonListResponse = ListResponse & {
 };
 
 export type TrendingAllListResponse = ListResponse & {
-  results: TrendingMovieListResponse['results'] & TrendingSeriesListResponse['results'] & TrendingPersonListResponse['results'];
+  results: TrendingMovieListResponse['results'] &
+    TrendingSeriesListResponse['results'] &
+    TrendingPersonListResponse['results'];
 };
 
-export type TrendingResponse = TrendingMovieListResponse | TrendingSeriesListResponse | TrendingPersonListResponse | TrendingAllListResponse;
+export type TrendingResponse =
+  | TrendingMovieListResponse
+  | TrendingSeriesListResponse
+  | TrendingPersonListResponse
+  | TrendingAllListResponse;
 
 export type UpcomingMovieListResponse = TrendingMovieListResponse & {
   dates: {
@@ -73,7 +79,9 @@ export type UpcomingMovieListResponse = TrendingMovieListResponse & {
 export type MovieListResponse = ListResponse & { results: MovieItem[] };
 export type SeriesListResponse = ListResponse & { results: SeriesItem[] };
 export type PersonListResponse = ListResponse & { results: PersonItem[] };
-export type MovieSeriesPersonListResponse = (ListResponse & { results: MovieItem[] | SeriesItem[] | PersonItem[] }) | undefined;
+export type MovieSeriesPersonListResponse =
+  | (ListResponse & { results: MovieItem[] | SeriesItem[] | PersonItem[] })
+  | undefined;
 
 export type TrendingListParams = {
   page?: number;
@@ -436,7 +444,7 @@ export type GetSeriesResponse = {
       logo_path: string;
       name: string;
       origin_country: string;
-    }
+    },
   ];
   number_of_episodes: number;
   number_of_seasons: number;

@@ -1,13 +1,13 @@
 import '../styles/globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { createClient } from '@/utils/supabase/server';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
-import type { Viewport, Metadata } from 'next';
-import { getProfile } from '@/lib/auth';
-import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
+import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
+import { getProfile } from '@/lib/auth';
+import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {
   title: 'MoviesDB',
@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={`${inter.className} min-h-screen text-foreground bg-background antialiased`}>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
         <Providers>
           <Header user={user} profile={profile} favMovies={favMovies} favSeries={favSeries} />
           {children}

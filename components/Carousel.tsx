@@ -1,9 +1,10 @@
 'use client';
-import { Splide, SplideSlide, type Options } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+
 import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
-import type { MovieSeriesPersonListResponse, TrendingResponse, UpcomingMovieListResponse } from '@/lib/api.types';
+import { type Options, Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 import CardGeneric from './CardGeneric';
+import type { MovieSeriesPersonListResponse, TrendingResponse, UpcomingMovieListResponse } from '@/lib/api.types';
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   tabs?: string[];
@@ -38,7 +39,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
 
   return (
     <div className='w-full' {...rest}>
-      <Card className='border min-h-[263px]'>
+      <Card className='min-h-[263px] border'>
         <CardBody className='overflow-hidden'>
           {!tabs ? (
             /* One carousel => No tabs */

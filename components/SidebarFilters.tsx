@@ -1,21 +1,19 @@
 'use client';
-import type { FC } from 'react';
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Radio, RadioGroup, Select, SelectItem } from '@nextui-org/react';
-import MultiSelect from './MultiSelect';
+
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
 import CheckboxGenre from './CheckboxGenre';
-import { AVAILABILITIES, MOVIE_GENRES, LANGUAGES, RELEASE_TYPES, SHOW_ME } from '@/lib/data/search_filters';
-import { useForm } from '@/context/FormContext';
-import SliderCustom from './SliderCustom';
 import DatePickerCustom from './DatePickerCustom';
+import MultiSelect from './MultiSelect';
+import SliderCustom from './SliderCustom';
+import { useForm } from '@/context/FormContext';
+import { AVAILABILITIES, LANGUAGES, MOVIE_GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
 
-interface SidebarFiltersProps {}
-
-const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
+const SidebarFilters: React.FC = () => {
   const { dispatch, state } = useForm();
 
-  const handleShowMe = (value: string) => {
-    dispatch({ type: 'show_me', payload: { value } });
-  };
+  // const handleShowMe = (value: string) => {
+  //   dispatch({ type: 'show_me', payload: { value } });
+  // };
 
   const handleAvailabilities = (value: string[]) => {
     dispatch({
@@ -36,7 +34,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         aria-label='Accordion of filters'
         title='Filters'
         subtitle='Filter Results'
-        className='flex flex-col w-full'
+        className='flex w-full flex-col'
         classNames={{ title: 'text-md', content: 'overflow-x-hidden' }}>
         {/* <RadioGroup
           name='show_me'
@@ -53,7 +51,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </RadioGroup>
         <Divider orientation='horizontal' className='my-4' /> */}
-        <span className='relative block text-foreground-500 text-sm'>Availabilities</span>
+        <span className='relative block text-sm text-foreground-500'>Availabilities</span>
         <CheckboxGroup
           name='with_availabilities'
           orientation='horizontal'
@@ -75,7 +73,7 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-3' />
         <DatePickerCustom />
-        <span className='relative text-foreground-500 block text-sm my-2'>Release Types</span>
+        <span className='relative my-2 block text-sm text-foreground-500'>Release Types</span>
         <CheckboxGroup
           name='with_release_type'
           defaultValue={['0', ...RELEASE_TYPES.map((option) => String(option.value))]}
@@ -96,7 +94,11 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           ))}
         </CheckboxGroup>
         <Divider orientation='horizontal' className='my-3' />
-        <CheckboxGroup name='with_genres' orientation='horizontal' label='Genres' classNames={{ label: 'text-sm', wrapper: 'gap-1' }}>
+        <CheckboxGroup
+          name='with_genres'
+          orientation='horizontal'
+          label='Genres'
+          classNames={{ label: 'text-sm', wrapper: 'gap-1' }}>
           {MOVIE_GENRES.map((option) => (
             <CheckboxGenre
               key={option.value}
@@ -108,8 +110,8 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
             />
           ))}
         </CheckboxGroup>
-        <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <div className='relative flex flex-col gap-2 mt-4 mb-2'>
+        <Divider orientation='horizontal' className='mb-3 mt-5' />
+        <div className='relative mb-2 mt-4 flex flex-col gap-2'>
           <Select
             name='language'
             label='Select language'
@@ -131,7 +133,14 @@ const SidebarFilters: FC<SidebarFiltersProps> = ({}) => {
           <Divider orientation='horizontal' className='my-3' />
           <SliderCustom name='vote_count.gte' label='Minimum User Votes' maxValue={500} step={50} marksInterval={100} />
           <Divider orientation='horizontal' className='my-3' />
-          <SliderCustom name='with_runtime' label='Runtime' maxValue={360} step={15} marksInterval={60} defaultValue={[0, 360]} />
+          <SliderCustom
+            name='with_runtime'
+            label='Runtime'
+            maxValue={360}
+            step={15}
+            marksInterval={60}
+            defaultValue={[0, 360]}
+          />
         </div>
       </AccordionItem>
     </Accordion>

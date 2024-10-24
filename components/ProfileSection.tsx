@@ -1,17 +1,18 @@
 'use client';
-import { useEffect, type FC } from 'react';
-import ProfileSettings from '@/components/ProfileSettings';
+
+import type { User } from '@supabase/supabase-js';
+import { useEffect } from 'react';
 import ProfileIntegrations from './ProfileIntegrations';
+import ProfileSettings from '@/components/ProfileSettings';
 import { useProfile } from '@/context/ProfileContext';
 import type { Profile } from '@/lib/database.types';
-import type { User } from '@supabase/supabase-js';
 
 interface ProfileSectionProps {
   profile: Profile | null;
   user?: User | null;
 }
 
-const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
+const ProfileSection: React.FC<ProfileSectionProps> = ({ profile, user }) => {
   const { dispatch, state } = useProfile();
 
   useEffect(() => {

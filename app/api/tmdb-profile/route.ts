@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
 import type { TmdbProfile } from '@/lib/api.types';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: Request) {
   const supabase = createClient();
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     }
     const res = await fetch(
       `https://api.themoviedb.org/3/account?api_key=${process.env.TMDB_API_KEY}&session_id=${supabaseProfile?.tmdb_session_id}`,
-      accountOptions
+      accountOptions,
     );
     const data: TmdbProfile = await res.json();
     return NextResponse.json(data);

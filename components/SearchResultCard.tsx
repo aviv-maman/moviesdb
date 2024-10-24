@@ -1,9 +1,10 @@
 'use server';
-import Link from 'next/link';
-import { MOVIE_GENRES, SERIES_GENRES } from '@/lib/data/search_filters';
-import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
-import SearchResultBadge from './SearchResultBadge';
+
 import { Image } from '@nextui-org/react';
+import Link from 'next/link';
+import SearchResultBadge from './SearchResultBadge';
+import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
+import { MOVIE_GENRES, SERIES_GENRES } from '@/lib/data/search_filters';
 
 interface SearchResultCardProps {
   data: MovieListResponse['results'][0] | SeriesListResponse['results'][0] | PersonListResponse['results'][0];
@@ -31,11 +32,26 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
       'poster_path' in data && data.poster_path
         ? `https://image.tmdb.org/t/p/w342/${data.poster_path}`
         : 'profile_path' in data && data.profile_path
-        ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
-        : './no-image.svg',
-    href: 'title' in data ? `/movies/item/${data.id}` : 'first_air_date' in data ? `/series/item/${data.id}` : `/people/item/${data.id}`,
-    rating: 'vote_average' in data ? (data.vote_average === 10 ? 10 : data.vote_average.toFixed(1)) : data.popularity.toFixed(1) || 0.0,
-    release_date: 'release_date' in data ? data.release_date.split('-')[0] : 'first_air_date' in data ? data.first_air_date.split('-')[0] : '',
+          ? `https://image.tmdb.org/t/p/w342/${data.profile_path}`
+          : './no-image.svg',
+    href:
+      'title' in data
+        ? `/movies/item/${data.id}`
+        : 'first_air_date' in data
+          ? `/series/item/${data.id}`
+          : `/people/item/${data.id}`,
+    rating:
+      'vote_average' in data
+        ? data.vote_average === 10
+          ? 10
+          : data.vote_average.toFixed(1)
+        : data.popularity.toFixed(1) || 0.0,
+    release_date:
+      'release_date' in data
+        ? data.release_date.split('-')[0]
+        : 'first_air_date' in data
+          ? data.first_air_date.split('-')[0]
+          : '',
     media_id: data.id,
     media_type: 'title' in data ? 'movie' : 'first_air_date' in data ? 'tv' : ('person' as 'movie' | 'tv' | 'person'),
     genres,
@@ -45,16 +61,16 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           ? Math.floor(data.vote_average) === 0
             ? 3
             : Math.floor(data.vote_average) <= 4
-            ? 0
-            : Math.floor(data.vote_average) <= 7
-            ? 1
-            : 2
+              ? 0
+              : Math.floor(data.vote_average) <= 7
+                ? 1
+                : 2
           : 0
       ],
   };
 
   return (
-    <article className='transition hover:shadow-lg hover:shadow-indigo-400/40 border my-4 bg-gray-100 dark:bg-gray-900 relative'>
+    <article className='relative my-4 border bg-gray-100 transition hover:shadow-lg hover:shadow-indigo-400/40 dark:bg-gray-900'>
       <Link href={item.href} className='flex'>
         <Image
           width={168}
@@ -62,7 +78,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           alt={item.title}
           src={item.image}
           radius='none'
-          className='object-cover border-r-1 sm:w-28 sm:h-[168px] md:w-56 h-[250px] md:h-[336px] z-0'
+          className='z-0 h-[250px] border-r-1 object-cover sm:h-[168px] sm:w-28 md:h-[336px] md:w-56'
           classNames={{ wrapper: 'md:min-w-56' }}
         />
 
@@ -70,12 +86,15 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           <div className='border-s border-gray-900/10 p-2 sm:border-l-transparent sm:p-6'>
             <div className='flex justify-between'>
               <div className='flex flex-col'>
-                <h3 className='font-bold text-gray-700 dark:text-gray-300 leading-tight'>{item.title}</h3>
+                <h3 className='font-bold leading-tight text-gray-700 dark:text-gray-300'>{item.title}</h3>
                 <span className='text-small'>
-                  {item.release_date} | {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
+                  {item.release_date} |{' '}
+                  {item.media_type === 'person' ? 'Person' : item.media_type === 'movie' ? 'Movie' : 'Series'}
                 </span>
               </div>
-              <p className={`text-sm font-semibold inline-flex items-center p-1.5 rounded h-fit ${item.ratingColor}`}>{item.rating}</p>
+              <p className={`inline-flex h-fit items-center rounded p-1.5 text-sm font-semibold ${item.ratingColor}`}>
+                {item.rating}
+              </p>
             </div>
 
             <p className='mt-2 line-clamp-3 text-sm/relaxed text-gray-600 dark:text-gray-400'>
@@ -83,7 +102,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
             </p>
           </div>
 
-          <div className='my-1 md:flex flex-wrap gap-1 p-6 hidden'>
+          <div className='my-1 hidden flex-wrap gap-1 p-6 md:flex'>
             {item.genres.map((genre, index) => (
               <SearchResultBadge key={`${index}-${genre}`} label={genre?.label} color={genre?.color} />
             ))}

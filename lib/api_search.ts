@@ -1,5 +1,11 @@
 'use server';
-import type { TrendingAllListResponse, TrendingMovieListResponse, TrendingPersonListResponse, TrendingSeriesListResponse } from './api.types';
+
+import type {
+  TrendingAllListResponse,
+  TrendingMovieListResponse,
+  TrendingPersonListResponse,
+  TrendingSeriesListResponse,
+} from './api.types';
 
 const reqOptionsGet: RequestInit = {
   method: 'GET',
@@ -66,12 +72,12 @@ export const filterSearch = async (options: FilterOptions) => {
     return options.media_type === 'multi'
       ? (data as TrendingAllListResponse)
       : options.media_type === 'movie'
-      ? (data as TrendingMovieListResponse)
-      : options.media_type === 'tv'
-      ? (data as TrendingSeriesListResponse)
-      : options.media_type === 'person'
-      ? (data as TrendingPersonListResponse)
-      : null;
+        ? (data as TrendingMovieListResponse)
+        : options.media_type === 'tv'
+          ? (data as TrendingSeriesListResponse)
+          : options.media_type === 'person'
+            ? (data as TrendingPersonListResponse)
+            : null;
   } catch (error) {
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)

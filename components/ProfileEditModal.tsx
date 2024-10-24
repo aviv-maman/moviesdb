@@ -1,16 +1,16 @@
 'use client';
 
-import { FC, useRef, useTransition } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input } from '@nextui-org/react';
-import { updateProfile } from '@/lib/api_profile';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import { useRef, useTransition } from 'react';
 import { useProfile } from '@/context/ProfileContext';
+import { updateProfile } from '@/lib/api_profile';
 
 interface ProfileEditModalProps {
   isOpen: boolean;
   onOpenChange: () => void;
 }
 
-const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) => {
+const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) => {
   const { dispatch, state } = useProfile();
   const fullNameRef = useRef<HTMLInputElement>(null);
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -45,11 +45,11 @@ const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) =
               <Button
                 variant='faded'
                 onPress={onClose}
-                className='bg-red-100 dark:bg-red-500 text-red-500 dark:text-red-100 hover:bg-red-300 hover:dark:bg-red-300 hover:text-red-600 hover:dark:text-red-600 border-red-400'>
+                className='border-red-400 bg-red-100 text-red-500 hover:bg-red-300 hover:text-red-600 dark:bg-red-500 dark:text-red-100 hover:dark:bg-red-300 hover:dark:text-red-600'>
                 Close
               </Button>
               <Button
-                className='bg-indigo-100 dark:bg-indigo-500 text-indigo-500 dark:text-indigo-100 hover:bg-indigo-300 hover:dark:bg-indigo-300 hover:text-indigo-600 hover:dark:text-indigo-600 border-indigo-400'
+                className='border-indigo-400 bg-indigo-100 text-indigo-500 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-indigo-500 dark:text-indigo-100 hover:dark:bg-indigo-300 hover:dark:text-indigo-600'
                 variant='faded'
                 isLoading={pending}
                 onClick={async () => {

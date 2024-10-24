@@ -1,9 +1,10 @@
 'use server';
-import { createClient } from '@/utils/supabase/server';
-import type { Profile } from './database.types';
+
 import type { PostgrestError } from '@supabase/supabase-js';
-import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import type { Profile } from './database.types';
+import { createClient } from '@/utils/supabase/server';
 
 export const signUp = async (formData: FormData) => {
   'use server';

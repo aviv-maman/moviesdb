@@ -1,18 +1,24 @@
 'use client';
 
-import { createContext, useContext, useEffect, type ReactNode } from 'react';
 import useLocalStorageState from '../hooks/useLocalStorageState';
+import { type ReactNode, createContext, useContext, useEffect } from 'react';
 
 const DarkModeContext = createContext({ isDarkMode: false, toggleDarkMode: () => {} });
 
 function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorageState(window.matchMedia('(prefers-color-scheme: dark)').matches, 'isDarkMode');
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches,
+    'isDarkMode',
+  );
 
   useEffect(() => {
     const className = 'dark';
     const bodyClass = window.document.body.classList;
-
-    isDarkMode ? bodyClass.add(className) : bodyClass.remove(className);
+    if (isDarkMode) {
+      bodyClass.add(className);
+    } else {
+      bodyClass.remove(className);
+    }
   }, [isDarkMode]);
 
   function toggleDarkMode() {

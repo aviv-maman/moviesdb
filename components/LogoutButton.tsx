@@ -1,13 +1,13 @@
 'use client';
 
-import { Button, ButtonProps } from '@nextui-org/react';
-// import { FC } from 'react';
+import type { ButtonProps } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 
 interface LogoutButtonProps extends ButtonProps {
   label?: string;
 }
 
-// const LogoutButton: FC<LogoutButtonProps> = ({ label = 'Logout', ...props }) => {
+// const LogoutButton: React.FC<LogoutButtonProps> = ({ label = 'Logout', ...props }) => {
 //   return <Button className='bg-red-400 opacity-95 hover:bg-red-500' onClick={signOut} {...props}>{label}</Button>;
 // };
 

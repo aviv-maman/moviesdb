@@ -1,6 +1,5 @@
 'use client';
 
-import { type FC } from 'react';
 import { Slider, type SliderProps } from '@nextui-org/react';
 
 interface SliderCustomProps extends SliderProps {
@@ -8,7 +7,7 @@ interface SliderCustomProps extends SliderProps {
   marksInterval?: number;
 }
 
-const SliderCustom: FC<SliderCustomProps> = ({ showMarks = true, marksInterval, ...props }) => {
+const SliderCustom: React.FC<SliderCustomProps> = ({ showMarks = true, marksInterval, ...props }) => {
   const renderMarks = () => {
     marksInterval = marksInterval ? marksInterval : props.step ? props.step : 1;
     const marksArray = [];

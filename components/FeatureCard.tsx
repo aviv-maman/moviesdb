@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import '@/styles/feature-card.css';
 
 interface FeatureCardProps {
@@ -10,7 +10,7 @@ interface FeatureCardProps {
   isLinkingRequired?: boolean;
 }
 
-const FeatureCard: FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingRequired }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingRequired }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   function mouseMoveEvent(e: MouseEvent) {
@@ -31,30 +31,35 @@ const FeatureCard: FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingReq
   return (
     <div
       ref={containerRef}
-      className='card flex flex-col relative overflow-hidden height-auto text-foreground box-border outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 shadow-medium rounded-large transition-transform-background motion-reduce:transition-none border bg-default-400/25 dark:bg-default-400/10 backdrop-blur-lg backdrop-saturate-[1.8]'
-      tabIndex={-1}
-    >
-      <div className='flex p-3 z-10 w-full justify-start items-center shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large gap-2 pb-0'>
-        <div className='flex justify-center p-2 rounded-full items-center bg-secondary-200/80 dark:bg-secondary-200 text-indigo-600 dark:text-indigo-500'>
+      className='card height-auto relative box-border flex flex-col overflow-hidden rounded-large border bg-default-400/25 text-foreground shadow-medium outline-none backdrop-blur-lg backdrop-saturate-[1.8] transition-transform-background data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-offset-2 data-[focus-visible=true]:outline-focus motion-reduce:transition-none dark:bg-default-400/10'
+      tabIndex={-1}>
+      <div className='overflow-inherit color-inherit z-10 flex w-full shrink-0 items-center justify-start gap-2 rounded-t-large p-3 pb-0 subpixel-antialiased'>
+        <div className='flex items-center justify-center rounded-full bg-secondary-200/80 p-2 text-indigo-600 dark:bg-secondary-200 dark:text-indigo-500'>
           <svg
             width='24'
             height='24'
             viewBox='0 0 24 24'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
-            className='opacity-80 group-hover:opacity-100'
-          >
+            className='opacity-80 group-hover:opacity-100'>
             {icon.map((path) => (
-              <path key={path} d={path} stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
+              <path
+                key={path}
+                d={path}
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
             ))}
           </svg>
         </div>
         <p className='text-base font-semibold'>{title}</p>
       </div>
-      <div className='relative flex w-full p-5 flex-auto flex-col place-content-inherit align-items-inherit h-auto break-words text-left overflow-y-auto subpixel-antialiased justify-between'>
-        <p className='text-slate-500 dark:text-slate-400 text-sm opacity-70'>{subtitle}</p>
+      <div className='place-content-inherit align-items-inherit relative flex h-auto w-full flex-auto flex-col justify-between overflow-y-auto break-words p-5 text-left subpixel-antialiased'>
+        <p className='text-sm text-slate-500 opacity-70 dark:text-slate-400'>{subtitle}</p>
         {isLinkingRequired && (
-          <span className='text-slate-500 dark:text-slate-400 text-tiny pt-3'>
+          <span className='pt-3 text-tiny text-slate-500 dark:text-slate-400'>
             *Linking your account to TMDB service is required.
           </span>
         )}

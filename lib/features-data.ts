@@ -2,7 +2,12 @@ export const features = [
   {
     title: 'Add to favorite list',
     subtitle: 'Add movies to your favorites list and keep track of what you want to watch next.',
-    icon: ['M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z', 'M9 7l6 0', 'M9 11l6 0', 'M9 15l4 0'],
+    icon: [
+      'M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z',
+      'M9 7l6 0',
+      'M9 11l6 0',
+      'M9 15l4 0',
+    ],
     isLinkingRequired: true,
   },
   {
@@ -43,7 +48,14 @@ export const features = [
   {
     title: 'Discover new movies',
     subtitle: 'Discover new movies by browsing through the top rated, most popular, and upcoming movies.',
-    icon: ['M8 16l2 -6l6 -2l-2 6l-6 2', 'M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0', 'M12 3l0 2', 'M12 19l0 2', 'M3 12l2 0', 'M19 12l2 0'],
+    icon: [
+      'M8 16l2 -6l6 -2l-2 6l-6 2',
+      'M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0',
+      'M12 3l0 2',
+      'M12 19l0 2',
+      'M3 12l2 0',
+      'M19 12l2 0',
+    ],
   },
   // {
   //   title: 'Filter by streaming services',

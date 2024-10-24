@@ -1,16 +1,15 @@
 'use client';
-import { useEffect, type FC } from 'react';
+
 import { Accordion, AccordionItem, Avatar, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
-import countries from '@/lib/data/countries.json';
-import { useForm } from '@/context/FormContext';
 import CheckboxService from './CheckboxService';
+import { useForm } from '@/context/FormContext';
+import countries from '@/lib/data/countries.json';
+
 // import { useGeoLocation } from '@/hooks/useGeoLocation';
 // import useSWR from 'swr';
 // import type { LocationResponse } from '@/lib/api.types';
 
-interface SidebarWhereToWatchProps {}
-
-const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
+const SidebarWhereToWatch: React.FC = () => {
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();
   //   const { error, loading, position } = useGeoLocation();
@@ -48,13 +47,12 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
         aria-label='Where to watch'
         title='Where to Watch'
         subtitle='Streaming Services'
-        classNames={{ title: 'text-md' }}
-      >
+        classNames={{ title: 'text-md' }}>
         <Select
           name='watch_region'
           label='Select country'
           aria-label='Select country'
-          className='max-w-xs mt-4'
+          className='mt-4 max-w-xs'
           //   isLoading={isLoading || isValidating}
           variant='bordered'
           color='success'
@@ -64,14 +62,13 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
             state.where_to_watch.country.length ? (
               <Avatar
                 alt={state.where_to_watch.country}
-                className='w-6 h-6'
+                className='h-6 w-6'
                 radius='sm'
                 src={`https://flagcdn.com/${state.where_to_watch.country.toLowerCase()}.svg`}
               />
             ) : null
           }
-          onChange={(e) => handleChangeCountry(e.target.value)}
-        >
+          onChange={(e) => handleChangeCountry(e.target.value)}>
           {countryList.map((option) => (
             <SelectItem
               key={option.iso_3166_1}
@@ -79,24 +76,22 @@ const SidebarWhereToWatch: FC<SidebarWhereToWatchProps> = ({}) => {
               startContent={
                 <Avatar
                   alt={option.english_name}
-                  className='w-6 h-6'
+                  className='h-6 w-6'
                   radius='sm'
                   src={`https://flagcdn.com/${option.iso_3166_1.toLowerCase()}.svg`}
                 />
-              }
-            >
+              }>
               {option.native_name}
             </SelectItem>
           ))}
         </Select>
-        <Divider orientation='horizontal' className='mt-5 mb-3' />
-        <h2 className='relative text-sm font-normal text-foreground-500 mb-2'>Available Services</h2>
+        <Divider orientation='horizontal' className='mb-3 mt-5' />
+        <h2 className='relative mb-2 text-sm font-normal text-foreground-500'>Available Services</h2>
         <CheckboxGroup
           name='with_watch_providers'
           orientation='horizontal'
           className='mb-2'
-          classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}
-        >
+          classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}>
           {state.where_to_watch.providers.map((option) => (
             <CheckboxService
               key={option.provider_id}

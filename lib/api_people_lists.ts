@@ -26,7 +26,10 @@ export const getPeople = async (options: PeopleApiOptions) => {
         searchParams.set(key, value.toString());
       }
     }
-    const res = await fetch(`https://api.themoviedb.org/3/person/${options.type}?${searchParams.toString()}`, reqOptions);
+    const res = await fetch(
+      `https://api.themoviedb.org/3/person/${options.type}?${searchParams.toString()}`,
+      reqOptions,
+    );
     return (await res.json()) as PersonListResponse;
   } catch (error) {
     if (error instanceof Error) {

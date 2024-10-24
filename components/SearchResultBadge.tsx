@@ -1,4 +1,5 @@
 'use server';
+
 import { Suspense } from 'react';
 
 interface SearchResultBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {

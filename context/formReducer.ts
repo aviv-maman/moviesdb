@@ -24,7 +24,7 @@ export const formReducer = (draft: FormContextState, action: FormActionMap) => {
       draft.where_to_watch.country = action.payload.value;
       const mutatedServices = services.map((provider) => ({ ...provider, is_selected: false }));
       draft.where_to_watch.providers = mutatedServices.filter((service) =>
-        Object.prototype.hasOwnProperty.call(service.display_priorities, draft.where_to_watch.country)
+        Object.prototype.hasOwnProperty.call(service.display_priorities, draft.where_to_watch.country),
       );
       draft.where_to_watch.providers.sort((a, b) => a.provider_name.localeCompare(b.provider_name));
       break;

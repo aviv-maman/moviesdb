@@ -1,12 +1,13 @@
 'use client';
-import { createContext, useContext, useMemo, type ReactNode, type Dispatch, useEffect } from 'react';
-import { formReducer } from './formReducer';
+
+import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useImmerReducer } from 'use-immer';
-import { SHOW_ME, SORT_BY, LANGUAGES } from '@/lib/data/search_filters';
+import { formReducer } from './formReducer';
+import { LANGUAGES, SHOW_ME, SORT_BY } from '@/lib/data/search_filters';
 
 export type FormStore = {
   state: FormContextState;
-  dispatch: Dispatch<FormActionMap>;
+  dispatch: React.Dispatch<FormActionMap>;
 };
 
 const initialContextState = {
@@ -29,7 +30,7 @@ const initialContextState = {
 
 const FormContext = createContext<FormStore>({ dispatch: () => {}, state: initialContextState });
 
-function FormProvider({ children }: { children: ReactNode }) {
+function FormProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useImmerReducer(formReducer, initialContextState);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);

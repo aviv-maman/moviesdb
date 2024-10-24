@@ -1,4 +1,5 @@
 'use server';
+
 import type { GeneralPostRes, MovieListResponse, SeriesListResponse } from './api.types';
 
 const reqOptionsGet: RequestInit = {
@@ -33,7 +34,10 @@ export const toggleFavorite = async (options: toggleFavOptions) => {
   const reqOptions: RequestInit = { ...reqOptionsPost, body: JSON.stringify({ media_type, media_id, favorite }) };
 
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/account/${account_id}/favorite?session_id=${session_id}`, reqOptions);
+    const res = await fetch(
+      `https://api.themoviedb.org/3/account/${account_id}/favorite?session_id=${session_id}`,
+      reqOptions,
+    );
     return (await res.json()) as GeneralPostRes;
   } catch (error) {
     if (error instanceof Error) {
@@ -66,7 +70,7 @@ export const getFavorites = async (options: getFavOptions) => {
   try {
     const res = await fetch(
       `https://api.themoviedb.org/3/account/${account_id}/favorite/${mediaTypePath}?language=${language}&page=${page}&session_id=${session_id}&sort_by=${sort_by}`,
-      { ...reqOptionsGet, cache: options.cache, next: { revalidate: options.revalidate } }
+      { ...reqOptionsGet, cache: options.cache, next: { revalidate: options.revalidate } },
     );
     // if (!res.ok) throw new Error(`${res.status} - ${res.statusText}`);
     const data = await res.json();

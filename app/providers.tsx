@@ -1,15 +1,14 @@
 'use client';
 
-import { type ReactNode } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import StyledComponentsRegistry from '@/lib/registry';
+import { useRouter } from 'next/navigation';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import { FormProvider } from '@/context/FormContext';
-import { SWRConfigProvider } from '@/context/SWRConfigContext';
 import { ProfileProvider } from '@/context/ProfileContext';
-import { useRouter } from 'next/navigation';
+import { SWRConfigProvider } from '@/context/SWRConfigContext';
+import StyledComponentsRegistry from '@/lib/registry';
 
-export function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   return (

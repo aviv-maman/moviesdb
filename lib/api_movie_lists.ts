@@ -28,7 +28,10 @@ export const getMovies = async (options: MoviesApiOptions) => {
         searchParams.set(key, value.toString());
       }
     }
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${options.type}?${searchParams.toString()}`, reqOptions);
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${options.type}?${searchParams.toString()}`,
+      reqOptions,
+    );
     return (await res.json()) as MovieListResponse | undefined;
   } catch (error) {
     if (error instanceof Error) {

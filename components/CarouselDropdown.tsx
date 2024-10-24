@@ -1,9 +1,10 @@
 'use client';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { IconDots, IconHeart, IconHeartFilled, IconMovie } from '@tabler/icons-react';
+import { toast } from 'sonner';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
-import { toast } from 'sonner';
 
 interface CarouselDropdownProps {
   className?: HTMLElement['className'];
@@ -30,7 +31,9 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
       toast.error('An error was occurred');
       return;
     }
-    toast.success(state.favorites['movie'].includes(mediaId) ? 'Item was removed from favorites' : 'Item was added to favorites');
+    toast.success(
+      state.favorites['movie'].includes(mediaId) ? 'Item was removed from favorites' : 'Item was added to favorites',
+    );
     dispatch({ type: 'toggled_favorite_item', payload: { value: { media_type: mediaType, id: mediaId } } });
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
@@ -49,8 +52,8 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
     <>
       <Dropdown className={className}>
         <DropdownTrigger>
-          <button className='rounded-lg bg-default-300 hover:bg-current absolute top-1 left-1'>
-            <IconDots className='text-xl text-default-500 pointer-events-none flex-shrink-0' />
+          <button className='absolute left-1 top-1 rounded-lg bg-default-300 hover:bg-current'>
+            <IconDots className='pointer-events-none flex-shrink-0 text-xl text-default-500' />
           </button>
         </DropdownTrigger>
         <DropdownMenu

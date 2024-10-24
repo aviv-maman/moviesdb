@@ -2,10 +2,12 @@
 
 const FavoriteListCardSkeleton: React.FC = () => {
   return (
-    <div role='status' className='border border-gray-200 shadow animate-pulse dark:border-gray-700 flex bg-gray-100 dark:bg-gray-900'>
-      <div className='flex items-center justify-center w-28 h-[168px] md:w-56 md:h-[336px] bg-gray-300 dark:bg-gray-700'>
+    <div
+      role='status'
+      className='flex animate-pulse border border-gray-200 bg-gray-100 shadow dark:border-gray-700 dark:bg-gray-900'>
+      <div className='flex h-[168px] w-28 items-center justify-center bg-gray-300 dark:bg-gray-700 md:h-[336px] md:w-56'>
         <svg
-          className='w-10 h-10 text-gray-200 dark:text-gray-600'
+          className='h-10 w-10 text-gray-200 dark:text-gray-600'
           aria-hidden='true'
           xmlns='http://www.w3.org/2000/svg'
           fill='currentColor'
@@ -16,23 +18,23 @@ const FavoriteListCardSkeleton: React.FC = () => {
       </div>
       <div className='flex flex-1 flex-col justify-between'>
         <div className='border-s border-gray-900/10 p-2 sm:border-l-transparent sm:p-6'>
-          <div className='flex justify-between mb-4 md:mb-4'>
+          <div className='mb-4 flex justify-between md:mb-4'>
             <div>
-              <div className='h-4 bg-gray-300 rounded-full dark:bg-gray-700 w-40 mb-2 md:w-80'></div>
-              <div className='h-4 bg-gray-300 rounded-full dark:bg-gray-700 w-40 mb-2 md:hidden'></div>
-              <div className='h-3 bg-gray-300 rounded-full dark:bg-gray-700 w-20'></div>
+              <div className='mb-2 h-4 w-40 rounded-full bg-gray-300 dark:bg-gray-700 md:w-80'></div>
+              <div className='mb-2 h-4 w-40 rounded-full bg-gray-300 dark:bg-gray-700 md:hidden'></div>
+              <div className='h-3 w-20 rounded-full bg-gray-300 dark:bg-gray-700'></div>
             </div>
-            <div className='bg-gray-300 rounded dark:bg-gray-700 w-8 h-8 mb-4'></div>
+            <div className='mb-4 h-8 w-8 rounded bg-gray-300 dark:bg-gray-700'></div>
           </div>
-          <div className='h-3 bg-gray-300 rounded-full dark:bg-gray-700 mb-2'></div>
-          <div className='h-3 bg-gray-300 rounded-full dark:bg-gray-700 mb-2'></div>
-          <div className='h-3 bg-gray-300 rounded-full dark:bg-gray-700'></div>
+          <div className='mb-2 h-3 rounded-full bg-gray-300 dark:bg-gray-700'></div>
+          <div className='mb-2 h-3 rounded-full bg-gray-300 dark:bg-gray-700'></div>
+          <div className='h-3 rounded-full bg-gray-300 dark:bg-gray-700'></div>
         </div>
 
-        <div className='my-1 md:flex flex-wrap gap-1 p-6 hidden'>
-          <div className='h-5 w-16 bg-gray-300 rounded-full dark:bg-gray-700 mb-2'></div>
-          <div className='h-5 w-16 bg-gray-300 rounded-full dark:bg-gray-700 mb-2'></div>
-          <div className='h-5 w-16 bg-gray-300 rounded-full dark:bg-gray-700'></div>
+        <div className='my-1 hidden flex-wrap gap-1 p-6 md:flex'>
+          <div className='mb-2 h-5 w-16 rounded-full bg-gray-300 dark:bg-gray-700'></div>
+          <div className='mb-2 h-5 w-16 rounded-full bg-gray-300 dark:bg-gray-700'></div>
+          <div className='h-5 w-16 rounded-full bg-gray-300 dark:bg-gray-700'></div>
         </div>
       </div>
 
