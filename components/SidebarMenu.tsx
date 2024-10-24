@@ -1,16 +1,14 @@
 'use client';
-import { type FC } from 'react';
+
+import { IconSearch } from '@tabler/icons-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import ButtonCustom from './ButtonCustom';
+import SidebarFilters from './SidebarFilters';
 import SidebarSortBy from './SidebarSortBy';
 import SidebarWhereToWatch from './SidebarWhereToWatch';
-import SidebarFilters from './SidebarFilters';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { AVAILABILITIES, MOVIE_GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
-import ButtonCustom from './ButtonCustom';
-import { IconSearch } from '@tabler/icons-react';
 
-interface SidebarMenuProps {}
-
-const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
+const SidebarMenu: React.FC = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -109,25 +107,28 @@ const SidebarMenu: FC<SidebarMenuProps> = ({}) => {
   }
 
   return (
-    <aside id='logo-sidebar' className='min-[960px]:border-r border-gray-200 dark:border-neutral-800 p-4' aria-label='Sidebar'>
-      <div className='h-full overflow-y-auto w-full min-[960px]:w-80'>
+    <aside
+      id='logo-sidebar'
+      className='border-gray-200 p-4 dark:border-neutral-800 min-[960px]:border-r'
+      aria-label='Sidebar'>
+      <div className='h-full w-full overflow-y-auto min-[960px]:w-80'>
         <form action={handleSearch}>
           <ul className='space-y-4 font-medium'>
-            <li className='bg-foreground-50 rounded-medium'>
+            <li className='rounded-medium bg-foreground-50'>
               <SidebarSortBy />
             </li>
-            <li className='bg-foreground-50 rounded-medium'>
+            <li className='rounded-medium bg-foreground-50'>
               <SidebarWhereToWatch />
             </li>
-            <li className='bg-foreground-50 rounded-medium'>
+            <li className='rounded-medium bg-foreground-50'>
               <SidebarFilters />
             </li>
           </ul>
-          <div className='w-full flex justify-center'>
+          <div className='flex w-full justify-center'>
             <ButtonCustom
               type='submit'
               label='Search'
-              className='mt-4 w-full max-w-sm text-secondary-500 bg-secondary-200 dark:bg-secondary-300 dark:text-secondary-700'
+              className='mt-4 w-full max-w-sm bg-secondary-200 text-secondary-500 dark:bg-secondary-300 dark:text-secondary-700'
               variant='shadow'
               startContent={<IconSearch size={18} />}
             />

@@ -1,8 +1,9 @@
 'use client';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ButtonCustom from './ButtonCustom';
+
 import { IconSquareChevronLeft, IconSquareChevronRight } from '@tabler/icons-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
+import ButtonCustom from './ButtonCustom';
 
 interface LoadPageBtnProps {
   label?: 'Back' | 'Next';

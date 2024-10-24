@@ -1,5 +1,14 @@
-import { IconClockDown, IconDeviceTv, IconMeteor, IconPlayerPlay, IconStar, IconStarFilled, IconStars, IconStarsFilled } from '@tabler/icons-react';
 import { type DropdownItemProps } from '@nextui-org/react';
+import {
+  IconClockDown,
+  IconDeviceTv,
+  IconMeteor,
+  IconPlayerPlay,
+  IconStar,
+  IconStarFilled,
+  IconStars,
+  IconStarsFilled,
+} from '@tabler/icons-react';
 
 export const movieLinks = [
   {
@@ -54,19 +63,6 @@ export const seriesLinks = [
     icon: <IconClockDown size={24} color='#dc2626' />,
   },
 ];
-
-// const navLinks = [
-//   { href: '/movies', label: 'Movies', targetSegment: 'movies' },
-//   { href: '/series', label: 'Series', targetSegment: 'series' },
-// ];
-
-// const navItems = navLinks.map((link) => (
-//   <NavbarItem key={link.label} isActive={activeSegment === link.targetSegment}>
-//     <Link href={link.href} color={activeSegment === link.targetSegment ? 'primary' : 'foreground'}>
-//       {link.label}
-//     </Link>
-//   </NavbarItem>
-// ));
 
 export const avatarDropItems = {
   guest: [

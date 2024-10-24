@@ -2,15 +2,13 @@
 
 import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
 import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
-import { type FC, useTransition } from 'react';
+import { useTransition } from 'react';
 import ProfileEditModal from './ProfileEditModal';
 import { useProfile } from '@/context/ProfileContext';
 import { updateProfile } from '@/lib/api_profile';
 import { createClient } from '@/utils/supabase/client';
 
-interface ProfileSettingsProps {}
-
-const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
+const ProfileSettings: React.FC = () => {
   const { dispatch, state } = useProfile();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [uploadPending, startUploadTransition] = useTransition();

@@ -1,10 +1,10 @@
 'use client';
 
-import { useProfile } from '@/context/ProfileContext';
-import { getFavorites, toggleFavorite } from '@/lib/api_account';
 import { Button } from '@nextui-org/react';
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import { toast } from 'sonner';
+import { useProfile } from '@/context/ProfileContext';
+import { getFavorites, toggleFavorite } from '@/lib/api_account';
 
 type ButtonHeartPageProps = {
   mediaId: number;
@@ -26,7 +26,9 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
       toast.error('An error was occurred');
       return;
     }
-    toast.success(state.favorites['movie'].includes(mediaId) ? 'Item was removed from favorites' : 'Item was added to favorites');
+    toast.success(
+      state.favorites['movie'].includes(mediaId) ? 'Item was removed from favorites' : 'Item was added to favorites',
+    );
     dispatch({ type: 'toggled_favorite_item', payload: { value: { media_type: 'movie', id: mediaId } } });
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
@@ -42,7 +44,12 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
   };
 
   return (
-    <Button isIconOnly size='sm' aria-label='Like' isDisabled={!state.supabase_profile?.tmdb_session_id} onClick={handleFavorite}>
+    <Button
+      isIconOnly
+      size='sm'
+      aria-label='Like'
+      isDisabled={!state.supabase_profile?.tmdb_session_id}
+      onClick={handleFavorite}>
       {state.favorites['movie'].includes(mediaId) ? <IconHeartFilled size={20} /> : <IconHeart size={20} />}
     </Button>
   );

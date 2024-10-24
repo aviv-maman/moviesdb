@@ -1,6 +1,6 @@
 'use client';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
-import { IconDots, IconHeart, IconHeartFilled, IconList, IconMovie, IconStarFilled } from '@tabler/icons-react';
+import { IconDots, IconHeart, IconHeartFilled, IconMovie } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
 import { toast } from 'sonner';
@@ -60,9 +60,6 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
           <DropdownItem key='details' href={href} startContent={<IconMovie className={iconClasses} size={18} />}>
             View details
           </DropdownItem>
-          {/* <DropdownItem key='list' startContent={<IconList className={iconClasses} size={18} />}>
-            Add to watch list
-          </DropdownItem> */}
           <DropdownItem
             key='favorites'
             startContent={
@@ -75,9 +72,6 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
             onClick={handleFavorite}>
             {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
           </DropdownItem>
-          {/* <DropdownItem key='rate' startContent={<IconStarFilled className={iconClasses} size={18} />}>
-          Rate
-        </DropdownItem> */}
         </DropdownMenu>
       </Dropdown>
     </>

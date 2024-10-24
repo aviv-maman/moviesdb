@@ -1,14 +1,14 @@
 'use client';
 
-import { type FC } from 'react';
-import { useCheckbox, Chip, VisuallyHidden, tv, CheckboxProps } from '@nextui-org/react';
+import { Chip, VisuallyHidden, tv, useCheckbox } from '@nextui-org/react';
+import type { CheckboxProps } from '@nextui-org/react';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 interface CheckboxGenreProps extends CheckboxProps {
   label: string;
 }
 
-const CheckboxGenre: FC<CheckboxGenreProps> = (props) => {
+const CheckboxGenre: React.FC<CheckboxGenreProps> = (props) => {
   const { children, isSelected, isFocusVisible, getBaseProps, getLabelProps, getInputProps } = useCheckbox({
     ...props,
   });

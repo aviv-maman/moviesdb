@@ -1,31 +1,32 @@
 'use client';
-import { useState, type FC, useEffect } from 'react';
-import DarkModeToggle from './DarkModeToggle';
-import { type User } from '@supabase/supabase-js';
-import { IconSearch } from '@tabler/icons-react';
+
 import {
+  Avatar,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+  Link,
   Navbar,
   NavbarContent,
-  Link,
-  Input,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle,
 } from '@nextui-org/react';
-import Logo from './Logo';
+import { type User } from '@supabase/supabase-js';
+import { IconSearch } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import type { Profile } from '@/lib/database.types';
-import HeaderDropdown from './HeaderDropdown';
-import { avatarDropItems, movieLinks, seriesLinks } from '@/lib/header-links';
+import { useEffect, useState } from 'react';
 import ButtonCustom from './ButtonCustom';
-import { signOut } from '@/lib/auth';
+import DarkModeToggle from './DarkModeToggle';
+import HeaderDropdown from './HeaderDropdown';
+import Logo from './Logo';
 import { useProfile } from '@/context/ProfileContext';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
+import { signOut } from '@/lib/auth';
+import type { Profile } from '@/lib/database.types';
+import { avatarDropItems, movieLinks, seriesLinks } from '@/lib/header-links';
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -34,7 +35,7 @@ type HeaderProps = {
   favSeries?: SeriesItem[];
 };
 
-const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
+const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();
@@ -71,14 +72,14 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent justify='start'>
-        <div onClick={() => push('/')} className='cursor-pointer flex items-center gap-3'>
+        <div onClick={() => push('/')} className='flex cursor-pointer items-center gap-3'>
           <Logo />
           <span className='hidden md:inline-block'>MoviesDB</span>
         </div>
 
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className='sm:hidden' />
 
-        <NavbarContent className='hidden sm:flex gap-3'>
+        <NavbarContent className='hidden gap-3 sm:flex'>
           <HeaderDropdown targetSegment='movies' links={movieLinks} />
           <HeaderDropdown targetSegment='series' links={seriesLinks} />
           {/* {navItems} */}
@@ -100,7 +101,13 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
             size='sm'
             startContent={<IconSearch size={18} />}
             endContent={
-              <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-9 w-12 left-2 top-[1px]'>
+              <ButtonCustom
+                type='submit'
+                isIconOnly
+                size='sm'
+                variant='flat'
+                color='primary'
+                className='left-2 top-[1px] h-9 w-12'>
                 <IconSearch size={16} />
               </ButtonCustom>
             }
@@ -135,7 +142,13 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
                   size='sm'
                   startContent={<IconSearch size={18} />}
                   endContent={
-                    <ButtonCustom type='submit' isIconOnly size='sm' variant='flat' color='primary' className='h-10 w-12 left-2 top-[1px]'>
+                    <ButtonCustom
+                      type='submit'
+                      isIconOnly
+                      size='sm'
+                      variant='flat'
+                      color='primary'
+                      className='left-2 top-[1px] h-10 w-12'>
                       <IconSearch size={16} />
                     </ButtonCustom>
                   }
@@ -188,18 +201,30 @@ const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
       </NavbarContent>
 
       <NavbarMenu>
-        <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>MOVIES</span>
+        <span className='bg-foreground-200 text-center font-semibold text-primary-600 dark:bg-foreground-100'>
+          MOVIES
+        </span>
         {movieLinks.map((item, index) => (
           <NavbarMenuItem key={`${index}-${item.label}`}>
-            <Link className='w-full text-default-900 dark:text-default-500 h-9' href={item.href} size='lg' onClick={() => setIsMenuOpen(false)}>
+            <Link
+              className='h-9 w-full text-default-900 dark:text-default-500'
+              href={item.href}
+              size='lg'
+              onClick={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>
         ))}
-        <span className='text-primary-600 font-semibold bg-foreground-200 dark:bg-foreground-100 text-center'>SERIES</span>
+        <span className='bg-foreground-200 text-center font-semibold text-primary-600 dark:bg-foreground-100'>
+          SERIES
+        </span>
         {seriesLinks.map((item, index) => (
           <NavbarMenuItem key={`${index}-${item.label}`}>
-            <Link className='w-full text-default-900 dark:text-default-500 h-9' href={item.href} size='lg' onClick={() => setIsMenuOpen(false)}>
+            <Link
+              className='h-9 w-full text-default-900 dark:text-default-500'
+              href={item.href}
+              size='lg'
+              onClick={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>

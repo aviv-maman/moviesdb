@@ -1,20 +1,19 @@
 'use client';
-import { type FC } from 'react';
+
 import { Listbox, ListboxItem } from '@nextui-org/react';
 import { IconTopologyStar, IconUserCog } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 
-interface ProfileMenuProps {}
-
-const ProfileMenu: FC<ProfileMenuProps> = ({}) => {
+const ProfileMenu: React.FC = () => {
   const { dispatch } = useProfile();
 
   return (
-    <div className='sm:w-full md:max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 mr-0 md:mr-4 my-4 md:my-0'>
+    <div className='my-4 mr-0 rounded-small border-small border-default-200 px-1 py-2 dark:border-default-100 sm:w-full md:my-0 md:mr-4 md:max-w-[260px]'>
       <Listbox
         aria-label='Actions'
-        onAction={(key) => dispatch({ type: 'changed_active_view', payload: { value: key as 'profile' | 'integrations' } })}
-      >
+        onAction={(key) =>
+          dispatch({ type: 'changed_active_view', payload: { value: key as 'profile' | 'integrations' } })
+        }>
         <ListboxItem key='profile' startContent={<IconUserCog />}>
           Profile Settings
         </ListboxItem>

@@ -87,7 +87,6 @@ export const updateProfile = async (profile: Database['public']['Tables']['profi
       .single();
     if ((error && status !== 406) || (userRes.error && userRes.error.status !== 406)) throw error;
     return data;
-    console.error('Profile updated!');
   } catch (error) {
     console.error('Error updating the data!');
   }

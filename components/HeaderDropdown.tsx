@@ -3,7 +3,6 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, NavbarItem } from '@nextui-org/react';
 import { IconChevronDown } from '@tabler/icons-react';
 import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
-import type { ReactNode, FC } from 'react';
 
 interface HeaderDropdownProps {
   targetSegment: string;
@@ -11,11 +10,11 @@ interface HeaderDropdownProps {
     href: string;
     label: string;
     description: string;
-    icon: ReactNode;
+    icon: React.ReactNode;
   }[];
 }
 
-const HeaderDropdown: FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
+const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
   const router = useRouter();
   const activeSegment = useSelectedLayoutSegment();
   const activeSegments = useSelectedLayoutSegments();
@@ -30,7 +29,7 @@ const HeaderDropdown: FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
         <DropdownTrigger>
           <Link
             color={activeSegment === targetSegment ? 'primary' : 'foreground'}
-            className='p-0 bg-transparent data-[hover=true]:bg-transparent cursor-pointer'>
+            className='cursor-pointer bg-transparent p-0 data-[hover=true]:bg-transparent'>
             {capitalizedLabel} {<IconChevronDown size={18} />}
           </Link>
         </DropdownTrigger>

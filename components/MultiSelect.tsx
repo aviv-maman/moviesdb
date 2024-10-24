@@ -1,4 +1,3 @@
-import { type FC } from 'react';
 import AsyncSelect from 'react-select/async';
 import { useDarkMode } from '@/context/DarkModeContext';
 import type { KeywordList } from '@/lib/api.types';
@@ -15,7 +14,7 @@ interface MultiSelectProps {
   name?: string;
 }
 
-const MultiSelect: FC<MultiSelectProps> = ({ title, name }) => {
+const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
   const { results } = keywords as KeywordList;
   const { isDarkMode } = useDarkMode();
 

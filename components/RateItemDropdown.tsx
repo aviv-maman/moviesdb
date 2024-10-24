@@ -1,10 +1,9 @@
 'use client';
+
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { IconStarFilled, IconStarHalfFilled, IconStarOff } from '@tabler/icons-react';
 
-interface RateItemDropdownProps {}
-
-const RateItemDropdown: React.FC<RateItemDropdownProps> = ({}) => {
+const RateItemDropdown: React.FC = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
