@@ -10,5 +10,5 @@ export default function StyledComponentsRegistry({ children }: { children: React
   }, []);
 
   if (!windowInitialized) return null;
-  return <>{children}</>;
+  if (typeof window !== 'undefined') return <>{children}</>;
 }
