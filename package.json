@@ -8,9 +8,9 @@
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
     "@splidejs/react-splide": "^0.7.12",
-    "@supabase/ssr": "^0.5.1",
-    "@supabase/supabase-js": "^2.45.6",
-    "@tabler/icons-react": "^3.20.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.46.1",
+    "@tabler/icons-react": "^3.22.0",
     "framer-motion": "^11.11.9",
     "immer": "^10.1.1",
     "next": "^14.2.16",
@@ -34,7 +34,7 @@
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3"
   }
 }
