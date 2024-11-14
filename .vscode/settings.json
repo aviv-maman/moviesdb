@@ -15,6 +15,7 @@
         "tailwindcss",
         "tmdb",
         "trivago",
+        "tseslint",
         "upsert"
     ],
     "typescript.tsdk": "node_modules\\typescript\\lib"
