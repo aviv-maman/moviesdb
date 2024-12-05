@@ -9,7 +9,7 @@
     "@nextui-org/react": "^2.4.8",
     "@splidejs/react-splide": "^0.7.12",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.46.2",
+    "@supabase/supabase-js": "^2.47",
     "@tabler/icons-react": "^3.24.0",
     "framer-motion": "^11.13.1",
     "immer": "^10.1.1",
@@ -23,7 +23,7 @@
     "use-immer": "^0.10.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.0.1",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.13",
     "@types/react-dom": "^18.3.1",
