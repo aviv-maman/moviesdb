@@ -8,10 +8,10 @@ import { getProfile } from '@/lib/auth';
 import { createClient } from '@/utils/supabase/server';
 
 interface SearchProps {
-  searchParams?: {
+  searchParams?: Promise<{
     media_type?: 'movie' | 'tv';
     page?: number;
-  };
+  }>;
 }
 
 const Search: React.FC<SearchProps> = async () => {
