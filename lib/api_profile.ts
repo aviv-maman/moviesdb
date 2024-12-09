@@ -13,7 +13,7 @@ export const handleLinkAccount = async () => {
     cache: 'no-cache', // cache: 'force-cache',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
   };
 
@@ -44,7 +44,7 @@ export const handleUnlinkAccount = async () => {
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
   };
   const res = await fetch('https://api.themoviedb.org/3/authentication/session', options);
