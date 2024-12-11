@@ -6,45 +6,42 @@
     "start": "next start"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.6.5",
+    "@nextui-org/react": "^2.6.8",
     "@splidejs/react-splide": "^0.7.12",
     "@supabase/ssr": "^0.5.2",
-    "@supabase/supabase-js": "^2.47.3",
+    "@supabase/supabase-js": "^2.47.5",
     "@tabler/icons-react": "^3.24.0",
     "framer-motion": "12.0.0-alpha.2",
     "immer": "^10.1.1",
-    "next": "^15.0.4",
+    "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-select": "^5.8.3",
     "rsuite": "^5.75.0",
     "sonner": "^1.7.1",
     "swr": "2.2.6-beta.4",
-    "use-immer": "^0.10.0"
+    "use-immer": "^0.11.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.16.0",
-    "eslint-config-next": "^15.0.4",
+    "eslint-config-next": "^15.1.0",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.17.0"
+    "typescript-eslint": "^8.18.0"
   },
   "overrides": {
     "react-select": {
       "react": "19.0.0",
       "react-dom": "19.0.0"
-    },
-    "use-immer": {
-      "react": "19.0.0"
     }
   }
 }
