@@ -11,13 +11,13 @@ interface CheckboxServiceProps extends CheckboxProps {
 
 const checkbox = tv({
   slots: {
-    base: 'border-default hover:bg-default-200 h-11 w-11 rounded-lg flex items-center justify-center px-0',
-    content: 'text-default-500 px-0',
+    base: 'flex w-11 h-11 items-center justify-center rounded-lg border-default px-0 hover:bg-default-200',
+    content: 'px-0 text-default-500',
   },
   variants: {
     isSelected: {
       true: {
-        base: 'border-primary bg-primary hover:bg-primary-500 hover:border-primary-500',
+        base: 'border-primary bg-primary hover:border-primary-500 hover:bg-primary-500',
         content: 'text-primary-foreground',
       },
     },

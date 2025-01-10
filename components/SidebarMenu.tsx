@@ -111,7 +111,7 @@ const SidebarMenu: React.FC = () => {
       id='logo-sidebar'
       className='border-gray-200 p-4 dark:border-neutral-800 min-[960px]:border-r'
       aria-label='Sidebar'>
-      <div className='h-full w-full overflow-y-auto min-[960px]:w-80'>
+      <div className='size-full overflow-y-auto min-[960px]:w-80'>
         <form action={handleSearch}>
           <ul className='space-y-4 font-medium'>
             <li className='rounded-medium bg-foreground-50'>
@@ -120,9 +120,7 @@ const SidebarMenu: React.FC = () => {
             <li className='rounded-medium bg-foreground-50'>
               <SidebarWhereToWatch />
             </li>
-            <li className='rounded-medium bg-foreground-50'>
-              <SidebarFilters />
-            </li>
+            <li className='rounded-medium bg-foreground-50'>{/* <SidebarFilters /> */}</li>
           </ul>
           <div className='flex w-full justify-center'>
             <ButtonCustom

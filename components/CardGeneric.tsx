@@ -54,12 +54,12 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
   };
 
   return (
-    <div className='relative h-full max-w-[11rem] rounded-md'>
+    <div className='relative h-full max-w-44 rounded-md'>
       <Link
         href={item.href}
         isDisabled={item.href.includes('people')}
         disableAnimation
-        className='absolute bottom-0 left-0 right-0 top-0 z-10 rounded-md sm:hover:bg-violet-400 sm:hover:opacity-20'
+        className='absolute inset-0 z-10 rounded-md sm:hover:bg-violet-400 sm:hover:opacity-20'
       />
       <Image
         src={item.image}
