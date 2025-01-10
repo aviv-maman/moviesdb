@@ -53,7 +53,7 @@ export default function Login() {
             <div className='mx-auto flex justify-center'>
               <Logo className='h-20' />
             </div>
-            <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign in to access your account</p>
+            <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign In to access your account</p>
           </div>
 
           <div className='mt-8'>
@@ -107,7 +107,7 @@ export default function Login() {
             <p className='mt-6 text-center text-sm text-gray-400'>
               Don&#x27;t have an account yet?{' '}
               <Link href='/register' className='text-blue-500 hover:underline focus:underline focus:outline-none'>
-                Sign up
+                Sign Up
               </Link>
             </p>
           </div>

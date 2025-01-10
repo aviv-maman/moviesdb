@@ -108,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 size='sm'
                 variant='flat'
                 color='primary'
-                className='left-2 top-[1px] h-9 w-12'>
+                className='left-2 top-px h-9 w-12'>
                 <IconSearch size={16} />
               </ButtonCustom>
             }
@@ -119,7 +119,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 formElement?.requestSubmit();
               }
             }}
-            defaultValue={searchParams.get('query') || ''}
+            defaultValue={searchParams.get('query')?.toString()}
           />
         </form>
 
@@ -150,7 +150,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                       size='sm'
                       variant='flat'
                       color='primary'
-                      className='left-2 top-[1px] h-10 w-12'>
+                      className='left-2 top-px h-10 w-12'>
                       <IconSearch size={16} />
                     </ButtonCustom>
                   }
@@ -161,7 +161,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                       formElement?.requestSubmit();
                     }
                   }}
-                  defaultValue={searchParams.get('query') || ''}
+                  defaultValue={searchParams.get('query')?.toString()}
                 />
               </form>
             </DropdownItem>
@@ -191,7 +191,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 ))
               : avatarDropItems.user.map((item) => (
                   <DropdownItem
-                    onClick={item.key === 'logout' ? handleSignOut : undefined}
+                    onPress={item.key === 'logout' ? handleSignOut : undefined}
                     description={item.key === 'profile' && user.email}
                     {...item}
                     key={item.key}>
@@ -212,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
               className='h-9 w-full text-default-900 dark:text-default-500'
               href={item.href}
               size='lg'
-              onClick={() => setIsMenuOpen(false)}>
+              onPress={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>
@@ -226,7 +226,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
               className='h-9 w-full text-default-900 dark:text-default-500'
               href={item.href}
               size='lg'
-              onClick={() => setIsMenuOpen(false)}>
+              onPress={() => setIsMenuOpen(false)}>
               {item.label}
             </Link>
           </NavbarMenuItem>
