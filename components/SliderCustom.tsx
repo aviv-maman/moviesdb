@@ -21,11 +21,10 @@ const SliderCustom: React.FC<SliderCustomProps> = ({ showMarks = true, marksInte
   return (
     <Slider
       aria-label={`${props.label}`}
-      showSteps
-      showTooltip
       marks={showMarks ? renderMarks() : undefined}
       color='foreground'
-      classNames={{ mark: 'text-xs text-slate-600 dark:text-slate-400' }}
+      size='sm'
+      classNames={{ mark: 'text-xs text-slate-600 dark:text-slate-400', base: 'px-1' }}
       minValue={props.minValue || 0}
       {...props}
     />

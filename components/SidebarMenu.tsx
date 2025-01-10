@@ -120,7 +120,9 @@ const SidebarMenu: React.FC = () => {
             <li className='rounded-medium bg-foreground-50'>
               <SidebarWhereToWatch />
             </li>
-            <li className='rounded-medium bg-foreground-50'>{/* <SidebarFilters /> */}</li>
+            <li className='rounded-medium bg-foreground-50'>
+              <SidebarFilters />
+            </li>
           </ul>
           <div className='flex w-full justify-center'>
             <ButtonCustom
