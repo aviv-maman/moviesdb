@@ -55,7 +55,7 @@ export default function RegisterPage() {
             <div className='mx-auto flex justify-center'>
               <Logo className='h-20' />
             </div>
-            <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign up to enjoy all the features</p>
+            <p className='mt-3 text-gray-500 dark:text-gray-300'>Sign Up to enjoy all the features</p>
           </div>
 
           <div className='mt-8'>
@@ -103,7 +103,7 @@ export default function RegisterPage() {
             <p className='mt-6 text-center text-sm text-gray-400'>
               Already have an account?{' '}
               <Link href='/login' className='text-blue-500 hover:underline focus:underline focus:outline-none'>
-                Sign in
+                Sign In
               </Link>
             </p>
           </div>
