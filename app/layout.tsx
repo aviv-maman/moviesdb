@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
 import { Providers } from '@/app/providers';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
 import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
 import { getProfile } from '@/lib/auth';
+import { GeistSans } from '@/lib/fonts';
 import '@/styles/globals.css';
 import { createClient } from '@/utils/supabase/server';
 
@@ -20,8 +20,6 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 };
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -54,7 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
-      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
+      <body className={`${GeistSans.className} min-h-screen bg-background text-foreground antialiased`}>
         <Providers>
           <Header user={user} profile={profile} favMovies={favMovies} favSeries={favSeries} />
           {children}
