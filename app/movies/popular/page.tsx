@@ -2,7 +2,7 @@ import PageResultsMovies from '@/components/PageResultsMovies';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface PopularMoviesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const PopularMovies: React.FC<PopularMoviesProps> = async ({ searchParams }) => {

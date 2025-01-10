@@ -1,27 +1,24 @@
 'use client';
 
 import { NextUIProvider } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import { FormProvider } from '@/context/FormContext';
 import { ProfileProvider } from '@/context/ProfileContext';
 import { SWRConfigProvider } from '@/context/SWRConfigContext';
-import StyledComponentsRegistry from '@/lib/registry';
+import { useIsClient } from '@/hooks/useIsClient';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const isClient = useIsClient();
 
-  return (
-    <StyledComponentsRegistry>
-      <DarkModeProvider>
-        <FormProvider>
-          <ProfileProvider>
-            <NextUIProvider navigate={router.push}>
-              <SWRConfigProvider>{children}</SWRConfigProvider>
-            </NextUIProvider>
-          </ProfileProvider>
-        </FormProvider>
-      </DarkModeProvider>
-    </StyledComponentsRegistry>
-  );
+  return isClient ? (
+    <DarkModeProvider>
+      <FormProvider>
+        <ProfileProvider>
+          <NextUIProvider>
+            <SWRConfigProvider>{children}</SWRConfigProvider>
+          </NextUIProvider>
+        </ProfileProvider>
+      </FormProvider>
+    </DarkModeProvider>
+  ) : null;
 }

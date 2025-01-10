@@ -41,7 +41,7 @@ export default function AboutPage() {
             <CardHeader className='flex gap-3'>
               <Image alt='MoviesDB Logo' height={40} radius='sm' src='./logo.jpg' width={40} />
               <div className='flex flex-col'>
-                <p className='text-md text-start'>MoviesDB</p>
+                <p className='text-start text-medium'>MoviesDB</p>
                 <Link
                   isExternal
                   showAnchorIcon

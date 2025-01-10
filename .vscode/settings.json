@@ -1,21 +1,23 @@
 {
-    "cSpell.words": [
-        "Dismissable",
-        "favlist",
-        "IMDB",
-        "immer",
-        "nextui",
-        "Postgrest",
-        "rsuite",
-        "sonner",
-        "splide",
-        "splidejs",
-        "supabase",
-        "tabler",
-        "tailwindcss",
-        "tmdb",
-        "trivago",
-        "upsert"
-    ],
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+  "cSpell.words": [
+    "Dismissable",
+    "favlist",
+    "IMDB",
+    "immer",
+    "nextui",
+    "Postgrest",
+    "rsuite",
+    "sonner",
+    "spinkit",
+    "splide",
+    "splidejs",
+    "supabase",
+    "tabler",
+    "tailwindcss",
+    "tmdb",
+    "trivago",
+    "tseslint",
+    "upsert"
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

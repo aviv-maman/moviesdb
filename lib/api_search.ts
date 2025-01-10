@@ -11,7 +11,7 @@ const reqOptionsGet: RequestInit = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+    Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
   },
   next: { revalidate: 60 * 10 },
 };

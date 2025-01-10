@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { toast } from 'sonner';
 import ButtonCustom from '@/components/ButtonCustom';
 import Logo from '@/components/Logo';
@@ -11,7 +11,7 @@ type FormState = {
   message?: string;
 };
 
-export default function Register() {
+export default function RegisterPage() {
   const themeClasses =
     'dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600';
   const inputClasses =
@@ -28,7 +28,7 @@ export default function Register() {
     return { ...prevState };
   };
   const initialState: FormState = { message: '' };
-  const [formState, formAction] = useFormState(onFormSubmission, initialState);
+  const [formState, formAction] = useActionState(onFormSubmission, initialState);
 
   return (
     <main className='animate-in flex min-h-[calc(100vh-162px)] justify-center sm:min-h-[calc(100vh-154px)]'>
@@ -37,7 +37,7 @@ export default function Register() {
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)`,
         }}>
-        <div className='flex h-full items-center bg-gray-900 bg-opacity-40 px-20'>
+        <div className='flex h-full items-center bg-gray-900/40 px-20'>
           <div>
             <h2 className='text-2xl font-bold text-white sm:text-3xl'>
               Start exploring thousands of movies and series

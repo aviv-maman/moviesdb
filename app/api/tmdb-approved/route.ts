@@ -5,24 +5,24 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
-  const supabase = createClient();
+  const supabase = await createClient();
   const sessionOptions = {
     method: 'POST',
     headers: {
       accept: 'application/json',
       'content-type': 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
   };
   const accountOptions: RequestInit = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
   };
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const tmdb_request_token =
       cookieStore.get('tmdb_request_token')?.value || requestUrl.searchParams.get('request_token');
     const res = await fetch(

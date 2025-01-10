@@ -62,7 +62,7 @@ const SidebarWhereToWatch: React.FC = () => {
             state.where_to_watch.country.length ? (
               <Avatar
                 alt={state.where_to_watch.country}
-                className='h-6 w-6'
+                className='h-6 w-7'
                 radius='sm'
                 src={`https://flagcdn.com/${state.where_to_watch.country.toLowerCase()}.svg`}
               />

@@ -14,7 +14,7 @@ export const getSeries = async (options: SeriesApiOptions) => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
     next: { revalidate: 60 * 60 * 24 },
   };
@@ -49,7 +49,7 @@ export const discoverSeries = async (options?: DiscoverSeriesParams) => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
     next: { revalidate: 60 * 60 * 24 },
   };

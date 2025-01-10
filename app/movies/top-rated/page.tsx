@@ -2,7 +2,7 @@ import PageResultsMoviesByType from '@/components/PageResultsMoviesByType';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface TopRatedMoviesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const TopRatedMovies: React.FC<TopRatedMoviesProps> = async ({ searchParams }) => {

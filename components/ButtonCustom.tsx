@@ -15,6 +15,8 @@ const ButtonCustom: React.FC<ButtonCustomProps> = ({ label, children, ...rest })
   return (
     <Button
       isLoading={pending}
+      disabled={pending}
+      aria-disabled={pending}
       {...rest}
       startContent={!pending && rest.startContent}
       endContent={!pending && rest.endContent}>

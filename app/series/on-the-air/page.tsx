@@ -2,7 +2,7 @@ import PageResultsSeriesByType from '@/components/PageResultsSeriesByType';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface OnTheAirSeriesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const OnTheAirSeries: React.FC<OnTheAirSeriesProps> = async ({ searchParams }) => {

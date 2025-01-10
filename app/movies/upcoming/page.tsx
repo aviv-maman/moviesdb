@@ -2,7 +2,7 @@ import PageResultsMoviesByType from '@/components/PageResultsMoviesByType';
 import SidebarMenu from '@/components/SidebarMenu';
 
 interface UpcomingMoviesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const UpcomingMovies: React.FC<UpcomingMoviesProps> = async ({ searchParams }) => {

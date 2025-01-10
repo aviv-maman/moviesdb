@@ -3,12 +3,12 @@ import CardGeneric from '@/components/CardGeneric';
 import { discoverMovies } from '@/lib/api_movie_lists';
 
 interface PageResultsMoviesProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const PageResultsMovies: React.FC<PageResultsMoviesProps> = async ({ searchParams }) => {
-  const currentPage = Number(searchParams?.page) || 1;
-  const { results, page, total_pages } = (await discoverMovies({ ...searchParams, page: currentPage })) || {};
+  const currentPage = Number((await searchParams).page) || 1;
+  const { results, page, total_pages } = (await discoverMovies({ ...(await searchParams), page: currentPage })) || {};
 
   return (
     <>

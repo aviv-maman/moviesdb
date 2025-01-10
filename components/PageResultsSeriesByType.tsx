@@ -3,13 +3,13 @@ import CardGeneric from '@/components/CardGeneric';
 import { getSeries } from '@/lib/api_series_lists';
 
 interface PageResultsSeriesByTypeProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   type: 'airing_today' | 'on_the_air' | 'popular' | 'top_rated';
 }
 
 const PageResultsSeriesByType: React.FC<PageResultsSeriesByTypeProps> = async ({ searchParams, type = 'popular' }) => {
-  const currentPage = Number(searchParams?.page) || 1;
-  const { results, page, total_pages } = (await getSeries({ ...searchParams, page: currentPage, type })) || {};
+  const currentPage = Number((await searchParams).page) || 1;
+  const { results, page, total_pages } = (await getSeries({ ...(await searchParams), page: currentPage, type })) || {};
 
   return (
     <>

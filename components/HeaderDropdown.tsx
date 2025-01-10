@@ -47,6 +47,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links })
               key={href}
               description={description}
               startContent={icon}
+              classNames={{ description: 'text-wrap' }}
               className={href === `/${activeSegment}/${activeSegments[1]}` ? 'bg-primary-500/10' : ''}
               onClick={() => router.push(href)}>
               {label}

@@ -3,12 +3,12 @@ import type { TmdbProfile } from '@/lib/api.types';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: Request) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const accountOptions: RequestInit = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` || '',
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
     },
     cache: 'no-store',
   };

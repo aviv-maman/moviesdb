@@ -8,23 +8,24 @@ import SearchResultCardSkeleton from '@/components/SearchResultCardSkeleton';
 import { type FilterOptions, filterSearch } from '@/lib/api_search';
 
 interface SearchProps {
-  searchParams?: {
+  searchParams?: Promise<{
     media_type?: 'multi' | 'movie' | 'tv' | 'person';
     query?: string;
     page?: number;
     language?: string;
     year?: number;
-  };
+  }>;
 }
 
 const Search: React.FC<SearchProps> = async ({ searchParams }) => {
+  const awaitedSearchParams = await searchParams;
   const SKELETON_LENGTH = 10;
   const filterParams: FilterOptions = {
-    media_type: searchParams?.media_type ? searchParams?.media_type : 'multi',
-    query: searchParams?.query,
-    page: Number(searchParams?.page) || 1,
-    language: searchParams?.language,
-    year: searchParams?.year ? Number(searchParams?.year) : undefined,
+    media_type: awaitedSearchParams?.media_type ? awaitedSearchParams?.media_type : 'multi',
+    query: awaitedSearchParams?.query,
+    page: Number(awaitedSearchParams?.page) || 1,
+    language: awaitedSearchParams?.language,
+    year: awaitedSearchParams?.year ? Number(awaitedSearchParams?.year) : undefined,
   };
 
   const searchData = await filterSearch(filterParams);
