@@ -1,12 +1,12 @@
-import '../styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import { Providers } from './providers';
+import { Providers } from '@/app/providers';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
 import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
 import { getProfile } from '@/lib/auth';
+import '@/styles/globals.css';
 import { createClient } from '@/utils/supabase/server';
 
 export const metadata: Metadata = {

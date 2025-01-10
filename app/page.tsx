@@ -59,7 +59,7 @@ export default async function Index() {
       <div
         style={{ backgroundImage: `url(${backgroundLoader('w1280')})` }}
         className={`relative h-96 overflow-hidden bg-cover bg-no-repeat p-12 text-center`}>
-        <div className='absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-[#00000099] bg-fixed'>
+        <div className='absolute inset-0 size-full overflow-hidden bg-gradient-to-b from-[#00000099] bg-fixed'>
           <div className='flex h-full items-center justify-center'>
             <p className='mx-auto my-12 text-center text-3xl !leading-tight text-white lg:text-4xl'>
               The easiest way to discover <strong>movies</strong> and <strong>series</strong>
@@ -68,7 +68,7 @@ export default async function Index() {
         </div>
       </div>
 
-      <div className='w-full bg-gradient-to-r from-transparent via-foreground/10 to-transparent p-[1px]' />
+      <div className='w-full bg-gradient-to-r from-transparent via-foreground/10 to-transparent p-px' />
 
       <div className='flex flex-col gap-8 px-6 text-foreground sm:px-0'>
         <h2 className='text-center text-lg font-bold text-slate-900 dark:text-white'>

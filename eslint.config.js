@@ -1,17 +1,21 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-require-imports */
+const nextPlugin = require('@next/eslint-plugin-next');
 const pluginJs = require('@eslint/js');
 const tseslint = require('typescript-eslint');
-const tailwindcss = require('eslint-plugin-tailwindcss');
+const tailwind = require('eslint-plugin-tailwindcss');
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  ...tailwind.configs['flat/recommended'],
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    plugins: { tailwindcss },
+    plugins: { '@next/next': nextPlugin },
     rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
       'no-console': 'warn',
       'no-empty-pattern': 'warn',
       'no-unused-vars': 'warn',

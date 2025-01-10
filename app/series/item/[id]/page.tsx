@@ -57,7 +57,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
       <div className='mx-auto justify-center'>
         <div
           style={{ backgroundImage: `url(${seriesItem?.backdrop_path})` }}
-          className='relative h-full w-full bg-cover bg-no-repeat'>
+          className='relative size-full bg-cover bg-no-repeat'>
           <div className='bg-white/20 bg-fixed dark:bg-black/50'>
             <div className='block p-8 md:flex'>
               <Image
@@ -132,12 +132,12 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                     <SearchResultBadge
                       key={index}
                       label={lang}
-                      className='h-fit w-fit rounded-md border border-neutral-400 bg-neutral-200 text-black dark:bg-neutral-700'
+                      className='size-fit rounded-md border border-neutral-400 bg-neutral-200 text-black dark:bg-neutral-700'
                       textSize='text-sm'
                     />
                   ))}
                 </div>
-                <p className='text-md flex max-w-5xl text-wrap rounded-sm p-1 pl-2 leading-snug backdrop-blur-3xl'>
+                <p className='flex max-w-5xl text-wrap rounded-sm p-1 pl-2 text-medium leading-snug backdrop-blur-3xl'>
                   {seriesItem?.overview}
                 </p>
               </div>
