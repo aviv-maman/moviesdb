@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
 import { IconStarFilled, IconStarHalfFilled, IconStarOff } from '@tabler/icons-react';
 
 const RateItemDropdown: React.FC = () => {

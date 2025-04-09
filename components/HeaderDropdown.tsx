@@ -1,6 +1,6 @@
 'use client';
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, NavbarItem } from '@nextui-org/react';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, NavbarItem } from '@heroui/react';
 import { IconChevronDown } from '@tabler/icons-react';
 import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
 

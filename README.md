@@ -13,7 +13,7 @@ MoviesDB is a Next.js app to explore movies and series, and get recommendations 
 - [React](https://react.dev)
 - [Next.js](https://nextjs.org)
 - [Supabase](https://supabase.com)
-- [NextUI](https://nextui.org)
+- [HeroUI](https://heroui.org)
 - [Tailwind CSS](https://tailwindcss.com)
 - Deployed on [Vercel](https://vercel.com)
 

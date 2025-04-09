@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Badge, Spinner, useDisclosure } from '@nextui-org/react';
+import { Avatar, Badge, Spinner, useDisclosure } from '@heroui/react';
 import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
 import { useTransition } from 'react';
 import ProfileEditModal from './ProfileEditModal';

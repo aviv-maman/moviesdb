@@ -1,7 +1,7 @@
 'use client';
 
 import { useDarkMode } from '../context/DarkModeContext';
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 
 type DarkModeToggleProps = {

@@ -1,6 +1,6 @@
 'use client';
 
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
+import { Autocomplete, AutocompleteItem } from '@heroui/react';
 
 interface SearchAutoCompleteProps {
   items: { label: string; value: string }[];
@@ -21,9 +21,7 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({ items, name, la
       variant='faded'
       size='sm'>
       {items.map((item) => (
-        <AutocompleteItem key={item.value} value={item.value}>
-          {item.label}
-        </AutocompleteItem>
+        <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
       ))}
     </Autocomplete>
   );

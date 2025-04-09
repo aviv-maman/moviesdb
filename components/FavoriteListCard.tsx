@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Image } from '@nextui-org/react';
+import { Button, Image } from '@heroui/react';
 import { IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
 import { toast } from 'sonner';

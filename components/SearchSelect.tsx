@@ -1,6 +1,6 @@
 'use client';
 
-import { Select, SelectItem } from '@nextui-org/react';
+import { Select, SelectItem } from '@heroui/react';
 import { type Dispatch, type SetStateAction } from 'react';
 
 interface SearchSelectProps {
@@ -28,9 +28,7 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMedi
         if ('currentKey' in key) setMediaType(() => key.currentKey as 'multi' | 'movie' | 'tv' | 'person');
       }}>
       {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          {item.label}
-        </SelectItem>
+        <SelectItem key={item.value}>{item.label}</SelectItem>
       ))}
     </Select>
   );

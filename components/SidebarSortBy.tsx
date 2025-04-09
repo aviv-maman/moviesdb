@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Select, SelectItem } from '@nextui-org/react';
+import { Accordion, AccordionItem, Select, SelectItem } from '@heroui/react';
 import { SORT_BY } from '@/lib/data/search_filters';
 
 const SidebarSortBy: React.FC = () => {
@@ -22,9 +22,7 @@ const SidebarSortBy: React.FC = () => {
           labelPlacement='outside'
           scrollShadowProps={{ hideScrollBar: false, offset: 15 }}>
           {SORT_BY.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
+            <SelectItem key={option.value}>{option.label}</SelectItem>
           ))}
         </Select>
       </AccordionItem>

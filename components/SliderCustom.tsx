@@ -1,6 +1,6 @@
 'use client';
 
-import { Slider, type SliderProps } from '@nextui-org/react';
+import { Slider, type SliderProps } from '@heroui/react';
 
 interface SliderCustomProps extends SliderProps {
   showMarks?: boolean;

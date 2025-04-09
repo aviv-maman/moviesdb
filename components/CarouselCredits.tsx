@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardBody, Image, Tab, Tabs } from '@nextui-org/react';
+import { Card, CardBody, Image, Tab, Tabs } from '@heroui/react';
 import { type Options, Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import type { GetMovieResponse } from '@/lib/api.types';

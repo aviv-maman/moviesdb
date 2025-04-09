@@ -1,7 +1,7 @@
 'use client';
 
-import { Chip, VisuallyHidden, tv, useCheckbox } from '@nextui-org/react';
-import type { CheckboxProps } from '@nextui-org/react';
+import { Chip, VisuallyHidden, tv, useCheckbox } from '@heroui/react';
+import type { CheckboxProps } from '@heroui/react';
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 interface CheckboxGenreProps extends CheckboxProps {

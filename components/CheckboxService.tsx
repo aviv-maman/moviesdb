@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Checkbox, type CheckboxProps, Tooltip, cn, useCheckbox } from '@nextui-org/react';
+import { Avatar, Checkbox, type CheckboxProps, Tooltip, cn, useCheckbox } from '@heroui/react';
 
 interface CheckboxServiceProps extends CheckboxProps {
   avatar?: string;

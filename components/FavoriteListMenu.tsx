@@ -1,6 +1,6 @@
 'use client';
 
-import { Listbox, ListboxItem } from '@nextui-org/react';
+import { Listbox, ListboxItem } from '@heroui/react';
 import { IconTopologyStar, IconUserCog } from '@tabler/icons-react';
 import { useProfile } from '@/context/ProfileContext';
 

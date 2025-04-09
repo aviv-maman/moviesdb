@@ -1,4 +1,4 @@
-import { type DropdownItemProps } from '@nextui-org/react';
+import { type DropdownItemProps } from '@heroui/react';
 import {
   IconClockDown,
   IconDeviceTv,

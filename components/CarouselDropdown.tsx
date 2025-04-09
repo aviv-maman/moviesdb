@@ -1,6 +1,6 @@
 'use client';
 
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
 import { IconDots, IconHeart, IconHeartFilled, IconMovie } from '@tabler/icons-react';
 import { toast } from 'sonner';
 import { useProfile } from '@/context/ProfileContext';

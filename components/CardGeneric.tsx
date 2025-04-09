@@ -1,6 +1,6 @@
 'use client';
 
-import { CircularProgress, Image, Link } from '@nextui-org/react';
+import { CircularProgress, Image, Link } from '@heroui/react';
 import CarouselDropdown from './CarouselDropdown';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 

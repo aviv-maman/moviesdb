@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@heroui/react';
 import { useRef, useTransition } from 'react';
 import { useProfile } from '@/context/ProfileContext';
 import { updateProfile } from '@/lib/api_profile';

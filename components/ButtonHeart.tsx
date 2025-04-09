@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/react';
+import { Button } from '@heroui/react';
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import { toast } from 'sonner';
 import { useProfile } from '@/context/ProfileContext';

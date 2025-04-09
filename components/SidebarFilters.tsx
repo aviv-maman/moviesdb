@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
+import { Accordion, AccordionItem, Checkbox, CheckboxGroup, Divider, Select, SelectItem } from '@heroui/react';
 import CheckboxGenre from './CheckboxGenre';
 import DatePickerCustom from './DatePickerCustom';
 import MultiSelect from './MultiSelect';
@@ -121,9 +121,7 @@ const SidebarFilters: React.FC = () => {
             color='success'
             labelPlacement='outside'>
             {LANGUAGES.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
+              <SelectItem key={option.value}>{option.label}</SelectItem>
             ))}
           </Select>
           <Divider orientation='horizontal' className='my-3' />

@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from '@nextui-org/react';
+import { Avatar, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from '@heroui/react';
 
 export default function AboutPage() {
   return (

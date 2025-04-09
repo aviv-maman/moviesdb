@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
+import { Card, CardBody, Tab, Tabs } from '@heroui/react';
 import { type Options, Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import CardGeneric from './CardGeneric';

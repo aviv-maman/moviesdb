@@ -1,6 +1,6 @@
 'use client';
 
-import { Image, Spinner } from '@nextui-org/react';
+import { Image, Spinner } from '@heroui/react';
 import { IconPlugConnected, IconPlugConnectedX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Suspense } from 'react';

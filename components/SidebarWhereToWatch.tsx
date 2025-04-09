@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, AccordionItem, Avatar, CheckboxGroup, Divider, Select, SelectItem } from '@nextui-org/react';
+import { Accordion, AccordionItem, Avatar, CheckboxGroup, Divider, Select, SelectItem } from '@heroui/react';
 import CheckboxService from './CheckboxService';
 import { useForm } from '@/context/FormContext';
 import countries from '@/lib/data/countries.json';
@@ -72,7 +72,6 @@ const SidebarWhereToWatch: React.FC = () => {
           {countryList.map((option) => (
             <SelectItem
               key={option.iso_3166_1}
-              value={option.iso_3166_1}
               startContent={
                 <Avatar
                   alt={option.english_name}

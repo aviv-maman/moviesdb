@@ -1,6 +1,6 @@
 'use client';
 
-import { NextUIProvider } from '@nextui-org/react';
+import { HeroUIProvider } from '@heroui/react';
 import { DarkModeProvider } from '@/context/DarkModeContext';
 import { FormProvider } from '@/context/FormContext';
 import { ProfileProvider } from '@/context/ProfileContext';
@@ -14,9 +14,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <DarkModeProvider>
       <FormProvider>
         <ProfileProvider>
-          <NextUIProvider>
+          <HeroUIProvider>
             <SWRConfigProvider>{children}</SWRConfigProvider>
-          </NextUIProvider>
+          </HeroUIProvider>
         </ProfileProvider>
       </FormProvider>
     </DarkModeProvider>

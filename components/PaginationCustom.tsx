@@ -1,6 +1,6 @@
 'use client';
 
-import { Pagination, type PaginationProps } from '@nextui-org/react';
+import { Pagination, type PaginationProps } from '@heroui/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
