@@ -1,7 +1,7 @@
 'use client';
 
 import { Listbox, ListboxItem } from '@heroui/react';
-import { IconTopologyStar, IconUserCog } from '@tabler/icons-react';
+import { TopologyStar, UserCog } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 
 const ProfileMenu: React.FC = () => {
@@ -14,10 +14,10 @@ const ProfileMenu: React.FC = () => {
         onAction={(key) =>
           dispatch({ type: 'changed_active_view', payload: { value: key as 'profile' | 'integrations' } })
         }>
-        <ListboxItem key='profile' startContent={<IconUserCog />}>
+        <ListboxItem key='profile' startContent={<UserCog />}>
           Profile Settings
         </ListboxItem>
-        <ListboxItem key='integrations' startContent={<IconTopologyStar />}>
+        <ListboxItem key='integrations' startContent={<TopologyStar />}>
           Integrations
         </ListboxItem>
       </Listbox>

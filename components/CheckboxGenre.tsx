@@ -2,7 +2,7 @@
 
 import { Chip, VisuallyHidden, tv, useCheckbox } from '@heroui/react';
 import type { CheckboxProps } from '@heroui/react';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { Check, X } from '@/assets/icons';
 
 interface CheckboxGenreProps extends CheckboxProps {
   label: string;
@@ -45,7 +45,7 @@ const CheckboxGenre: React.FC<CheckboxGenreProps> = (props) => {
           base: styles.base(),
           content: styles.content(),
         }}
-        startContent={isSelected ? <IconCheck className='ml-1' size={16} /> : <IconX className='ml-1' size={16} />}
+        startContent={isSelected ? <Check className='ml-1 size-4' /> : <X className='ml-1 size-4' />}
         variant='faded'
         {...(getLabelProps() as any)}>
         {children ? children : props.label}

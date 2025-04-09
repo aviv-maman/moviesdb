@@ -1,9 +1,9 @@
 'use client';
 
 import { Image, Spinner } from '@heroui/react';
-import { IconPlugConnected, IconPlugConnectedX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { PlugConnected, PlugConnectedX } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import { handleLinkAccount, handleUnlinkAccount } from '@/lib/api_profile';
 
@@ -34,9 +34,9 @@ const ProfileIntegrations: React.FC = () => {
                 formAction={state.supabase_profile?.tmdb_session_id ? handleUnlinkAccount : handleLinkAccount}
                 type='submit'>
                 {state.supabase_profile?.tmdb_session_id ? (
-                  <IconPlugConnectedX size={20} className='mr-1' />
+                  <PlugConnectedX className='mr-1 size-5' />
                 ) : (
-                  <IconPlugConnected size={20} className='mr-1' />
+                  <PlugConnected className='mr-1 size-5' />
                 )}
                 <span>{state.supabase_profile?.tmdb_session_id ? 'Unlink' : 'Link'}</span>
               </button>

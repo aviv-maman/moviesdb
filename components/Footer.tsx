@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@heroui/react';
-import { IconBrandGithub, IconBrandLinkedin } from '@tabler/icons-react';
 import Link from 'next/link';
+import { GitHub2, LinkedIn2 } from '@/assets/icons';
 
 export default function Footer() {
   const establishedYear = 2023;
@@ -19,21 +19,23 @@ export default function Footer() {
           <Link href='https://github.com/aviv-maman/moviesdb' target='_blank' referrerPolicy='no-referrer'>
             <Button
               isIconOnly
+              size='sm'
               aria-label='GitHub'
               variant='light'
               radius='full'
-              className='border border-neutral-300 dark:border-neutral-800'>
-              <IconBrandGithub className='mx-2 h-6 w-6 text-gray-600 dark:text-gray-300' />
+              className='rounded-md border border-neutral-300 dark:border-neutral-800'>
+              <GitHub2 className='size-4 text-gray-600 dark:text-gray-300' />
             </Button>
           </Link>
           <Link href='https://www.linkedin.com/in/aviv-maman-914a95223' target='_blank' referrerPolicy='no-referrer'>
             <Button
               isIconOnly
+              size='sm'
               aria-label='LinkedIn'
               variant='light'
               radius='full'
-              className='border border-neutral-300 dark:border-neutral-800'>
-              <IconBrandLinkedin className='mx-2 h-6 w-6 text-blue-600' />
+              className='rounded-md border border-neutral-300 dark:border-neutral-800'>
+              <LinkedIn2 className='size-4 text-blue-600' />
             </Button>
           </Link>
         </div>

@@ -1,11 +1,11 @@
 'use client';
 
-import { IconSearch } from '@tabler/icons-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ButtonCustom from './ButtonCustom';
 import SidebarFilters from './SidebarFilters';
 import SidebarSortBy from './SidebarSortBy';
 import SidebarWhereToWatch from './SidebarWhereToWatch';
+import { Search } from '@/assets/icons';
 import { AVAILABILITIES, MOVIE_GENRES, RELEASE_TYPES } from '@/lib/data/search_filters';
 
 const SidebarMenu: React.FC = () => {
@@ -130,7 +130,7 @@ const SidebarMenu: React.FC = () => {
               label='Search'
               className='mt-4 w-full max-w-sm bg-secondary-200 text-secondary-500 dark:bg-secondary-300 dark:text-secondary-700'
               variant='shadow'
-              startContent={<IconSearch size={18} />}
+              startContent={<Search className='size-[18px]' />}
             />
           </div>
         </form>

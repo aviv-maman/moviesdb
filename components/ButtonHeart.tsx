@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@heroui/react';
-import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import { toast } from 'sonner';
+import { Heart, HeartFilled } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
 
@@ -50,7 +50,7 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
       aria-label='Like'
       isDisabled={!state.supabase_profile?.tmdb_session_id}
       onClick={handleFavorite}>
-      {state.favorites['movie'].includes(mediaId) ? <IconHeartFilled size={20} /> : <IconHeart size={20} />}
+      {state.favorites['movie'].includes(mediaId) ? <HeartFilled className='size-5' /> : <Heart className='size-5' />}
     </Button>
   );
 };

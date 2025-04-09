@@ -52,7 +52,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onOpenChang
                 className='border-indigo-400 bg-indigo-100 text-indigo-500 hover:bg-indigo-300 hover:text-indigo-600 dark:bg-indigo-500 dark:text-indigo-100 hover:dark:bg-indigo-300 hover:dark:text-indigo-600'
                 variant='faded'
                 isLoading={pending}
-                onClick={async () => {
+                onPress={async () => {
                   startTransition(async () => {
                     const data = await updateProfile({
                       full_name: fullNameRef.current?.value,

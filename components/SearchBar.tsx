@@ -1,12 +1,12 @@
 'use client';
 
 import { Input } from '@heroui/react';
-import { IconFilterSearch } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
 import ButtonCustom from './ButtonCustom';
 import SearchAutoComplete from './SearchAutoComplete';
 import SearchSelect from './SearchSelect';
+import { FilterSearch } from '@/assets/icons';
 import { type FilterOptions as FormState } from '@/lib/api_search';
 import { LANGUAGES, SEARCH_TYPES } from '@/lib/data/search_filters';
 
@@ -86,7 +86,7 @@ const SearchNavbar: React.FC = () => {
           size='sm'
           className='justify-self-end bg-secondary-200 text-secondary-500 dark:bg-secondary-300 dark:text-secondary-700'
           variant='ghost'
-          startContent={<IconFilterSearch size={18} />}
+          startContent={<FilterSearch className='size-[18px]' />}
         />
       </form>
     </header>

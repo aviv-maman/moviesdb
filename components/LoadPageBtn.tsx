@@ -1,9 +1,9 @@
 'use client';
 
-import { IconSquareChevronLeft, IconSquareChevronRight } from '@tabler/icons-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import ButtonCustom from './ButtonCustom';
+import { SquareChevronLeft, SquareChevronRight } from '@/assets/icons';
 
 interface LoadPageBtnProps {
   label?: 'Back' | 'Next';
@@ -37,10 +37,10 @@ const LoadPageBtn: React.FC<LoadPageBtnProps> = ({ totalPages = 0, label = 'Next
       variant='ghost'
       color='secondary'
       label={label}
-      startContent={label === 'Next' ? <IconSquareChevronRight /> : <IconSquareChevronLeft />}
+      startContent={label === 'Next' ? <SquareChevronRight /> : <SquareChevronLeft />}
       disabled={disabled || isPending}
       className={disabledClassName}
-      onClick={() => startTransition(() => loadPage())}
+      onPress={() => startTransition(() => loadPage())}
     />
   );
 };

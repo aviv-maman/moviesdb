@@ -1,8 +1,8 @@
 'use client';
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
-import { IconDots, IconHeart, IconHeartFilled, IconMovie } from '@tabler/icons-react';
 import { toast } from 'sonner';
+import { Dots, Heart, HeartFilled, Movie } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
 
@@ -14,7 +14,7 @@ interface CarouselDropdownProps {
 }
 
 const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId, mediaType, href }) => {
-  const iconClasses = 'text-xl text-default-500 pointer-events-none flex-shrink-0';
+  const iconClasses = 'text-xl text-default-500 pointer-events-none size-[18px]';
 
   const { dispatch, state } = useProfile();
 
@@ -53,26 +53,26 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ className, mediaId,
       <Dropdown className={className}>
         <DropdownTrigger>
           <button className='absolute left-1 top-1 rounded-lg bg-default-300 hover:bg-current'>
-            <IconDots className='pointer-events-none flex-shrink-0 text-xl text-default-500' />
+            <Dots className='pointer-events-none text-xl text-default-500' />
           </button>
         </DropdownTrigger>
         <DropdownMenu
           variant='faded'
           aria-label='Dropdown menu with icons'
           disabledKeys={state.supabase_profile?.tmdb_session_id ? undefined : ['list', 'favorites', 'rate']}>
-          <DropdownItem key='details' href={href} startContent={<IconMovie className={iconClasses} size={18} />}>
+          <DropdownItem key='details' href={href} startContent={<Movie className={iconClasses} />}>
             View details
           </DropdownItem>
           <DropdownItem
             key='favorites'
             startContent={
               state.favorites[mediaType].includes(mediaId) ? (
-                <IconHeartFilled className={iconClasses} size={18} />
+                <HeartFilled className={iconClasses} />
               ) : (
-                <IconHeart className={iconClasses} size={18} />
+                <Heart className={iconClasses} />
               )
             }
-            onClick={handleFavorite}>
+            onPress={handleFavorite}>
             {state.favorites[mediaType].includes(mediaId) ? 'Remove from favorites' : 'Add to favorites'}
           </DropdownItem>
         </DropdownMenu>

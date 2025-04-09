@@ -1,9 +1,9 @@
 'use client';
 
 import { Button, Image } from '@heroui/react';
-import { IconTrash } from '@tabler/icons-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { Trash } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';
 import { getFavorites, toggleFavorite } from '@/lib/api_account';
@@ -156,7 +156,7 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
                 {item.rating}
               </p>
               <Button isIconOnly size='sm' color='danger' className='z-10'>
-                <IconTrash size={22} onClick={handleFavorite} />
+                <Trash className='size-5' onClick={handleFavorite} />
               </Button>
             </div>
           </div>

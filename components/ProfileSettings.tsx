@@ -1,9 +1,9 @@
 'use client';
 
 import { Avatar, Badge, Spinner, useDisclosure } from '@heroui/react';
-import { IconPencil, IconPhotoOff, IconUpload } from '@tabler/icons-react';
 import { useTransition } from 'react';
 import ProfileEditModal from './ProfileEditModal';
+import { Pencil, PhotoOff, Upload } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import { updateProfile } from '@/lib/api_profile';
 import { createClient } from '@/utils/supabase/client';
@@ -85,7 +85,7 @@ const ProfileSettings: React.FC = () => {
                       });
                     }}
                   />
-                  <IconUpload size={16} />
+                  <Upload className='size-4' />
                 </label>
               }
               size='lg'
@@ -94,7 +94,7 @@ const ProfileSettings: React.FC = () => {
               <Avatar
                 src={state.supabase_profile?.avatar_url || undefined}
                 alt='avatar'
-                className='mr-4 h-28 w-28 p-4 md:h-32 md:w-32'
+                className='mr-4 size-28 p-4 md:size-32'
                 isBordered={false}
                 radius='sm'
                 size='lg'
@@ -129,7 +129,7 @@ const ProfileSettings: React.FC = () => {
               type='button'
               onClick={onOpen}
               className='m-4 flex items-center rounded-lg border p-1 text-sm text-gray-700 duration-150 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600'>
-              <IconPencil size={18} />
+              <Pencil className='size-[18px]' />
             </button>
             <button
               type='button'
@@ -140,7 +140,7 @@ const ProfileSettings: React.FC = () => {
               {removePending || uploadPending ? (
                 <Spinner classNames={{ wrapper: 'w-[18px] h-[18px]' }} />
               ) : (
-                <IconPhotoOff size={18} />
+                <PhotoOff className='size-[18px]' />
               )}
             </button>
           </div>

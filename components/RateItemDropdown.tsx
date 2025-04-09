@@ -1,52 +1,52 @@
 'use client';
 
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
-import { IconStarFilled, IconStarHalfFilled, IconStarOff } from '@tabler/icons-react';
+import { StarFilled, StarHalfFilled, StarOff } from '@/assets/icons';
 
 const RateItemDropdown: React.FC = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
         <Button isIconOnly>
-          <IconStarHalfFilled />
+          <StarHalfFilled />
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label='Rate Options'>
         <DropdownItem key='rate-5'>
           <div className='flex'>
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
           </div>
         </DropdownItem>
         <DropdownItem key='rate-4'>
           <div className='flex'>
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
           </div>
         </DropdownItem>
         <DropdownItem key='rate-3'>
           <div className='flex'>
-            <IconStarFilled />
-            <IconStarFilled />
-            <IconStarFilled />
+            <StarFilled />
+            <StarFilled />
+            <StarFilled />
           </div>
         </DropdownItem>
         <DropdownItem key='rate-2'>
           <div className='flex'>
-            <IconStarFilled />
-            <IconStarFilled />
+            <StarFilled />
+            <StarFilled />
           </div>
         </DropdownItem>
         <DropdownItem key='rate-1'>
-          <IconStarFilled />
+          <StarFilled />
         </DropdownItem>
         <DropdownItem key='remove'>
-          <IconStarOff />
+          <StarOff />
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

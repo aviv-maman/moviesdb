@@ -15,13 +15,13 @@ import {
   NavbarMenuToggle,
 } from '@heroui/react';
 import { type User } from '@supabase/supabase-js';
-import { IconSearch } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ButtonCustom from './ButtonCustom';
 import DarkModeToggle from './DarkModeToggle';
 import HeaderDropdown from './HeaderDropdown';
 import Logo from './Logo';
+import { Search } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 import type { MovieItem, SeriesItem } from '@/lib/api.types';
 import { signOut } from '@/lib/auth';
@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
             }}
             placeholder='Type to search...'
             size='sm'
-            startContent={<IconSearch size={18} />}
+            startContent={<Search className='size-[18px]' />}
             endContent={
               <ButtonCustom
                 id='search-bar-btn-desk'
@@ -109,7 +109,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 variant='flat'
                 color='primary'
                 className='left-2 top-px h-9 w-12'>
-                <IconSearch size={16} />
+                <Search className='size-4' />
               </ButtonCustom>
             }
             onKeyDown={(e) => {
@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
         {/*Mobile Menu*/}
         <Dropdown placement='bottom-end' className='md:hidden'>
           <DropdownTrigger className='md:hidden'>
-            <IconSearch size={18} className='md:hidden' />
+            <Search className='size-[18px] md:hidden' />
           </DropdownTrigger>
           <DropdownMenu aria-label='Search' variant='flat'>
             <DropdownItem key='search-dropdown' isReadOnly>
@@ -141,7 +141,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                   }}
                   placeholder='Type to search...'
                   size='sm'
-                  startContent={<IconSearch size={18} />}
+                  startContent={<Search className='size-[18px]' />}
                   endContent={
                     <ButtonCustom
                       id='search-bar-btn-mob'
@@ -151,7 +151,7 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                       variant='flat'
                       color='primary'
                       className='left-2 top-px h-10 w-12'>
-                      <IconSearch size={16} />
+                      <Search className='size-4' />
                     </ButtonCustom>
                   }
                   onKeyDown={(e) => {

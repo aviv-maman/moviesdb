@@ -1,39 +1,30 @@
 import { type DropdownItemProps } from '@heroui/react';
-import {
-  IconClockDown,
-  IconDeviceTv,
-  IconMeteor,
-  IconPlayerPlay,
-  IconStar,
-  IconStarFilled,
-  IconStars,
-  IconStarsFilled,
-} from '@tabler/icons-react';
+import { ClockDown, DeviceTv, Meteor, PlayerPlay, Star, StarFilled, Stars, StarsFilled } from '@/assets/icons';
 
 export const movieLinks = [
   {
     href: '/movies/popular',
     label: 'Popular',
     description: 'The most popular movies.',
-    icon: <IconStarsFilled size={24} className='text-warning' />,
+    icon: <StarsFilled className='size-6 text-warning' />,
   },
   {
     href: '/movies/now-playing',
     label: 'Now Playing',
     description: 'Movies currently in cinemas and on streaming services.',
-    icon: <IconPlayerPlay size={24} className='text-primary' />,
+    icon: <PlayerPlay className='size-6 text-primary' />,
   },
   {
     href: '/movies/top-rated',
     label: 'Top Rated',
     description: 'Movies with the highest score by users.',
-    icon: <IconStarFilled size={24} className='text-danger' />,
+    icon: <StarFilled className='size-6 text-danger' />,
   },
   {
     href: '/movies/upcoming',
     label: 'Upcoming',
     description: 'Movies which will be released.',
-    icon: <IconMeteor size={24} className='text-success' />,
+    icon: <Meteor className='size-6 text-success' />,
   },
 ];
 
@@ -42,25 +33,25 @@ export const seriesLinks = [
     href: '/series/popular',
     label: 'Popular',
     description: 'The most popular series.',
-    icon: <IconStars size={24} color='#f59e0b' />,
+    icon: <Stars className='size-6' color='#f59e0b' />,
   },
   {
     href: '/series/on-the-air',
     label: 'On the Air',
     description: 'Series currently airing on TV and streaming services.',
-    icon: <IconDeviceTv size={24} color='#005bc4' />,
+    icon: <DeviceTv className='size-6' color='#005bc4' />,
   },
   {
     href: '/series/top-rated',
     label: 'Top Rated',
     description: 'Series with the highest score by users.',
-    icon: <IconStar size={24} color='#22c55e' />,
+    icon: <Star className='size-6' color='#22c55e' />,
   },
   {
     href: '/series/airing-today',
     label: 'Airing Today',
     description: 'Series which will be aired today.',
-    icon: <IconClockDown size={24} color='#dc2626' />,
+    icon: <ClockDown className='size-6' color='#dc2626' />,
   },
 ];
 

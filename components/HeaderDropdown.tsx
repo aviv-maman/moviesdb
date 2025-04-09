@@ -1,8 +1,8 @@
 'use client';
 
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, NavbarItem } from '@heroui/react';
-import { IconChevronDown } from '@tabler/icons-react';
 import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation';
+import { ChevronDown } from '@/assets/icons';
 
 interface HeaderDropdownProps {
   targetSegment: string;
@@ -30,7 +30,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links })
           <Link
             color={activeSegment === targetSegment ? 'primary' : 'foreground'}
             className='cursor-pointer bg-transparent p-0 data-[hover=true]:bg-transparent'>
-            {capitalizedLabel} {<IconChevronDown size={18} />}
+            {capitalizedLabel} {<ChevronDown className='size-[18px]' />}
           </Link>
         </DropdownTrigger>
       </NavbarItem>
@@ -49,7 +49,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links })
               startContent={icon}
               classNames={{ description: 'text-wrap' }}
               className={href === `/${activeSegment}/${activeSegments[1]}` ? 'bg-primary-500/10' : ''}
-              onClick={() => router.push(href)}>
+              onPress={() => router.push(href)}>
               {label}
             </DropdownItem>
           );

@@ -1,7 +1,7 @@
 'use client';
 
 import { Listbox, ListboxItem } from '@heroui/react';
-import { IconTopologyStar, IconUserCog } from '@tabler/icons-react';
+import { TopologyStar, UserCog } from '@/assets/icons';
 import { useProfile } from '@/context/ProfileContext';
 
 const FavoriteListMenu: React.FC = () => {
@@ -12,10 +12,10 @@ const FavoriteListMenu: React.FC = () => {
       <Listbox
         aria-label='Actions'
         onAction={(key) => dispatch({ type: 'changed_active_favlist', payload: { value: key as 'movie' | 'tv' } })}>
-        <ListboxItem key='movie' startContent={<IconUserCog />}>
+        <ListboxItem key='movie' startContent={<UserCog />}>
           Favorite Movies
         </ListboxItem>
-        <ListboxItem key='tv' startContent={<IconTopologyStar />}>
+        <ListboxItem key='tv' startContent={<TopologyStar />}>
           Favorite Series
         </ListboxItem>
       </Listbox>
