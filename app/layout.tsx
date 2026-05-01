@@ -1,23 +1,23 @@
-import type { Metadata, Viewport } from 'next';
-import { Providers } from '@/app/providers';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import type { MovieItem, SeriesItem } from '@/lib/api.types';
-import { getAllFavoritesUsingRecursion } from '@/lib/api_account';
-import { getProfile } from '@/lib/auth';
-import { GeistSans } from '@/lib/fonts';
-import '@/styles/globals.css';
-import { createClient } from '@/utils/supabase/server';
+import type { Metadata, Viewport } from "next";
+import { Providers } from "@/app/providers";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import type { MovieItem, SeriesItem } from "@/lib/api.types";
+import { getAllFavoritesUsingRecursion } from "@/lib/api_account";
+import { getProfile } from "@/lib/auth";
+import { GeistSans } from "@/lib/fonts";
+import { createClient } from "@/utils/supabase/server";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: 'MoviesDB',
+  title: "MoviesDB",
   description: "Search for movies and TV shows to watch, and keep track of what you've watched.",
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
 
@@ -33,12 +33,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           getAllFavoritesUsingRecursion({
             account_id: profile?.tmdb_account_id,
             session_id: profile?.tmdb_session_id,
-            media_type: 'movie',
+            media_type: "movie",
           }),
           getAllFavoritesUsingRecursion({
             account_id: profile?.tmdb_account_id,
             session_id: profile?.tmdb_session_id,
-            media_type: 'tv',
+            media_type: "tv",
           }),
         ]);
         favMovies = (favoriteMovies.results || []) as MovieItem[];
@@ -50,9 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${GeistSans.className} min-h-screen bg-background text-foreground antialiased`}>
+      <body className={`${GeistSans.className} bg-background text-foreground min-h-screen antialiased`}>
         <Providers>
           <Header user={user} profile={profile} favMovies={favMovies} favSeries={favSeries} />
           {children}

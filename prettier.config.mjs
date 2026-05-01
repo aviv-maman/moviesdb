@@ -3,19 +3,20 @@
  * @type {import("prettier").Config}
  */
 const config = {
-  $schema: 'https://json.schemastore.org/prettierrc',
-  singleQuote: true,
+  $schema: "https://json.schemastore.org/prettierrc",
+  singleQuote: false,
   printWidth: 120,
-  trailingComma: 'all',
-  jsxSingleQuote: true,
-  arrowParens: 'always',
+  trailingComma: "all",
+  jsxSingleQuote: false,
+  arrowParens: "always",
   bracketSameLine: true,
   tabWidth: 2,
-  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
-  importOrder: ['<THIRD_PARTY_MODULES>', '^./(.*)$'],
+  importOrder: ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "^./(.*)$"],
   importOrderSortSpecifiers: true,
-  tailwindFunctions: ['cn'],
-  tailwindStylesheet: './styles/globals.css',
+  importOrderCaseInsensitive: true,
+  importOrderSideEffects: false,
+  tailwindFunctions: ["cn"],
+  plugins: ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
 };
 
 export default config;
