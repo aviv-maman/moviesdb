@@ -15,6 +15,7 @@ const config = {
   importOrder: ['<THIRD_PARTY_MODULES>', '^./(.*)$'],
   importOrderSortSpecifiers: true,
   tailwindFunctions: ['cn'],
+  tailwindStylesheet: './styles/globals.css',
 };
 
 export default config;

@@ -1,7 +1,7 @@
 import { heroui } from '@heroui/react';
-import type { Config } from 'tailwindcss';
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+const config = {
   darkMode: ['class'],
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,4 +18,5 @@ const config: Config = {
   },
   plugins: [heroui()],
 };
+
 export default config;
