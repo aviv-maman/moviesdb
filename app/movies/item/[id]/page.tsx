@@ -1,21 +1,23 @@
+import { Link } from "@heroui/react";
 import ButtonHeart from "@/components/ButtonHeart";
 import Carousel from "@/components/Carousel";
 import CarouselCredits from "@/components/CarouselCredits";
-import { CircularProgress, Image, Link } from "@/components/HeroUI";
+import PosterImage from "@/components/PosterImage";
+import RatingProgress from "@/components/RatingProgress";
 import SearchResultBadge from "@/components/SearchResultBadge";
 import { getMovieById } from "@/lib/api_movies";
 
 interface MoviePageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }
-
 const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
   const id = Number((await params).id);
   const { movie } = await getMovieById({
     movie_id: id,
     append_to_response: "credits,external_ids,videos,recommendations",
   });
-
   const ratingColors: {
     [key: number]: "danger" | "warning" | "success" | "default";
   } = {
@@ -24,7 +26,6 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     2: "success",
     3: "default",
   };
-
   const movieItem = {
     ...movie,
     backdrop_path: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movie?.backdrop_path}`,
@@ -45,23 +46,27 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
       ],
     vote_average: movie && "vote_average" in movie ? movie?.vote_average * 10 : 0,
   };
-
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">
       <div className="mx-auto justify-center">
         <div
-          style={{ backgroundImage: `url(${movieItem?.backdrop_path})` }}
+          style={{
+            backgroundImage: `url(${movieItem?.backdrop_path})`,
+          }}
           className="relative size-full bg-cover bg-no-repeat">
           <div className="overflow-hidden bg-white/20 bg-fixed dark:bg-black/50">
             <div className="block p-8 md:flex">
-              <Image
+              <PosterImage
                 src={movieItem?.poster_path}
-                alt={movieItem?.title}
+                alt={movieItem?.title || "Poster"}
                 width={342}
                 height={513}
+                style={{
+                  minWidth: 342,
+                  height: 513,
+                }}
+                wrapperClassName="w-full flex"
                 className={`${movieItem?.poster_path === "./no-image.svg" && "p-4"} rounded-md`}
-                classNames={{ wrapper: "w-full flex" }}
-                style={{ minWidth: 342, height: 513 }}
               />
               <div className="flex flex-col gap-y-2 pt-2 sm:mx-3 sm:pt-0">
                 <h1 className="text-4xl font-bold text-black dark:text-white sm:text-6xl">{movieItem?.title}</h1>
@@ -85,32 +90,29 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-x-1">
-                  <CircularProgress
+                  <RatingProgress
                     aria-label="Vote average"
                     size="md"
                     value={movieItem?.vote_average}
                     color={movieItem?.ratingColor}
-                    showValueLabel={true}
-                    classNames={{ value: "text-sm font-semibold" }}
-                    strokeWidth={4}
                     valueLabel={Math.ceil(movieItem?.vote_average)}
                   />
                   <ButtonHeart mediaId={id} />
                   {movieItem?.external_ids?.imdb_id && (
                     <Link
-                      isExternal
                       href={`https://www.imdb.com/title/${movieItem?.external_ids?.imdb_id}`}
-                      color="foreground"
-                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400">
+                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       IMDB
                     </Link>
                   )}
                   {movieItem?.homepage && (
                     <Link
-                      isExternal
                       href={movieItem?.homepage}
-                      color="foreground"
-                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400">
+                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       Home
                     </Link>
                   )}
@@ -125,7 +127,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
                     />
                   ))}
                 </div>
-                <p className="flex max-w-5xl text-wrap rounded-sm p-1 pl-2 text-medium leading-snug text-black backdrop-blur-3xl dark:text-white">
+                <p className="flex max-w-5xl text-wrap rounded-sm p-1 pl-2 text-base leading-snug text-black backdrop-blur-3xl dark:text-white">
                   {movieItem?.overview}
                 </p>
               </div>
@@ -159,5 +161,4 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
     </main>
   );
 };
-
 export default MoviePage;

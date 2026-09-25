@@ -9,10 +9,8 @@ import { getFavorites, toggleFavorite } from "@/lib/api_account";
 type ButtonHeartPageProps = {
   mediaId: number;
 };
-
 const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
   const { dispatch, state } = useProfile();
-
   const handleFavorite = async () => {
     if (!state.supabase_profile?.tmdb_account_id || !state.supabase_profile?.tmdb_session_id) return;
     const res = await toggleFavorite({
@@ -29,7 +27,15 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
     toast.success(
       state.favorites.movie.includes(mediaId) ? "Item was removed from favorites" : "Item was added to favorites",
     );
-    dispatch({ type: "toggled_favorite_item", payload: { value: { media_type: "movie", id: mediaId } } });
+    dispatch({
+      type: "toggled_favorite_item",
+      payload: {
+        value: {
+          media_type: "movie",
+          id: mediaId,
+        },
+      },
+    });
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
       session_id: state.supabase_profile?.tmdb_session_id,
@@ -39,10 +45,11 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
     if (!favRes.results) return;
     dispatch({
       type: "changed_favorite_movie",
-      payload: { value: favRes.results.map((item) => item.id) },
+      payload: {
+        value: favRes.results.map((item) => item.id),
+      },
     });
   };
-
   return (
     <Button
       isIconOnly
@@ -54,5 +61,4 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
     </Button>
   );
 };
-
 export default ButtonHeart;

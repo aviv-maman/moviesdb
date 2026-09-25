@@ -2,14 +2,14 @@
 
 import { Suspense } from "react";
 import Link from "next/link";
-import { Image, Spinner } from "@heroui/react";
+import { Spinner } from "@heroui/react";
 import { PlugConnected, PlugConnectedX } from "@/assets/icons";
+import PosterImage from "@/components/PosterImage";
 import { useProfile } from "@/context/ProfileContext";
 import { handleLinkAccount, handleUnlinkAccount } from "@/lib/api_profile";
 
 const ProfileIntegrations: React.FC = () => {
   const { state } = useProfile();
-
   return (
     <div className="w-full dark:text-gray-100">
       <div className="mb-4">
@@ -21,7 +21,7 @@ const ProfileIntegrations: React.FC = () => {
       <div className="max-w-sm rounded-lg border">
         <div className="flex items-start justify-between p-4">
           <div className="space-y-2">
-            <Image src="./tmdb48.jpg" alt="tmdb" className="inline-block h-12 rounded-none" width={"48"} />
+            <PosterImage src="./tmdb48.jpg" alt="tmdb" className="inline-block h-12 rounded-none" width={"48"} />
             <h4 className="font-semibold">{"The Movie Database (TMDB)"}</h4>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               One of the largest databases of movies and series.
@@ -56,5 +56,4 @@ const ProfileIntegrations: React.FC = () => {
     </div>
   );
 };
-
 export default ProfileIntegrations;

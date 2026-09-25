@@ -1,28 +1,31 @@
+import { Link } from "@heroui/react";
 import ButtonHeart from "@/components/ButtonHeart";
 import Carousel from "@/components/Carousel";
 import CarouselCredits from "@/components/CarouselCredits";
-import { CircularProgress, Image, Link } from "@/components/HeroUI";
+import PosterImage from "@/components/PosterImage";
+import RatingProgress from "@/components/RatingProgress";
 import SearchResultBadge from "@/components/SearchResultBadge";
 import { getSeriesById } from "@/lib/api_series";
 
 interface SeriesPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }
-
 const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
   const id = Number((await params).id);
   const { series } = await getSeriesById({
     series_id: id,
     append_to_response: "credits,external_ids,videos,recommendations",
   });
-
-  const ratingColors: { [key: number]: "danger" | "warning" | "success" | "default" } = {
+  const ratingColors: {
+    [key: number]: "danger" | "warning" | "success" | "default";
+  } = {
     0: "danger",
     1: "warning",
     2: "success",
     3: "default",
   };
-
   const seriesItem = {
     ...series,
     backdrop_path: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${series?.backdrop_path}`,
@@ -49,23 +52,27 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
           ? series?.first_air_date?.slice(0, 4)
           : `${series?.first_air_date?.slice(0, 4)}-${series?.last_air_date?.slice(0, 4)}`,
   };
-
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">
       <div className="mx-auto justify-center">
         <div
-          style={{ backgroundImage: `url(${seriesItem?.backdrop_path})` }}
+          style={{
+            backgroundImage: `url(${seriesItem?.backdrop_path})`,
+          }}
           className="relative size-full bg-cover bg-no-repeat">
           <div className="bg-white/20 bg-fixed dark:bg-black/50">
             <div className="block p-8 md:flex">
-              <Image
+              <PosterImage
                 src={seriesItem?.poster_path}
-                alt={seriesItem?.name}
+                alt={seriesItem?.name || "Poster"}
                 width={342}
                 height={513}
+                style={{
+                  minWidth: 342,
+                  height: 513,
+                }}
+                wrapperClassName="w-full flex"
                 className={`${seriesItem?.poster_path === "./no-image.svg" && "p-4"} rounded-md`}
-                classNames={{ wrapper: "w-full flex" }}
-                style={{ minWidth: 342, height: 513 }}
               />
               <div className="flex flex-col gap-y-2 pt-2 sm:mx-3 sm:pt-0">
                 <h1 className="text-4xl font-bold text-slate-900 dark:text-white sm:text-6xl">{seriesItem?.name}</h1>
@@ -95,32 +102,29 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-x-1">
-                  <CircularProgress
+                  <RatingProgress
                     aria-label="Vote average"
                     size="md"
                     value={seriesItem?.vote_average}
                     color={seriesItem?.ratingColor}
-                    showValueLabel={true}
-                    classNames={{ value: "text-sm font-semibold" }}
-                    strokeWidth={4}
                     valueLabel={Math.ceil(seriesItem?.vote_average)}
                   />
                   <ButtonHeart mediaId={id} />
                   {seriesItem?.external_ids?.imdb_id && (
                     <Link
-                      isExternal
                       href={`https://www.imdb.com/title/${seriesItem?.external_ids?.imdb_id}`}
-                      color="foreground"
-                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400">
+                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       IMDB
                     </Link>
                   )}
                   {seriesItem?.homepage && (
                     <Link
-                      isExternal
                       href={seriesItem?.homepage}
-                      color="foreground"
-                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400">
+                      className="rounded-md border-1 border-gray-700 bg-yellow-400 px-2 py-1 text-gray-900 hover:bg-yellow-400"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       Home
                     </Link>
                   )}
@@ -135,7 +139,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
                     />
                   ))}
                 </div>
-                <p className="flex max-w-5xl text-wrap rounded-sm p-1 pl-2 text-medium leading-snug backdrop-blur-3xl">
+                <p className="flex max-w-5xl text-wrap rounded-sm p-1 pl-2 text-base leading-snug backdrop-blur-3xl">
                   {seriesItem?.overview}
                 </p>
               </div>
@@ -170,5 +174,4 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
     </main>
   );
 };
-
 export default SeriesPage;

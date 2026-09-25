@@ -6,7 +6,6 @@ import { Button } from "@heroui/react";
 interface LogoutButtonProps extends ButtonProps {
   label?: string;
 }
-
 export default function LogoutButton({ label = "Logout", ...props }: LogoutButtonProps) {
   return (
     <form action="/auth/logout" method="post">

@@ -1,22 +1,24 @@
 "use client";
 
-import { CircularProgress, Image, Link } from "@heroui/react";
+import { Link } from "@heroui/react";
+import PosterImage from "@/components/PosterImage";
+import RatingProgress from "@/components/RatingProgress";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
 import CarouselDropdown from "./CarouselDropdown";
 
 interface CardGenericProps {
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-
 const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
-  const ratingColors: { [key: number]: "danger" | "warning" | "success" | "default" } = {
+  const ratingColors: {
+    [key: number]: "danger" | "warning" | "success" | "default";
+  } = {
     0: "danger",
     1: "warning",
     2: "success",
     3: "default",
   };
   const imgClasses = "z-0 w-full rounded-md object-cover max-w-full max-h-auto min-h-64";
-
   const item = {
     title: "title" in data ? data.title : data.name || "Not available",
     description: "overview" in data ? data.overview : "Not available",
@@ -52,37 +54,34 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
           : 3
       ],
   };
-
   return (
     <div className="relative h-full max-w-44 rounded-md">
       <Link
         href={item.href}
+        aria-label={item.title}
         isDisabled={item.href.includes("people")}
-        disableAnimation
         className="absolute inset-0 z-10 rounded-md sm:hover:bg-violet-400 sm:hover:opacity-20"
       />
-      <Image
+      <PosterImage
         src={item.image}
         alt={item.title}
         className={`${imgClasses} min-w-[159px] border-1 md:min-w-[175px]`}
         fallbackSrc={"./no-image.jpg"}
-        radius="sm"
       />
       {"known_for" in data ? null : (
         <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} href={item.href} />
       )}
       <div className="absolute inset-0 rounded-md bg-gradient-to-t from-gray-900 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full p-2 text-left">
-        <h1 className="text-small font-semibold text-white">{item.title}</h1>
+        <h1 className="text-sm font-semibold text-white">{item.title}</h1>
         <div className="mt-1 flex items-center justify-between">
-          <span className="text-tiny text-gray-300">{item.releaseDate}</span>
+          <span className="text-xs text-gray-300">{item.releaseDate}</span>
           {"known_for" in data ? null : (
-            <CircularProgress
+            <RatingProgress
               aria-label="Vote average"
               size="sm"
               value={"vote_average" in data ? data.vote_average * 10 : undefined}
               color={item.ratingColor}
-              showValueLabel={true}
               className="text-white"
             />
           )}
@@ -91,5 +90,4 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
     </div>
   );
 };
-
 export default CardGeneric;

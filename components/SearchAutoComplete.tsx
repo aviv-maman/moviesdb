@@ -1,6 +1,5 @@
 "use client";
-
-import { Autocomplete, AutocompleteItem } from "@heroui/react";
+import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 interface SearchAutoCompleteProps {
   items: { label: string; value: string }[];
@@ -8,23 +7,28 @@ interface SearchAutoCompleteProps {
   label: string;
   defaultValue?: string | null;
 }
-
-const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({ items, name, label, defaultValue }) => {
+export default function SearchAutoComplete({ items, name, label, defaultValue }: SearchAutoCompleteProps) {
   return (
-    <Autocomplete
-      id={name}
+    <ComboBox
       name={name}
-      label={label}
       defaultSelectedKey={defaultValue || items[0].value}
-      allowsEmptyCollection={false}
-      classNames={{ base: "max-w-[8.5rem]", clearButton: "hidden" }}
-      variant="faded"
-      size="sm">
-      {items.map((item) => (
-        <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
-      ))}
-    </Autocomplete>
+      className="min-w-0 flex-1 max-w-[8.5rem]"
+      allowsEmptyCollection={false}>
+      <Label>{label}</Label>
+      <ComboBox.InputGroup>
+        <Input />
+        <ComboBox.Trigger />
+      </ComboBox.InputGroup>
+      <ComboBox.Popover>
+        <ListBox>
+          {items.map((item) => (
+            <ListBox.Item key={item.value} id={item.value} textValue={item.label}>
+              {item.label}
+              <ListBox.ItemIndicator />
+            </ListBox.Item>
+          ))}
+        </ListBox>
+      </ComboBox.Popover>
+    </ComboBox>
   );
-};
-
-export default SearchAutoComplete;
+}

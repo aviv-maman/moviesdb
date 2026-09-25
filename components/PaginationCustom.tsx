@@ -1,32 +1,50 @@
 "use client";
-
-import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Pagination, type PaginationProps } from "@heroui/react";
+import { Pagination } from "@heroui/react";
 
-const PaginationCustom: React.FC<PaginationProps> = ({ page, total, ...props }) => {
+interface PaginationCustomProps {
+  page?: number;
+  total: number;
+  className?: string;
+}
+export default function PaginationCustom({ page = 1, total, className }: PaginationCustomProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  const changePage = (page: number) => {
-    router.push(`${pathname}?${createQueryString("page", String(page))}`);
+  const href = (value: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", String(value));
+    return `${pathname}?${params.toString()}`;
   };
-
+  const pages = Array.from(
+    new Set([1, ...Array.from({ length: 5 }, (_, i) => page + i - 2).filter((n) => n > 1 && n < total), total]),
+  )
+    .filter((n) => n >= 1 && n <= total)
+    .sort((a, b) => a - b);
   return (
-    <Pagination showControls variant="bordered" showShadow total={total} page={page} onChange={changePage} {...props} />
+    <Pagination className={className} aria-label="Results pages">
+      <Pagination.Content>
+        <Pagination.Item>
+          <Pagination.Previous onPress={() => router.push(href(Math.max(1, page - 1)))} isDisabled={page <= 1}>
+            <Pagination.PreviousIcon />
+            Previous
+          </Pagination.Previous>
+        </Pagination.Item>
+        {pages.map((n, i) => (
+          <Pagination.Item key={n}>
+            {i > 0 && n > pages[i - 1] + 1 ? <Pagination.Ellipsis /> : null}
+            <Pagination.Link onPress={() => router.push(href(n))} isActive={n === page}>
+              {n}
+            </Pagination.Link>
+          </Pagination.Item>
+        ))}
+        <Pagination.Item>
+          <Pagination.Next onPress={() => router.push(href(Math.min(total, page + 1)))} isDisabled={page >= total}>
+            Next
+            <Pagination.NextIcon />
+          </Pagination.Next>
+        </Pagination.Item>
+      </Pagination.Content>
+    </Pagination>
   );
-};
-
-export default PaginationCustom;
+}

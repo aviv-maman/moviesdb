@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Image } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { toast } from "sonner";
 import { Trash } from "@/assets/icons";
+import PosterImage from "@/components/PosterImage";
 import { useProfile } from "@/context/ProfileContext";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
 import { getFavorites, toggleFavorite } from "@/lib/api_account";
@@ -12,7 +13,6 @@ import { MOVIE_GENRES, SERIES_GENRES } from "@/lib/data/search_filters";
 interface FavoriteListCardProps {
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-
 const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
   const genres =
     "genre_ids" in data
@@ -20,14 +20,14 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
         ? data.genre_ids.map((id) => MOVIE_GENRES.find((genre) => genre.value === String(id)))
         : data.genre_ids.map((id) => SERIES_GENRES.find((genre) => genre.value === String(id)))
       : [];
-
-  const ratingColors: { [key: number]: string } = {
+  const ratingColors: {
+    [key: number]: string;
+  } = {
     0: "bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300",
     1: "bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300",
     2: "bg-green-300 text-green-900 dark:bg-green-900 dark:text-green-300",
     3: "bg-gray-300 text-gray-900 dark:bg-gray-600 dark:text-gray-300",
   };
-
   const item = {
     title: "title" in data ? data.title : data.name || "Not available",
     description: "overview" in data ? data.overview : "Not available",
@@ -71,10 +71,10 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
           : 0
       ],
   };
-
   const className = `whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs`;
-
-  const badgeColors: { [key: string]: string } = {
+  const badgeColors: {
+    [key: string]: string;
+  } = {
     blue: "bg-blue-200 text-blue-600 dark:bg-blue-600 dark:text-blue-100",
     purple: "bg-purple-200 text-purple-600 dark:bg-purple-600 dark:text-purple-100",
     red: "bg-red-200 text-red-600 dark:bg-red-600 dark:text-red-100",
@@ -93,9 +93,7 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
     teal: "bg-teal-200 text-teal-600 dark:bg-teal-600 dark:text-teal-100",
     gray: "bg-gray-300 text-gray-900 dark:bg-gray-900 dark:text-gray-300",
   };
-
   const { dispatch, state } = useProfile();
-
   const handleFavorite = async () => {
     if (!state.supabase_profile?.tmdb_account_id || !state.supabase_profile?.tmdb_session_id) return;
     const res = await toggleFavorite({
@@ -114,7 +112,12 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
     );
     dispatch({
       type: "toggled_favorite_item",
-      payload: { value: { media_type: state.active_favlist as "movie" | "tv", id: data.id } },
+      payload: {
+        value: {
+          media_type: state.active_favlist as "movie" | "tv",
+          id: data.id,
+        },
+      },
     });
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
@@ -125,28 +128,27 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
     if (!favRes.results) return;
     dispatch({
       type: (state.active_favlist as "movie" | "tv") === "movie" ? "changed_favorite_movie" : "changed_favorite_tv",
-      payload: { value: favRes.results.map((item) => item.id) },
+      payload: {
+        value: favRes.results.map((item) => item.id),
+      },
     });
   };
-
   return (
     <article className="relative my-4 flex border bg-gray-100 transition hover:shadow-lg hover:shadow-indigo-400/40 dark:bg-gray-900">
       <Link href={item.href} className="absolute bottom-0 left-0 right-0 top-0 z-10" />
-      <Image
+      <PosterImage
         width={168}
         height={336}
         alt={item.title}
         src={item.image}
-        radius="none"
-        className="z-0 h-[250px] border-r-1 object-cover sm:h-[168px] sm:w-28 md:h-[336px] md:w-56"
-        classNames={{ wrapper: "md:min-w-56" }}
+        className={"md:min-w-56 " + "z-0 h-[250px] border-r-1 object-cover sm:h-[168px] sm:w-28 md:h-[336px] md:w-56"}
       />
       <div className="flex flex-1 flex-col justify-between">
         <div className="border-s border-gray-900/10 p-2 sm:border-l-transparent sm:p-4">
           <div className="flex justify-between">
             <div className="flex flex-col">
               <h3 className="font-bold leading-tight text-gray-700 dark:text-gray-300">{item.title}</h3>
-              <span className="text-small">
+              <span className="text-sm">
                 {item.release_date} |{" "}
                 {item.media_type === "person" ? "Person" : item.media_type === "movie" ? "Movie" : "Series"}
               </span>
@@ -155,7 +157,7 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
               <p className={`inline-flex h-fit items-center rounded p-1.5 text-sm font-semibold ${item.ratingColor}`}>
                 {item.rating}
               </p>
-              <Button isIconOnly size="sm" color="danger" className="z-10">
+              <Button isIconOnly size="sm" className="z-10" variant="danger">
                 <Trash className="size-5" onClick={handleFavorite} />
               </Button>
             </div>
@@ -179,5 +181,4 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
     </article>
   );
 };
-
 export default FavoriteListCard;
