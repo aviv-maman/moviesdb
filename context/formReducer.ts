@@ -3,69 +3,57 @@ import type { FormActionMap, FormContextState } from "./FormContext";
 
 const { results: services } = movieProviders;
 
-export const formReducer = (draft: FormContextState, action: FormActionMap) => {
+export const formReducer = (state: FormContextState, action: FormActionMap): FormContextState => {
   switch (action.type) {
     case "added_keyword": {
-      draft.keywords.push({
-        id: action.payload.id,
-        value: action.payload.value,
-      });
-      break;
+      return { ...state, keywords: [...state.keywords, { id: action.payload.id, value: action.payload.value }] };
     }
     case "deleted_keyword": {
-      draft.keywords = draft.keywords.filter((keyword) => keyword.id !== action.payload.id);
-      break;
+      return { ...state, keywords: state.keywords.filter((keyword) => keyword.id !== action.payload.id) };
     }
     case "sort_by": {
-      draft.sort_by = action.payload.value;
-      break;
+      return { ...state, sort_by: action.payload.value };
     }
     case "changed_country": {
-      draft.where_to_watch.country = action.payload.value;
-      const mutatedServices = services.map((provider) => ({ ...provider, is_selected: false }));
-      draft.where_to_watch.providers = mutatedServices.filter((service) =>
-        Object.hasOwn(service.display_priorities, draft.where_to_watch.country),
-      );
-      draft.where_to_watch.providers.sort((a, b) => a.provider_name.localeCompare(b.provider_name));
-      break;
+      const country = action.payload.value;
+      const providers = services
+        .filter((provider) => Object.hasOwn(provider.display_priorities, country))
+        .map((provider) => ({ ...provider, is_selected: false }))
+        .sort((a, b) => a.provider_name.localeCompare(b.provider_name));
+      return { ...state, where_to_watch: { ...state.where_to_watch, country, providers } };
     }
     case "toggled_watch_providers": {
-      draft.where_to_watch.providers.forEach((provider) => {
-        if (draft.where_to_watch.providers.find((p) => p.provider_id === provider.provider_id)) {
-          provider.is_selected = !provider.is_selected;
-        }
-      });
-      break;
+      return {
+        ...state,
+        where_to_watch: {
+          ...state.where_to_watch,
+          providers: state.where_to_watch.providers.map((provider) => ({
+            ...provider,
+            is_selected: !provider.is_selected,
+          })),
+        },
+      };
     }
     case "show_me": {
-      draft.show_me = action.payload.value;
-      break;
+      return { ...state, show_me: action.payload.value };
     }
     case "toggled_availability": {
-      draft.availabilities = action.payload.value;
-      break;
+      return { ...state, availabilities: action.payload.value };
     }
     case "toggled_release_dates": {
-      draft.release_dates.gte = action.payload.gte;
-      draft.release_dates.lte = action.payload.lte;
-      break;
+      return { ...state, release_dates: { ...state.release_dates, gte: action.payload.gte, lte: action.payload.lte } };
     }
     case "toggled_release_types": {
-      draft.release_types = action.payload.value;
-      break;
+      return { ...state, release_types: action.payload.value };
     }
     case "toggled_genre": {
-      draft.genres = action.payload.value;
-      break;
+      return { ...state, genres: action.payload.value };
     }
     case "changed_language": {
-      draft.language = action.payload.value;
-      break;
+      return { ...state, language: action.payload.value };
     }
     case "changed_user_score": {
-      draft.user_score.min = action.payload.min;
-      draft.user_score.max = action.payload.max;
-      break;
+      return { ...state, user_score: { ...state.user_score, min: action.payload.min, max: action.payload.max } };
     }
     default: {
       throw Error("Unknown action");

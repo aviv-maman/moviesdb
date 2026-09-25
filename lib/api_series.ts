@@ -1,4 +1,3 @@
-import { produce } from "immer";
 import type { GetSeriesResponse } from "./api.types";
 
 type GetMovieOptions = {
@@ -16,10 +15,7 @@ export const getSeriesById = async (options: GetMovieOptions) => {
     },
     next: { revalidate: 60 * 60 * 24 },
   };
-  const id = options.series_id;
-  const queryParamsObj = produce({ ...options, series_id: undefined }, (draft) => {
-    delete draft.series_id;
-  });
+  const { series_id: id, ...queryParamsObj } = options;
 
   try {
     const searchParams = new URLSearchParams();
