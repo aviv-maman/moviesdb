@@ -1,5 +1,3 @@
-'use server';
-
 import { redirect } from 'next/navigation';
 import FavoriteListMenu from '@/components/FavoriteListMenu';
 import FavoriteListSection from '@/components/FavoriteListSection';

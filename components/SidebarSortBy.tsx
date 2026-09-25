@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Select, SelectItem } from '@heroui/react';
+import { Accordion, AccordionItem, Select, SelectItem } from './HeroUI';
 import { SORT_BY } from '@/lib/data/search_filters';
 
 const SidebarSortBy: React.FC = () => {

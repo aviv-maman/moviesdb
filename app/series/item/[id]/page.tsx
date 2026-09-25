@@ -1,6 +1,4 @@
-'use server';
-
-import { CircularProgress, Image, Link } from '@heroui/react';
+import { CircularProgress, Image, Link } from '@/components/HeroUI';
 import ButtonHeart from '@/components/ButtonHeart';
 import Carousel from '@/components/Carousel';
 import CarouselCredits from '@/components/CarouselCredits';
