@@ -1,42 +1,32 @@
 import type { ProfileActionMap, ProfileContextState } from "./ProfileContext";
 
-export const profileReducer = (draft: ProfileContextState, action: ProfileActionMap) => {
+export const profileReducer = (state: ProfileContextState, action: ProfileActionMap): ProfileContextState => {
   switch (action.type) {
     case "changed_active_view": {
-      draft.active_view = action.payload.value;
-      break;
+      return { ...state, active_view: action.payload.value };
     }
     case "changed_supabase_profile": {
-      draft.supabase_profile = action.payload.value;
-      break;
+      return { ...state, supabase_profile: action.payload.value };
     }
     case "changed_supabase_user": {
-      draft.supabase_user = action.payload.value;
-      break;
+      return { ...state, supabase_user: action.payload.value };
     }
     case "changed_favorite_movie": {
-      draft.favorites.movie = action.payload.value;
-      break;
+      return { ...state, favorites: { ...state.favorites, movie: action.payload.value } };
     }
     case "changed_favorite_tv": {
-      draft.favorites.tv = action.payload.value;
-      break;
+      return { ...state, favorites: { ...state.favorites, tv: action.payload.value } };
     }
     case "toggled_favorite_item": {
       const { media_type, id } = action.payload.value;
-      const favorites = draft.favorites[media_type];
+      const favorites = state.favorites[media_type];
       const index = favorites.indexOf(id);
-      if (index === -1) {
-        favorites.push(id);
-      } else {
-        favorites.splice(index, 1);
-      }
-      draft.favorites[media_type] = favorites;
-      break;
+      const updatedFavorites =
+        index === -1 ? [...favorites, id] : [...favorites.slice(0, index), ...favorites.slice(index + 1)];
+      return { ...state, favorites: { ...state.favorites, [media_type]: updatedFavorites } };
     }
     case "changed_active_favlist": {
-      draft.active_favlist = action.payload.value;
-      break;
+      return { ...state, active_favlist: action.payload.value };
     }
     default: {
       throw Error("Unknown action");
