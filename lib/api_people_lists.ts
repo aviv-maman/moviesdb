@@ -1,20 +1,20 @@
-import type { PersonListResponse } from './api.types';
+import type { PersonListResponse } from "./api.types";
 
 type PeopleApiOptions = {
-  type: 'popular';
+  type: "popular";
   language?: string;
   page?: number;
 };
 
 export const getPeople = async (options: PeopleApiOptions) => {
-  options.language = options.language || 'en-US';
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };

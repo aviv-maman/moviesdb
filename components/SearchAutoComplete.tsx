@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Autocomplete, AutocompleteItem } from '@heroui/react';
+import { Autocomplete, AutocompleteItem } from "@heroui/react";
 
 interface SearchAutoCompleteProps {
   items: { label: string; value: string }[];
@@ -17,9 +17,9 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({ items, name, la
       label={label}
       defaultSelectedKey={defaultValue || items[0].value}
       allowsEmptyCollection={false}
-      classNames={{ base: 'max-w-[8.5rem]', clearButton: 'hidden' }}
-      variant='faded'
-      size='sm'>
+      classNames={{ base: "max-w-[8.5rem]", clearButton: "hidden" }}
+      variant="faded"
+      size="sm">
       {items.map((item) => (
         <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
       ))}

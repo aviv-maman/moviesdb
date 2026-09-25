@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Accordion, AccordionItem, Avatar, CheckboxGroup, Divider, Select, SelectItem } from '@heroui/react';
-import CheckboxService from './CheckboxService';
-import { useForm } from '@/context/FormContext';
-import countries from '@/lib/data/countries.json';
+import { Accordion, AccordionItem, Avatar, CheckboxGroup, Divider, Select, SelectItem } from "@heroui/react";
+import { useForm } from "@/context/FormContext";
+import countries from "@/lib/data/countries.json";
+import CheckboxService from "./CheckboxService";
 
 // import { useGeoLocation } from '@/hooks/useGeoLocation';
 // import useSWR from 'swr';
@@ -29,7 +29,7 @@ const SidebarWhereToWatch: React.FC = () => {
 
   const handleChangeCountry = (value: string) => {
     value = value.toUpperCase();
-    dispatch({ type: 'changed_country', payload: { value } });
+    dispatch({ type: "changed_country", payload: { value } });
   };
 
   //   useEffect(() => {
@@ -41,29 +41,29 @@ const SidebarWhereToWatch: React.FC = () => {
   //   }, [location]);
 
   return (
-    <Accordion variant='bordered' defaultExpandedKeys={['where-to-watch']} keepContentMounted>
+    <Accordion variant="bordered" defaultExpandedKeys={["where-to-watch"]} keepContentMounted>
       <AccordionItem
-        key='where-to-watch'
-        aria-label='Where to watch'
-        title='Where to Watch'
-        subtitle='Streaming Services'
-        classNames={{ title: 'text-md' }}>
+        key="where-to-watch"
+        aria-label="Where to watch"
+        title="Where to Watch"
+        subtitle="Streaming Services"
+        classNames={{ title: "text-md" }}>
         <Select
-          name='watch_region'
-          label='Select country'
-          aria-label='Select country'
-          className='mt-4 max-w-xs'
+          name="watch_region"
+          label="Select country"
+          aria-label="Select country"
+          className="mt-4 max-w-xs"
           //   isLoading={isLoading || isValidating}
-          variant='bordered'
-          color='success'
-          labelPlacement='outside'
+          variant="bordered"
+          color="success"
+          labelPlacement="outside"
           scrollShadowProps={{ hideScrollBar: false, offset: 15 }}
           startContent={
             state.where_to_watch.country.length ? (
               <Avatar
                 alt={state.where_to_watch.country}
-                className='h-6 w-7'
-                radius='sm'
+                className="h-6 w-7"
+                radius="sm"
                 src={`https://flagcdn.com/${state.where_to_watch.country.toLowerCase()}.svg`}
               />
             ) : null
@@ -75,8 +75,8 @@ const SidebarWhereToWatch: React.FC = () => {
               startContent={
                 <Avatar
                   alt={option.english_name}
-                  className='h-6 w-6'
-                  radius='sm'
+                  className="h-6 w-6"
+                  radius="sm"
                   src={`https://flagcdn.com/${option.iso_3166_1.toLowerCase()}.svg`}
                 />
               }>
@@ -84,13 +84,13 @@ const SidebarWhereToWatch: React.FC = () => {
             </SelectItem>
           ))}
         </Select>
-        <Divider orientation='horizontal' className='mb-3 mt-5' />
-        <h2 className='relative mb-2 text-sm font-normal text-foreground-500'>Available Services</h2>
+        <Divider orientation="horizontal" className="mb-3 mt-5" />
+        <h2 className="relative mb-2 text-sm font-normal text-foreground-500">Available Services</h2>
         <CheckboxGroup
-          name='with_watch_providers'
-          orientation='horizontal'
-          className='mb-2'
-          classNames={{ wrapper: 'flex justify-center', base: 'overflow-hidden' }}>
+          name="with_watch_providers"
+          orientation="horizontal"
+          className="mb-2"
+          classNames={{ wrapper: "flex justify-center", base: "overflow-hidden" }}>
           {state.where_to_watch.providers.map((option) => (
             <CheckboxService
               key={option.provider_id}

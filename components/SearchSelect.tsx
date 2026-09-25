@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Select, SelectItem } from '@heroui/react';
-import { type Dispatch, type SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from "react";
+import { Select, SelectItem } from "@heroui/react";
 
 interface SearchSelectProps {
   items: { label: string; value: string }[];
   name: string;
   label: string;
-  setMediaType: Dispatch<SetStateAction<'multi' | 'movie' | 'tv' | 'person'>>;
+  setMediaType: Dispatch<SetStateAction<"multi" | "movie" | "tv" | "person">>;
   defaultValue?: string | null;
 }
 
@@ -19,13 +19,13 @@ const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMedi
       label={label}
       defaultSelectedKeys={[defaultValue || items[0].value]}
       disallowEmptySelection
-      variant='faded'
-      size='sm'
-      className='max-w-[8rem]'
+      variant="faded"
+      size="sm"
+      className="max-w-[8rem]"
       onSelectionChange={(e) => {
         const key = e.valueOf();
-        if (typeof key === 'string') return;
-        if ('currentKey' in key) setMediaType(() => key.currentKey as 'multi' | 'movie' | 'tv' | 'person');
+        if (typeof key === "string") return;
+        if ("currentKey" in key) setMediaType(() => key.currentKey as "multi" | "movie" | "tv" | "person");
       }}>
       {items.map((item) => (
         <SelectItem key={item.value}>{item.label}</SelectItem>

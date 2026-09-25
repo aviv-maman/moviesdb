@@ -1,44 +1,34 @@
-'use client';
+"use client";
 
-import type { User } from '@supabase/supabase-js';
-import { createContext, useContext, useMemo } from 'react';
-import { useImmerReducer } from 'use-immer';
-import { profileReducer } from './profileReducer';
-import type { Profile } from '@/lib/database.types';
+import { createContext, useContext } from "react";
+import type { User } from "@supabase/supabase-js";
+import type { Profile } from "@/lib/database.types";
 
 export type ProfileStore = {
   state: ProfileContextState;
   dispatch: React.Dispatch<ProfileActionMap>;
 };
 
-const initialContextState = {
-  active_view: 'profile',
+export const initialContextState = {
+  active_view: "profile",
   supabase_profile: {} as Profile | null,
   supabase_user: {} as User | null,
   favorites: {
     movie: [] as number[],
     tv: [] as number[],
   },
-  active_favlist: 'movie',
+  active_favlist: "movie",
 };
 
-const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
-
-function ProfileProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useImmerReducer(profileReducer, initialContextState);
-
-  const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
-
-  return <ProfileContext.Provider value={contextValue}>{children}</ProfileContext.Provider>;
-}
+export const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, state: initialContextState });
 
 function useProfile() {
   const context = useContext(ProfileContext);
-  if (context === undefined) throw new Error('ProfileContext was used outside of the ProfileProvider');
+  if (context === undefined) throw new Error("ProfileContext was used outside of the ProfileProvider");
   return context;
 }
 
-type ActionMap<M extends { [index: string]: any }> = {
+type ActionMap<M extends { [index: string]: unknown }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
         type: Key;
@@ -51,7 +41,7 @@ type ActionMap<M extends { [index: string]: any }> = {
 
 type ProfilePayload = {
   changed_active_view: {
-    value: 'profile' | 'integrations';
+    value: "profile" | "integrations";
   };
   changed_supabase_profile: {
     value: Profile | null;
@@ -66,14 +56,14 @@ type ProfilePayload = {
     value: number[];
   };
   toggled_favorite_item: {
-    value: { media_type: 'movie' | 'tv'; id: number };
+    value: { media_type: "movie" | "tv"; id: number };
   };
   changed_active_favlist: {
-    value: 'movie' | 'tv';
+    value: "movie" | "tv";
   };
 };
 
 export type ProfileContextState = typeof initialContextState;
 export type ProfileActionMap = ActionMap<ProfilePayload>[keyof ActionMap<ProfilePayload>];
 
-export { ProfileProvider, useProfile };
+export { useProfile };

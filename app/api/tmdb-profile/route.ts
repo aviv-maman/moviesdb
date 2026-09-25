@@ -1,28 +1,28 @@
-import { NextResponse } from 'next/server';
-import type { TmdbProfile } from '@/lib/api.types';
-import { createClient } from '@/utils/supabase/server';
+import { NextResponse } from "next/server";
+import type { TmdbProfile } from "@/lib/api.types";
+import { createClient } from "@/utils/supabase/server";
 
-export async function GET(request: Request) {
+export async function GET() {
   const supabase = await createClient();
   const accountOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
-    cache: 'no-store',
+    cache: "no-store",
   };
   try {
     const {
       data: { session },
     } = await supabase.auth.getSession();
     const { data: supabaseProfile, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', session?.user.id as string)
+      .from("profiles")
+      .select("*")
+      .eq("id", session?.user.id as string)
       .single();
     if (error) {
-      console.log('Supabase handleLinkAccount', error);
+      console.log("Supabase handleLinkAccount", error);
       throw new Error(error.message);
     }
     const res = await fetch(
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
     const data: TmdbProfile = await res.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error in handleLinkAccount');
+    console.error("Error in handleLinkAccount");
     if (error instanceof Error) {
       //(EvalError || RangeError || ReferenceError || SyntaxError || TypeError || URIError)
       console.error(`${error.name} - ${error.message}`);

@@ -1,3 +1,3 @@
-'use client';
+"use client";
 
-export { Accordion, AccordionItem, CircularProgress, Image, Link, Select, SelectItem } from '@heroui/react';
+export { Accordion, AccordionItem, CircularProgress, Image, Link, Select, SelectItem } from "@heroui/react";

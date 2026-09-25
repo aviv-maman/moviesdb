@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Chip, VisuallyHidden, tv, useCheckbox } from '@heroui/react';
-import type { CheckboxProps } from '@heroui/react';
-import { Check, X } from '@/assets/icons';
+import type { CheckboxProps, ChipProps } from "@heroui/react";
+import { Chip, tv, useCheckbox, VisuallyHidden } from "@heroui/react";
+import { Check, X } from "@/assets/icons";
 
 interface CheckboxGenreProps extends CheckboxProps {
   label: string;
@@ -15,8 +15,8 @@ const CheckboxGenre: React.FC<CheckboxGenreProps> = (props) => {
 
   const checkbox = tv({
     slots: {
-      base: 'border-default hover:bg-default-200',
-      content: 'text-sm',
+      base: "border-default hover:bg-default-200",
+      content: "text-sm",
     },
     variants: {
       isSelected: {
@@ -27,7 +27,7 @@ const CheckboxGenre: React.FC<CheckboxGenreProps> = (props) => {
       },
       isFocusVisible: {
         true: {
-          base: 'outline-none ring-2 ring-focus ring-offset-2 ring-offset-background',
+          base: "outline-none ring-2 ring-focus ring-offset-2 ring-offset-background",
         },
       },
     },
@@ -45,9 +45,9 @@ const CheckboxGenre: React.FC<CheckboxGenreProps> = (props) => {
           base: styles.base(),
           content: styles.content(),
         }}
-        startContent={isSelected ? <Check className='ml-1 size-4' /> : <X className='ml-1 size-4' />}
-        variant='faded'
-        {...(getLabelProps() as any)}>
+        startContent={isSelected ? <Check className="ml-1 size-4" /> : <X className="ml-1 size-4" />}
+        variant="faded"
+        {...(getLabelProps() as ChipProps)}>
         {children ? children : props.label}
       </Chip>
     </label>

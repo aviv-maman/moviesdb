@@ -1,22 +1,22 @@
-import type { DiscoverMoviesParams, MovieListResponse } from './api.types';
+import type { DiscoverMoviesParams, MovieListResponse } from "./api.types";
 
 type MoviesApiOptions = {
-  type: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
+  type: "now_playing" | "popular" | "top_rated" | "upcoming";
   language?: string;
   page?: number;
   region?: string;
 };
 
 export const getMovies = async (options: MoviesApiOptions) => {
-  options.language = options.language || 'en-US';
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
-  options.region = options.region || 'US';
+  options.region = options.region || "US";
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };
@@ -46,16 +46,16 @@ export const discoverMovies = async (options?: DiscoverMoviesParams) => {
   options = options || {};
   options.include_adult = options.include_adult || false;
   options.include_video = options.include_video || false;
-  options.language = options.language || 'en-US';
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
-  options.region = options.region || 'US';
-  options.sort_by = options.sort_by || 'popularity.desc';
+  options.region = options.region || "US";
+  options.sort_by = options.sort_by || "popularity.desc";
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };

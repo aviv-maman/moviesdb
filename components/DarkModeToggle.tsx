@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useDarkMode } from '../context/DarkModeContext';
-import { Button } from '@heroui/react';
-import { Moon, Sun } from '@/assets/icons';
+import { Button } from "@heroui/react";
+import { Moon, Sun } from "@/assets/icons";
+import { useDarkMode } from "../context/DarkModeContext";
 
 type DarkModeToggleProps = {
   color?: string;
-  className?: HTMLElement['className'];
+  className?: HTMLElement["className"];
 };
 
 function DarkModeToggle({ color, className }: DarkModeToggleProps) {
@@ -14,13 +14,13 @@ function DarkModeToggle({ color, className }: DarkModeToggleProps) {
 
   return (
     <Button
-      type='button'
+      type="button"
       isIconOnly
       onPress={toggleDarkMode}
       className={`${className} border border-neutral-300 dark:border-neutral-800`}
-      aria-label='Toggle dark mode'
-      variant='light'>
-      {isDarkMode ? <Sun color={color} className='size-5' /> : <Moon color={color} className='size-5' />}
+      aria-label="Toggle dark mode"
+      variant="light">
+      {isDarkMode ? <Sun color={color} className="size-5" /> : <Moon color={color} className="size-5" />}
     </Button>
   );
 }
