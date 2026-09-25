@@ -1,70 +1,49 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { type CookieOptions, createServerClient } from "@supabase/ssr";
+import { createServerClient } from "@supabase/ssr";
 import type { Database } from "@/lib/database.types";
 import { getSupabaseConfig } from "@/utils/supabase/config";
 
 export async function proxy(request: NextRequest) {
-  // Create an unmodified response
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  let response = NextResponse.next({ request });
 
   try {
-    // Create a Supabase client configured to use cookies
     const { url, anonKey } = getSupabaseConfig();
     const supabase = createServerClient<Database>(url, anonKey, {
       cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value;
+        getAll() {
+          return request.cookies.getAll();
         },
-        set(name: string, value: string, options: CookieOptions) {
-          // If the cookie is updated, update the cookies for the request and response
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-        },
-        remove(name, options) {
-          // If the cookie is removed, update the cookies for the request and response
-          request.cookies.delete(name);
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
-          response.cookies.delete({
-            name,
-            ...options,
-          });
+        setAll(cookiesToSet, headers) {
+          for (const { name, value } of cookiesToSet) {
+            request.cookies.set(name, value);
+          }
+
+          // Preserve earlier cookie writes and cache headers if setAll runs again.
+          const previousResponse = response;
+          response = NextResponse.next({ request });
+          for (const cookie of previousResponse.cookies.getAll()) {
+            response.cookies.set(cookie);
+          }
+          for (const header of ["cache-control", "expires", "pragma"]) {
+            const value = previousResponse.headers.get(header);
+            if (value) response.headers.set(header, value);
+          }
+
+          for (const { name, value, options } of cookiesToSet) {
+            response.cookies.set(name, value, options);
+          }
+          for (const [name, value] of Object.entries(headers)) {
+            response.headers.set(name, value);
+          }
         },
       },
     });
 
-    // Refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
+    // Validate the user and refresh the session before rendering.
     await supabase.auth.getUser();
-
-    // If the session was refreshed, the request and response cookies will have been updated
-    // If the session was not refreshed, the request and response cookies will be unchanged
-    return response;
   } catch {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // TODO: Feel free to remove this `try catch` block once you have
-    // your Next.js app connected to your Supabase project.
-    return response;
+    // Preserve the existing fallback when Supabase is unavailable or not configured.
   }
+
+  return response;
 }
