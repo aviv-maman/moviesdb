@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@heroui/react";
+import Link from "next/link";
 import PosterImage from "@/components/PosterImage";
 import RatingProgress from "@/components/RatingProgress";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
@@ -56,12 +56,13 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
   };
   return (
     <div className="relative h-full max-w-44 rounded-md">
-      <Link
-        href={item.href}
-        aria-label={item.title}
-        isDisabled={item.href.includes("people")}
-        className="absolute inset-0 z-10 rounded-md sm:hover:bg-violet-400 sm:hover:opacity-20"
-      />
+      {!item.href.includes("people") && (
+        <Link
+          href={item.href}
+          aria-label={item.title}
+          className="absolute inset-0 z-10 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:hover:bg-violet-400/20"
+        />
+      )}
       <PosterImage
         src={item.image}
         alt={item.title}

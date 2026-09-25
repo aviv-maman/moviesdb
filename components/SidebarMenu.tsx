@@ -98,11 +98,11 @@ const SidebarMenu: React.FC = () => {
   return (
     <aside
       id="logo-sidebar"
-      className="border-gray-200 p-4 dark:border-neutral-800 min-[960px]:border-r"
+      className="border-gray-200 p-4 dark:border-neutral-800 min-[960px]:h-full min-[960px]:shrink-0 min-[960px]:overflow-hidden min-[960px]:border-r"
       aria-label="Sidebar">
-      <div className="size-full overflow-y-auto min-[960px]:w-80">
-        <form action={handleSearch}>
-          <ul className="space-y-4 font-medium">
+      <div className="w-full min-[960px]:h-full min-[960px]:w-80">
+        <form action={handleSearch} className="min-[960px]:flex min-[960px]:h-full min-[960px]:flex-col">
+          <ul className="space-y-4 font-medium min-[960px]:min-h-0 min-[960px]:flex-1 min-[960px]:overflow-y-auto">
             <li className="rounded-2xl bg-surface">
               <SidebarSortBy />
             </li>
@@ -113,7 +113,7 @@ const SidebarMenu: React.FC = () => {
               <SidebarFilters />
             </li>
           </ul>
-          <div className="flex w-full justify-center">
+          <div className="flex w-full shrink-0 justify-center">
             <ButtonCustom
               type="submit"
               className="mt-4 w-full max-w-sm bg-violet-200 text-violet-500 dark:bg-violet-300 dark:text-violet-700"

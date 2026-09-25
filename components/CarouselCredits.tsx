@@ -37,20 +37,24 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
   return (
     <div className="w-full" {...rest}>
       <Card className="max-w-full border">
-        <Card.Content className="overflow-hidden">
-          <Tabs>
-            <Tabs.ListContainer>
-              <Tabs.List aria-label="Carousel categories">
-                <Tabs.Tab key={`tab-${1}`} id={`tab-${1}`}>
-                  {`Cast`}
-                  <Tabs.Indicator />
-                </Tabs.Tab>
-                <Tabs.Tab key={`tab-${2}`} id={`tab-${2}`}>
-                  {`Crew`}
-                  <Tabs.Indicator />
-                </Tabs.Tab>
-              </Tabs.List>
-            </Tabs.ListContainer>
+        <Card.Content className="min-w-0 overflow-hidden">
+          <Tabs className="min-w-0 w-full">
+            <Tabs.List
+              aria-label="Carousel categories"
+              className="grid w-full min-w-0 grid-flow-col auto-cols-fr rounded-lg bg-default p-1">
+              <Tabs.Tab
+                className="min-w-0 w-auto rounded-md px-2 data-[selected=true]:bg-surface data-[selected=true]:shadow-sm"
+                key={`tab-${1}`}
+                id={`tab-${1}`}>
+                {`Cast`}
+              </Tabs.Tab>
+              <Tabs.Tab
+                className="min-w-0 w-auto rounded-md px-2 data-[selected=true]:bg-surface data-[selected=true]:shadow-sm"
+                key={`tab-${2}`}
+                id={`tab-${2}`}>
+                {`Crew`}
+              </Tabs.Tab>
+            </Tabs.List>
             <Tabs.Panel key={`tab-${1}`} id={`tab-${1}`}>
               <Splide tag="section" aria-label="Cast Carousel" options={options}>
                 {data?.cast?.map((slide) => (

@@ -1,16 +1,17 @@
-.card {
+.feature-card {
   border-radius: 10px;
   position: relative;
 }
 
-.card:hover::before {
+.feature-card:hover::before {
   opacity: 1;
 }
 
-.card::before,
-.card::after {
+.feature-card::before,
+.feature-card::after {
   border-radius: inherit;
   content: "";
+  pointer-events: none;
   height: 100%;
   left: 0px;
   opacity: 0;
@@ -20,7 +21,7 @@
   width: 100%;
 }
 
-.card::before {
+.feature-card::before {
   background: radial-gradient(
     800px circle at var(--mouse-x) var(--mouse-y),
     rgba(157, 25, 210, 0.08),
@@ -30,7 +31,7 @@
   z-index: 3;
 }
 
-.card::after {
+.feature-card::after {
   background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.4), transparent 40%);
   z-index: 1;
 }

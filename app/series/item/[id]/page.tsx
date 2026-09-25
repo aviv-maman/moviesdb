@@ -59,21 +59,19 @@ export default async function SeriesPage({ params }: PageProps<"/series/item/[id
           }}
           className="relative size-full bg-cover bg-no-repeat">
           <div className="bg-white/20 bg-fixed dark:bg-black/50">
-            <div className="block p-8 md:flex">
+            <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-6 p-4 sm:p-8 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)] lg:grid-cols-[342px_minmax(0,1fr)]">
               <PosterImage
                 src={seriesItem?.poster_path}
                 alt={seriesItem?.name || "Poster"}
                 width={342}
                 height={513}
-                style={{
-                  minWidth: 342,
-                  height: 513,
-                }}
-                wrapperClassName="w-full flex"
-                className={`${seriesItem?.poster_path === "./no-image.svg" && "p-4"} rounded-md`}
+                wrapperClassName="mx-auto w-full max-w-[342px] md:mx-0"
+                className={`${seriesItem?.poster_path === "./no-image.svg" && "p-4"} h-auto w-full rounded-md`}
               />
-              <div className="flex flex-col gap-y-2 pt-2 sm:mx-3 sm:pt-0">
-                <h1 className="text-4xl font-bold text-slate-900 dark:text-white sm:text-6xl">{seriesItem?.name}</h1>
+              <div className="min-w-0 flex flex-col gap-3">
+                <h1 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+                  {seriesItem?.name}
+                </h1>
                 <div className="flex flex-wrap items-center gap-x-1">
                   <SearchResultBadge
                     label={`${seriesItem?.years}`}
@@ -99,7 +97,7 @@ export default async function SeriesPage({ params }: PageProps<"/series/item/[id
                     ))}
                   </div>
                 </div>
-                <div className="flex items-center gap-x-1">
+                <div className="flex flex-wrap items-center gap-2">
                   <RatingProgress
                     aria-label="Vote average"
                     size="md"
@@ -127,7 +125,7 @@ export default async function SeriesPage({ params }: PageProps<"/series/item/[id
                     </Link>
                   )}
                 </div>
-                <div className="flex gap-x-1">
+                <div className="flex flex-wrap gap-1">
                   {seriesItem?.spoken_languages?.map((lang) => (
                     <SearchResultBadge
                       key={lang}

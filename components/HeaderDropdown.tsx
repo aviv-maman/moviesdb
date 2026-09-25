@@ -21,23 +21,25 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links })
   const capitalizedLabel = dropdownLabel.charAt(0).toUpperCase() + dropdownLabel.slice(1);
   return (
     <Dropdown>
-      <Button variant="ghost">
+      <Button variant="ghost" className="rounded-md">
         {capitalizedLabel} {<ChevronDown className="size-[18px]" />}
       </Button>
-      <Dropdown.Popover>
-        <Dropdown.Menu aria-label={`${capitalizedLabel} Menu`} className="w-[340px]">
+      <Dropdown.Popover className="rounded-lg">
+        <Dropdown.Menu aria-label={`${capitalizedLabel} Menu`} className="w-[340px] max-w-[calc(100vw-2rem)]">
           {links.map((link) => {
             const { href, label, description, icon } = link;
             return (
               <Dropdown.Item
                 key={href}
-                className={href === `/${activeSegment}/${activeSegments[1]}` ? "bg-blue-500/10" : ""}
+                className={`rounded-md ${href === `/${activeSegment}/${activeSegments[1]}` ? "bg-blue-500/10" : ""}`}
                 id={href}
                 textValue={label}
                 onAction={() => router.push(href)}>
-                {icon}
-                <Label>{label}</Label>
-                <Description>{description}</Description>
+                <span className="shrink-0">{icon}</span>
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <Label>{label}</Label>
+                  <Description>{description}</Description>
+                </div>
               </Dropdown.Item>
             );
           })}

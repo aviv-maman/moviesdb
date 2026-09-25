@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Providers } from "@/app/providers";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ThemeScript from "@/components/ThemeScript";
 import type { MovieItem, SeriesItem } from "@/lib/api.types";
 import { getAllFavoritesUsingRecursion } from "@/lib/api_account";
 import { getProfile } from "@/lib/auth";
@@ -52,7 +53,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <ThemeScript />
+      </head>
       <body className={`${GeistSans.className} min-h-screen bg-background text-foreground antialiased`}>
         <Providers>
           <Header user={user} profile={profile} favMovies={favMovies} favSeries={favSeries} />
