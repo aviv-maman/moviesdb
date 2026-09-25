@@ -5,14 +5,7 @@ import { getFavorites } from "@/lib/api_account";
 import { getProfile } from "@/lib/auth";
 import { createClient } from "@/utils/supabase/server";
 
-interface SearchProps {
-  searchParams?: Promise<{
-    media_type?: "movie" | "tv";
-    page?: number;
-  }>;
-}
-
-const Search: React.FC<SearchProps> = async () => {
+export default async function FavoriteListPage() {
   const supabase = await createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
   if (!user) redirect("/login"); // This route can only be accessed by authenticated users.
@@ -39,6 +32,4 @@ const Search: React.FC<SearchProps> = async () => {
       />
     </main>
   );
-};
-
-export default Search;
+}

@@ -7,25 +7,22 @@ import RatingProgress from "@/components/RatingProgress";
 import SearchResultBadge from "@/components/SearchResultBadge";
 import { getSeriesById } from "@/lib/api_series";
 
-interface SeriesPageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
-const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
+const ratingColors: {
+  [key: number]: "danger" | "warning" | "success" | "default";
+} = {
+  0: "danger",
+  1: "warning",
+  2: "success",
+  3: "default",
+};
+
+export default async function SeriesPage({ params }: PageProps<"/series/item/[id]">) {
   const id = Number((await params).id);
   const { series } = await getSeriesById({
     series_id: id,
     append_to_response: "credits,external_ids,videos,recommendations",
   });
-  const ratingColors: {
-    [key: number]: "danger" | "warning" | "success" | "default";
-  } = {
-    0: "danger",
-    1: "warning",
-    2: "success",
-    3: "default",
-  };
+
   const seriesItem = {
     ...series,
     backdrop_path: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${series?.backdrop_path}`,
@@ -52,6 +49,7 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
           ? series?.first_air_date?.slice(0, 4)
           : `${series?.first_air_date?.slice(0, 4)}-${series?.last_air_date?.slice(0, 4)}`,
   };
+
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">
       <div className="mx-auto justify-center">
@@ -173,5 +171,4 @@ const SeriesPage: React.FC<SeriesPageProps> = async ({ params }) => {
       </div>
     </main>
   );
-};
-export default SeriesPage;
+}

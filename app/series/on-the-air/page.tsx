@@ -1,11 +1,7 @@
 import PageResultsSeriesByType from "@/components/PageResultsSeriesByType";
 import SidebarMenu from "@/components/SidebarMenu";
 
-interface OnTheAirSeriesProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-const OnTheAirSeries: React.FC<OnTheAirSeriesProps> = async ({ searchParams }) => {
+export default async function OnTheAirSeriesPage({ searchParams }: PageProps<"/series/on-the-air">) {
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)] min-[960px]:flex">
       <SidebarMenu />
@@ -15,6 +11,4 @@ const OnTheAirSeries: React.FC<OnTheAirSeriesProps> = async ({ searchParams }) =
       </div>
     </main>
   );
-};
-
-export default OnTheAirSeries;
+}

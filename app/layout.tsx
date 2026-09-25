@@ -21,7 +21,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   const supabase = await createClient();
   const user = (await supabase.auth.getUser())?.data?.user;
   const { profile } = await getProfile(user?.id as string);

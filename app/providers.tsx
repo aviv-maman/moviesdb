@@ -1,13 +1,13 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { DarkModeProvider } from "@/context/DarkModeProvider";
 import { FormProvider } from "@/context/FormProvider";
 import { ProfileProvider } from "@/context/ProfileProvider";
 import { SWRConfigProvider } from "@/context/SWRConfigContext";
-import { useIsClient } from "@/hooks/useIsClient";
-export function Providers({ children }: { children: React.ReactNode }) {
-  const isClient = useIsClient();
-  return isClient ? (
+
+export function Providers({ children }: { children: ReactNode }) {
+  return (
     <DarkModeProvider>
       <FormProvider>
         <ProfileProvider>
@@ -15,5 +15,5 @@ export function Providers({ children }: { children: React.ReactNode }) {
         </ProfileProvider>
       </FormProvider>
     </DarkModeProvider>
-  ) : null;
+  );
 }

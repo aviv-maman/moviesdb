@@ -7,25 +7,21 @@ import RatingProgress from "@/components/RatingProgress";
 import SearchResultBadge from "@/components/SearchResultBadge";
 import { getMovieById } from "@/lib/api_movies";
 
-interface MoviePageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
-const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
+const ratingColors: {
+  [key: number]: "danger" | "warning" | "success" | "default";
+} = {
+  0: "danger",
+  1: "warning",
+  2: "success",
+  3: "default",
+};
+
+export default async function MoviePage({ params }: PageProps<"/movies/item/[id]">) {
   const id = Number((await params).id);
   const { movie } = await getMovieById({
     movie_id: id,
     append_to_response: "credits,external_ids,videos,recommendations",
   });
-  const ratingColors: {
-    [key: number]: "danger" | "warning" | "success" | "default";
-  } = {
-    0: "danger",
-    1: "warning",
-    2: "success",
-    3: "default",
-  };
   const movieItem = {
     ...movie,
     backdrop_path: `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movie?.backdrop_path}`,
@@ -46,6 +42,7 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
       ],
     vote_average: movie && "vote_average" in movie ? movie?.vote_average * 10 : 0,
   };
+
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">
       <div className="mx-auto justify-center">
@@ -160,5 +157,4 @@ const MoviePage: React.FC<MoviePageProps> = async ({ params }) => {
       </div>
     </main>
   );
-};
-export default MoviePage;
+}

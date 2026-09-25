@@ -5,25 +5,22 @@ import SearchResultCard from "@/components/SearchResultCard";
 import SearchResultCardSkeleton from "@/components/SearchResultCardSkeleton";
 import { type FilterOptions, filterSearch } from "@/lib/api_search";
 
-interface SearchProps {
-  searchParams?: Promise<{
-    media_type?: "multi" | "movie" | "tv" | "person";
-    query?: string;
-    page?: number;
-    language?: string;
-    year?: number;
-  }>;
+const skeletonIds = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"];
+
+function firstParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
 }
 
-const Search: React.FC<SearchProps> = async ({ searchParams }) => {
+export default async function SearchPage({ searchParams }: PageProps<"/search">) {
   const awaitedSearchParams = await searchParams;
-  const skeletonIds = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"];
+  const mediaType = firstParam(awaitedSearchParams.media_type);
+  const year = firstParam(awaitedSearchParams.year);
   const filterParams: FilterOptions = {
-    media_type: awaitedSearchParams?.media_type ? awaitedSearchParams?.media_type : "multi",
-    query: awaitedSearchParams?.query,
-    page: Number(awaitedSearchParams?.page) || 1,
-    language: awaitedSearchParams?.language,
-    year: awaitedSearchParams?.year ? Number(awaitedSearchParams?.year) : undefined,
+    media_type: mediaType === "movie" || mediaType === "tv" || mediaType === "person" ? mediaType : "multi",
+    query: firstParam(awaitedSearchParams.query),
+    page: Number(firstParam(awaitedSearchParams.page)) || 1,
+    language: firstParam(awaitedSearchParams.language),
+    year: year ? Number(year) : undefined,
   };
 
   const searchData = await filterSearch(filterParams);
@@ -60,6 +57,4 @@ const Search: React.FC<SearchProps> = async ({ searchParams }) => {
       </div>
     </main>
   );
-};
-
-export default Search;
+}
