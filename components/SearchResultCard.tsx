@@ -1,13 +1,12 @@
 import Link from "next/link";
+import PosterImage from "@/components/PosterImage";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
 import { MOVIE_GENRES, SERIES_GENRES } from "@/lib/data/search_filters";
-import { Image } from "./HeroUI";
 import SearchResultBadge from "./SearchResultBadge";
 
 interface SearchResultCardProps {
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-
 const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
   const genres =
     "genre_ids" in data
@@ -15,14 +14,14 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
         ? data.genre_ids.map((id) => MOVIE_GENRES.find((genre) => genre.value === String(id)))
         : data.genre_ids.map((id) => SERIES_GENRES.find((genre) => genre.value === String(id)))
       : [];
-
-  const ratingColors: { [key: number]: string } = {
+  const ratingColors: {
+    [key: number]: string;
+  } = {
     0: "bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300",
     1: "bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300",
     2: "bg-green-300 text-green-900 dark:bg-green-900 dark:text-green-300",
     3: "bg-gray-300 text-gray-900 dark:bg-gray-600 dark:text-gray-300",
   };
-
   const item = {
     title: "title" in data ? data.title : data.name || "Not available",
     description: "overview" in data ? data.overview : "Not available",
@@ -66,18 +65,15 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           : 0
       ],
   };
-
   return (
     <article className="relative my-4 border bg-gray-100 transition hover:shadow-lg hover:shadow-indigo-400/40 dark:bg-gray-900">
       <Link href={item.href} className="flex">
-        <Image
+        <PosterImage
           width={168}
           height={336}
           alt={item.title}
           src={item.image}
-          radius="none"
-          className="z-0 h-[250px] border-r-1 object-cover sm:h-[168px] sm:w-28 md:h-[336px] md:w-56"
-          classNames={{ wrapper: "md:min-w-56" }}
+          className={"md:min-w-56 " + "z-0 h-[250px] border-r-1 object-cover sm:h-[168px] sm:w-28 md:h-[336px] md:w-56"}
         />
 
         <div className="flex flex-1 flex-col justify-between">
@@ -85,7 +81,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <h3 className="font-bold leading-tight text-gray-700 dark:text-gray-300">{item.title}</h3>
-                <span className="text-small">
+                <span className="text-sm">
                   {item.release_date} |{" "}
                   {item.media_type === "person" ? "Person" : item.media_type === "movie" ? "Movie" : "Series"}
                 </span>
@@ -112,5 +108,4 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
     </article>
   );
 };
-
 export default SearchResultCard;

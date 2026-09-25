@@ -1,34 +1,53 @@
 "use client";
-
-import { Slider, type SliderProps } from "@heroui/react";
+import { Label, Slider, type SliderProps } from "@heroui/react";
 
 interface SliderCustomProps extends SliderProps {
+  label: string;
+  name: string;
   showMarks?: boolean;
   marksInterval?: number;
 }
-
-const SliderCustom: React.FC<SliderCustomProps> = ({ showMarks = true, marksInterval, ...props }) => {
-  const renderMarks = () => {
-    marksInterval = marksInterval ? marksInterval : props.step ? props.step : 1;
-    const marksArray = [];
-    const maxValue = props.maxValue || 10;
-    for (let i = 0; i <= maxValue; i += marksInterval) {
-      marksArray.push({ value: i, label: `${i}` });
-    }
-    return marksArray;
-  };
-
-  return (
-    <Slider
-      aria-label={`${props.label}`}
-      marks={showMarks ? renderMarks() : undefined}
-      color="foreground"
-      size="sm"
-      classNames={{ mark: "text-xs text-slate-600 dark:text-slate-400", base: "px-1" }}
-      minValue={props.minValue || 0}
-      {...props}
-    />
+export default function SliderCustom({
+  label,
+  name,
+  showMarks = true,
+  marksInterval,
+  minValue = 0,
+  maxValue = 10,
+  step = 1,
+  ...props
+}: SliderCustomProps) {
+  const interval = marksInterval || step;
+  const marks = Array.from(
+    { length: Math.floor((maxValue - minValue) / interval) + 1 },
+    (_, index) => minValue + index * interval,
   );
-};
-
-export default SliderCustom;
+  return (
+    <Slider {...props} minValue={minValue} maxValue={maxValue} step={step} aria-label={label} className="px-1">
+      <Label>{label}</Label>
+      <Slider.Output />
+      <Slider.Track>
+        {({ state }) => (
+          <>
+            <Slider.Fill />
+            {state.values.map((_, index) => (
+              <Slider.Thumb
+                key={index === 0 ? "minimum" : "maximum"}
+                index={index}
+                name={name}
+                aria-label={state.values.length > 1 ? label + (index === 0 ? " minimum" : " maximum") : label}
+              />
+            ))}
+          </>
+        )}
+      </Slider.Track>
+      {showMarks && (
+        <div aria-hidden="true" className="flex justify-between text-xs text-muted">
+          {marks.map((mark) => (
+            <span key={mark}>{mark}</span>
+          ))}
+        </div>
+      )}
+    </Slider>
+  );
+}

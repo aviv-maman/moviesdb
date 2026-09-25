@@ -12,7 +12,6 @@ const SidebarMenu: React.FC = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-
   function handleSearch(formData: FormData) {
     const params = new URLSearchParams(searchParams);
     const with_watch_providers = formData.getAll("with_watch_providers");
@@ -49,55 +48,46 @@ const SidebarMenu: React.FC = () => {
       if (key === "show_me") return;
       params.set(key, value.toString());
     });
-
     if (0 < with_watch_providers.length) {
       params.set("with_watch_providers", String(with_watch_providers));
     } else {
       params.delete("with_watch_providers");
     }
-
     if (with_availabilities[0] !== "all-availabilities" && with_availabilities.length !== AVAILABILITIES.length) {
       params.set("with_availabilities", String(with_availabilities));
     } else {
       params.delete("with_availabilities");
     }
-
     if (with_release_type[0] !== "0" && with_release_type.length !== RELEASE_TYPES.length) {
       params.set("with_release_type", String(with_release_type));
     } else {
       params.delete("with_release_type");
     }
-
     if (0 < with_genres.length && with_genres.length < MOVIE_GENRES.length) {
       params.set("with_genres", String(with_genres));
     } else {
       params.delete("with_genres");
     }
-
     if (Number(vote_average.at(0)) > 0) {
       params.set("vote_average.gte", String(vote_average.at(0)));
     } else {
       params.delete("vote_average.gte");
     }
-
     if (Number(vote_average.at(1)) < 10) {
       params.set("vote_average.lte", String(vote_average.at(1)));
     } else {
       params.delete("vote_average.lte");
     }
-
     if (Number(with_runtime.at(0)) > 0) {
       params.set("with_runtime.gte", String(with_runtime.at(0)));
     } else {
       params.delete("with_runtime.gte");
     }
-
     if (Number(with_runtime.at(1)) < 360) {
       params.set("with_runtime.lte", String(with_runtime.at(1)));
     } else {
       params.delete("with_runtime.lte");
     }
-
     if (0 < with_keywords.length && with_keywords[0] !== "") {
       params.set("with_keywords", String(with_keywords));
     } else {
@@ -105,7 +95,6 @@ const SidebarMenu: React.FC = () => {
     }
     replace(`${pathname}?${params.toString()}`);
   }
-
   return (
     <aside
       id="logo-sidebar"
@@ -114,29 +103,28 @@ const SidebarMenu: React.FC = () => {
       <div className="size-full overflow-y-auto min-[960px]:w-80">
         <form action={handleSearch}>
           <ul className="space-y-4 font-medium">
-            <li className="rounded-medium bg-foreground-50">
+            <li className="rounded-2xl bg-surface">
               <SidebarSortBy />
             </li>
-            <li className="rounded-medium bg-foreground-50">
+            <li className="rounded-2xl bg-surface">
               <SidebarWhereToWatch />
             </li>
-            <li className="rounded-medium bg-foreground-50">
+            <li className="rounded-2xl bg-surface">
               <SidebarFilters />
             </li>
           </ul>
           <div className="flex w-full justify-center">
             <ButtonCustom
               type="submit"
-              label="Search"
-              className="mt-4 w-full max-w-sm bg-secondary-200 text-secondary-500 dark:bg-secondary-300 dark:text-secondary-700"
-              variant="shadow"
-              startContent={<Search className="size-[18px]" />}
-            />
+              className="mt-4 w-full max-w-sm bg-violet-200 text-violet-500 dark:bg-violet-300 dark:text-violet-700"
+              variant="primary">
+              <Search className="size-4" />
+              Search
+            </ButtonCustom>
           </div>
         </form>
       </div>
     </aside>
   );
 };
-
 export default SidebarMenu;

@@ -31,7 +31,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
 
   return (
     <section>
-      <span className="text-sm text-foreground-500">{title}</span>
+      <span className="text-sm text-slate-500">{title}</span>
       <AsyncSelect
         id="with_keywords"
         name={name}
@@ -40,7 +40,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
         placeholder="Type to search..."
         loadOptions={promiseOptions}
         openMenuOnClick={false}
-        className="mt-2 text-sm font-normal text-foreground-500"
+        className="mt-2 text-sm font-normal text-slate-500"
         styles={{
           control: (baseStyles, { isFocused, isDisabled }) => ({
             ...baseStyles,

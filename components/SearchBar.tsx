@@ -2,8 +2,8 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "@heroui/react";
 import { FilterSearch } from "@/assets/icons";
+import TextInput from "@/components/TextInput";
 import type { FilterOptions as FormState } from "@/lib/api_search";
 import { LANGUAGES, SEARCH_TYPES } from "@/lib/data/search_filters";
 import ButtonCustom from "./ButtonCustom";
@@ -13,11 +13,15 @@ import SearchSelect from "./SearchSelect";
 const SearchNavbar: React.FC = () => {
   const searchParams = useSearchParams();
   const { push } = useRouter();
-
   const handleFilter = async (prevState: FormState, formData: FormData) => {
     const params = new URLSearchParams(searchParams);
     params.delete("page");
-    const defaultParams: FormState & { [key: string]: string } = { media_type: "multi", language: "English" };
+    const defaultParams: FormState & {
+      [key: string]: string;
+    } = {
+      media_type: "multi",
+      language: "en-US",
+    };
     for (const [key, value] of Object(formData.entries())) {
       const stringKey = String(key);
       if (value !== "" && value !== defaultParams[stringKey]) {
@@ -28,9 +32,10 @@ const SearchNavbar: React.FC = () => {
       }
     }
     push(`/search?${params.toString()}`);
-    return { ...prevState };
+    return {
+      ...prevState,
+    };
   };
-
   const initialState: FormState = {
     media_type: "multi",
     query: searchParams.get("query") || "",
@@ -38,7 +43,6 @@ const SearchNavbar: React.FC = () => {
   };
   const [formState, formAction] = useActionState(handleFilter, initialState);
   const [mediaType, setMediaType] = useState(formState.media_type);
-
   useEffect(() => {
     if (
       searchParams.get("media_type") === "movie" ||
@@ -47,11 +51,10 @@ const SearchNavbar: React.FC = () => {
     )
       setMediaType(() => searchParams.get("media_type") as "multi" | "movie" | "tv" | "person");
   }, [searchParams]);
-
   return (
     <header className="sticky top-[65px] z-10 w-full border-b bg-slate-100 px-1 dark:bg-[#0d0d0d] md:text-sm">
       <form id="search-filter" action={formAction} className="flex w-full items-center justify-between">
-        <div className="flex w-full">
+        <div className="flex min-w-0 flex-1 gap-2">
           <SearchSelect
             name="media_type"
             label="Content Type"
@@ -66,17 +69,16 @@ const SearchNavbar: React.FC = () => {
             defaultValue={searchParams.get("language")}
           />
           {(mediaType === "movie" || mediaType === "tv") && (
-            <Input
+            <TextInput
               id="year"
               name="year"
               label="Year"
               placeholder="YYYY"
-              size="sm"
-              variant="faded"
               type="number"
               min={1885}
               max={new Date().getFullYear() + 100}
-              classNames={{ base: "max-w-[4rem]", input: "[&::-webkit-inner-spin-button]:appearance-none" }}
+              className="w-16 shrink-0"
+              inputClassName={"[&::-webkit-inner-spin-button]:appearance-none"}
             />
           )}
         </div>
@@ -84,13 +86,13 @@ const SearchNavbar: React.FC = () => {
           type="submit"
           isIconOnly
           size="sm"
-          className="justify-self-end bg-secondary-200 text-secondary-500 dark:bg-secondary-300 dark:text-secondary-700"
+          className="justify-self-end bg-violet-200 text-violet-500 dark:bg-violet-300 dark:text-violet-700"
           variant="ghost"
-          startContent={<FilterSearch className="size-[18px]" />}
-        />
+          aria-label="Apply search filters">
+          <FilterSearch className="size-[18px]" />
+        </ButtonCustom>
       </form>
     </header>
   );
 };
-
 export default SearchNavbar;

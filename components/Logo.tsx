@@ -1,5 +1,12 @@
-import { Image } from "./HeroUI";
-
+import PosterImage from "@/components/PosterImage";
 export default function Logo({ className }: { className?: HTMLElement["className"] }) {
-  return <Image src="/logo.jpg" alt="Logo" className={`inline-block h-8 ${className}`} />;
+  return (
+    <PosterImage
+      src="/logo.jpg"
+      alt="Logo"
+      width={32}
+      height={32}
+      className={`inline-block size-8 object-contain ${className || ""}`}
+    />
+  );
 }

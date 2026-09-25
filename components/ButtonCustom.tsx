@@ -1,28 +1,17 @@
 "use client";
-
 import { useFormStatus } from "react-dom";
-import type { ButtonProps } from "@heroui/react";
-import { Button } from "@heroui/react";
+import { Button, type ButtonProps, Spinner } from "@heroui/react";
 
-interface ButtonCustomProps extends ButtonProps {
+interface ButtonCustomProps extends Omit<ButtonProps, "children"> {
   label?: string;
   children?: React.ReactNode;
 }
-
-const ButtonCustom: React.FC<ButtonCustomProps> = ({ label, children, ...rest }) => {
+export default function ButtonCustom({ label, children, isPending, isDisabled, ...props }: ButtonCustomProps) {
   const { pending } = useFormStatus();
-
   return (
-    <Button
-      isLoading={pending}
-      disabled={pending}
-      aria-disabled={pending}
-      {...rest}
-      startContent={!pending && rest.startContent}
-      endContent={!pending && rest.endContent}>
+    <Button {...props} isPending={pending || isPending} isDisabled={pending || isDisabled}>
+      {pending || isPending ? <Spinner size="sm" /> : null}
       {label || children}
     </Button>
   );
-};
-
-export default ButtonCustom;
+}

@@ -1,6 +1,4 @@
-import type { DropdownItemProps } from "@heroui/react";
 import { ClockDown, DeviceTv, Meteor, PlayerPlay, Star, StarFilled, Stars, StarsFilled } from "@/assets/icons";
-
 export const movieLinks = [
   {
     href: "/movies/popular",
@@ -12,7 +10,7 @@ export const movieLinks = [
     href: "/movies/now-playing",
     label: "Now Playing",
     description: "Movies currently in cinemas and on streaming services.",
-    icon: <PlayerPlay className="size-6 text-primary" />,
+    icon: <PlayerPlay className="size-6 text-accent" />,
   },
   {
     href: "/movies/top-rated",
@@ -27,7 +25,6 @@ export const movieLinks = [
     icon: <Meteor className="size-6 text-success" />,
   },
 ];
-
 export const seriesLinks = [
   {
     href: "/series/popular",
@@ -54,17 +51,50 @@ export const seriesLinks = [
     icon: <ClockDown className="size-6" color="#dc2626" />,
   },
 ];
-
 export const avatarDropItems = {
   guest: [
-    { key: "login", textValue: "Login", href: "/login", color: "primary" },
-    { key: "register", textValue: "Register", href: "/register", color: "secondary" },
-    { key: "about", textValue: "About", href: "/about", color: "primary" },
-  ] as DropdownItemProps[],
+    {
+      key: "login",
+      textValue: "Login",
+      href: "/login",
+      color: "primary",
+    },
+    {
+      key: "register",
+      textValue: "Register",
+      href: "/register",
+      color: "secondary",
+    },
+    {
+      key: "about",
+      textValue: "About",
+      href: "/about",
+      color: "primary",
+    },
+  ],
   user: [
-    { key: "profile", textValue: "Signed in as", href: "/profile", color: "success" },
-    { key: "favorite", textValue: "Favorite List", href: "/profile/favorite-list", color: "primary" },
-    { key: "about", textValue: "About", href: "/about", color: "primary" },
-    { key: "logout", textValue: "Logout", color: "danger" },
-  ] as DropdownItemProps[],
+    {
+      key: "profile",
+      textValue: "Signed in as",
+      href: "/profile",
+      color: "success",
+    },
+    {
+      key: "favorite",
+      textValue: "Favorite List",
+      href: "/profile/favorite-list",
+      color: "primary",
+    },
+    {
+      key: "about",
+      textValue: "About",
+      href: "/about",
+      color: "primary",
+    },
+    {
+      key: "logout",
+      textValue: "Logout",
+      color: "danger",
+    },
+  ],
 };

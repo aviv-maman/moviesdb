@@ -1,7 +1,7 @@
 "use client";
 
-import { Avatar, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from "@heroui/react";
-
+import { Avatar, Card, Link, Separator } from "@heroui/react";
+import PosterImage from "@/components/PosterImage";
 export default function AboutPage() {
   return (
     <main className="flex min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">
@@ -9,58 +9,64 @@ export default function AboutPage() {
         <p className="py-3 text-center text-3xl font-semibold lg:text-4xl">About</p>
         <div className="flex flex-col gap-5">
           <Card className="mx-5 max-w-[400px]">
-            <CardHeader className="justify-between">
+            <Card.Header className="justify-between">
               <div className="flex gap-5">
-                <Avatar
-                  isBordered
-                  radius="full"
-                  size="md"
-                  src="https://media.licdn.com/dms/image/D4D35AQFmIdGOJtiFzg/profile-framedphoto-shrink_800_800/0/1676740112520?e=1716894000&v=beta&t=v1fm6WVtHM5psO_UBYcbybf5f3S_9NCrOcrriy40_tE"
-                />
+                <Avatar size="md">
+                  <Avatar.Image
+                    src={
+                      "https://media.licdn.com/dms/image/D4D35AQFmIdGOJtiFzg/profile-framedphoto-shrink_800_800/0/1676740112520?e=1716894000&v=beta&t=v1fm6WVtHM5psO_UBYcbybf5f3S_9NCrOcrriy40_tE"
+                    }
+                    alt="Avatar"
+                  />
+                  <Avatar.Fallback>U</Avatar.Fallback>
+                </Avatar>
                 <div className="flex flex-col items-start justify-center gap-1">
-                  <h4 className="text-small font-semibold leading-none text-default-600">Aviv Maman</h4>
+                  <h4 className="text-sm font-semibold leading-none text-slate-600">Aviv Maman</h4>
                   <Link
-                    isExternal
-                    showAnchorIcon
                     href="https://www.linkedin.com/in/aviv-maman-914a95223"
-                    className="text-small tracking-tight text-default-400">
+                    className="text-sm tracking-tight text-slate-400"
+                    target="_blank"
+                    rel="noopener noreferrer">
                     @aviv-maman-914a95223
+                    <Link.Icon />
                   </Link>
                 </div>
               </div>
-            </CardHeader>
-            <Divider />
-            <CardBody className="p-3 text-small text-default-400">
+            </Card.Header>
+            <Separator />
+            <Card.Content className="p-3 text-sm text-slate-400">
               <p>
                 Full-Stack developer and UI enthusiast. I enjoy working with React and Next.js. Feel Free to contact me.
               </p>
-            </CardBody>
+            </Card.Content>
           </Card>
 
           <Card className="mx-5 mb-5 max-w-[400px]">
-            <CardHeader className="flex gap-3">
-              <Image alt="MoviesDB Logo" height={40} radius="sm" src="./logo.jpg" width={40} />
+            <Card.Header className="flex gap-3">
+              <PosterImage alt="MoviesDB Logo" height={40} src="./logo.jpg" width={40} />
               <div className="flex flex-col">
-                <p className="text-start text-medium">MoviesDB</p>
+                <p className="text-start text-base">MoviesDB</p>
                 <Link
-                  isExternal
-                  showAnchorIcon
                   href="https://moviesdb-indol.vercel.app"
-                  className="text-small text-default-500">
+                  className="text-sm text-slate-500"
+                  target="_blank"
+                  rel="noopener noreferrer">
                   https://moviesdb-indol.vercel.app
+                  <Link.Icon />
                 </Link>
               </div>
-            </CardHeader>
-            <Divider />
-            <CardBody>
+            </Card.Header>
+            <Separator />
+            <Card.Content>
               <p>An app to explore movies and series.</p>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              <Link isExternal showAnchorIcon href="https://github.com/aviv-maman/moviesdb" isBlock>
+            </Card.Content>
+            <Separator />
+            <Card.Footer>
+              <Link href="https://github.com/aviv-maman/moviesdb" target="_blank" rel="noopener noreferrer">
                 View source code on GitHub
+                <Link.Icon />
               </Link>
-            </CardFooter>
+            </Card.Footer>
           </Card>
         </div>
       </div>

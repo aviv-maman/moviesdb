@@ -2,20 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  Avatar,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Input,
-  Link,
-  Navbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-} from "@heroui/react";
+import { Avatar, Button, Description, Dropdown, Label, Link } from "@heroui/react";
 import type { User } from "@supabase/supabase-js";
 import { Search } from "@/assets/icons";
 import { useProfile } from "@/context/ProfileContext";
@@ -27,6 +14,7 @@ import ButtonCustom from "./ButtonCustom";
 import DarkModeToggle from "./DarkModeToggle";
 import HeaderDropdown from "./HeaderDropdown";
 import Logo from "./Logo";
+import TextInput from "./TextInput";
 
 type HeaderProps = {
   user?: User | null | undefined;
@@ -70,170 +58,127 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
   }, [dispatch, user, profile, favMovies, favSeries]);
 
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent justify="start">
-        <Link href="/" color="foreground" className="flex cursor-pointer items-center gap-3">
-          <Logo />
-          <span className="hidden md:inline-block">MoviesDB</span>
-        </Link>
-
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
-
-        <NavbarContent className="hidden gap-3 sm:flex">
-          <HeaderDropdown targetSegment="movies" links={movieLinks} />
-          <HeaderDropdown targetSegment="series" links={seriesLinks} />
-          {/* {navItems} */}
-        </NavbarContent>
-      </NavbarContent>
-
-      <NavbarContent className="items-center" justify="end">
-        <form id="search-form" action={handleSubmit}>
-          <Input
-            id="query"
-            name="query"
-            aria-label="Search"
-            classNames={{
-              base: "max-w-full sm:max-w-[15rem] h-max hidden md:block",
-              input: "text-small",
-              inputWrapper: "font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 h-9",
-            }}
-            placeholder="Type to search..."
-            size="sm"
-            startContent={<Search className="size-[18px]" />}
-            endContent={
-              <ButtonCustom
-                id="search-bar-btn-desk"
-                type="submit"
-                isIconOnly
-                size="sm"
-                variant="flat"
-                color="primary"
-                className="left-2 top-px h-9 w-12">
-                <Search className="size-4" />
-              </ButtonCustom>
-            }
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                const formElement = document.getElementById("search-form") as HTMLFormElement;
-                formElement?.requestSubmit();
+    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
+      <nav
+        aria-label="Main navigation"
+        className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-3 px-4">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 text-foreground">
+            <Logo />
+            <span className="hidden md:inline-block">MoviesDB</span>
+          </Link>
+          <Button
+            isIconOnly
+            variant="ghost"
+            className="sm:hidden"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            onPress={() => setIsMenuOpen(!isMenuOpen)}>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="size-5">
+              <path d={isMenuOpen ? "M6 6l12 12M6 18L18 6" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </Button>
+          <div className="hidden gap-3 sm:flex">
+            <HeaderDropdown targetSegment="movies" links={movieLinks} />
+            <HeaderDropdown targetSegment="series" links={seriesLinks} />
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <form id="search-form" action={handleSubmit} className="hidden md:block">
+            <TextInput
+              id="query"
+              name="query"
+              aria-label="Search"
+              placeholder="Type to search..."
+              defaultValue={searchParams.get("query") || ""}
+              endContent={
+                <ButtonCustom id="search-bar-btn-desk" type="submit" isIconOnly size="sm" aria-label="Submit search">
+                  <Search className="size-4" />
+                </ButtonCustom>
               }
-            }}
-            defaultValue={searchParams.get("query")?.toString()}
-          />
-        </form>
-
-        {/*Mobile Menu*/}
-        <Dropdown placement="bottom-end" className="md:hidden">
-          <DropdownTrigger className="md:hidden">
-            <Search className="size-[18px] md:hidden" />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Search" variant="flat">
-            <DropdownItem key="search-dropdown" isReadOnly>
-              <form id="search-form-mobile" action={handleSubmit}>
-                <Input
-                  id="query-mobile"
-                  name="query"
-                  classNames={{
-                    base: "max-w-full",
-                    input: "text-small",
-                    inputWrapper: "font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 h-10",
-                  }}
-                  placeholder="Type to search..."
-                  size="sm"
-                  startContent={<Search className="size-[18px]" />}
-                  endContent={
-                    <ButtonCustom
-                      id="search-bar-btn-mob"
-                      type="submit"
-                      isIconOnly
-                      size="sm"
-                      variant="flat"
-                      color="primary"
-                      className="left-2 top-px h-10 w-12">
-                      <Search className="size-4" />
-                    </ButtonCustom>
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      const formElement = document.getElementById("search-form-mobile") as HTMLFormElement;
-                      formElement?.requestSubmit();
-                    }
-                  }}
-                  defaultValue={searchParams.get("query")?.toString()}
-                />
-              </form>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-
-        <DarkModeToggle />
-
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as="button"
-              className="transition-transform"
-              color="default"
-              name={undefined}
-              size="sm"
-              src={profile?.avatar_url || undefined}
             />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            {!user?.id
-              ? avatarDropItems.guest.map((item) => (
-                  <DropdownItem {...item} key={item.key}>
-                    {item.textValue}
-                  </DropdownItem>
-                ))
-              : avatarDropItems.user.map((item) => (
-                  <DropdownItem
-                    onPress={item.key === "logout" ? handleSignOut : undefined}
-                    description={item.key === "profile" && user.email}
-                    {...item}
-                    key={item.key}>
-                    {item.textValue}
-                  </DropdownItem>
+          </form>
+          <details className="relative md:hidden">
+            <summary aria-label="Open search" className="cursor-pointer list-none p-2">
+              <Search className="size-5" />
+            </summary>
+            <form
+              id="search-form-mobile"
+              action={handleSubmit}
+              className="absolute right-0 top-12 w-72 rounded-lg border bg-surface p-3 shadow-lg">
+              <TextInput
+                id="query-mobile"
+                name="query"
+                aria-label="Search"
+                placeholder="Type to search..."
+                defaultValue={searchParams.get("query") || ""}
+                endContent={
+                  <ButtonCustom id="search-bar-btn-mob" type="submit" isIconOnly size="sm" aria-label="Submit search">
+                    <Search className="size-4" />
+                  </ButtonCustom>
+                }
+              />
+            </form>
+          </details>
+          <DarkModeToggle />
+          <Dropdown>
+            <Button isIconOnly variant="ghost" aria-label="Profile menu">
+              <Avatar size="sm">
+                <Avatar.Image src={profile?.avatar_url || undefined} alt="Profile" />
+                <Avatar.Fallback>U</Avatar.Fallback>
+              </Avatar>
+            </Button>
+            <Dropdown.Popover placement="bottom end">
+              <Dropdown.Menu aria-label="Profile Actions">
+                {(user?.id ? avatarDropItems.user : avatarDropItems.guest).map((item) => (
+                  <Dropdown.Item
+                    key={item.key}
+                    id={item.key}
+                    textValue={item.textValue}
+                    href={item.href}
+                    onAction={item.key === "logout" ? handleSignOut : undefined}
+                    variant={item.key === "logout" ? "danger" : undefined}>
+                    <Label>{item.textValue}</Label>
+                    {item.key === "profile" && user?.email ? <Description>{user.email}</Description> : null}
+                  </Dropdown.Item>
                 ))}
-          </DropdownMenu>
-        </Dropdown>
-      </NavbarContent>
-
-      <NavbarMenu>
-        <span className="bg-foreground-200 text-center font-semibold text-primary-600 dark:bg-foreground-100">
-          MOVIES
-        </span>
-        {movieLinks.map((item) => (
-          <NavbarMenuItem key={item.href}>
-            <Link
-              className="h-9 w-full text-default-900 dark:text-default-500"
-              href={item.href}
-              size="lg"
-              onPress={() => setIsMenuOpen(false)}>
-              {item.label}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-        <span className="bg-foreground-200 text-center font-semibold text-primary-600 dark:bg-foreground-100">
-          SERIES
-        </span>
-        {seriesLinks.map((item) => (
-          <NavbarMenuItem key={item.href}>
-            <Link
-              className="h-9 w-full text-default-900 dark:text-default-500"
-              href={item.href}
-              size="lg"
-              onPress={() => setIsMenuOpen(false)}>
-              {item.label}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+              </Dropdown.Menu>
+            </Dropdown.Popover>
+          </Dropdown>
+        </div>
+      </nav>
+      {isMenuOpen && (
+        <nav
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+          className="flex max-h-[calc(100dvh-4rem)] flex-col gap-2 overflow-y-auto border-t bg-background p-4 sm:hidden">
+          {[
+            { title: "Movies", links: movieLinks },
+            { title: "Series", links: seriesLinks },
+          ].map((group) => (
+            <section key={group.title}>
+              <h2 className="my-2 font-semibold text-accent">{group.title}</h2>
+              {group.links.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block py-2 text-foreground"
+                  onPress={() => setIsMenuOpen(false)}>
+                  {item.label}
+                </Link>
+              ))}
+            </section>
+          ))}
+        </nav>
+      )}
+    </header>
   );
 };
-
 export default Header;

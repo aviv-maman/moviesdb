@@ -12,7 +12,7 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const className = "dark";
-    const bodyClass = window.document.body.classList;
+    const bodyClass = window.document.documentElement.classList;
     if (isDarkMode) {
       bodyClass.add(className);
     } else {
