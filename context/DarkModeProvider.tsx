@@ -1,28 +1,38 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
-import useLocalStorageState from "@/hooks/useLocalStorageState";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { DarkModeContext } from "./DarkModeContext";
 
 export function DarkModeProvider({ children }: { children: React.ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorageState(
-    "isDarkMode",
-    window.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
+  const [theme, setTheme] = useState<boolean | null>(null);
+  const isDarkMode = theme ?? false;
 
   useEffect(() => {
-    const className = "dark";
-    const bodyClass = window.document.documentElement.classList;
-    if (isDarkMode) {
-      bodyClass.add(className);
-    } else {
-      bodyClass.remove(className);
+    let initialTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    try {
+      const storedTheme = window.localStorage.getItem("isDarkMode");
+      if (storedTheme === "true" || storedTheme === "false") {
+        initialTheme = storedTheme === "true";
+      }
+    } catch {
+      // Use the system preference when browser storage is unavailable.
     }
-  }, [isDarkMode]);
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    if (theme === null) return;
+    document.documentElement.classList.toggle("dark", theme);
+    try {
+      window.localStorage.setItem("isDarkMode", JSON.stringify(theme));
+    } catch {
+      // Theme switching still works when browser storage is unavailable.
+    }
+  }, [theme]);
 
   const toggleDarkMode = useCallback(() => {
-    setIsDarkMode((isDark) => !isDark);
-  }, [setIsDarkMode]);
+    setTheme((isDark) => !isDark);
+  }, []);
 
   const contextValue = useMemo(() => ({ isDarkMode, toggleDarkMode }), [isDarkMode, toggleDarkMode]);
 

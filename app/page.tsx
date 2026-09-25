@@ -16,7 +16,7 @@ const getDateWithLastDayOfMonth = () => {
   return `${year}-${month}-${lastDayOfMonth}`;
 };
 
-export default async function Index() {
+export default async function IndexPage() {
   const backgroundLoader = (width: "w300" | "w780" | "w1280" | "original", index?: number) => {
     const chosenNumber = index || Math.floor(Math.random() * 19);
     const backdropPath =

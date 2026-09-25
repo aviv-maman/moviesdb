@@ -2,6 +2,7 @@
 
 import { Avatar, Card, Link, Separator } from "@heroui/react";
 import PosterImage from "@/components/PosterImage";
+
 export default function AboutPage() {
   return (
     <main className="flex min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)]">

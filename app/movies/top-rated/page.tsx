@@ -1,11 +1,7 @@
 import PageResultsMoviesByType from "@/components/PageResultsMoviesByType";
 import SidebarMenu from "@/components/SidebarMenu";
 
-interface TopRatedMoviesProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-const TopRatedMovies: React.FC<TopRatedMoviesProps> = async ({ searchParams }) => {
+export default async function TopRatedMoviesPage({ searchParams }: PageProps<"/movies/top-rated">) {
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)] min-[960px]:flex">
       <SidebarMenu />
@@ -15,6 +11,4 @@ const TopRatedMovies: React.FC<TopRatedMoviesProps> = async ({ searchParams }) =
       </div>
     </main>
   );
-};
-
-export default TopRatedMovies;
+}

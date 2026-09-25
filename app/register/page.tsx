@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import { unstable_rethrow as rethrow } from "next/navigation";
 import { toast } from "sonner";
 import ButtonCustom from "@/components/ButtonCustom";
 import Logo from "@/components/Logo";
@@ -10,27 +11,33 @@ import { signUp } from "@/lib/auth";
 type FormState = {
   message?: string;
 };
+
+const themeClasses =
+  "dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600";
+const inputClasses =
+  "text-sm block w-full px-4 py-2 mt-2 text-green-500 dark:text-green-300 placeholder-green-500 dark:placeholder-green-300 bg-gray-100 border border-gray-300 dark:border-zinc-500 rounded-lg dark:bg-zinc-700 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-400 focus:outline-none focus:ring focus:ring-opacity-40";
+
+const initialState: FormState = {
+  message: "",
+};
+
+async function onFormSubmission(prevState: FormState, formData: FormData): Promise<FormState> {
+  const toastId = toast.loading("Loading...");
+  try {
+    await signUp(formData);
+    toast.success("Check email to continue sign in process");
+  } catch (error) {
+    rethrow(error);
+    toast.error("User authentication failed");
+  } finally {
+    toast.dismiss(toastId);
+  }
+  return prevState;
+}
+
 export default function RegisterPage() {
-  const themeClasses =
-    "dark:bg-emerald-700 dark:text-white dark:border-green-300 bg-emerald-400 text-gray-600 border-green-600";
-  const inputClasses =
-    "text-sm block w-full px-4 py-2 mt-2 text-green-500 dark:text-green-300 placeholder-green-500 dark:placeholder-green-300 bg-gray-100 border border-gray-300 dark:border-zinc-500 rounded-lg dark:bg-zinc-700 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-400 focus:outline-none focus:ring focus:ring-opacity-40";
-  const onFormSubmission = async (prevState: FormState, formData: FormData) => {
-    toast.promise(signUp(formData), {
-      loading: "Loading...",
-      success: () => {
-        return `Check email to continue sign in process`;
-      },
-      error: "User authentication failed",
-    });
-    return {
-      ...prevState,
-    };
-  };
-  const initialState: FormState = {
-    message: "",
-  };
   const [, formAction] = useActionState(onFormSubmission, initialState);
+
   return (
     <main className="animate-in flex min-h-[calc(100vh-162px)] justify-center sm:min-h-[calc(100vh-154px)]">
       <div

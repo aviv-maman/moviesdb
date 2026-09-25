@@ -4,7 +4,7 @@ import ProfileSection from "@/components/ProfileSection";
 import { getProfile } from "@/lib/auth";
 import { createClient } from "@/utils/supabase/server";
 
-const Profile: React.FC = async () => {
+export default async function ProfilePage() {
   const supabase = await createClient();
   const user = (await supabase.auth.getSession())?.data?.session?.user;
   if (!user) redirect("/login"); // This route can only be accessed by authenticated users.
@@ -16,6 +16,4 @@ const Profile: React.FC = async () => {
       <ProfileSection profile={profile} user={user} />
     </main>
   );
-};
-
-export default Profile;
+}

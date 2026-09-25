@@ -1,11 +1,7 @@
 import PageResultsSeries from "@/components/PageResultsSeries";
 import SidebarMenu from "@/components/SidebarMenu";
 
-interface PopularMoviesProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-const PopularMovies: React.FC<PopularMoviesProps> = async ({ searchParams }) => {
+export default async function PopularSeriesPage({ searchParams }: PageProps<"/series/popular">) {
   return (
     <main className="animate-in m-auto block min-h-[calc(100vh-162px)] w-full justify-center sm:min-h-[calc(100vh-154px)] min-[960px]:flex">
       <SidebarMenu />
@@ -15,6 +11,4 @@ const PopularMovies: React.FC<PopularMoviesProps> = async ({ searchParams }) => 
       </div>
     </main>
   );
-};
-
-export default PopularMovies;
+}
