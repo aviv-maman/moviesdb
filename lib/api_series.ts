@@ -1,5 +1,5 @@
-import { produce } from 'immer';
-import type { GetSeriesResponse } from './api.types';
+import { produce } from "immer";
+import type { GetSeriesResponse } from "./api.types";
 
 type GetMovieOptions = {
   series_id: number;
@@ -9,16 +9,16 @@ type GetMovieOptions = {
 
 export const getSeriesById = async (options: GetMovieOptions) => {
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };
   const id = options.series_id;
   const queryParamsObj = produce({ ...options, series_id: undefined }, (draft) => {
-    delete draft['series_id'];
+    delete draft.series_id;
   });
 
   try {

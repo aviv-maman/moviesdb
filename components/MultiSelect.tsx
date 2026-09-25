@@ -1,7 +1,7 @@
-import AsyncSelect from 'react-select/async';
-import { useDarkMode } from '@/context/DarkModeContext';
-import type { KeywordList } from '@/lib/api.types';
-import keywords from '@/lib/data/keyword_ids_10_23_2024.json';
+import AsyncSelect from "react-select/async";
+import { useDarkMode } from "@/context/DarkModeContext";
+import type { KeywordList } from "@/lib/api.types";
+import keywords from "@/lib/data/keyword_ids_10_23_2024.json";
 
 type MultiOptions = {
   id: number;
@@ -31,33 +31,33 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
 
   return (
     <section>
-      <span className='text-sm text-foreground-500'>{title}</span>
+      <span className="text-sm text-foreground-500">{title}</span>
       <AsyncSelect
-        id='with_keywords'
+        id="with_keywords"
         name={name}
-        instanceId={new Date().getTime().toString()}
+        instanceId={Date.now().toString()}
         isMulti
-        placeholder='Type to search...'
+        placeholder="Type to search..."
         loadOptions={promiseOptions}
         openMenuOnClick={false}
-        className='mt-2 text-sm font-normal text-foreground-500'
+        className="mt-2 text-sm font-normal text-foreground-500"
         styles={{
           control: (baseStyles, { isFocused, isDisabled }) => ({
             ...baseStyles,
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             border: isDisabled
-              ? '2px solid rgb(156 163 175)'
+              ? "2px solid rgb(156 163 175)"
               : isFocused
-                ? '2px solid #17c964'
+                ? "2px solid #17c964"
                 : isDarkMode
-                  ? '2px solid #3f3f46'
-                  : '2px solid #e5e7eb',
+                  ? "2px solid #3f3f46"
+                  : "2px solid #e5e7eb",
             minHeight: 40,
             borderRadius: 10,
             boxShadow: undefined,
-            '&:hover': {
-              borderColor: isFocused ? '2px solid #17c964' : isDarkMode ? '#71717a' : '#a1a1aa',
-              cursor: 'text',
+            "&:hover": {
+              borderColor: isFocused ? "2px solid #17c964" : isDarkMode ? "#71717a" : "#a1a1aa",
+              cursor: "text",
             },
           }),
           menu: (baseStyles) => ({
@@ -66,7 +66,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
           }),
           indicatorsContainer: (baseStyles) => ({
             ...baseStyles,
-            cursor: 'pointer',
+            cursor: "pointer",
           }),
         }}
       />

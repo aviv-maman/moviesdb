@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Toaster } from 'sonner';
-import { SWRConfig } from 'swr';
+import { Toaster } from "sonner";
+import { SWRConfig } from "swr";
 
 interface SWRConfigContextProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export const SWRConfigProvider: React.FC<SWRConfigContextProps> = ({ children })
     // If the status code is not in the range 200-299,
     // we still try to parse and throw it.
     if (!res.ok) {
-      const error = new Error('An error occurred while fetching the data.', { cause: res });
+      const error = new Error("An error occurred while fetching the data.", { cause: res });
       // Attach extra info to the error object.
       // error.info = await res.json();
 
@@ -24,15 +24,12 @@ export const SWRConfigProvider: React.FC<SWRConfigContextProps> = ({ children })
     return await res.json();
   };
 
-  const genericFetcher = ({ url, options }: { url: string; options?: RequestInit }) =>
-    fetch(url, options).then((res) => res.json());
-
   return (
     <SWRConfig
       value={{
         fetcher: globalFetcher,
-        onError: (error, key) => {
-          console.error('SWR onError:', error);
+        onError: (error) => {
+          console.error("SWR onError:", error);
           if (error.status !== 403 && error.status !== 404) {
             // We can send the error to Sentry,
             // or show a notification UI.

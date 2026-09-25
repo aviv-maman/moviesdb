@@ -1,15 +1,17 @@
-import { type CookieOptions, createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import type { Database } from '@/lib/database.types';
+import { cookies } from "next/headers";
+import { type CookieOptions, createServerClient } from "@supabase/ssr";
+import type { Database } from "@/lib/database.types";
+import { getSupabaseConfig } from "./config";
 
 // Define a function to create a Supabase client for server-side operations
 // The function takes a cookie store created with next/headers cookies as an argument
 export const createClient = async () => {
+  const { url, anonKey } = getSupabaseConfig();
   const cookieStore = await cookies();
   return createServerClient<Database>(
     // Pass Supabase URL and anonymous key from the environment to the client
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     // Define a cookies object with methods for interacting with the cookie store and pass it to the client
     {
       cookies: {
@@ -21,7 +23,7 @@ export const createClient = async () => {
         set(name: string, value: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value, ...options });
-          } catch (error) {
+          } catch {
             // If the set method is called from a Server Component, an error may occur
             // This can be ignored if there is middleware refreshing user sessions
           }
@@ -30,7 +32,7 @@ export const createClient = async () => {
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.delete({ name, ...options });
-          } catch (error) {
+          } catch {
             // If the remove method is called from a Server Component, an error may occur
             // This can be ignored if there is middleware refreshing user sessions
           }

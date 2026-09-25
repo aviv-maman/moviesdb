@@ -1,25 +1,25 @@
-import { Accordion, AccordionItem, Select, SelectItem } from './HeroUI';
-import { SORT_BY } from '@/lib/data/search_filters';
+import { SORT_BY } from "@/lib/data/search_filters";
+import { Accordion, AccordionItem, Select, SelectItem } from "./HeroUI";
 
 const SidebarSortBy: React.FC = () => {
   return (
-    <Accordion variant='bordered' keepContentMounted>
+    <Accordion variant="bordered" keepContentMounted>
       <AccordionItem
-        key='sort-by'
-        aria-label='Sort'
-        title='Sort'
-        subtitle='Sort Results By'
-        classNames={{ title: 'text-md' }}>
+        key="sort-by"
+        aria-label="Sort"
+        title="Sort"
+        subtitle="Sort Results By"
+        classNames={{ title: "text-md" }}>
         <Select
-          name='sort_by'
-          label='Select sorting option'
-          aria-label='sort selection'
-          selectionMode='single'
-          className='mb-2 mt-4 max-w-xs'
+          name="sort_by"
+          label="Select sorting option"
+          aria-label="sort selection"
+          selectionMode="single"
+          className="mb-2 mt-4 max-w-xs"
           defaultSelectedKeys={[SORT_BY[0].value]}
-          variant='bordered'
-          color='success'
-          labelPlacement='outside'
+          variant="bordered"
+          color="success"
+          labelPlacement="outside"
           scrollShadowProps={{ hideScrollBar: false, offset: 15 }}>
           {SORT_BY.map((option) => (
             <SelectItem key={option.value}>{option.label}</SelectItem>

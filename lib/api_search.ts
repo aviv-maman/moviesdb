@@ -1,23 +1,23 @@
-'use server';
+"use server";
 
 import type {
   TrendingAllListResponse,
   TrendingMovieListResponse,
   TrendingPersonListResponse,
   TrendingSeriesListResponse,
-} from './api.types';
+} from "./api.types";
 
 const reqOptionsGet: RequestInit = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    accept: 'application/json',
-    Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+    accept: "application/json",
+    Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
   },
   next: { revalidate: 60 * 10 },
 };
 
 type MultiOptions = {
-  media_type: 'multi';
+  media_type: "multi";
   query?: string;
   include_adult?: boolean;
   language?: string;
@@ -25,7 +25,7 @@ type MultiOptions = {
 };
 
 type MovieOptions = {
-  media_type: 'movie';
+  media_type: "movie";
   query?: string;
   include_adult?: boolean;
   language?: string;
@@ -36,7 +36,7 @@ type MovieOptions = {
 };
 
 type TvOptions = {
-  media_type: 'tv';
+  media_type: "tv";
   query?: string;
   first_air_date_year?: number;
   include_adult?: boolean;
@@ -46,7 +46,7 @@ type TvOptions = {
 };
 
 type PersonOptions = {
-  media_type: 'person';
+  media_type: "person";
   query?: string;
   include_adult?: boolean;
   language?: string;
@@ -56,12 +56,12 @@ type PersonOptions = {
 export type FilterOptions = MultiOptions | MovieOptions | TvOptions | PersonOptions;
 
 export const filterSearch = async (options: FilterOptions) => {
-  'use server';
-  options.language = options.language || 'en-US';
+  "use server";
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
-  const url = { baseUrl: `https://api.themoviedb.org/3/search/${options.media_type}?`, searchParams: '', fullPath: '' };
+  const url = { baseUrl: `https://api.themoviedb.org/3/search/${options.media_type}?`, searchParams: "", fullPath: "" };
   for (const [key, value] of Object.entries(options)) {
-    if (key === 'media_type') continue;
+    if (key === "media_type") continue;
     url.searchParams += `${key}=${value}&`;
   }
   url.fullPath = url.baseUrl + url.searchParams;
@@ -69,13 +69,13 @@ export const filterSearch = async (options: FilterOptions) => {
   try {
     const res = await fetch(url.fullPath, reqOptionsGet);
     const data = await res.json();
-    return options.media_type === 'multi'
+    return options.media_type === "multi"
       ? (data as TrendingAllListResponse)
-      : options.media_type === 'movie'
+      : options.media_type === "movie"
         ? (data as TrendingMovieListResponse)
-        : options.media_type === 'tv'
+        : options.media_type === "tv"
           ? (data as TrendingSeriesListResponse)
-          : options.media_type === 'person'
+          : options.media_type === "person"
             ? (data as TrendingPersonListResponse)
             : null;
   } catch (error) {

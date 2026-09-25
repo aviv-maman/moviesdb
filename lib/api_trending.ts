@@ -1,21 +1,21 @@
-import type { TrendingResponse } from './api.types';
+import type { TrendingResponse } from "./api.types";
 
 type TrendingApiOptions = {
-  type: 'all' | 'movie' | 'tv' | 'person';
-  time_window?: 'day' | 'week';
+  type: "all" | "movie" | "tv" | "person";
+  time_window?: "day" | "week";
   language?: string;
 };
 
 export const getTrendingItems = async (options: TrendingApiOptions) => {
-  options.time_window = options.time_window || 'week';
-  options.language = options.language || 'en-US';
+  options.time_window = options.time_window || "week";
+  options.language = options.language || "en-US";
   const { type, time_window, language } = options;
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };

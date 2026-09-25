@@ -3183,7 +3183,12 @@
       "suffixes": ["55"]
     },
     "capital": ["Dodoma"],
-    "altSpellings": ["TZ", "Tanzania, United Republic of", "United Republic of Tanzania", "Jamhuri ya Muungano wa Tanzania"],
+    "altSpellings": [
+      "TZ",
+      "Tanzania, United Republic of",
+      "United Republic of Tanzania",
+      "Jamhuri ya Muungano wa Tanzania"
+    ],
     "region": "Africa",
     "subregion": "Eastern Africa",
     "languages": {
@@ -8034,7 +8039,15 @@
       "suffixes": ["53"]
     },
     "capital": ["Djibouti"],
-    "altSpellings": ["DJ", "Jabuuti", "Gabuuti", "Republic of Djibouti", "République de Djibouti", "Gabuutih Ummuuno", "Jamhuuriyadda Jabuuti"],
+    "altSpellings": [
+      "DJ",
+      "Jabuuti",
+      "Gabuuti",
+      "Republic of Djibouti",
+      "République de Djibouti",
+      "Gabuutih Ummuuno",
+      "Jamhuuriyadda Jabuuti"
+    ],
     "region": "Africa",
     "subregion": "Eastern Africa",
     "languages": {
@@ -11651,7 +11664,12 @@
       "suffixes": ["90"]
     },
     "capital": ["Marigot"],
-    "altSpellings": ["MF", "Collectivity of Saint Martin", "Collectivité de Saint-Martin", "Saint Martin (French part)"],
+    "altSpellings": [
+      "MF",
+      "Collectivity of Saint Martin",
+      "Collectivité de Saint-Martin",
+      "Saint Martin (French part)"
+    ],
     "region": "Americas",
     "subregion": "Caribbean",
     "languages": {
@@ -12150,7 +12168,17 @@
       "signs": ["RUS"],
       "side": "right"
     },
-    "timezones": ["UTC+03:00", "UTC+04:00", "UTC+06:00", "UTC+07:00", "UTC+08:00", "UTC+09:00", "UTC+10:00", "UTC+11:00", "UTC+12:00"],
+    "timezones": [
+      "UTC+03:00",
+      "UTC+04:00",
+      "UTC+06:00",
+      "UTC+07:00",
+      "UTC+08:00",
+      "UTC+09:00",
+      "UTC+10:00",
+      "UTC+11:00",
+      "UTC+12:00"
+    ],
     "continents": ["Europe", "Asia"],
     "flags": {
       "png": "https://flagcdn.com/w320/ru.png",
@@ -12770,7 +12798,12 @@
       "suffixes": ["8"]
     },
     "capital": ["Caracas"],
-    "altSpellings": ["VE", "Bolivarian Republic of Venezuela", "Venezuela, Bolivarian Republic of", "República Bolivariana de Venezuela"],
+    "altSpellings": [
+      "VE",
+      "Bolivarian Republic of Venezuela",
+      "Venezuela, Bolivarian Republic of",
+      "República Bolivariana de Venezuela"
+    ],
     "region": "Americas",
     "subregion": "South America",
     "languages": {
@@ -17355,7 +17388,17 @@
       "signs": ["GB"],
       "side": "left"
     },
-    "timezones": ["UTC-08:00", "UTC-05:00", "UTC-04:00", "UTC-03:00", "UTC-02:00", "UTC", "UTC+01:00", "UTC+02:00", "UTC+06:00"],
+    "timezones": [
+      "UTC-08:00",
+      "UTC-05:00",
+      "UTC-04:00",
+      "UTC-03:00",
+      "UTC-02:00",
+      "UTC",
+      "UTC+01:00",
+      "UTC+02:00",
+      "UTC+06:00"
+    ],
     "continents": ["Europe"],
     "flags": {
       "png": "https://flagcdn.com/w320/gb.png",
@@ -19616,7 +19659,13 @@
       "suffixes": ["52"]
     },
     "capital": ["Mogadishu"],
-    "altSpellings": ["SO", "aṣ-Ṣūmāl", "Federal Republic of Somalia", "Jamhuuriyadda Federaalka Soomaaliya", "Jumhūriyyat aṣ-Ṣūmāl al-Fiderāliyya"],
+    "altSpellings": [
+      "SO",
+      "aṣ-Ṣūmāl",
+      "Federal Republic of Somalia",
+      "Jamhuuriyadda Federaalka Soomaaliya",
+      "Jumhūriyyat aṣ-Ṣūmāl al-Fiderāliyya"
+    ],
     "region": "Africa",
     "subregion": "Eastern Africa",
     "languages": {
@@ -22133,7 +22182,16 @@
       "signs": ["AUS"],
       "side": "left"
     },
-    "timezones": ["UTC+05:00", "UTC+06:30", "UTC+07:00", "UTC+08:00", "UTC+09:30", "UTC+10:00", "UTC+10:30", "UTC+11:30"],
+    "timezones": [
+      "UTC+05:00",
+      "UTC+06:30",
+      "UTC+07:00",
+      "UTC+08:00",
+      "UTC+09:30",
+      "UTC+10:00",
+      "UTC+10:30",
+      "UTC+11:30"
+    ],
     "continents": ["Oceania"],
     "flags": {
       "png": "https://flagcdn.com/w320/au.png",
@@ -42038,7 +42096,16 @@
       "signs": [""],
       "side": "right"
     },
-    "timezones": ["UTC-03:00", "UTC+03:00", "UTC+05:00", "UTC+06:00", "UTC+07:00", "UTC+08:00", "UTC+10:00", "UTC+12:00"],
+    "timezones": [
+      "UTC-03:00",
+      "UTC+03:00",
+      "UTC+05:00",
+      "UTC+06:00",
+      "UTC+07:00",
+      "UTC+08:00",
+      "UTC+10:00",
+      "UTC+12:00"
+    ],
     "continents": ["Antarctica"],
     "flags": {
       "png": "https://flagcdn.com/w320/aq.png",
@@ -45205,7 +45272,13 @@
       "suffixes": ["52"]
     },
     "capital": ["Luxembourg"],
-    "altSpellings": ["LU", "Grand Duchy of Luxembourg", "Grand-Duché de Luxembourg", "Großherzogtum Luxemburg", "Groussherzogtum Lëtzebuerg"],
+    "altSpellings": [
+      "LU",
+      "Grand Duchy of Luxembourg",
+      "Grand-Duché de Luxembourg",
+      "Großherzogtum Luxemburg",
+      "Groussherzogtum Lëtzebuerg"
+    ],
     "region": "Europe",
     "subregion": "Western Europe",
     "languages": {
@@ -45393,7 +45466,15 @@
       "suffixes": ["6"]
     },
     "capital": ["Beijing"],
-    "altSpellings": ["CN", "Zhōngguó", "Zhongguo", "Zhonghua", "People's Republic of China", "中华人民共和国", "Zhōnghuá Rénmín Gònghéguó"],
+    "altSpellings": [
+      "CN",
+      "Zhōngguó",
+      "Zhongguo",
+      "Zhonghua",
+      "People's Republic of China",
+      "中华人民共和国",
+      "Zhōnghuá Rénmín Gònghéguó"
+    ],
     "region": "Asia",
     "subregion": "Eastern Asia",
     "languages": {
@@ -45499,7 +45580,24 @@
     },
     "latlng": [35, 105],
     "landlocked": false,
-    "borders": ["AFG", "BTN", "MMR", "HKG", "IND", "KAZ", "NPL", "PRK", "KGZ", "LAO", "MAC", "MNG", "PAK", "RUS", "TJK", "VNM"],
+    "borders": [
+      "AFG",
+      "BTN",
+      "MMR",
+      "HKG",
+      "IND",
+      "KAZ",
+      "NPL",
+      "PRK",
+      "KGZ",
+      "LAO",
+      "MAC",
+      "MNG",
+      "PAK",
+      "RUS",
+      "TJK",
+      "VNM"
+    ],
     "area": 9706961,
     "demonyms": {
       "eng": {
@@ -46135,7 +46233,12 @@
       "suffixes": ["39"]
     },
     "capital": ["São Tomé"],
-    "altSpellings": ["ST", "Democratic Republic of São Tomé and Príncipe", "Sao Tome and Principe", "República Democrática de São Tomé e Príncipe"],
+    "altSpellings": [
+      "ST",
+      "Democratic Republic of São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "República Democrática de São Tomé e Príncipe"
+    ],
     "region": "Africa",
     "subregion": "Middle Africa",
     "languages": {

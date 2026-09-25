@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import type { ButtonProps } from '@heroui/react';
-import { Button } from '@heroui/react';
-import { useFormStatus } from 'react-dom';
+import { useFormStatus } from "react-dom";
+import type { ButtonProps } from "@heroui/react";
+import { Button } from "@heroui/react";
 
 interface ButtonCustomProps extends ButtonProps {
   label?: string;

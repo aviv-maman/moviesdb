@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Slider, type SliderProps } from '@heroui/react';
+import { Slider, type SliderProps } from "@heroui/react";
 
 interface SliderCustomProps extends SliderProps {
   showMarks?: boolean;
@@ -22,9 +22,9 @@ const SliderCustom: React.FC<SliderCustomProps> = ({ showMarks = true, marksInte
     <Slider
       aria-label={`${props.label}`}
       marks={showMarks ? renderMarks() : undefined}
-      color='foreground'
-      size='sm'
-      classNames={{ mark: 'text-xs text-slate-600 dark:text-slate-400', base: 'px-1' }}
+      color="foreground"
+      size="sm"
+      classNames={{ mark: "text-xs text-slate-600 dark:text-slate-400", base: "px-1" }}
       minValue={props.minValue || 0}
       {...props}
     />

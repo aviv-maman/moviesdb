@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { Card, CardBody, Image, Tab, Tabs } from '@heroui/react';
-import { type Options, Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
-import type { GetMovieResponse } from '@/lib/api.types';
+import { Card, CardBody, Image, Tab, Tabs } from "@heroui/react";
+import { type Options, Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+import type { GetMovieResponse } from "@/lib/api.types";
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: GetMovieResponse['credits'];
+  data: GetMovieResponse["credits"];
 }
 
 const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
   const options: Options = {
-    gap: '1rem',
+    gap: "1rem",
     perPage: 6,
     pagination: false,
     breakpoints: {
@@ -34,44 +34,44 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
   };
 
   const imgClasses =
-    'z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]';
+    "z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]";
 
   return (
-    <div className='w-full' {...rest}>
-      <Card className='max-w-full border'>
-        <CardBody className='overflow-hidden'>
-          <Tabs size='md' aria-label='Tabs section'>
+    <div className="w-full" {...rest}>
+      <Card className="max-w-full border">
+        <CardBody className="overflow-hidden">
+          <Tabs size="md" aria-label="Tabs section">
             <Tab key={`tab-${1}`} title={`Cast`}>
-              <Splide tag='section' aria-label='Cast Carousel' options={options}>
-                {data?.cast?.map((slide, slideIndex) => (
-                  <SplideSlide key={slideIndex}>
-                    <div className='flex flex-col items-center'>
+              <Splide tag="section" aria-label="Cast Carousel" options={options}>
+                {data?.cast?.map((slide) => (
+                  <SplideSlide key={slide.credit_id}>
+                    <div className="flex flex-col items-center">
                       <Image
                         src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
                         alt={slide?.name}
                         className={`${imgClasses} rounded-md`}
-                        fallbackSrc={'./no-image.jpg'}
+                        fallbackSrc={"./no-image.jpg"}
                       />
-                      <p className='text-center text-sm'>{slide?.name}</p>
-                      <p className='text-center text-xs'>{slide?.character}</p>
+                      <p className="text-center text-sm">{slide?.name}</p>
+                      <p className="text-center text-xs">{slide?.character}</p>
                     </div>
                   </SplideSlide>
                 ))}
               </Splide>
             </Tab>
             <Tab key={`tab-${2}`} title={`Crew`}>
-              <Splide tag='section' aria-label='Cast Carousel' options={options}>
-                {data?.crew?.map((slide, slideIndex) => (
-                  <SplideSlide key={slideIndex}>
-                    <div className='flex flex-col items-center'>
+              <Splide tag="section" aria-label="Cast Carousel" options={options}>
+                {data?.crew?.map((slide) => (
+                  <SplideSlide key={slide.credit_id}>
+                    <div className="flex flex-col items-center">
                       <Image
                         src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
                         alt={slide?.name}
                         className={`${imgClasses} rounded-md`}
-                        fallbackSrc={'./no-image.jpg'}
+                        fallbackSrc={"./no-image.jpg"}
                       />
-                      <p className='text-center text-sm'>{slide?.name}</p>
-                      <p className='text-center text-xs'>{slide?.job}</p>
+                      <p className="text-center text-sm">{slide?.name}</p>
+                      <p className="text-center text-xs">{slide?.job}</p>
                     </div>
                   </SplideSlide>
                 ))}

@@ -1,20 +1,20 @@
-import type { DiscoverSeriesParams, SeriesListResponse } from './api.types';
+import type { DiscoverSeriesParams, SeriesListResponse } from "./api.types";
 
 type SeriesApiOptions = {
-  type: 'airing_today' | 'on_the_air' | 'popular' | 'top_rated';
+  type: "airing_today" | "on_the_air" | "popular" | "top_rated";
   language?: string;
   page?: number;
 };
 
 export const getSeries = async (options: SeriesApiOptions) => {
-  options.language = options.language || 'en-US';
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };
@@ -41,15 +41,15 @@ export const discoverSeries = async (options?: DiscoverSeriesParams) => {
   options = options || {};
   options.include_adult = options.include_adult || false;
   options.include_null_first_air_dates = options.include_null_first_air_dates || false;
-  options.language = options.language || 'en-US';
+  options.language = options.language || "en-US";
   options.page = options.page || 1;
-  options.sort_by = options.sort_by || 'popularity.desc';
+  options.sort_by = options.sort_by || "popularity.desc";
 
   const reqOptions: RequestInit = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : '',
+      accept: "application/json",
+      Authorization: process.env.TMDB_ACCESS_AUTH_TOKEN ? `Bearer ${process.env.TMDB_ACCESS_AUTH_TOKEN}` : "",
     },
     next: { revalidate: 60 * 60 * 24 },
   };
