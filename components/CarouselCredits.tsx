@@ -1,39 +1,15 @@
 "use client";
-import "@splidejs/react-splide/css";
 
 import { Card, Tabs } from "@heroui/react";
-import { type Options, Splide, SplideSlide } from "@splidejs/react-splide";
 import PosterImage from "@/components/PosterImage";
 import type { GetMovieResponse } from "@/lib/api.types";
+import ScrollCarousel from "./ScrollCarousel";
 
 interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   data: GetMovieResponse["credits"];
 }
 const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
-  const options: Options = {
-    gap: "1rem",
-    perPage: 6,
-    pagination: false,
-    breakpoints: {
-      388: {
-        perPage: 1,
-      },
-      640: {
-        perPage: 2,
-      },
-      824: {
-        perPage: 3,
-      },
-      1024: {
-        perPage: 4,
-      },
-      1280: {
-        perPage: 5,
-      },
-    },
-  };
-  const imgClasses =
-    "z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]";
+  const imgClasses = "w-full aspect-[2/3] rounded-md object-cover";
   return (
     <div className="w-full" {...rest}>
       <Card className="max-w-full border">
@@ -52,9 +28,9 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
               </Tabs.List>
             </Tabs.ListContainer>
             <Tabs.Panel key={`tab-${1}`} id={`tab-${1}`}>
-              <Splide tag="section" aria-label="Cast Carousel" options={options}>
+              <ScrollCarousel label="Cast Carousel">
                 {data?.cast?.map((slide) => (
-                  <SplideSlide key={slide.credit_id}>
+                  <div key={slide.credit_id}>
                     <div className="flex flex-col items-center">
                       <PosterImage
                         src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
@@ -65,14 +41,14 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                       <p className="text-center text-sm">{slide?.name}</p>
                       <p className="text-center text-xs">{slide?.character}</p>
                     </div>
-                  </SplideSlide>
+                  </div>
                 ))}
-              </Splide>
+              </ScrollCarousel>
             </Tabs.Panel>
             <Tabs.Panel key={`tab-${2}`} id={`tab-${2}`}>
-              <Splide tag="section" aria-label="Cast Carousel" options={options}>
+              <ScrollCarousel label="Crew Carousel">
                 {data?.crew?.map((slide) => (
-                  <SplideSlide key={slide.credit_id}>
+                  <div key={slide.credit_id}>
                     <div className="flex flex-col items-center">
                       <PosterImage
                         src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
@@ -83,9 +59,9 @@ const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
                       <p className="text-center text-sm">{slide?.name}</p>
                       <p className="text-center text-xs">{slide?.job}</p>
                     </div>
-                  </SplideSlide>
+                  </div>
                 ))}
-              </Splide>
+              </ScrollCarousel>
             </Tabs.Panel>
           </Tabs>
         </Card.Content>

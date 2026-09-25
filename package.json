@@ -13,14 +13,11 @@
   "dependencies": {
     "@heroui/react": "^3.2.6",
     "@heroui/styles": "^3.2.6",
-    "@splidejs/react-splide": "^0.7.12",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
     "next": "^16.3.6",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-select": "^5.10.1",
-    "rsuite": "^5.80.1",
     "sonner": "^2.0.8",
     "swr": "^2.5.1"
   },
