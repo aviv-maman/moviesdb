@@ -31,6 +31,7 @@ export interface Database {
           tmdb_session_id?: string | null;
           tmdb_account_id?: number | null;
         };
+        Relationships: [];
       };
     };
     Views: {
