@@ -11,9 +11,6 @@ const config = {
   arrowParens: 'always',
   bracketSameLine: true,
   tabWidth: 2,
-  plugins: ['prettier-plugin-tailwindcss'],
-  tailwindFunctions: ['cn'],
-  tailwindStylesheet: './styles/globals.css',
 };
 
 export default config;

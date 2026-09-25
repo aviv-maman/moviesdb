@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const nextPlugin = require('@next/eslint-plugin-next');
 const pluginJs = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const tailwind = require('eslint-plugin-tailwindcss');
+const tseslint = require('@typescript-eslint/eslint-plugin');
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tailwind.configs['flat/recommended'],
+  ...tseslint.configs['flat/recommended'],
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     plugins: { '@next/next': nextPlugin },
