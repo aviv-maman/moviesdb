@@ -2,7 +2,7 @@ import { type CookieOptions, createServerClient } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 import type { Database } from '@/lib/database.types';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // Create an unmodified response
   let response = NextResponse.next({
     request: {

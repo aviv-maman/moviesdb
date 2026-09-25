@@ -1,5 +1,3 @@
-'use server';
-
 import { redirect } from 'next/navigation';
 import ProfileMenu from '@/components/ProfileMenu';
 import ProfileSection from '@/components/ProfileSection';

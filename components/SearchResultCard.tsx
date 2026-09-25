@@ -1,6 +1,4 @@
-'use server';
-
-import { Image } from '@heroui/react';
+import { Image } from './HeroUI';
 import Link from 'next/link';
 import SearchResultBadge from './SearchResultBadge';
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from '@/lib/api.types';

@@ -1,5 +1,3 @@
-'use server';
-
 const SearchResultCardSkeleton: React.FC = () => {
   return (
     <div
