@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/check
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Check: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface CheckProps extends SVGProps<SVGSVGElement> {}
+
+const Check: FC<CheckProps> = (props) => {
   return (
     <svg
       aria-label="check"

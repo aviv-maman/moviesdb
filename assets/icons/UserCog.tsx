@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/user-cog
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const UserCog: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface UserCogProps extends SVGProps<SVGSVGElement> {}
+
+const UserCog: FC<UserCogProps> = (props) => {
   return (
     <svg
       aria-label="user-cog"

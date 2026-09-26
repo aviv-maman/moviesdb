@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Drawer } from "@heroui/react";
@@ -11,7 +12,7 @@ import SidebarFilters from "./SidebarFilters";
 import SidebarSortBy from "./SidebarSortBy";
 import SidebarWhereToWatch from "./SidebarWhereToWatch";
 
-export default function CatalogFilters() {
+const CatalogFilters: FC = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -23,6 +24,7 @@ export default function CatalogFilters() {
     });
     initial.vote_average = [searchParams.get("vote_average.gte") || "0", searchParams.get("vote_average.lte") || "10"];
     initial.with_runtime = [searchParams.get("with_runtime.gte") || "0", searchParams.get("with_runtime.lte") || "360"];
+
     return initial;
   });
   const [dates, setDates] = useState<FilterDates>({});
@@ -58,18 +60,22 @@ export default function CatalogFilters() {
     Array.from(formData.entries()).forEach(([key, value]) => {
       if (value === "") {
         params.delete(key);
+
         return;
       }
       if (key === "page") {
         params.delete(key);
+
         return;
       }
       if (key === "sort_by" && value === "popularity.desc") {
         params.delete(key);
+
         return;
       }
       if (key === "vote_count.gte" && value === "0") {
         params.delete(key);
+
         return;
       }
       if (key === "with_watch_providers") return;
@@ -132,6 +138,7 @@ export default function CatalogFilters() {
     setIsOpen(false);
     replace(`${pathname}?${params.toString()}`);
   }
+
   return (
     <FilterDraftContext.Provider
       value={{ values, dates, setDate: (name, value) => setDates((previous) => ({ ...previous, [name]: value })) }}>
@@ -180,4 +187,6 @@ export default function CatalogFilters() {
       </Drawer>
     </FilterDraftContext.Provider>
   );
-}
+};
+
+export default CatalogFilters;

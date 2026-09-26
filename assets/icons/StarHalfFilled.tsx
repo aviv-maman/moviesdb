@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/star-half
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const StarHalfFilled: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface StarHalfFilledProps extends SVGProps<SVGSVGElement> {}
+
+const StarHalfFilled: FC<StarHalfFilledProps> = (props) => {
   return (
     <svg aria-label="star-half-filled" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

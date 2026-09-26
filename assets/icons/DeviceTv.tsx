@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/device-tv
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const DeviceTv: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface DeviceTvProps extends SVGProps<SVGSVGElement> {}
+
+const DeviceTv: FC<DeviceTvProps> = (props) => {
   return (
     <svg
       aria-label="device-tv"

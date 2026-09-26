@@ -1,18 +1,16 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { useEffect, useId, useRef, useState } from "react";
 
-export default function CarouselRail({
-  label,
-  children,
-  wide = false,
-  inlineControls = false,
-}: {
+interface CarouselRailProps {
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
   wide?: boolean;
   inlineControls?: boolean;
-}) {
+}
+
+const CarouselRail: FC<CarouselRailProps> = ({ label, children, wide = false, inlineControls = false }) => {
   const id = useId();
   const railRef = useRef<HTMLElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
@@ -26,6 +24,7 @@ export default function CarouselRail({
     rail.addEventListener("scroll", update, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(rail);
+
     return () => {
       rail.removeEventListener("scroll", update);
       observer.disconnect();
@@ -76,4 +75,6 @@ export default function CarouselRail({
       </section>
     </div>
   );
-}
+};
+
+export default CarouselRail;

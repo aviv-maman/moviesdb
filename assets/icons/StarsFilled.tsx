@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/stars
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const StarsFilled: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface StarsFilledProps extends SVGProps<SVGSVGElement> {}
+
+const StarsFilled: FC<StarsFilledProps> = (props) => {
   return (
     <svg
       aria-hidden="true"

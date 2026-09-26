@@ -13,6 +13,7 @@ const getDateWithLastDayOfMonth = () => {
   const year = new Date().getFullYear();
   const month = new Date().getMonth() + 1;
   const lastDayOfMonth = new Date(year, month, 0).getDate();
+
   return `${year}-${month}-${lastDayOfMonth}`;
 };
 
@@ -22,6 +23,7 @@ export default async function IndexPage() {
     const backdropPath =
       popularMovies?.results?.[chosenNumber]?.backdrop_path ||
       popularMoviesFallback?.results?.[chosenNumber]?.backdrop_path;
+
     return `https://image.tmdb.org/t/p/${width}${backdropPath}`;
   };
 

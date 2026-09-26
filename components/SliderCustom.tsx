@@ -1,4 +1,6 @@
 "use client";
+
+import type { FC } from "react";
 import { Label, Slider, type SliderProps } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
 
@@ -8,7 +10,8 @@ interface SliderCustomProps extends SliderProps {
   showMarks?: boolean;
   marksInterval?: number;
 }
-export default function SliderCustom({
+
+const SliderCustom: FC<SliderCustomProps> = ({
   label,
   name,
   showMarks = true,
@@ -17,7 +20,7 @@ export default function SliderCustom({
   maxValue = 10,
   step = 1,
   ...props
-}: SliderCustomProps) {
+}) => {
   const { values } = useFilterDraft();
   const initialValue = values[name]?.map(Number);
   const interval = marksInterval || step;
@@ -25,6 +28,7 @@ export default function SliderCustom({
     { length: Math.floor((maxValue - minValue) / interval) + 1 },
     (_, index) => minValue + index * interval,
   );
+
   return (
     <Slider
       {...props}
@@ -60,4 +64,6 @@ export default function SliderCustom({
       )}
     </Slider>
   );
-}
+};
+
+export default SliderCustom;

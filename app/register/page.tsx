@@ -32,6 +32,7 @@ async function onFormSubmission(prevState: FormState, formData: FormData): Promi
   } finally {
     toast.dismiss(toastId);
   }
+
   return prevState;
 }
 

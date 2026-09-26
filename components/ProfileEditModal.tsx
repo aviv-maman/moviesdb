@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useRef, useTransition } from "react";
 import { Button, Modal } from "@heroui/react";
 import TextInput from "@/components/TextInput";
@@ -10,11 +11,13 @@ interface ProfileEditModalProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
-const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) => {
+
+const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, onOpenChange }) => {
   const { dispatch, state } = useProfile();
   const fullNameRef = useRef<HTMLInputElement>(null);
   const usernameRef = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <Modal.Backdrop isDismissable={!pending}>

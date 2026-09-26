@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useMemo, useState } from "react";
 import { ComboBox, Description, Input, Label, ListBox, Tag, TagGroup } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
@@ -10,11 +11,17 @@ const { results } = keywords as KeywordList;
 const keywordById = new Map(results.map((keyword) => [String(keyword.id), keyword]));
 const maxMatches = 50;
 
-export default function MultiSelect({ title = "Keywords", name = "with_keywords" }: { title?: string; name?: string }) {
+interface MultiSelectProps {
+  title?: string;
+  name?: string;
+}
+
+const MultiSelect: FC<MultiSelectProps> = ({ title = "Keywords", name = "with_keywords" }) => {
   const { values } = useFilterDraft();
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>(() => {
     const saved = values[name] ?? [];
+
     return results
       .filter((keyword) => saved.includes(String(keyword.id)) || saved.includes(keyword.name))
       .map((keyword) => String(keyword.id));
@@ -28,6 +35,7 @@ export default function MultiSelect({ title = "Keywords", name = "with_keywords"
         if (matches.length === maxMatches) break;
       }
     }
+
     return matches;
   }, [normalizedQuery]);
 
@@ -103,4 +111,6 @@ export default function MultiSelect({ title = "Keywords", name = "with_keywords"
       ))}
     </div>
   );
-}
+};
+
+export default MultiSelect;

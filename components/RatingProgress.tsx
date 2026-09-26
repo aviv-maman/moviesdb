@@ -1,15 +1,21 @@
 "use client";
+
+import type { FC, ReactNode } from "react";
 import { ProgressCircle, type ProgressCircleProps } from "@heroui/react";
 
-type RatingProgressProps = Omit<ProgressCircleProps, "color"> & { color?: string; valueLabel?: React.ReactNode };
-export default function RatingProgress({
+interface RatingProgressProps extends Omit<ProgressCircleProps, "color"> {
+  color?: string;
+  valueLabel?: ReactNode;
+}
+
+const RatingProgress: FC<RatingProgressProps> = ({
   value = 0,
   valueLabel,
   color,
   className = "",
   size = "md",
   ...props
-}: RatingProgressProps) {
+}) => {
   const colors: Record<string, ProgressCircleProps["color"]> = {
     success: "success",
     warning: "warning",
@@ -17,6 +23,7 @@ export default function RatingProgress({
     primary: "accent",
     default: "default",
   };
+
   return (
     <ProgressCircle
       {...props}
@@ -33,4 +40,6 @@ export default function RatingProgress({
       </span>
     </ProgressCircle>
   );
-}
+};
+
+export default RatingProgress;

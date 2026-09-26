@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/search
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Search: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface SearchProps extends SVGProps<SVGSVGElement> {}
+
+const Search: FC<SearchProps> = (props) => {
   return (
     <svg
       aria-label="search"

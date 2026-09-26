@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/star-off
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const StarOff: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface StarOffProps extends SVGProps<SVGSVGElement> {}
+
+const StarOff: FC<StarOffProps> = (props) => {
   return (
     <svg
       aria-label="star-off"

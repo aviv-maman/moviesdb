@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { Tabs } from "@heroui/react";
 
 interface CarouselTabsProps {
@@ -10,7 +10,7 @@ interface CarouselTabsProps {
   inlineControls?: boolean;
 }
 
-export default function CarouselTabs({ label, items, defaultSelectedKey, inlineControls = false }: CarouselTabsProps) {
+const CarouselTabs: FC<CarouselTabsProps> = ({ label, items, defaultSelectedKey, inlineControls = false }) => {
   return (
     <Tabs defaultSelectedKey={defaultSelectedKey} className="min-w-0 w-full">
       <div className={`border-b pb-4 ${inlineControls ? "mb-5 pr-24" : ""}`}>
@@ -32,4 +32,6 @@ export default function CarouselTabs({ label, items, defaultSelectedKey, inlineC
       ))}
     </Tabs>
   );
-}
+};
+
+export default CarouselTabs;

@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/dots
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Dots: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface DotsProps extends SVGProps<SVGSVGElement> {}
+
+const Dots: FC<DotsProps> = (props) => {
   return (
     <svg
       aria-label="dots"

@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import type { MovieSeriesPersonListResponse, TrendingResponse, UpcomingMovieListResponse } from "@/lib/api.types";
 import CardGeneric from "./CardGeneric";
 import CarouselRail from "./CarouselRail";
@@ -10,7 +11,7 @@ interface CarouselProps {
   data?: UpcomingMovieListResponse[] | TrendingResponse[] | MovieSeriesPersonListResponse[];
 }
 
-export default function Carousel({ tabs, data }: CarouselProps) {
+const Carousel: FC<CarouselProps> = ({ tabs, data }) => {
   const panels = data?.map((group, index) => {
     const label = tabs?.[index] ?? "Media";
 
@@ -37,4 +38,6 @@ export default function Carousel({ tabs, data }: CarouselProps) {
       )}
     </div>
   );
-}
+};
+
+export default Carousel;

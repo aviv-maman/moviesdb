@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/clock-down
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const ClockDown: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface ClockDownProps extends SVGProps<SVGSVGElement> {}
+
+const ClockDown: FC<ClockDownProps> = (props) => {
   return (
     <svg
       aria-label="clock-down"

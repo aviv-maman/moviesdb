@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, FC, SetStateAction } from "react";
 import { Label, ListBox, Select } from "@heroui/react";
 
 interface SearchSelectProps {
@@ -13,7 +13,8 @@ interface SearchSelectProps {
   setMediaType: Dispatch<SetStateAction<"multi" | "movie" | "tv" | "person">>;
   defaultValue?: string | null;
 }
-const SearchSelect: React.FC<SearchSelectProps> = ({ items, name, label, setMediaType, defaultValue }) => {
+
+const SearchSelect: FC<SearchSelectProps> = ({ items, name, label, setMediaType, defaultValue }) => {
   return (
     <Select
       id={name}

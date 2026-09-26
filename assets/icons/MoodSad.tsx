@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/mood-sad
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const MoodSad: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface MoodSadProps extends SVGProps<SVGSVGElement> {}
+
+const MoodSad: FC<MoodSadProps> = (props) => {
   return (
     <svg
       aria-label="sad"

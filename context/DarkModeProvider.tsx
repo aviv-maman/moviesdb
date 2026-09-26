@@ -1,9 +1,14 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { DarkModeContext } from "./DarkModeContext";
 
-export function DarkModeProvider({ children }: { children: React.ReactNode }) {
+interface DarkModeProviderProps {
+  children: ReactNode;
+}
+
+export const DarkModeProvider: FC<DarkModeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<boolean | null>(null);
   const isDarkMode = theme ?? false;
 
@@ -44,4 +49,4 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const contextValue = useMemo(() => ({ isDarkMode, toggleDarkMode }), [isDarkMode, toggleDarkMode]);
 
   return <DarkModeContext.Provider value={contextValue}>{children}</DarkModeContext.Provider>;
-}
+};

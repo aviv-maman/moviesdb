@@ -1,4 +1,6 @@
-const SearchResultCardSkeleton: React.FC = () => {
+import type { FC } from "react";
+
+const SearchResultCardSkeleton: FC = () => {
   return (
     <div
       role="status"

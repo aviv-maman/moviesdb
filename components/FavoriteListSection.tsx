@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { Suspense, useEffect } from "react";
 import type { User } from "@supabase/supabase-js";
 import { useProfile } from "@/context/ProfileContext";
@@ -16,12 +17,7 @@ interface FavoriteListSectionProps {
   user?: User | null;
 }
 
-const FavoriteListSection: React.FC<FavoriteListSectionProps> = ({
-  favoritesMovies,
-  favoritesSeries,
-  profile,
-  user,
-}) => {
+const FavoriteListSection: FC<FavoriteListSectionProps> = ({ favoritesMovies, favoritesSeries, profile, user }) => {
   const skeletonIds = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"];
   const { dispatch, state } = useProfile();
 

@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/topology-star
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const TopologyStar: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface TopologyStarProps extends SVGProps<SVGSVGElement> {}
+
+const TopologyStar: FC<TopologyStarProps> = (props) => {
   return (
     <svg
       aria-label="topology-star"

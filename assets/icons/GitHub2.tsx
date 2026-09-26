@@ -1,7 +1,9 @@
 //https://lucide.dev/icons/github
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const GitHub2: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface GitHub2Props extends SVGProps<SVGSVGElement> {}
+
+const GitHub2: FC<GitHub2Props> = (props) => {
   return (
     <svg
       aria-label="github"

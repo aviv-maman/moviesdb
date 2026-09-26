@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import Link from "next/link";
 import PosterImage from "@/components/PosterImage";
 import RatingProgress from "@/components/RatingProgress";
@@ -10,7 +11,8 @@ interface CardGenericProps {
   variant?: "carousel" | "catalog";
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-const CardGeneric: React.FC<CardGenericProps> = ({ data, variant = "carousel" }) => {
+
+const CardGeneric: FC<CardGenericProps> = ({ data, variant = "carousel" }) => {
   const ratingColors: {
     [key: number]: "danger" | "warning" | "success" | "default";
   } = {
@@ -97,6 +99,7 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data, variant = "carousel" })
       </article>
     );
   }
+
   return (
     <div className="relative h-full max-w-44 rounded-md">
       {!item.href.includes("people") && (

@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,14 +18,14 @@ import HeaderDropdown from "./HeaderDropdown";
 import Logo from "./Logo";
 import TextInput from "./TextInput";
 
-type HeaderProps = {
+interface HeaderProps {
   user?: User | null | undefined;
   profile?: Profile | null | undefined;
   favMovies?: MovieItem[];
   favSeries?: SeriesItem[];
-};
+}
 
-const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
+const Header: FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();

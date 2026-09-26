@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useTransition } from "react";
 import { Avatar, Badge, Spinner, useOverlayState } from "@heroui/react";
 import { Pencil, PhotoOff, Upload } from "@/assets/icons";
@@ -8,7 +9,7 @@ import { updateProfile } from "@/lib/api_profile";
 import { createClient } from "@/utils/supabase/client";
 import ProfileEditModal from "./ProfileEditModal";
 
-const ProfileSettings: React.FC = () => {
+const ProfileSettings: FC = () => {
   const { dispatch, state } = useProfile();
   const { isOpen, open: onOpen, setOpen: onOpenChange } = useOverlayState();
   const [uploadPending, startUploadTransition] = useTransition();
@@ -25,6 +26,7 @@ const ProfileSettings: React.FC = () => {
       });
       if (uploadError) throw uploadError;
       const publicUrl = bucket.getPublicUrl(fileName).data.publicUrl;
+
       return await updateProfile({
         avatar_url: publicUrl,
       });
@@ -55,6 +57,7 @@ const ProfileSettings: React.FC = () => {
       console.log("Error uploading avatar!");
     }
   };
+
   return (
     <>
       <ProfileEditModal isOpen={isOpen} onOpenChange={onOpenChange} />

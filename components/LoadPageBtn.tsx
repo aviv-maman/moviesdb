@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SquareChevronLeft, SquareChevronRight } from "@/assets/icons";
@@ -9,7 +10,8 @@ interface LoadPageBtnProps {
   label?: "Back" | "Next";
   totalPages?: number;
 }
-const LoadPageBtn: React.FC<LoadPageBtnProps> = ({ totalPages = 0, label = "Next" }) => {
+
+const LoadPageBtn: FC<LoadPageBtnProps> = ({ totalPages = 0, label = "Next" }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -27,6 +29,7 @@ const LoadPageBtn: React.FC<LoadPageBtnProps> = ({ totalPages = 0, label = "Next
       replace(`${pathname}?${params.toString()}`);
     }
   };
+
   return (
     <ButtonCustom
       variant="ghost"

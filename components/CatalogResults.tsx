@@ -1,16 +1,15 @@
+import type { FC } from "react";
 import type { MovieListResponse, SeriesListResponse } from "@/lib/api.types";
 import CardGeneric from "./CardGeneric";
 import PaginationCustom from "./PaginationCustom";
 
-export default function CatalogResults({
-  results,
-  page,
-  total,
-}: {
+interface CatalogResultsProps {
   results?: (MovieListResponse["results"][0] | SeriesListResponse["results"][0])[];
   page?: number;
   total: number;
-}) {
+}
+
+const CatalogResults: FC<CatalogResultsProps> = ({ results, page, total }) => {
   return (
     <>
       {results?.length ? (
@@ -28,4 +27,6 @@ export default function CatalogResults({
       {total > 1 && <PaginationCustom page={page} total={total} className="mt-10 flex justify-center border-t pt-6" />}
     </>
   );
-}
+};
+
+export default CatalogResults;

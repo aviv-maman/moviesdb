@@ -1,15 +1,18 @@
 "use client";
+
+import type { FC } from "react";
 import { type ComponentProps, type ReactNode, useId } from "react";
 import { Input, Label } from "@heroui/react";
 
-type TextInputProps = Omit<ComponentProps<typeof Input>, "className"> & {
+interface TextInputProps extends Omit<ComponentProps<typeof Input>, "className"> {
   label?: string;
   startContent?: ReactNode;
   endContent?: ReactNode;
   className?: string;
   inputClassName?: string;
-};
-export default function TextInput({
+}
+
+const TextInput: FC<TextInputProps> = ({
   label,
   startContent,
   endContent,
@@ -17,9 +20,10 @@ export default function TextInput({
   inputClassName = "",
   id,
   ...props
-}: TextInputProps) {
+}) => {
   const generatedId = useId();
   const inputId = id || generatedId;
+
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
       {label && <Label htmlFor={inputId}>{label}</Label>}
@@ -30,4 +34,6 @@ export default function TextInput({
       </div>
     </div>
   );
-}
+};
+
+export default TextInput;

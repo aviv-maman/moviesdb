@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { Suspense } from "react";
 import Link from "next/link";
 import { Spinner } from "@heroui/react";
@@ -8,8 +9,9 @@ import PosterImage from "@/components/PosterImage";
 import { useProfile } from "@/context/ProfileContext";
 import { handleLinkAccount, handleUnlinkAccount } from "@/lib/api_profile";
 
-const ProfileIntegrations: React.FC = () => {
+const ProfileIntegrations: FC = () => {
   const { state } = useProfile();
+
   return (
     <div className="w-full dark:text-gray-100">
       <div className="mb-4">

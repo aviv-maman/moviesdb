@@ -1,6 +1,9 @@
+import type { ComponentPropsWithoutRef, FC } from "react";
 import "@/styles/spinkit.css";
 
-const SpinnerWave: React.FC<React.ComponentPropsWithoutRef<"div">> = (props) => {
+interface SpinnerWaveProps extends ComponentPropsWithoutRef<"div"> {}
+
+const SpinnerWave: FC<SpinnerWaveProps> = (props) => {
   return (
     <div role="status" className="flex justify-center" aria-label="loading" {...props}>
       <div className="sk-wave">

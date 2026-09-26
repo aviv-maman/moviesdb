@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import Link from "next/link";
 import type { GetMovieResponse, GetSeriesResponse } from "@/lib/api.types";
 import ButtonHeart from "./ButtonHeart";
@@ -6,15 +7,15 @@ import CarouselCredits from "./CarouselCredits";
 import CarouselRail from "./CarouselRail";
 import PosterImage from "./PosterImage";
 
-type MediaDetailsProps = {
+interface MediaDetailsProps {
   mediaType: "movie" | "tv";
   item: GetMovieResponse | GetSeriesResponse;
   title: string;
   year: string;
   duration: string;
-};
+}
 
-export default function MediaDetails({ mediaType, item, title, year, duration }: MediaDetailsProps) {
+const MediaDetails: FC<MediaDetailsProps> = ({ mediaType, item, title, year, duration }) => {
   const videos =
     item.videos?.results
       ?.filter((video) => ["YouTube", "Vimeo"].includes(video.site))
@@ -23,6 +24,7 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
   const recommendations = item.recommendations?.results ?? [];
   const mediaPath = mediaType === "movie" ? "movies" : "series";
   const rating = item.vote_average > 0 ? item.vote_average.toFixed(1) : null;
+
   return (
     <main className="min-w-0">
       <section
@@ -181,4 +183,6 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
       </div>
     </main>
   );
-}
+};
+
+export default MediaDetails;

@@ -16,6 +16,7 @@ export default async function MoviePage({ params }: PageProps<"/movies/item/[id]
   const duration = movie.runtime
     ? [hours ? `${hours}h` : "", minutes ? `${minutes}m` : ""].filter(Boolean).join(" ")
     : "";
+
   return (
     <MediaDetails
       mediaType="movie"

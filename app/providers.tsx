@@ -1,12 +1,16 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { DarkModeProvider } from "@/context/DarkModeProvider";
 import { FormProvider } from "@/context/FormProvider";
 import { ProfileProvider } from "@/context/ProfileProvider";
 import { SWRConfigProvider } from "@/context/SWRConfigContext";
 
-export function Providers({ children }: { children: ReactNode }) {
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
     <DarkModeProvider>
       <FormProvider>
@@ -16,4 +20,4 @@ export function Providers({ children }: { children: ReactNode }) {
       </FormProvider>
     </DarkModeProvider>
   );
-}
+};

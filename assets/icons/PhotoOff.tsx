@@ -1,7 +1,9 @@
 //https://tabler.io/icons/icon/photo-off
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const PhotoOff: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+interface PhotoOffProps extends SVGProps<SVGSVGElement> {}
+
+const PhotoOff: FC<PhotoOffProps> = (props) => {
   return (
     <svg
       aria-label="photo-off"

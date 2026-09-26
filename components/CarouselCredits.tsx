@@ -1,16 +1,22 @@
 "use client";
 
+import type { FC } from "react";
 import type { GetMovieResponse } from "@/lib/api.types";
 import CarouselRail from "./CarouselRail";
 import CarouselTabs from "./CarouselTabs";
 import PosterImage from "./PosterImage";
 
-export default function CarouselCredits({ data }: { data: GetMovieResponse["credits"] }) {
+interface CarouselCreditsProps {
+  data: GetMovieResponse["credits"];
+}
+
+const CarouselCredits: FC<CarouselCreditsProps> = ({ data }) => {
   const groups = [
     { id: "cast", label: "Cast", people: data?.cast?.map((person) => ({ ...person, role: person.character })) ?? [] },
     { id: "crew", label: "Crew", people: data?.crew?.map((person) => ({ ...person, role: person.job })) ?? [] },
   ];
   if (groups.every((group) => !group.people.length)) return null;
+
   return (
     <section aria-labelledby="detail-credits-heading">
       <h2 id="detail-credits-heading" className="mb-5 text-xl font-semibold tracking-tight sm:text-2xl">
@@ -65,4 +71,6 @@ export default function CarouselCredits({ data }: { data: GetMovieResponse["cred
       />
     </section>
   );
-}
+};
+
+export default CarouselCredits;
