@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useState } from "react";
 import { Accordion, Checkbox, CheckboxGroup, Label, ListBox, Select, Separator } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
@@ -9,7 +10,7 @@ import DatePickerCustom from "./DatePickerCustom";
 import MultiSelect from "./MultiSelect";
 import SliderCustom from "./SliderCustom";
 
-const SidebarFilters: React.FC = () => {
+const SidebarFilters: FC = () => {
   const { values } = useFilterDraft();
   const [availabilities, setAvailabilities] = useState(
     values.with_availabilities ?? ["all-availabilities", ...AVAILABILITIES.map((option) => option.value)],
@@ -17,6 +18,7 @@ const SidebarFilters: React.FC = () => {
   const [releaseTypes, setReleaseTypes] = useState(
     values.with_release_type ?? ["0", ...RELEASE_TYPES.map((option) => String(option.value))],
   );
+
   return (
     <Accordion variant="surface" defaultExpandedKeys={["filters"]}>
       <Accordion.Item key="filters" aria-label="Accordion of filters" className="flex w-full flex-col" id={"filters"}>

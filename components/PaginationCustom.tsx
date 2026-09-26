@@ -1,4 +1,6 @@
 "use client";
+
+import type { FC } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Pagination } from "@heroui/react";
 
@@ -7,13 +9,15 @@ interface PaginationCustomProps {
   total: number;
   className?: string;
 }
-export default function PaginationCustom({ page = 1, total, className }: PaginationCustomProps) {
+
+const PaginationCustom: FC<PaginationCustomProps> = ({ page = 1, total, className }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const href = (value: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", String(value));
+
     return `${pathname}?${params.toString()}`;
   };
   const pages = Array.from(
@@ -21,6 +25,7 @@ export default function PaginationCustom({ page = 1, total, className }: Paginat
   )
     .filter((n) => n >= 1 && n <= total)
     .sort((a, b) => a - b);
+
   return (
     <Pagination className={className} aria-label="Results pages">
       <Pagination.Content>
@@ -47,4 +52,6 @@ export default function PaginationCustom({ page = 1, total, className }: Paginat
       </Pagination.Content>
     </Pagination>
   );
-}
+};
+
+export default PaginationCustom;

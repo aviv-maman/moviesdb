@@ -1,4 +1,6 @@
-export default function ThemeScript() {
+import type { FC } from "react";
+
+const ThemeScript: FC = () => {
   return (
     <script
       // biome-ignore lint/security/noDangerouslySetInnerHtml: Static theme bootstrap with no interpolated input; must run before paint.
@@ -7,4 +9,6 @@ export default function ThemeScript() {
       }}
     />
   );
-}
+};
+
+export default ThemeScript;

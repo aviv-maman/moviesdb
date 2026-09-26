@@ -1,12 +1,13 @@
 "use client";
 
+import type { Dispatch } from "react";
 import { createContext, useContext } from "react";
 import type { User } from "@supabase/supabase-js";
 import type { Profile } from "@/lib/database.types";
 
 export type ProfileStore = {
   state: ProfileContextState;
-  dispatch: React.Dispatch<ProfileActionMap>;
+  dispatch: Dispatch<ProfileActionMap>;
 };
 
 export const initialContextState = {
@@ -25,6 +26,7 @@ export const ProfileContext = createContext<ProfileStore>({ dispatch: () => {}, 
 function useProfile() {
   const context = useContext(ProfileContext);
   if (context === undefined) throw new Error("ProfileContext was used outside of the ProfileProvider");
+
   return context;
 }
 

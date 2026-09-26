@@ -1,13 +1,14 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { Toaster } from "sonner";
 import { SWRConfig } from "swr";
 
 interface SWRConfigContextProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const SWRConfigProvider: React.FC<SWRConfigContextProps> = ({ children }) => {
+export const SWRConfigProvider: FC<SWRConfigContextProps> = ({ children }) => {
   const globalFetcher = async ({ url, options }: { url: string; options?: RequestInit }) => {
     const res = await fetch(url, options);
     // If the status code is not in the range 200-299,

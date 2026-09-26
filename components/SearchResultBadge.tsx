@@ -1,12 +1,13 @@
-import { Suspense } from "react";
+import { type FC, Suspense } from "react";
 
-interface SearchResultBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface SearchResultBadgeProps {
   label?: string;
   color?: string;
   textSize?: "text-xs" | "text-sm" | "text-md" | "text-lg" | "text-xl" | "text-2xl";
+  className?: string;
 }
 
-const SearchResultBadge: React.FC<SearchResultBadgeProps> = async ({ label, color, textSize = "text-xs", ...rest }) => {
+const SearchResultBadge: FC<SearchResultBadgeProps> = async ({ label, color, textSize = "text-xs", ...rest }) => {
   const className = `whitespace-nowrap rounded-full px-2.5 py-0.5 ${textSize} ${rest.className}`;
 
   const badgeColors: { [key: string]: string } = {

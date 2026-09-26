@@ -1,10 +1,15 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { useEffect, useMemo, useReducer } from "react";
 import { FormContext, initialContextState } from "./FormContext";
 import { formReducer } from "./formReducer";
 
-export function FormProvider({ children }: { children: React.ReactNode }) {
+interface FormProviderProps {
+  children: ReactNode;
+}
+
+export const FormProvider: FC<FormProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(formReducer, initialContextState);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state]);
@@ -15,4 +20,4 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return <FormContext.Provider value={contextValue}>{children}</FormContext.Provider>;
-}
+};

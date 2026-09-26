@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { Accordion, Avatar, CheckboxGroup, Label, ListBox, Select, Separator } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
 import { useForm } from "@/context/FormContext";
@@ -10,7 +11,7 @@ import CheckboxService from "./CheckboxService";
 // import useSWR from 'swr';
 // import type { LocationResponse } from '@/lib/api.types';
 
-const SidebarWhereToWatch: React.FC = () => {
+const SidebarWhereToWatch: FC = () => {
   const { values } = useFilterDraft();
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();

@@ -1,13 +1,20 @@
 "use client";
 
+import type { FC } from "react";
 import { useState } from "react";
 import { Button, Calendar, DateField, DatePicker, Label } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
 
-function ReleaseDatePicker({ name, label }: { name: string; label: string }) {
+interface ReleaseDatePickerProps {
+  name: string;
+  label: string;
+}
+
+const ReleaseDatePicker: FC<ReleaseDatePickerProps> = ({ name, label }) => {
   const { dates, setDate } = useFilterDraft();
   const value = dates[name] ?? null;
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
+
   return (
     <div className="flex items-end gap-2">
       <DatePicker name={name} value={value} onChange={(next) => setDate(name, next)} className="min-w-0 flex-1">
@@ -56,9 +63,9 @@ function ReleaseDatePicker({ name, label }: { name: string; label: string }) {
       </Button>
     </div>
   );
-}
+};
 
-export default function DatePickerCustom() {
+const DatePickerCustom: FC = () => {
   return (
     <fieldset className="my-3 flex min-w-0 flex-col gap-2">
       <legend className="mb-2 text-sm text-muted">Release Dates</legend>
@@ -66,4 +73,6 @@ export default function DatePickerCustom() {
       <ReleaseDatePicker name="release_date.lte" label="Until" />
     </fieldset>
   );
-}
+};
+
+export default DatePickerCustom;

@@ -1,10 +1,13 @@
 "use client";
+
+import type { FC } from "react";
 import { Accordion, Label, ListBox, Select } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
 import { SORT_BY } from "@/lib/data/search_filters";
 
-const SidebarSortBy: React.FC = () => {
+const SidebarSortBy: FC = () => {
   const { values } = useFilterDraft();
+
   return (
     <Accordion variant="surface">
       <Accordion.Item key="sort-by" aria-label="Sort" id={"sort-by"}>

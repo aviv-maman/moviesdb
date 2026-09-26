@@ -1,6 +1,11 @@
+import type { FC } from "react";
 import PosterImage from "@/components/PosterImage";
 
-export default function Logo({ className }: { className?: HTMLElement["className"] }) {
+interface LogoProps {
+  className?: HTMLElement["className"];
+}
+
+const Logo: FC<LogoProps> = ({ className }) => {
   return (
     <PosterImage
       src="/logo.jpg"
@@ -10,4 +15,6 @@ export default function Logo({ className }: { className?: HTMLElement["className
       className={`inline-block size-8 rounded-md object-contain ${className || ""}`}
     />
   );
-}
+};
+
+export default Logo;

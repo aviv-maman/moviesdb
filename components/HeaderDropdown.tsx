@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { useRouter, useSelectedLayoutSegment, useSelectedLayoutSegments } from "next/navigation";
 import { Button, Description, Dropdown, Label } from "@heroui/react";
 import { ChevronDown } from "@/assets/icons";
@@ -10,15 +11,17 @@ interface HeaderDropdownProps {
     href: string;
     label: string;
     description: string;
-    icon: React.ReactNode;
+    icon: ReactNode;
   }[];
 }
-const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
+
+const HeaderDropdown: FC<HeaderDropdownProps> = ({ targetSegment, links }) => {
   const router = useRouter();
   const activeSegment = useSelectedLayoutSegment();
   const activeSegments = useSelectedLayoutSegments();
   const dropdownLabel = targetSegment;
   const capitalizedLabel = dropdownLabel.charAt(0).toUpperCase() + dropdownLabel.slice(1);
+
   return (
     <Dropdown>
       <Button variant="ghost" className="rounded-md">
@@ -28,6 +31,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ targetSegment, links })
         <Dropdown.Menu aria-label={`${capitalizedLabel} Menu`} className="w-[340px] max-w-[calc(100vw-2rem)]">
           {links.map((link) => {
             const { href, label, description, icon } = link;
+
             return (
               <Dropdown.Item
                 key={href}

@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import Link from "next/link";
 import PosterImage from "@/components/PosterImage";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
@@ -7,7 +8,8 @@ import SearchResultBadge from "./SearchResultBadge";
 interface SearchResultCardProps {
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
+
+const SearchResultCard: FC<SearchResultCardProps> = async ({ data }) => {
   const genres =
     "genre_ids" in data
       ? "title" in data
@@ -65,6 +67,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = async ({ data }) => {
           : 0
       ],
   };
+
   return (
     <article className="relative my-4 border bg-gray-100 transition hover:shadow-lg hover:shadow-indigo-400/40 dark:bg-gray-900">
       <Link href={item.href} className="flex">

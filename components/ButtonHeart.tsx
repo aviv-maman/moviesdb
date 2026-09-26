@@ -1,16 +1,18 @@
 "use client";
 
+import type { FC } from "react";
 import { Button } from "@heroui/react";
 import { toast } from "sonner";
 import { Heart, HeartFilled } from "@/assets/icons";
 import { useProfile } from "@/context/ProfileContext";
 import { getFavorites, toggleFavorite } from "@/lib/api_account";
 
-type ButtonHeartPageProps = {
+interface ButtonHeartPageProps {
   mediaId: number;
   mediaType?: "movie" | "tv";
-};
-const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "movie" }) => {
+}
+
+const ButtonHeart: FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "movie" }) => {
   const { dispatch, state } = useProfile();
   const handleFavorite = async () => {
     if (!state.supabase_profile?.tmdb_account_id || !state.supabase_profile?.tmdb_session_id) return;
@@ -23,6 +25,7 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "mov
     });
     if (!res.success) {
       toast.error("An error was occurred");
+
       return;
     }
     toast.success(
@@ -51,6 +54,7 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "mov
       },
     });
   };
+
   return (
     <Button
       isIconOnly

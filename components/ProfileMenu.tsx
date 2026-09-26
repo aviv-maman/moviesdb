@@ -1,11 +1,13 @@
 "use client";
 
+import type { FC } from "react";
 import { Label, ListBox } from "@heroui/react";
 import { TopologyStar, UserCog } from "@/assets/icons";
 import { useProfile } from "@/context/ProfileContext";
 
-const ProfileMenu: React.FC = () => {
+const ProfileMenu: FC = () => {
   const { dispatch } = useProfile();
+
   return (
     <div className="my-4 mr-0 rounded-sm border border-slate-200 px-1 py-2 dark:border-slate-100 sm:w-full md:my-0 md:mr-4 md:max-w-[260px]">
       <ListBox

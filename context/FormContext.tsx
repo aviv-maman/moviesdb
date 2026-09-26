@@ -1,11 +1,12 @@
 "use client";
 
+import type { Dispatch } from "react";
 import { createContext, useContext } from "react";
 import { LANGUAGES, SHOW_ME, SORT_BY } from "@/lib/data/search_filters";
 
 export type FormStore = {
   state: FormContextState;
-  dispatch: React.Dispatch<FormActionMap>;
+  dispatch: Dispatch<FormActionMap>;
 };
 
 export const initialContextState = {
@@ -31,6 +32,7 @@ export const FormContext = createContext<FormStore>({ dispatch: () => {}, state:
 function useForm() {
   const context = useContext(FormContext);
   if (context === undefined) throw new Error("FormContext was used outside of the FormProvider");
+
   return context;
 }
 

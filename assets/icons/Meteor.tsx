@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/meteor
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Meteor: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const Meteor: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="meteor"

@@ -1,3 +1,4 @@
+import type { FC, ReactNode } from "react";
 import Link from "next/link";
 import CatalogFilters from "./CatalogFilters";
 
@@ -16,15 +17,13 @@ const categories = {
   ],
 };
 
-export default function CatalogLayout({
-  media,
-  category,
-  children,
-}: {
+interface CatalogLayoutProps {
   media: "movies" | "series";
   category: string;
-  children: React.ReactNode;
-}) {
+  children: ReactNode;
+}
+
+const CatalogLayout: FC<CatalogLayoutProps> = ({ media, category, children }) => {
   return (
     <main className="mx-auto min-h-[calc(100dvh-146px)] w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-7">
@@ -51,4 +50,6 @@ export default function CatalogLayout({
       {children}
     </main>
   );
-}
+};
+
+export default CatalogLayout;

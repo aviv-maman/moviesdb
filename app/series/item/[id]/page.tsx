@@ -29,5 +29,6 @@ export default async function SeriesPage({ params }: PageProps<"/series/item/[id
   ]
     .filter(Boolean)
     .join(" · ");
+
   return <MediaDetails mediaType="tv" item={series} title={series.name} year={year} duration={duration} />;
 }

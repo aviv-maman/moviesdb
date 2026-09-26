@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useActionState, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FilterSearch } from "@/assets/icons";
@@ -10,7 +11,7 @@ import ButtonCustom from "./ButtonCustom";
 import SearchAutoComplete from "./SearchAutoComplete";
 import SearchSelect from "./SearchSelect";
 
-const SearchNavbar: React.FC = () => {
+const SearchNavbar: FC = () => {
   const searchParams = useSearchParams();
   const { push } = useRouter();
   const handleFilter = async (prevState: FormState, formData: FormData) => {
@@ -32,6 +33,7 @@ const SearchNavbar: React.FC = () => {
       }
     }
     push(`/search?${params.toString()}`);
+
     return {
       ...prevState,
     };
@@ -51,6 +53,7 @@ const SearchNavbar: React.FC = () => {
     )
       setMediaType(() => searchParams.get("media_type") as "multi" | "movie" | "tv" | "person");
   }, [searchParams]);
+
   return (
     <header className="sticky top-[65px] z-10 w-full border-b bg-slate-100 px-1 dark:bg-[#0d0d0d] md:text-sm">
       <form id="search-filter" action={formAction} className="flex w-full items-center justify-between">

@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/pencil
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Pencil: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const Pencil: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="pencil"

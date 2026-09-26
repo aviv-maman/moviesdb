@@ -1,20 +1,21 @@
+import type { FC } from "react";
 import Link from "next/link";
 import type { GetMovieResponse, GetSeriesResponse } from "@/lib/api.types";
 import ButtonHeart from "./ButtonHeart";
 import CardGeneric from "./CardGeneric";
 import CarouselCredits from "./CarouselCredits";
-import DetailRail from "./DetailRail";
+import CarouselRail from "./CarouselRail";
 import PosterImage from "./PosterImage";
 
-type MediaDetailsProps = {
+interface MediaDetailsProps {
   mediaType: "movie" | "tv";
   item: GetMovieResponse | GetSeriesResponse;
   title: string;
   year: string;
   duration: string;
-};
+}
 
-export default function MediaDetails({ mediaType, item, title, year, duration }: MediaDetailsProps) {
+const MediaDetails: FC<MediaDetailsProps> = ({ mediaType, item, title, year, duration }) => {
   const videos =
     item.videos?.results
       ?.filter((video) => ["YouTube", "Vimeo"].includes(video.site))
@@ -23,6 +24,7 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
   const recommendations = item.recommendations?.results ?? [];
   const mediaPath = mediaType === "movie" ? "movies" : "series";
   const rating = item.vote_average > 0 ? item.vote_average.toFixed(1) : null;
+
   return (
     <main className="min-w-0">
       <section
@@ -142,7 +144,7 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
             <h2 id="detail-videos-heading" className="text-xl font-semibold tracking-tight sm:text-2xl">
               Trailers & videos
             </h2>
-            <DetailRail label="videos" wide>
+            <CarouselRail label="videos" wide>
               {videos.map((video) => (
                 <div key={video.id} className="min-w-0 snap-start">
                   <iframe
@@ -161,7 +163,7 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
                   <p className="mt-1 text-xs text-muted">{video.type}</p>
                 </div>
               ))}
-            </DetailRail>
+            </CarouselRail>
           </section>
         )}
         {recommendations.length > 0 && (
@@ -169,16 +171,18 @@ export default function MediaDetails({ mediaType, item, title, year, duration }:
             <h2 id="detail-recommendations-heading" className="text-xl font-semibold tracking-tight sm:text-2xl">
               More like this
             </h2>
-            <DetailRail label="recommendations">
+            <CarouselRail label="recommendations">
               {recommendations.map((recommendation) => (
                 <div key={recommendation.id} className="min-w-0 snap-start">
                   <CardGeneric data={recommendation} variant="catalog" />
                 </div>
               ))}
-            </DetailRail>
+            </CarouselRail>
           </section>
         )}
       </div>
     </main>
   );
-}
+};
+
+export default MediaDetails;

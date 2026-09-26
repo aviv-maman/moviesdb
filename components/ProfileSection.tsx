@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useEffect } from "react";
 import type { User } from "@supabase/supabase-js";
 import ProfileSettings from "@/components/ProfileSettings";
@@ -12,7 +13,7 @@ interface ProfileSectionProps {
   user?: User | null;
 }
 
-const ProfileSection: React.FC<ProfileSectionProps> = ({ profile, user }) => {
+const ProfileSection: FC<ProfileSectionProps> = ({ profile, user }) => {
   const { dispatch, state } = useProfile();
 
   useEffect(() => {

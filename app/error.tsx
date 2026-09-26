@@ -5,13 +5,12 @@ import { useRouter } from "next/navigation";
 import { ArrowNarrowLeft, Home, Reload } from "@/assets/icons";
 import type { ThrownErrorSWR } from "@/lib/generic.types";
 
-export default function ErrorPage({
-  error,
-  retry,
-}: {
+interface ErrorPageProps {
   error: (Error & { digest?: string }) | ThrownErrorSWR;
   retry: () => void;
-}) {
+}
+
+export default function ErrorPage({ error, retry }: ErrorPageProps) {
   const router = useRouter();
   const statusCode = "statusCode" in error ? error.statusCode : 500;
   const statusText = "statusText" in error ? error.statusText : error.name;

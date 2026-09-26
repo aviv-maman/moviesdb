@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import "@/styles/feature-card.css";
 
@@ -10,7 +11,7 @@ interface FeatureCardProps {
   isLinkingRequired?: boolean;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingRequired }) => {
+const FeatureCard: FC<FeatureCardProps> = ({ title, subtitle, icon, isLinkingRequired }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseMoveEvent = useCallback((e: MouseEvent) => {
@@ -25,6 +26,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, subtitle, icon, isLink
     const { current } = containerRef;
     if (!current) return;
     current.addEventListener("mousemove", mouseMoveEvent);
+
     return () => current?.removeEventListener("mousemove", mouseMoveEvent);
   }, [mouseMoveEvent]);
 

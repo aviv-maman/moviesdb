@@ -1,6 +1,8 @@
 "use client";
 
-const FavoriteListCardSkeleton: React.FC = () => {
+import type { FC } from "react";
+
+const FavoriteListCardSkeleton: FC = () => {
   return (
     <div
       role="status"

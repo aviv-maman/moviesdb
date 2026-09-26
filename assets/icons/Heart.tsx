@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/heart
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Heart: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const Heart: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="heart"

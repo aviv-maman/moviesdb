@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { toast } from "sonner";
@@ -13,7 +14,8 @@ import { MOVIE_GENRES, SERIES_GENRES } from "@/lib/data/search_filters";
 interface FavoriteListCardProps {
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
+
+const FavoriteListCard: FC<FavoriteListCardProps> = ({ data }) => {
   const genres =
     "genre_ids" in data
       ? "title" in data
@@ -105,6 +107,7 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
     });
     if (!res.success) {
       toast.error("An error was occurred");
+
       return;
     }
     toast.success(
@@ -133,6 +136,7 @@ const FavoriteListCard: React.FC<FavoriteListCardProps> = ({ data }) => {
       },
     });
   };
+
   return (
     <article className="relative my-4 flex border bg-gray-100 transition hover:shadow-lg hover:shadow-indigo-400/40 dark:bg-gray-900">
       <Link href={item.href} className="absolute bottom-0 left-0 right-0 top-0 z-10" />

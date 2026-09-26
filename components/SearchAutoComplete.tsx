@@ -1,4 +1,6 @@
 "use client";
+
+import type { FC } from "react";
 import { ComboBox, Input, Label, ListBox } from "@heroui/react";
 
 interface SearchAutoCompleteProps {
@@ -7,7 +9,8 @@ interface SearchAutoCompleteProps {
   label: string;
   defaultValue?: string | null;
 }
-export default function SearchAutoComplete({ items, name, label, defaultValue }: SearchAutoCompleteProps) {
+
+const SearchAutoComplete: FC<SearchAutoCompleteProps> = ({ items, name, label, defaultValue }) => {
   return (
     <ComboBox
       name={name}
@@ -31,4 +34,6 @@ export default function SearchAutoComplete({ items, name, label, defaultValue }:
       </ComboBox.Popover>
     </ComboBox>
   );
-}
+};
+
+export default SearchAutoComplete;

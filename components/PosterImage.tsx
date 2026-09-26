@@ -1,15 +1,21 @@
 "use client";
+
+import type { FC } from "react";
 import { type ComponentProps, useState } from "react";
 import Image from "next/image";
 
-type PosterImageProps = Omit<ComponentProps<typeof Image>, "src" | "width" | "height"> & {
+interface PosterImageProps {
   src?: string;
   width?: number | string;
   height?: number | string;
   fallbackSrc?: string;
   wrapperClassName?: string;
-};
-export default function PosterImage({
+  alt: string;
+  className?: string;
+  onError?: ComponentProps<typeof Image>["onError"];
+}
+
+const PosterImage: FC<PosterImageProps> = ({
   src,
   alt,
   width = 342,
@@ -18,7 +24,7 @@ export default function PosterImage({
   wrapperClassName,
   onError,
   ...props
-}: PosterImageProps) {
+}) => {
   const [failedSource, setFailedSource] = useState<string>();
   const normalized = src?.startsWith("./") ? src.slice(1) : src;
   const fallback = fallbackSrc.startsWith("./") ? fallbackSrc.slice(1) : fallbackSrc;
@@ -36,5 +42,8 @@ export default function PosterImage({
       }}
     />
   );
+
   return wrapperClassName ? <div className={wrapperClassName}>{image}</div> : image;
-}
+};
+
+export default PosterImage;

@@ -1,9 +1,10 @@
 "use client";
 
+import type { FC } from "react";
 import { Button, Dropdown, Label } from "@heroui/react";
 import { StarFilled, StarHalfFilled, StarOff } from "@/assets/icons";
 
-const RateItemDropdown: React.FC = () => {
+const RateItemDropdown: FC = () => {
   return (
     <Dropdown>
       <Button isIconOnly aria-label="Rate item">

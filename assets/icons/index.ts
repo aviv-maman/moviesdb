@@ -5,11 +5,11 @@ import ClockDown from "./ClockDown";
 import DeviceTv from "./DeviceTv";
 import Dots from "./Dots";
 import FilterSearch from "./FilterSearch";
-import GitHub2 from "./GitHub2";
+import GitHub from "./GitHub";
 import Heart from "./Heart";
 import HeartFilled from "./HeartFilled";
 import Home from "./Home";
-import LinkedIn2 from "./LinkedIn2";
+import LinkedIn from "./LinkedIn";
 import Meteor from "./Meteor";
 import MoodSad from "./MoodSad";
 import Moon from "./Moon";
@@ -44,11 +44,11 @@ export {
   DeviceTv,
   Dots,
   FilterSearch,
-  GitHub2,
+  GitHub,
   Heart,
   HeartFilled,
   Home,
-  LinkedIn2,
+  LinkedIn,
   Meteor,
   MoodSad,
   Moon,

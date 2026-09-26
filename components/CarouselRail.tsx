@@ -1,18 +1,16 @@
 "use client";
 
+import type { FC, ReactNode } from "react";
 import { useEffect, useId, useRef, useState } from "react";
 
-export default function DetailRail({
-  label,
-  children,
-  wide = false,
-  inlineControls = false,
-}: {
+interface CarouselRailProps {
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
   wide?: boolean;
   inlineControls?: boolean;
-}) {
+}
+
+const CarouselRail: FC<CarouselRailProps> = ({ label, children, wide = false, inlineControls = false }) => {
   const id = useId();
   const railRef = useRef<HTMLElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
@@ -26,6 +24,7 @@ export default function DetailRail({
     rail.addEventListener("scroll", update, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(rail);
+
     return () => {
       rail.removeEventListener("scroll", update);
       observer.disconnect();
@@ -71,9 +70,11 @@ export default function DetailRail({
         aria-label={label}
         // biome-ignore lint/a11y/noNoninteractiveTabindex: Keyboard users need to focus and scroll the horizontal region.
         tabIndex={0}
-        className={`detail-rail grid snap-x snap-mandatory grid-flow-col gap-4 overflow-x-auto overscroll-x-contain pb-3 focus-visible:outline-2 focus-visible:outline-accent ${wide ? "auto-cols-[88%] sm:auto-cols-[calc((100%-1rem)/2)] lg:auto-cols-[calc((100%-2rem)/3)]" : "auto-cols-[44%] sm:auto-cols-[calc((100%-2rem)/3)] md:auto-cols-[calc((100%-3rem)/4)] lg:auto-cols-[calc((100%-5rem)/6)]"}`}>
+        className={`carousel-rail grid snap-x snap-mandatory grid-flow-col gap-4 overflow-x-auto overscroll-x-contain pb-3 focus-visible:outline-2 focus-visible:outline-accent ${wide ? "auto-cols-[88%] sm:auto-cols-[calc((100%-1rem)/2)] lg:auto-cols-[calc((100%-2rem)/3)]" : "auto-cols-[44%] sm:auto-cols-[calc((100%-2rem)/3)] md:auto-cols-[calc((100%-3rem)/4)] lg:auto-cols-[calc((100%-5rem)/6)]"}`}>
         {children}
       </section>
     </div>
   );
-}
+};
+
+export default CarouselRail;

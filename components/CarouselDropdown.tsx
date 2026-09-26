@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { Dropdown, Label } from "@heroui/react";
 import { toast } from "sonner";
 import { Dots, Heart, HeartFilled, Movie } from "@/assets/icons";
@@ -12,7 +13,8 @@ interface CarouselDropdownProps {
   mediaType: "movie" | "tv";
   href: string;
 }
-const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType, href, variant = "carousel" }) => {
+
+const CarouselDropdown: FC<CarouselDropdownProps> = ({ mediaId, mediaType, href, variant = "carousel" }) => {
   const iconClasses = "text-xl text-slate-500 pointer-events-none size-[18px]";
   const { dispatch, state } = useProfile();
   const handleFavorite = async () => {
@@ -26,6 +28,7 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType,
     });
     if (!res.success) {
       toast.error("An error was occurred");
+
       return;
     }
     toast.success(
@@ -54,6 +57,7 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType,
       },
     });
   };
+
   return (
     <Dropdown>
       <Dropdown.Trigger

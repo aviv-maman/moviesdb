@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/movie
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Movie: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const Movie: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="movie"

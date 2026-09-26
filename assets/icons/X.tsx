@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/x
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const X: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const X: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="x"

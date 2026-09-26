@@ -1,7 +1,7 @@
 //https://tabler.io/icons/icon/moon
-import type { SVGProps } from "react";
+import type { FC, SVGProps } from "react";
 
-const Moon: React.FC<SVGProps<SVGSVGElement>> = (props) => {
+const Moon: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="moon"
