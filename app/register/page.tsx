@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { unstable_rethrow as rethrow } from "next/navigation";
-import { toast } from "sonner";
+import { toast } from "@heroui/react";
 import ButtonCustom from "@/components/ButtonCustom";
 import Logo from "@/components/Logo";
 import { signUp } from "@/lib/auth";
@@ -22,15 +22,15 @@ const initialState: FormState = {
 };
 
 async function onFormSubmission(prevState: FormState, formData: FormData): Promise<FormState> {
-  const toastId = toast.loading("Loading...");
+  const toastId = toast("Loading...", { isLoading: true, timeout: 0 });
   try {
     await signUp(formData);
     toast.success("Check email to continue sign in process");
   } catch (error) {
     rethrow(error);
-    toast.error("User authentication failed");
+    toast.danger("User authentication failed");
   } finally {
-    toast.dismiss(toastId);
+    toast.close(toastId);
   }
 
   return prevState;
