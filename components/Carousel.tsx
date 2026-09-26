@@ -37,7 +37,7 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
   return (
     <div className="w-full" {...rest}>
       <Card className="min-h-[263px] border">
-        <Card.Content className="overflow-hidden">
+        <Card.Content className="min-w-0 overflow-hidden">
           {!tabs /* One carousel => No tabs */ ? (
             <Splide tag="section" aria-label="Media Carousel" options={options}>
               {resultsArray?.[0]?.map((slide) => (
@@ -47,17 +47,19 @@ const Carousel: React.FC<CarouselProps> = ({ tabs, data, ...rest }) => {
               ))}
             </Splide> /* Multiple carousels => Tabs */
           ) : (
-            <Tabs>
-              <Tabs.ListContainer>
-                <Tabs.List aria-label="Carousel categories">
-                  {tabs.map((tab) => (
-                    <Tabs.Tab key={tab} id={tab}>
-                      {tab}
-                      <Tabs.Indicator />
-                    </Tabs.Tab>
-                  ))}
-                </Tabs.List>
-              </Tabs.ListContainer>
+            <Tabs className="min-w-0 w-full">
+              <Tabs.List
+                aria-label="Carousel categories"
+                className="grid w-full min-w-0 grid-flow-col auto-cols-fr rounded-lg bg-default p-1">
+                {tabs.map((tab) => (
+                  <Tabs.Tab
+                    className="min-w-0 w-auto rounded-md px-2 data-[selected=true]:bg-surface data-[selected=true]:shadow-sm"
+                    key={tab}
+                    id={tab}>
+                    {tab}
+                  </Tabs.Tab>
+                ))}
+              </Tabs.List>
               {resultsArray?.map((results, resultsIndex) => (
                 <Tabs.Panel key={tabs[resultsIndex]} id={tabs[resultsIndex]}>
                   <Splide tag="section" aria-label="Media Carousel" options={options}>

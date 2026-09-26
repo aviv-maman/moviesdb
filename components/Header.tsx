@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import NextLink from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Avatar, Button, Description, Dropdown, Label, Link } from "@heroui/react";
 import type { User } from "@supabase/supabase-js";
@@ -63,14 +64,14 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
         aria-label="Main navigation"
         className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-3 px-4">
         <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-3 text-foreground">
+          <NextLink href="/" className="flex items-center gap-3 text-foreground no-underline">
             <Logo />
             <span className="hidden md:inline-block">MoviesDB</span>
-          </Link>
+          </NextLink>
           <Button
             isIconOnly
             variant="ghost"
-            className="sm:hidden"
+            className="rounded-md sm:hidden"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
@@ -99,7 +100,13 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
               placeholder="Type to search..."
               defaultValue={searchParams.get("query") || ""}
               endContent={
-                <ButtonCustom id="search-bar-btn-desk" type="submit" isIconOnly size="sm" aria-label="Submit search">
+                <ButtonCustom
+                  id="search-bar-btn-desk"
+                  type="submit"
+                  isIconOnly
+                  size="sm"
+                  className="size-8 min-w-8 shrink-0 rounded-full p-0"
+                  aria-label="Submit search">
                   <Search className="size-4" />
                 </ButtonCustom>
               }
@@ -120,7 +127,13 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 placeholder="Type to search..."
                 defaultValue={searchParams.get("query") || ""}
                 endContent={
-                  <ButtonCustom id="search-bar-btn-mob" type="submit" isIconOnly size="sm" aria-label="Submit search">
+                  <ButtonCustom
+                    id="search-bar-btn-mob"
+                    type="submit"
+                    isIconOnly
+                    size="sm"
+                    className="size-8 min-w-8 shrink-0 rounded-full p-0"
+                    aria-label="Submit search">
                     <Search className="size-4" />
                   </ButtonCustom>
                 }
@@ -135,11 +148,12 @@ const Header: React.FC<HeaderProps> = ({ user, profile, favMovies, favSeries }) 
                 <Avatar.Fallback>U</Avatar.Fallback>
               </Avatar>
             </Button>
-            <Dropdown.Popover placement="bottom end">
+            <Dropdown.Popover placement="bottom end" className="rounded-lg">
               <Dropdown.Menu aria-label="Profile Actions">
                 {(user?.id ? avatarDropItems.user : avatarDropItems.guest).map((item) => (
                   <Dropdown.Item
                     key={item.key}
+                    className="rounded-md"
                     id={item.key}
                     textValue={item.textValue}
                     href={item.href}

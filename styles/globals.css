@@ -2,6 +2,28 @@
 @import "@heroui/styles/css";
 @config "../tailwind.config.mjs";
 
+.detail-rail {
+  scrollbar-width: none;
+}
+
+.detail-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reveal the filter scrollbar on pointer or keyboard interaction. */
+@media (min-width: 960px) {
+  .filter-options {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
+  }
+
+  .filter-options:hover,
+  .filter-options:focus-within {
+    scrollbar-color: var(--color-muted) transparent;
+  }
+}
+
 @layer base {
   * {
     @apply border-foreground/20;

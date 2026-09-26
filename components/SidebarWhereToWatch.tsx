@@ -1,6 +1,7 @@
 "use client";
 
 import { Accordion, Avatar, CheckboxGroup, Label, ListBox, Select, Separator } from "@heroui/react";
+import { useFilterDraft } from "@/context/FilterDraftContext";
 import { useForm } from "@/context/FormContext";
 import countries from "@/lib/data/countries.json";
 import CheckboxService from "./CheckboxService";
@@ -10,6 +11,7 @@ import CheckboxService from "./CheckboxService";
 // import type { LocationResponse } from '@/lib/api.types';
 
 const SidebarWhereToWatch: React.FC = () => {
+  const { values } = useFilterDraft();
   const { results: countryList } = countries;
   const { dispatch, state } = useForm();
   //   const { error, loading, position } = useGeoLocation();
@@ -46,7 +48,7 @@ const SidebarWhereToWatch: React.FC = () => {
   //   }, [location]);
 
   return (
-    <Accordion variant="surface" defaultExpandedKeys={["where-to-watch"]}>
+    <Accordion variant="surface">
       <Accordion.Item key="where-to-watch" aria-label="Where to watch" id={"where-to-watch"}>
         <Accordion.Heading>
           <Accordion.Trigger>
@@ -61,6 +63,7 @@ const SidebarWhereToWatch: React.FC = () => {
           <Accordion.Body className="overflow-x-hidden">
             <Select
               name="watch_region"
+              defaultValue={values.watch_region?.[0]}
               aria-label="Select country"
               className="mt-4 max-w-xs"
               //   isLoading={isLoading || isValidating}
@@ -94,6 +97,7 @@ const SidebarWhereToWatch: React.FC = () => {
             <h2 className="relative mb-2 text-sm font-normal text-slate-500">Available Services</h2>
             <CheckboxGroup
               name="with_watch_providers"
+              defaultValue={values.with_watch_providers}
               className={"flex flex-col gap-2 " + "mb-2"}
               aria-label={"with_watch_providers"}>
               <div className="flex flex-wrap gap-2">

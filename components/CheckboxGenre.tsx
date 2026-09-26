@@ -14,7 +14,7 @@ export default function CheckboxGenre({ label, className, ...props }: CheckboxGe
         (className || "")
       }>
       <Checkbox.Content>
-        <Checkbox.Control>
+        <Checkbox.Control className="border border-slate-400 dark:border-slate-500">
           <Checkbox.Indicator />
         </Checkbox.Control>
         <Label>{label}</Label>

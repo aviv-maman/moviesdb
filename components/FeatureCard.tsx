@@ -31,7 +31,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, subtitle, icon, isLink
   return (
     <div
       ref={containerRef}
-      className="card relative box-border flex h-auto flex-col overflow-hidden rounded-lg border bg-slate-400/25 text-foreground shadow-medium outline-none backdrop-blur-lg backdrop-saturate-[1.8] transition-transform-background data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-offset-2 data-[focus-visible=true]:outline-focus motion-reduce:transition-none dark:bg-slate-400/10"
+      className="feature-card relative box-border flex h-auto flex-col overflow-hidden rounded-lg border bg-slate-400/25 text-foreground shadow-medium outline-none backdrop-blur-lg backdrop-saturate-[1.8] transition-transform-background data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-offset-2 data-[focus-visible=true]:outline-focus motion-reduce:transition-none dark:bg-slate-400/10"
       tabIndex={-1}>
       <div className="z-10 flex w-full shrink-0 items-center justify-start gap-2 rounded-t-large p-3 pb-0 subpixel-antialiased">
         <div className="flex items-center justify-center rounded-full bg-violet-200/80 p-2 text-indigo-600 dark:bg-violet-200 dark:text-indigo-500">

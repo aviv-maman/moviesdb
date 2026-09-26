@@ -1,15 +1,16 @@
 "use client";
 
-import { Link } from "@heroui/react";
+import Link from "next/link";
 import PosterImage from "@/components/PosterImage";
 import RatingProgress from "@/components/RatingProgress";
 import type { MovieListResponse, PersonListResponse, SeriesListResponse } from "@/lib/api.types";
 import CarouselDropdown from "./CarouselDropdown";
 
 interface CardGenericProps {
+  variant?: "carousel" | "catalog";
   data: MovieListResponse["results"][0] | SeriesListResponse["results"][0] | PersonListResponse["results"][0];
 }
-const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
+const CardGeneric: React.FC<CardGenericProps> = ({ data, variant = "carousel" }) => {
   const ratingColors: {
     [key: number]: "danger" | "warning" | "success" | "default";
   } = {
@@ -54,14 +55,53 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data }) => {
           : 3
       ],
   };
+  if (variant === "catalog") {
+    return (
+      <article className="group relative min-w-0">
+        <div className="relative aspect-[2/3] overflow-hidden rounded-xl border bg-surface shadow-sm">
+          <PosterImage
+            src={item.image}
+            alt=""
+            className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-105"
+          />
+          {"vote_average" in data && data.vote_average > 0 && (
+            <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-md bg-black/80 px-2 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+              <span aria-hidden="true" className="text-amber-400">
+                ★
+              </span>
+              <span className="sr-only">Rating </span>
+              {data.vote_average.toFixed(1)}
+              <span className="sr-only"> out of 10</span>
+            </span>
+          )}
+          {"known_for" in data ? null : (
+            <CarouselDropdown mediaId={item.media_id} mediaType={item.media_type} href={item.href} variant="catalog" />
+          )}
+        </div>
+        <div className="min-h-18 pt-3 sm:min-h-20">
+          <h2 className="line-clamp-2 text-sm font-semibold leading-snug sm:text-base">
+            <Link
+              href={item.href}
+              className="outline-none after:absolute after:inset-0 after:z-10 after:rounded-xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent group-hover:text-accent">
+              {item.title}
+            </Link>
+          </h2>
+          <p className="mt-1 text-xs text-muted sm:text-sm">
+            {item.releaseDate?.slice(0, 4) || "Date to be announced"}
+          </p>
+        </div>
+      </article>
+    );
+  }
   return (
     <div className="relative h-full max-w-44 rounded-md">
-      <Link
-        href={item.href}
-        aria-label={item.title}
-        isDisabled={item.href.includes("people")}
-        className="absolute inset-0 z-10 rounded-md sm:hover:bg-violet-400 sm:hover:opacity-20"
-      />
+      {!item.href.includes("people") && (
+        <Link
+          href={item.href}
+          aria-label={item.title}
+          className="absolute inset-0 z-10 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:hover:bg-violet-400/20"
+        />
+      )}
       <PosterImage
         src={item.image}
         alt={item.title}

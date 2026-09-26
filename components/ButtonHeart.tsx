@@ -8,30 +8,31 @@ import { getFavorites, toggleFavorite } from "@/lib/api_account";
 
 type ButtonHeartPageProps = {
   mediaId: number;
+  mediaType?: "movie" | "tv";
 };
-const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
+const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "movie" }) => {
   const { dispatch, state } = useProfile();
   const handleFavorite = async () => {
     if (!state.supabase_profile?.tmdb_account_id || !state.supabase_profile?.tmdb_session_id) return;
     const res = await toggleFavorite({
       account_id: state.supabase_profile?.tmdb_account_id,
       session_id: state.supabase_profile?.tmdb_session_id,
-      media_type: "movie",
+      media_type: mediaType,
       media_id: mediaId,
-      favorite: !state.favorites.movie.includes(mediaId),
+      favorite: !state.favorites[mediaType].includes(mediaId),
     });
     if (!res.success) {
       toast.error("An error was occurred");
       return;
     }
     toast.success(
-      state.favorites.movie.includes(mediaId) ? "Item was removed from favorites" : "Item was added to favorites",
+      state.favorites[mediaType].includes(mediaId) ? "Item was removed from favorites" : "Item was added to favorites",
     );
     dispatch({
       type: "toggled_favorite_item",
       payload: {
         value: {
-          media_type: "movie",
+          media_type: mediaType,
           id: mediaId,
         },
       },
@@ -39,12 +40,12 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
     const favRes = await getFavorites({
       account_id: state.supabase_profile?.tmdb_account_id,
       session_id: state.supabase_profile?.tmdb_session_id,
-      media_type: "movie",
+      media_type: mediaType,
       revalidate: 0,
     });
     if (!favRes.results) return;
     dispatch({
-      type: "changed_favorite_movie",
+      type: mediaType === "movie" ? "changed_favorite_movie" : "changed_favorite_tv",
       payload: {
         value: favRes.results.map((item) => item.id),
       },
@@ -54,10 +55,11 @@ const ButtonHeart: React.FC<ButtonHeartPageProps> = ({ mediaId }) => {
     <Button
       isIconOnly
       size="sm"
-      aria-label="Like"
+      aria-label={state.favorites[mediaType].includes(mediaId) ? "Remove from favorites" : "Add to favorites"}
+      className="size-10 shrink-0 rounded-lg"
       isDisabled={!state.supabase_profile?.tmdb_session_id}
       onClick={handleFavorite}>
-      {state.favorites.movie.includes(mediaId) ? <HeartFilled className="size-5" /> : <Heart className="size-5" />}
+      {state.favorites[mediaType].includes(mediaId) ? <HeartFilled className="size-5" /> : <Heart className="size-5" />}
     </Button>
   );
 };

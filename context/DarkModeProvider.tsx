@@ -1,14 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { DarkModeContext } from "./DarkModeContext";
 
 export function DarkModeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<boolean | null>(null);
   const isDarkMode = theme ?? false;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let initialTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
     try {
       const storedTheme = window.localStorage.getItem("isDarkMode");
       if (storedTheme === "true" || storedTheme === "false") {
@@ -17,12 +18,18 @@ export function DarkModeProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // Use the system preference when browser storage is unavailable.
     }
+
+    document.documentElement.classList.toggle("dark", initialTheme);
+    document.documentElement.style.colorScheme = initialTheme ? "dark" : "light";
     setTheme(initialTheme);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (theme === null) return;
+
     document.documentElement.classList.toggle("dark", theme);
+    document.documentElement.style.colorScheme = theme ? "dark" : "light";
+
     try {
       window.localStorage.setItem("isDarkMode", JSON.stringify(theme));
     } catch {
