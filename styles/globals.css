@@ -2,11 +2,11 @@
 @import "@heroui/styles/css";
 @config "../tailwind.config.mjs";
 
-.detail-rail {
+.carousel-rail {
   scrollbar-width: none;
 }
 
-.detail-rail::-webkit-scrollbar {
+.carousel-rail::-webkit-scrollbar {
   display: none;
 }
 
