@@ -1,8 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { Button } from "@heroui/react";
-import { toast } from "sonner";
+import { Button, toast } from "@heroui/react";
 import { Heart, HeartFilled } from "@/assets/icons";
 import { useProfile } from "@/context/ProfileContext";
 import { getFavorites, toggleFavorite } from "@/lib/api_account";
@@ -24,7 +23,7 @@ const ButtonHeart: FC<ButtonHeartPageProps> = ({ mediaId, mediaType = "movie" })
       favorite: !state.favorites[mediaType].includes(mediaId),
     });
     if (!res.success) {
-      toast.error("An error was occurred");
+      toast.danger("An error was occurred");
 
       return;
     }

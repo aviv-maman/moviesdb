@@ -2,8 +2,7 @@
 
 import type { FC } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
-import { toast } from "sonner";
+import { Button, toast } from "@heroui/react";
 import { Trash } from "@/assets/icons";
 import PosterImage from "@/components/PosterImage";
 import { useProfile } from "@/context/ProfileContext";
@@ -106,7 +105,7 @@ const FavoriteListCard: FC<FavoriteListCardProps> = ({ data }) => {
       favorite: !state.favorites[state.active_favlist as "movie" | "tv"].includes(data.id),
     });
     if (!res.success) {
-      toast.error("An error was occurred");
+      toast.danger("An error was occurred");
 
       return;
     }

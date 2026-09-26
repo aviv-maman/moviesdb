@@ -1,8 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { Dropdown, Label } from "@heroui/react";
-import { toast } from "sonner";
+import { Dropdown, Label, toast } from "@heroui/react";
 import { Dots, Heart, HeartFilled, Movie } from "@/assets/icons";
 import { useProfile } from "@/context/ProfileContext";
 import { getFavorites, toggleFavorite } from "@/lib/api_account";
@@ -27,7 +26,7 @@ const CarouselDropdown: FC<CarouselDropdownProps> = ({ mediaId, mediaType, href,
       favorite: !state.favorites[mediaType].includes(mediaId),
     });
     if (!res.success) {
-      toast.error("An error was occurred");
+      toast.danger("An error was occurred");
 
       return;
     }

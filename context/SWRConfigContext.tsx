@@ -1,7 +1,6 @@
 "use client";
 
 import type { FC, ReactNode } from "react";
-import { Toaster } from "sonner";
 import { SWRConfig } from "swr";
 
 interface SWRConfigContextProps {
@@ -38,7 +37,6 @@ export const SWRConfigProvider: FC<SWRConfigContextProps> = ({ children }) => {
           }
         },
       }}>
-      <Toaster richColors />
       {children}
     </SWRConfig>
   );
