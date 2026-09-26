@@ -2,7 +2,7 @@
 
 import type { FC } from "react";
 import Link from "next/link";
-import { GitHub2, LinkedIn2 } from "@/assets/icons";
+import { GitHub, LinkedIn } from "@/assets/icons";
 
 const Footer: FC = () => {
   const establishedYear = 2023;
@@ -22,7 +22,7 @@ const Footer: FC = () => {
             rel="noopener noreferrer"
             aria-label="GitHub"
             className="rounded-md border border-neutral-300 dark:border-neutral-800 inline-flex size-8 items-center justify-center">
-            <GitHub2 className="size-4 text-gray-600 dark:text-gray-300" />
+            <GitHub className="size-4 text-gray-600 dark:text-gray-300" />
           </Link>
           <Link
             href="https://www.linkedin.com/in/aviv-maman-914a95223"
@@ -30,7 +30,7 @@ const Footer: FC = () => {
             rel="noopener noreferrer"
             aria-label="LinkedIn"
             className="rounded-md border border-neutral-300 dark:border-neutral-800 inline-flex size-8 items-center justify-center">
-            <LinkedIn2 className="size-4 text-blue-600" />
+            <LinkedIn className="size-4 text-blue-600" />
           </Link>
         </div>
       </div>

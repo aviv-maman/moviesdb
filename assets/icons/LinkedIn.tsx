@@ -1,9 +1,7 @@
 //https://lucide.dev/icons/linkedin
 import type { FC, SVGProps } from "react";
 
-interface LinkedIn2Props extends SVGProps<SVGSVGElement> {}
-
-const LinkedIn2: FC<LinkedIn2Props> = (props) => {
+const LinkedIn: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="linkedin"
@@ -23,4 +21,4 @@ const LinkedIn2: FC<LinkedIn2Props> = (props) => {
   );
 };
 
-export default LinkedIn2;
+export default LinkedIn;

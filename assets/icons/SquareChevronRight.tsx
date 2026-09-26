@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/square-chevron-right
 import type { FC, SVGProps } from "react";
 
-interface SquareChevronRightProps extends SVGProps<SVGSVGElement> {}
-
-const SquareChevronRight: FC<SquareChevronRightProps> = (props) => {
+const SquareChevronRight: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="square-chevron-right"

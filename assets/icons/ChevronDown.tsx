@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/chevron-down
 import type { FC, SVGProps } from "react";
 
-interface ChevronDownProps extends SVGProps<SVGSVGElement> {}
-
-const ChevronDown: FC<ChevronDownProps> = (props) => {
+const ChevronDown: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="chevron-down"

@@ -4,11 +4,15 @@ import type { FC } from "react";
 import { Label, Slider, type SliderProps } from "@heroui/react";
 import { useFilterDraft } from "@/context/FilterDraftContext";
 
-interface SliderCustomProps extends SliderProps {
+interface SliderCustomProps {
   label: string;
   name: string;
   showMarks?: boolean;
   marksInterval?: number;
+  minValue?: number;
+  maxValue?: number;
+  step?: number;
+  defaultValue?: SliderProps["defaultValue"];
 }
 
 const SliderCustom: FC<SliderCustomProps> = ({

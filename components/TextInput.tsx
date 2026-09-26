@@ -1,15 +1,24 @@
 "use client";
 
-import type { FC } from "react";
-import { type ComponentProps, type ReactNode, useId } from "react";
+import { type ComponentProps, type FC, type ReactNode, useId } from "react";
 import { Input, Label } from "@heroui/react";
 
-interface TextInputProps extends Omit<ComponentProps<typeof Input>, "className"> {
+interface TextInputProps {
   label?: string;
   startContent?: ReactNode;
   endContent?: ReactNode;
   className?: string;
   inputClassName?: string;
+  id?: string;
+  name?: string;
+  "aria-label"?: string;
+  placeholder?: string;
+  defaultValue?: ComponentProps<typeof Input>["defaultValue"];
+  autoFocus?: boolean;
+  ref?: ComponentProps<typeof Input>["ref"];
+  type?: ComponentProps<typeof Input>["type"];
+  min?: number | string;
+  max?: number | string;
 }
 
 const TextInput: FC<TextInputProps> = ({

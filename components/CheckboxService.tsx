@@ -1,11 +1,12 @@
 "use client";
 
 import type { FC } from "react";
-import { Avatar, Checkbox, type CheckboxProps } from "@heroui/react";
+import { Avatar, Checkbox } from "@heroui/react";
 
-interface CheckboxServiceProps extends CheckboxProps {
+interface CheckboxServiceProps {
   avatar?: string;
   provider_name: string;
+  value: string;
 }
 
 const CheckboxService: FC<CheckboxServiceProps> = ({ avatar, provider_name, ...props }) => {

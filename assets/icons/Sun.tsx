@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/sun
 import type { FC, SVGProps } from "react";
 
-interface SunProps extends SVGProps<SVGSVGElement> {}
-
-const Sun: FC<SunProps> = (props) => {
+const Sun: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="sun"

@@ -1,10 +1,13 @@
 "use client";
 
 import type { FC } from "react";
-import { Checkbox, type CheckboxProps, Label } from "@heroui/react";
+import { Checkbox, Label } from "@heroui/react";
 
-interface CheckboxGenreProps extends CheckboxProps {
+interface CheckboxGenreProps {
   label: string;
+  value: string;
+  className?: string;
+  "aria-label"?: string;
 }
 
 const CheckboxGenre: FC<CheckboxGenreProps> = ({ label, className, ...props }) => {

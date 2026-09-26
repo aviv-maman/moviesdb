@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/player-play
 import type { FC, SVGProps } from "react";
 
-interface PlayerPlayProps extends SVGProps<SVGSVGElement> {}
-
-const PlayerPlay: FC<PlayerPlayProps> = (props) => {
+const PlayerPlay: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="player-play"

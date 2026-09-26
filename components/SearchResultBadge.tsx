@@ -1,10 +1,10 @@
-import type { FC, HTMLAttributes } from "react";
-import { Suspense } from "react";
+import { type FC, Suspense } from "react";
 
-interface SearchResultBadgeProps extends HTMLAttributes<HTMLSpanElement> {
+interface SearchResultBadgeProps {
   label?: string;
   color?: string;
   textSize?: "text-xs" | "text-sm" | "text-md" | "text-lg" | "text-xl" | "text-2xl";
+  className?: string;
 }
 
 const SearchResultBadge: FC<SearchResultBadgeProps> = async ({ label, color, textSize = "text-xs", ...rest }) => {

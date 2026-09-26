@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/reload
 import type { FC, SVGProps } from "react";
 
-interface ReloadProps extends SVGProps<SVGSVGElement> {}
-
-const Reload: FC<ReloadProps> = (props) => {
+const Reload: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="reload"

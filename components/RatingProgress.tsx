@@ -3,9 +3,13 @@
 import type { FC, ReactNode } from "react";
 import { ProgressCircle, type ProgressCircleProps } from "@heroui/react";
 
-interface RatingProgressProps extends Omit<ProgressCircleProps, "color"> {
+interface RatingProgressProps {
   color?: string;
   valueLabel?: ReactNode;
+  value?: number;
+  className?: string;
+  size?: ProgressCircleProps["size"];
+  "aria-label"?: string;
 }
 
 const RatingProgress: FC<RatingProgressProps> = ({

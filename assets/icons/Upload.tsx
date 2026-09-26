@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/upload
 import type { FC, SVGProps } from "react";
 
-interface UploadProps extends SVGProps<SVGSVGElement> {}
-
-const Upload: FC<UploadProps> = (props) => {
+const Upload: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="upload"

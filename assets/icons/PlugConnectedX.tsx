@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/plug-connected-x
 import type { FC, SVGProps } from "react";
 
-interface PlugConnectedXProps extends SVGProps<SVGSVGElement> {}
-
-const PlugConnectedX: FC<PlugConnectedXProps> = (props) => {
+const PlugConnectedX: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="plug-connected-x"

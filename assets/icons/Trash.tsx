@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/trash
 import type { FC, SVGProps } from "react";
 
-interface TrashProps extends SVGProps<SVGSVGElement> {}
-
-const Trash: FC<TrashProps> = (props) => {
+const Trash: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="trash"

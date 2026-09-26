@@ -4,12 +4,15 @@ import type { FC } from "react";
 import { type ComponentProps, useState } from "react";
 import Image from "next/image";
 
-interface PosterImageProps extends Omit<ComponentProps<typeof Image>, "src" | "width" | "height"> {
+interface PosterImageProps {
   src?: string;
   width?: number | string;
   height?: number | string;
   fallbackSrc?: string;
   wrapperClassName?: string;
+  alt: string;
+  className?: string;
+  onError?: ComponentProps<typeof Image>["onError"];
 }
 
 const PosterImage: FC<PosterImageProps> = ({

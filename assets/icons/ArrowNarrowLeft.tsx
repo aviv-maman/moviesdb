@@ -1,9 +1,7 @@
 //https://tabler.io/icons/icon/arrow-narrow-left
 import type { FC, SVGProps } from "react";
 
-interface ArrowNarrowLeftProps extends SVGProps<SVGSVGElement> {}
-
-const ArrowNarrowLeft: FC<ArrowNarrowLeftProps> = (props) => {
+const ArrowNarrowLeft: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       aria-label="left"
