@@ -91,7 +91,7 @@ export default async function IndexPage() {
       </div>
 
       <div className="flex w-full justify-center">
-        <div className="mb-8 flex max-w-[192px] flex-col items-center justify-center gap-7 text-xs min-[389px]:max-w-[368px] sm:max-w-[564px] md:max-w-[596px] min-[825px]:max-w-[786px] lg:max-w-[968px] xl:max-w-[1178px]">
+        <div className="mb-8 flex w-full min-w-0 max-w-6xl flex-col gap-7">
           <h1 className="px-6 text-2xl font-bold sm:px-0">Trending</h1>
           <Carousel tabs={["Movies", "Series"]} data={[trendingMovies, trendingSeries]} />
           <h1 className="px-6 text-2xl font-bold sm:px-0">Popular</h1>

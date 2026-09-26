@@ -80,14 +80,18 @@ const CardGeneric: React.FC<CardGenericProps> = ({ data, variant = "carousel" })
         </div>
         <div className="min-h-18 pt-3 sm:min-h-20">
           <h2 className="line-clamp-2 text-sm font-semibold leading-snug sm:text-base">
-            <Link
-              href={item.href}
-              className="outline-none after:absolute after:inset-0 after:z-10 after:rounded-xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent group-hover:text-accent">
-              {item.title}
-            </Link>
+            {"known_for" in data ? (
+              item.title
+            ) : (
+              <Link
+                href={item.href}
+                className="outline-none after:absolute after:inset-0 after:z-10 after:rounded-xl focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-accent group-hover:text-accent">
+                {item.title}
+              </Link>
+            )}
           </h2>
-          <p className="mt-1 text-xs text-muted sm:text-sm">
-            {item.releaseDate?.slice(0, 4) || "Date to be announced"}
+          <p className="mt-1 line-clamp-2 text-xs text-muted sm:text-sm">
+            {"known_for" in data ? item.releaseDate : item.releaseDate?.slice(0, 4) || "Date to be announced"}
           </p>
         </div>
       </article>
