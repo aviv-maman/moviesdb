@@ -7,11 +7,12 @@ import { useProfile } from "@/context/ProfileContext";
 import { getFavorites, toggleFavorite } from "@/lib/api_account";
 
 interface CarouselDropdownProps {
+  variant?: "carousel" | "catalog";
   mediaId: number;
   mediaType: "movie" | "tv";
   href: string;
 }
-const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType, href }) => {
+const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType, href, variant = "carousel" }) => {
   const iconClasses = "text-xl text-slate-500 pointer-events-none size-[18px]";
   const { dispatch, state } = useProfile();
   const handleFavorite = async () => {
@@ -58,8 +59,16 @@ const CarouselDropdown: React.FC<CarouselDropdownProps> = ({ mediaId, mediaType,
       <Dropdown.Trigger
         aria-label="Media actions"
         type="button"
-        className="absolute left-1 top-1 z-20 rounded-lg bg-slate-300 hover:bg-current">
-        <Dots className="pointer-events-none text-xl text-slate-500" />
+        className={
+          variant === "catalog"
+            ? "absolute right-2 top-2 z-20 flex size-8 items-center justify-center rounded-full bg-black/65 text-white backdrop-blur-sm hover:bg-black/85"
+            : "absolute left-1 top-1 z-20 rounded-lg bg-slate-300 hover:bg-current"
+        }>
+        <Dots
+          className={
+            variant === "catalog" ? "pointer-events-none size-5" : "pointer-events-none text-xl text-slate-500"
+          }
+        />
       </Dropdown.Trigger>
       <Dropdown.Popover>
         <Dropdown.Menu

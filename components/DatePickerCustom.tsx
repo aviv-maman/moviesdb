@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { Button, Calendar, DateField, DatePicker, Label } from "@heroui/react";
+import { useFilterDraft } from "@/context/FilterDraftContext";
 
 function ReleaseDatePicker({ name, label }: { name: string; label: string }) {
-  const [value, setValue] = useState<DatePicker["Props"]["value"]>(null);
+  const { dates, setDate } = useFilterDraft();
+  const value = dates[name] ?? null;
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
   return (
     <div className="flex items-end gap-2">
-      <DatePicker name={name} value={value} onChange={setValue} className="min-w-0 flex-1">
+      <DatePicker name={name} value={value} onChange={(next) => setDate(name, next)} className="min-w-0 flex-1">
         <Label>{label}</Label>
         <DateField.Group>
           <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
@@ -49,7 +51,7 @@ function ReleaseDatePicker({ name, label }: { name: string; label: string }) {
         variant="ghost"
         aria-label={`Clear ${label.toLowerCase()} date`}
         isDisabled={!value}
-        onPress={() => setValue(null)}>
+        onPress={() => setDate(name, null)}>
         Clear
       </Button>
     </div>

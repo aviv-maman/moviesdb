@@ -1,5 +1,6 @@
 "use client";
 import { Label, Slider, type SliderProps } from "@heroui/react";
+import { useFilterDraft } from "@/context/FilterDraftContext";
 
 interface SliderCustomProps extends SliderProps {
   label: string;
@@ -17,13 +18,22 @@ export default function SliderCustom({
   step = 1,
   ...props
 }: SliderCustomProps) {
+  const { values } = useFilterDraft();
+  const initialValue = values[name]?.map(Number);
   const interval = marksInterval || step;
   const marks = Array.from(
     { length: Math.floor((maxValue - minValue) / interval) + 1 },
     (_, index) => minValue + index * interval,
   );
   return (
-    <Slider {...props} minValue={minValue} maxValue={maxValue} step={step} aria-label={label} className="px-1">
+    <Slider
+      {...props}
+      defaultValue={initialValue ? (initialValue.length === 1 ? initialValue[0] : initialValue) : props.defaultValue}
+      minValue={minValue}
+      maxValue={maxValue}
+      step={step}
+      aria-label={label}
+      className="px-1">
       <Label>{label}</Label>
       <Slider.Output />
       <Slider.Track>

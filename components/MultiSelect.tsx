@@ -1,6 +1,7 @@
 import { useId } from "react";
 import AsyncSelect from "react-select/async";
 import { useDarkMode } from "@/context/DarkModeContext";
+import { useFilterDraft } from "@/context/FilterDraftContext";
 import type { KeywordList } from "@/lib/api.types";
 import keywords from "@/lib/data/keyword_ids_10_23_2024.json";
 
@@ -16,6 +17,7 @@ interface MultiSelectProps {
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
+  const { values } = useFilterDraft();
   const instanceId = useId();
   const { results } = keywords as KeywordList;
   const { isDarkMode } = useDarkMode();
@@ -38,6 +40,9 @@ const MultiSelect: React.FC<MultiSelectProps> = ({ title, name }) => {
         id="with_keywords"
         name={name}
         instanceId={instanceId}
+        defaultValue={results
+          .filter((item) => values.with_keywords?.includes(item.name))
+          .map((item) => ({ id: item.id, value: item.name, label: item.name }))}
         isMulti
         placeholder="Type to search..."
         loadOptions={promiseOptions}

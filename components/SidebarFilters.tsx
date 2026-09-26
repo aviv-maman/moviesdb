@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Accordion, Checkbox, CheckboxGroup, Label, ListBox, Select, Separator } from "@heroui/react";
-import { useForm } from "@/context/FormContext";
+import { useFilterDraft } from "@/context/FilterDraftContext";
 import { AVAILABILITIES, LANGUAGES, MOVIE_GENRES, RELEASE_TYPES } from "@/lib/data/search_filters";
 import CheckboxGenre from "./CheckboxGenre";
 import DatePickerCustom from "./DatePickerCustom";
@@ -9,29 +10,13 @@ import MultiSelect from "./MultiSelect";
 import SliderCustom from "./SliderCustom";
 
 const SidebarFilters: React.FC = () => {
-  const { dispatch, state } = useForm();
-
-  // const handleShowMe = (value: string) => {
-  //   dispatch({ type: 'show_me', payload: { value } });
-  // };
-
-  const handleAvailabilities = (value: string[]) => {
-    dispatch({
-      type: "toggled_availability",
-      payload: {
-        value: value.includes("all-availabilities") ? ["all-availabilities"] : value,
-      },
-    });
-  };
-  const handleReleaseType = (value: string[]) => {
-    const numValue = value.map((option) => Number(option));
-    dispatch({
-      type: "toggled_release_types",
-      payload: {
-        value: numValue.includes(0) ? [0] : numValue,
-      },
-    });
-  };
+  const { values } = useFilterDraft();
+  const [availabilities, setAvailabilities] = useState(
+    values.with_availabilities ?? ["all-availabilities", ...AVAILABILITIES.map((option) => option.value)],
+  );
+  const [releaseTypes, setReleaseTypes] = useState(
+    values.with_release_type ?? ["0", ...RELEASE_TYPES.map((option) => String(option.value))],
+  );
   return (
     <Accordion variant="surface" defaultExpandedKeys={["filters"]}>
       <Accordion.Item key="filters" aria-label="Accordion of filters" className="flex w-full flex-col" id={"filters"}>
@@ -64,8 +49,8 @@ const SidebarFilters: React.FC = () => {
             <span className="relative block text-sm text-slate-500">Availabilities</span>
             <CheckboxGroup
               name="with_availabilities"
-              defaultValue={["all-availabilities", ...AVAILABILITIES.map((option) => option.value)]}
-              onChange={handleAvailabilities}
+              value={availabilities}
+              onChange={setAvailabilities}
               className="flex flex-col gap-2"
               aria-label={"with_availabilities"}>
               <div className="flex flex-wrap gap-2">
@@ -81,7 +66,7 @@ const SidebarFilters: React.FC = () => {
                   <Checkbox
                     key={option.value}
                     value={option.value}
-                    isDisabled={state.availabilities.includes("all-availabilities")}>
+                    isDisabled={availabilities.includes("all-availabilities")}>
                     <Checkbox.Content>
                       <Checkbox.Control>
                         <Checkbox.Indicator />
@@ -97,8 +82,8 @@ const SidebarFilters: React.FC = () => {
             <span className="relative my-2 block text-sm text-slate-500">Release Types</span>
             <CheckboxGroup
               name="with_release_type"
-              defaultValue={["0", ...RELEASE_TYPES.map((option) => String(option.value))]}
-              onChange={handleReleaseType}
+              value={releaseTypes}
+              onChange={setReleaseTypes}
               className="flex flex-col gap-2"
               aria-label={"with_release_type"}>
               <div className="flex flex-wrap gap-2">
@@ -111,10 +96,7 @@ const SidebarFilters: React.FC = () => {
                   </Checkbox.Content>
                 </Checkbox>
                 {RELEASE_TYPES.map((option) => (
-                  <Checkbox
-                    key={option.value}
-                    value={String(option.value)}
-                    isDisabled={state.release_types.includes(0)}>
+                  <Checkbox key={option.value} value={String(option.value)} isDisabled={releaseTypes.includes("0")}>
                     <Checkbox.Content>
                       <Checkbox.Control>
                         <Checkbox.Indicator />
@@ -126,7 +108,7 @@ const SidebarFilters: React.FC = () => {
               </div>
             </CheckboxGroup>
             <Separator orientation="horizontal" className="my-3" />
-            <CheckboxGroup name="with_genres" className="flex flex-col gap-2">
+            <CheckboxGroup name="with_genres" defaultValue={values.with_genres} className="flex flex-col gap-2">
               <Label>{"Genres"}</Label>
               <div className="flex flex-wrap gap-2">
                 {MOVIE_GENRES.map((option) => (
@@ -142,7 +124,11 @@ const SidebarFilters: React.FC = () => {
             </CheckboxGroup>
             <Separator orientation="horizontal" className="mb-3 mt-5" />
             <div className="relative mb-2 mt-4 flex flex-col gap-2">
-              <Select name="language" aria-label="language selection" className="max-w-xs">
+              <Select
+                name="language"
+                defaultValue={values.language?.[0]}
+                aria-label="language selection"
+                className="max-w-xs">
                 <Label>{"Select language"}</Label>
                 <Select.Trigger>
                   <Select.Value />

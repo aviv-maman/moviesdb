@@ -2,27 +2,17 @@
 @import "@heroui/styles/css";
 @config "../tailwind.config.mjs";
 
-/* Keep desktop browsing within the viewport; each panel scrolls independently. */
+/* Reveal the filter scrollbar on pointer or keyboard interaction. */
 @media (min-width: 960px) {
-  body:has(> .catalog-layout) {
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-    min-height: 0;
-    overflow: hidden;
+  .filter-options {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
   }
 
-  body:has(> .catalog-layout) > header,
-  body:has(> .catalog-layout) > footer {
-    flex-shrink: 0;
-    width: 100%;
-  }
-
-  body > .catalog-layout {
-    flex: 1;
-    min-height: 0;
-    margin-block: 0;
-    overflow: hidden;
+  .filter-options:hover,
+  .filter-options:focus-within {
+    scrollbar-color: var(--color-muted) transparent;
   }
 }
 

@@ -1,6 +1,5 @@
-import CardGeneric from "@/components/CardGeneric";
 import { discoverMovies } from "@/lib/api_movie_lists";
-import PaginationCustom from "./PaginationCustom";
+import CatalogResults from "./CatalogResults";
 
 interface PageResultsMoviesProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -10,16 +9,7 @@ const PageResultsMovies: React.FC<PageResultsMoviesProps> = async ({ searchParam
   const currentPage = Number((await searchParams).page) || 1;
   const { results, page, total_pages } = (await discoverMovies({ ...(await searchParams), page: currentPage })) || {};
 
-  return (
-    <>
-      <div className="grid grid-cols-2 items-center justify-center justify-items-center gap-4 sm:grid-cols-4 min-[960px]:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
-        {results?.map((data) => (
-          <CardGeneric key={data.id} data={data} />
-        ))}
-      </div>
-      <PaginationCustom page={page} total={total_pages || 1} className="mt-4 flex justify-center align-middle" />
-    </>
-  );
+  return <CatalogResults results={results} page={page} total={total_pages || 1} />;
 };
 
 export default PageResultsMovies;
