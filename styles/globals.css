@@ -2,6 +2,14 @@
 @import "@heroui/styles/css";
 @config "../tailwind.config.mjs";
 
+.detail-rail {
+  scrollbar-width: none;
+}
+
+.detail-rail::-webkit-scrollbar {
+  display: none;
+}
+
 /* Reveal the filter scrollbar on pointer or keyboard interaction. */
 @media (min-width: 960px) {
   .filter-options {

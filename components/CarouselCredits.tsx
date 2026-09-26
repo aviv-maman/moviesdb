@@ -1,100 +1,77 @@
 "use client";
-import "@splidejs/react-splide/css";
 
-import { Card, Tabs } from "@heroui/react";
-import { type Options, Splide, SplideSlide } from "@splidejs/react-splide";
-import PosterImage from "@/components/PosterImage";
+import { Tabs } from "@heroui/react";
 import type { GetMovieResponse } from "@/lib/api.types";
+import DetailRail from "./DetailRail";
+import PosterImage from "./PosterImage";
 
-interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
-  data: GetMovieResponse["credits"];
-}
-const CarouselCredits: React.FC<CarouselProps> = ({ data, ...rest }) => {
-  const options: Options = {
-    gap: "1rem",
-    perPage: 6,
-    pagination: false,
-    breakpoints: {
-      388: {
-        perPage: 1,
-      },
-      640: {
-        perPage: 2,
-      },
-      824: {
-        perPage: 3,
-      },
-      1024: {
-        perPage: 4,
-      },
-      1280: {
-        perPage: 5,
-      },
-    },
-  };
-  const imgClasses =
-    "z-0 w-full rounded-md object-cover w-auto h-full min-w-auto min-h-full min-w-[159px] md:min-w-[175px] min-h-[263px]";
+export default function CarouselCredits({ data }: { data: GetMovieResponse["credits"] }) {
+  const groups = [
+    { id: "cast", label: "Cast", people: data?.cast?.map((person) => ({ ...person, role: person.character })) ?? [] },
+    { id: "crew", label: "Crew", people: data?.crew?.map((person) => ({ ...person, role: person.job })) ?? [] },
+  ];
+  if (groups.every((group) => !group.people.length)) return null;
   return (
-    <div className="w-full" {...rest}>
-      <Card className="max-w-full border">
-        <Card.Content className="min-w-0 overflow-hidden">
-          <Tabs className="min-w-0 w-full">
-            <Tabs.List
-              aria-label="Carousel categories"
-              className="grid w-full min-w-0 grid-flow-col auto-cols-fr rounded-lg bg-default p-1">
+    <section aria-labelledby="detail-credits-heading">
+      <h2 id="detail-credits-heading" className="mb-5 text-xl font-semibold tracking-tight sm:text-2xl">
+        Cast & crew
+      </h2>
+      <Tabs defaultSelectedKey={groups[0].people.length ? "cast" : "crew"} className="min-w-0 w-full">
+        <div className="mb-5 border-b pb-4 pr-24">
+          <Tabs.List aria-label="Credits" className="flex w-fit gap-1 bg-transparent p-0">
+            {groups.map((group) => (
               <Tabs.Tab
-                className="min-w-0 w-auto rounded-md px-2 data-[selected=true]:bg-surface data-[selected=true]:shadow-sm"
-                key={`tab-${1}`}
-                id={`tab-${1}`}>
-                {`Cast`}
+                key={group.id}
+                id={group.id}
+                className="w-auto min-w-0 rounded-lg px-4 py-2 text-sm font-medium text-muted data-[selected=true]:bg-foreground data-[selected=true]:text-background">
+                {group.label}
               </Tabs.Tab>
-              <Tabs.Tab
-                className="min-w-0 w-auto rounded-md px-2 data-[selected=true]:bg-surface data-[selected=true]:shadow-sm"
-                key={`tab-${2}`}
-                id={`tab-${2}`}>
-                {`Crew`}
-              </Tabs.Tab>
-            </Tabs.List>
-            <Tabs.Panel key={`tab-${1}`} id={`tab-${1}`}>
-              <Splide tag="section" aria-label="Cast Carousel" options={options}>
-                {data?.cast?.map((slide) => (
-                  <SplideSlide key={slide.credit_id}>
-                    <div className="flex flex-col items-center">
-                      <PosterImage
-                        src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
-                        alt={slide?.name}
-                        className={`${imgClasses} rounded-md`}
-                        fallbackSrc={"./no-image.jpg"}
-                      />
-                      <p className="text-center text-sm">{slide?.name}</p>
-                      <p className="text-center text-xs">{slide?.character}</p>
+            ))}
+          </Tabs.List>
+        </div>
+        {groups.map((group) => (
+          <Tabs.Panel key={group.id} id={group.id} className="min-w-0 px-0 pt-0">
+            {group.people.length ? (
+              <DetailRail label={group.label.toLowerCase()} inlineControls>
+                {group.people.map((person) => (
+                  <article
+                    key={person.credit_id}
+                    className="min-w-0 snap-start overflow-hidden rounded-xl border bg-surface">
+                    <div className="aspect-[4/5] overflow-hidden bg-default">
+                      {person.profile_path ? (
+                        <PosterImage
+                          src={`https://image.tmdb.org/t/p/w342${person.profile_path}`}
+                          alt={person.name}
+                          className="h-full w-full object-cover object-top"
+                        />
+                      ) : (
+                        <div
+                          aria-hidden="true"
+                          className="flex h-full items-center justify-center bg-gradient-to-br from-default to-surface text-4xl font-light text-muted">
+                          {person.name
+                            .split(" ")
+                            .filter(Boolean)
+                            .slice(0, 2)
+                            .map((part) => part[0])
+                            .join("")}
+                        </div>
+                      )}
                     </div>
-                  </SplideSlide>
-                ))}
-              </Splide>
-            </Tabs.Panel>
-            <Tabs.Panel key={`tab-${2}`} id={`tab-${2}`}>
-              <Splide tag="section" aria-label="Cast Carousel" options={options}>
-                {data?.crew?.map((slide) => (
-                  <SplideSlide key={slide.credit_id}>
-                    <div className="flex flex-col items-center">
-                      <PosterImage
-                        src={`https://image.tmdb.org/t/p/w185${slide?.profile_path}`}
-                        alt={slide?.name}
-                        className={`${imgClasses} rounded-md`}
-                        fallbackSrc={"./no-image.jpg"}
-                      />
-                      <p className="text-center text-sm">{slide?.name}</p>
-                      <p className="text-center text-xs">{slide?.job}</p>
+                    <div className="min-h-28 p-3">
+                      <h3 className="line-clamp-2 text-sm font-semibold">{person.name}</h3>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted">{person.role}</p>
                     </div>
-                  </SplideSlide>
+                  </article>
                 ))}
-              </Splide>
-            </Tabs.Panel>
-          </Tabs>
-        </Card.Content>
-      </Card>
-    </div>
+              </DetailRail>
+            ) : (
+              <p className="flex min-h-64 items-center justify-center rounded-xl border text-sm text-muted">
+                No {group.label.toLowerCase()} information available.
+              </p>
+            )}
+          </Tabs.Panel>
+        ))}
+      </Tabs>
+    </section>
   );
-};
-export default CarouselCredits;
+}
